@@ -1,6 +1,6 @@
 <div align="center">
 
-  <img src="Costum/boshy_randomizer.png" alt="Boshy Randomizer" width="500">
+  <img src="Custom/boshy_randomizer.png" alt="Boshy Randomizer" width="500">
 
   <p><strong>Created by THXel &amp; the I Wanna Be The Boshy Speedrun Community</strong><br>
   © 2025 THXel</p>
