@@ -1,0 +1,42 @@
+[
+  {
+    "Region": "Tutorial",
+    "relative": true,
+    "center": {
+      "x": 786,
+      "y": 560
+    },
+    "avg_color": "0xFF7373",
+    "samples": []
+  },
+  {
+    "Region": "save13.ini",
+    "relative": true,
+    "center": {
+      "x": 1140,
+      "y": 517
+    },
+    "avg_color": "0x8374C1",
+    "samples": []
+  },
+  {
+    "Region": "boss14.ini",
+    "relative": true,
+    "center": {
+      "x": 404,
+      "y": 399
+    },
+    "avg_color": "0xFFA242",
+    "samples": []
+  },
+  {
+    "Region": "save2.ini",
+    "relative": true,
+    "center": {
+      "x": 302,
+      "y": 75
+    },
+    "avg_color": "0xFDA84F",
+    "samples": []
+  }
+]

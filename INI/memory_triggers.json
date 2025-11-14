@@ -1,0 +1,30 @@
+{
+  "process": "I Wanna Be The Boshy.exe",
+  "watch": {
+    "frameGame": {
+      "module": "I Wanna Be The Boshy.exe",
+      "offsets": ["0x59A9C"],
+      "type": "u8",
+      "chain": false,
+      "description": "Welt-/Raumcode (linear @ base+0x59A9C)"
+    }
+  },
+  "triggers": {
+    "start": {
+      "equals": { "frameGame": 36 },
+      "label": "Game Start"
+    },
+    "reset": {
+      "equals": { "frameGame": 1 },
+      "label": "Reset"
+    },
+    "splits": [
+      {
+        "index": 0,
+        "equals_any": { "frameGame": [4,5,6,8,10,11,12,13,14,15,17,22,24,25,26,27,31,32,35,38,47,59] },
+        "label": "Nach Tutorial → Welt erkannt",
+        "comment": "Feuert beim ersten Wechsel von Tutorial in eine echte Welt"
+      }
+    ]
+  }
+}
