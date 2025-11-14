@@ -1,9 +1,0 @@
-"Region": 1 - vor Solgryn Fight
-"Region": 2 - nach Gradius Fight
-"Region": 3 - Tutorial
-"Region": 4 - nach Kracko Fight
-"Region": 5 - VVVVV skip
-"Region": 6 - Nach Ryu Hayabus
-"Region": 7 - vor missingno
-"Region": 8 - vor Kid Icarus
-"Region": 12 - vor Cheetahman
