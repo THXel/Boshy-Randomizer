@@ -1,5 +1,10 @@
 {
     "rooms": {
+		"save1.ini": {
+			"frame": "3",
+			"xPos": "30",
+			"yPos": "40"
+        },
         "save10.ini": {
             "frame": "23",
             "xPos": "20",
