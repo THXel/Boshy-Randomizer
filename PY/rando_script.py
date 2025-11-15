@@ -332,9 +332,11 @@ if __name__ == "__main__":
             route = []
             log(f"➡️  Target Collect Mode active — endless random route until {target_count} targets are collected.")
         except Exception as e:
-            log(f"⚠️ Target Collect Mode init failed: {e}")
+            _clear_target_file()
             route = build_random_route(cfg, POS_DATA)
+            log(f"⚠️ Target Collect Mode init failed: {e}")
     else:
+        _clear_target_file()  # <<< wichtig: alte Targets immer weg, wenn Mode OFF
         route = build_random_route(cfg, POS_DATA)
         log("➡️  Route built: " + " -> ".join(route))
         
