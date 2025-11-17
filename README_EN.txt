@@ -7,7 +7,7 @@ Created by THXel & the I Wanna Be The Boshy Speedrun Community
 ABOUT:
 --------------------------------------------------------------
 The Boshy Randomizer is a fan-made companion tool for the game
-"I Wanna Be The Boshy" by Solgryn.
+"I Wanna Be The Boshy" by Solgryn (Grynsoft).
 
 It shuffles stages, bosses, items, target goals and characters
 into new random orders, and adds automatic triggers, overlays,
@@ -155,7 +155,7 @@ For questions, feedback or bug reports:
 --------------------------------------------------------------
 DISCLAIMER:
 --------------------------------------------------------------
-This project is unofficial and not affiliated with Solgryn
+This project is unofficial and not affiliated with Solgryn (Grynsoft)
 or any official "I Wanna Be The Boshy" releases.
 
 Use at your own risk.  
