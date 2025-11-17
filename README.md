@@ -1,194 +1,169 @@
 <div align="center">
 
-  <img src="Custom/boshy_randomizer.png" alt="Boshy Randomizer" width="500">
+  <img src="Custom/boshy_randomizer.png?raw=true" alt="Boshy Randomizer" width="420">
 
-  <p><strong>Created by THXel & the I Wanna Be The Boshy Speedrun Community</strong><br>
+  <p><strong>Created by THXel &amp; the I Wanna Be The Boshy Speedrun Community</strong><br>
   © 2025 THXel</p>
 
 </div>
 
 ---
 
-# 🎮 **Boshy Randomizer**
-> **Modern • Fast • Fully Automated**  
-> Powerful randomizer for *I Wanna Be The Boshy*
+<p align="center">
+  <b>Modern Randomizer for <i>I Wanna Be The Boshy</i></b><br>
+  Random Routes • Live Tracker • Route Seeds • Clean GUI
+</p>
 
-✔️ Random Levels & Bosses  
-✔️ Random Characters (with F3-lock)  
-✔️ Item & Collectable Randomizer  
-✔️ Live Tracker Overlay  
-✔️ Route Seeds (shareable & reproducible)  
-✔️ Automatic triggers, overlays & progress tracking  
+<p align="center">
+  <a href="#-features">Features</a> •
+  <a href="#-installation">Installation</a> •
+  <a href="#-gameplay--modes">Gameplay &amp; Modes</a> •
+  <a href="#-technical">Technical</a> •
+  <a href="#-support">Support</a>
+</p>
 
 ---
 
-# 🖼️ **Screenshots**
+## 🟦 Features
+
+- 🎲 **Random Routes** – Levels & bosses shuffled every run  
+- 🧩 **Item & Collectable Handling** – trigger-stable routing  
+- 🧍 **Random Characters** – start or per stage  
+- 🎯 **Target Collect Mode** – play until all targets are collected  
+- 📊 **Live Tracker** – achievements, items, bosses & more  
+- 🧾 **Endscreen Stats** – run summary with seed code  
+- 🧪 **Deterministic Seeds** – share & replay routes  
+- 🔐 **Character Menu Lock** (F3 is blocked during Random Character mode)
+
+---
+
+## 🖼 Screenshots
 
 <div align="center">
 
-### 🟦 GUI — Main Screen
-<img src="Custom/GUI1.png" width="650">
+### 🟢 Main GUI
+<img src="Custom/GUI1.PNG?raw=true" alt="Boshy Randomizer GUI 1" width="650">
 
-### 🟩 GUI — Settings & Seed Options
-<img src="Custom/GUI2.png" width="650">
+---
 
-### 🟪 Live Tracker
-<img src="Custom/livetracker.png" width="650">
+### 🔧 Advanced Settings & Seed Options
+<img src="Custom/GUI2.PNG?raw=true" alt="Boshy Randomizer GUI 2" width="650">
+
+---
+
+### 📡 Live Tracker Overlay
+<img src="Custom/livetracker.PNG?raw=true" alt="Boshy Randomizer Live Tracker" width="650">
 
 </div>
 
 ---
 
-# 🟦 **About**
-The **Boshy Randomizer** is a fan-made enhancement tool for  
-**I Wanna Be The Boshy** by Solgryn.  
-
-It randomizes gameplay elements and adds advanced automated systems:
-
-- Segment triggers  
-- Live overlays  
-- Statistics & endscreen  
-- Route seeds  
-- Character RNG  
-- Target Collect Mode  
-- Automated setup & validation  
-
-> ⚠ **Important:**  
-> This is *not* the original game — only a randomizer tool.  
-> You must add the game manually during setup.
-
----
-
-# 🟩 **Requirements**
+## 🟩 Requirements
 - Windows 10 or newer  
-- Internet connection (first startup only)
+- Internet connection (initial setup only)  
+- You must provide your own copy of **I Wanna Be The Boshy**
 
 ---
 
-# 🟧 **Installation & Startup**
+## 🟧 Installation
 
-### **1️⃣ Download the original game**
-https://grynsoft.com/old-games
-
----
-
-### **2️⃣ Install the Randomizer**
-Run the installer → it will generate the file  
-**Boshy Randomizer.exe**
+### 1️⃣ Download the Original Game
+> https://grynsoft.com/old-games
 
 ---
 
-### **3️⃣ Launch**
-When opening the Randomizer, it automatically checks:
-
-✔ Game installed  
-✔ Python installed  
-✔ All modules available  
-✔ All Randomizer files exist  
+### 2️⃣ Install the Randomizer  
+After installation, **Boshy Randomizer.exe** appears automatically.
 
 ---
 
-### **4️⃣ If the game is missing**
-A file dialog appears.  
-Select the downloaded ZIP → it will auto-extract into `/IWBTB`.
+### 3️⃣ Launch  
+The launcher automatically checks:
+
+- ✔ Game installed  
+- ✔ Python & dependencies  
+- ✔ All Randomizer files exist  
 
 ---
 
-# 🟪 **Game Information**
-
-## ⭐ Starting the Run
-Every run begins in the **Tutorial**, then proceeds based on your GUI settings:
-
-- Random Route  
-- or Target Collect Mode  
+### 4️⃣ Missing Game?  
+You will be prompted to select the game ZIP.  
+It will be extracted automatically into `/IWBTB`.
 
 ---
 
-## ⭐ Character Randomizer
-- Default character: **Dark Boshy**  
-- Optionally: random character  
-  - Choose once at start  
-  - or new character every boss/level  
+## 🟪 Gameplay & Modes
 
-✔ When Random Character is active,  
-  **the F3 in-game character menu is locked**  
-  (to maintain seed reproducibility)
+### ▶ Start of a Run
+- Runs always begin in the **Tutorial**
+- Then either:
+  - **Random Route Mode**, or  
+  - **Target Collect Mode**
 
 ---
 
-## ⭐ First-Time Notes
-- Press **Ctrl + R** multiple times to start/reset a run  
-- Only **SaveFile1** is used  
-- SaveFile2 & SaveFile3 are disabled  
-- Closing the game ends the run  
+### 🧍 Character Randomizer
+- Default character: **Dark Boshy**
+- Optional:
+  - Random at run start  
+  - Random per boss/level  
+
+> 🔒 While Random Character mode is active,  
+> the in-game character menu **F3 is disabled**  
+> to keep seeds 100% deterministic.
 
 ---
 
-## ⭐ System Behavior
+### 🎯 Target Collect Mode
+- Hides route sliders  
+- Activates all optional levels  
+- Forces **Gastly** & **Cheetahman**  
+- Target items are chosen deterministically via your seed  
+- After all targets are collected, **Solgryn** spawns as final boss
+
+---
+
+### 🧠 System Behaviour
 - Achievements persist for the entire run  
-- Trigger zones are optimized for stability  
-- Some areas are split for accurate detection  
-- Awesomesauce is always active (for Gastly/collectables)
+- Trigger zones tuned for stability  
+- Awesomesauce enabled by default for full item accessibility  
+
+If a trigger doesn’t fire immediately:
+- just continue playing  
+- the system will auto-resync  
+- for repeated issues → please send `INI/randomizer_debug.log`
+
+⏱ Sync of items, stats & Target Collect may lag slightly (export loop).
 
 ---
 
-## ⭐ If a Trigger Fails
-Just keep playing — the system will catch up automatically.
+## 🎲 Seed System
 
-If you encounter bugs:  
-📩 **Please send your `randomizer_debug.log`** (located in /INI).
+Every seed encodes:
 
----
-
-## ⭐ Live Tracker Displays:
-- Achievements  
-- Collectables  
-- Bosses  
-- Characters  
-- Target items  
-
-Also includes real-time popup notifications.
-
-⚠ Sync may be slightly delayed (0.3–1s) due to exporter timing.
-
----
-
-# 🟥 **Target Collect Mode**
-- Hides the standard route settings  
-- Automatically activates all optional levels  
-- Forces **Gastly** and **Cheetahman**  
-- Generates deterministic target lists (seed-based)  
-- Solgryn becomes final boss once all targets are collected  
-
----
-
-# 🟦 **Seed System**
-Seeds determine:
-
-- Full level/boss route  
+- Route structure  
 - Character RNG  
-- Target Collect Mode RNG  
-- Route reproducibility  
+- Target Collect RNG  
 
-Seeds appear:
+The seed is displayed in:
 
-- In the reset overlay  
-- During level loading  
-- In the Endscreen  
-- In the debug log  
+- Start overlay  
+- Loading overlay  
+- Endscreen  
+- Debug log  
 
-You can share seeds with friends to compare runs 🔥
-
----
-
-# 🟫 **Known Notes**
-- Triggers are slightly offset intentionally for stability  
-- Mods or modified savefiles may conflict with Randomizer writes  
+You can share the full **route code** so others can replay the exact run.
 
 ---
 
-# 🔧 **Technical Details**
-- Python **3.11**
+## 🟫 Known Notes
+- Some triggers intentionally offset for stability  
+- Custom mods / savefiles may conflict with Randomizer files  
+
+---
+
+## 🔧 Technical
+- Python **3.11**  
 - Libraries:
   - `pygetwindow`
   - `pyautogui`
@@ -196,27 +171,28 @@ You can share seeds with friends to compare runs 🔥
   - `numpy`
   - `tkinter`
 
-- Debug log:
-  **INI/randomizer_debug.log**
+- Debug logs:
+  - `INI/randomizer_debug.log`  
 
-When reporting bugs → **attach the debug log**.
+Please attach this file when reporting bugs.
 
 ---
 
-# 🟨 **Support & Community**
+## 🟨 Support
 
-### Twitch  
+**Twitch**  
 https://twitch.tv/THXel  
 
-### Discord  
+**Discord**  
 https://discord.gg/ZXgTFjGw  
 *(I Wanna Be The Boshy Speedrun Community)*
 
 ---
 
-# ⚫ **Disclaimer**
-This project is unofficial and not affiliated with Solgryn  
-or any official *I Wanna Be The Boshy* releases.
+## ⚫ Disclaimer
+
+This is an unofficial fan project and is not affiliated with  
+**Solgryn (Grynsoft)** or any official *I Wanna Be The Boshy* releases.
 
 Use at your own risk.  
-**Have fun — It’s Boshy Time!** 😈
+**Have fun – it’s Boshy Time!** 😈
