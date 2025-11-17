@@ -9,124 +9,143 @@ Erstellt von THXel & der I Wanna Be The Boshy Speedrun Community
 Der Boshy Randomizer ist ein von Fans entwickeltes Zusatz-Tool
 für das Spiel "I Wanna Be The Boshy" von Solgryn.
 
-Das Programm mischt Level, Bosse, Items und Charaktere
+Das Programm mischt Level, Bosse, Items, Zielobjekte und Charaktere
 zufällig neu und erweitert das Spiel um automatische Trigger,
-Overlays und Statistiken.  
+Overlays, Statistiken, Seed-System und diverse Komfortfunktionen.
+
 Entwickelt wurde es von THXel in Zusammenarbeit mit der
 Boshy Speedrun Community.
 
-⚠️ Hinweis:  
+⚠️ Hinweis:
 Dies ist nicht das Originalspiel, sondern nur das Randomizer-Tool.
 Das Spiel muss manuell hinzugefügt werden (siehe unten).
+
 
 --------------------------------------------------------------
 VORAUSSETZUNGEN:
 --------------------------------------------------------------
-• Windows 10 oder neuer  
-• Internetzugang (für automatische Installation beim ersten Start)  
+• Windows 10 oder neuer
+• Internetzugang (für automatische Installation beim ersten Start)
+
 
 --------------------------------------------------------------
 INSTALLATION UND START:
 --------------------------------------------------------------
-1️⃣ Lade das Originalspiel "I Wanna Be The Boshy" von  
-   https://grynsoft.com/old-games  
+1️⃣ Lade das Originalspiel "I Wanna Be The Boshy" von:
+    https://grynsoft.com/old-games
 
-2️⃣ Starte den Boshy Randomizer Installer.  
-   Nach der Installation wird im selben Ordner automatisch  
-   eine **Boshy Randomizer.exe** erstellt.  
+2️⃣ Starte den Boshy Randomizer Installer.
+    Danach wird automatisch eine **Boshy Randomizer.exe** erstellt.
 
-3️⃣ Starte das Tool anschließend über diese **Boshy Randomizer.exe**.  
+3️⃣ Starte das Tool anschließend über diese **Boshy Randomizer.exe**.
 
-   Der Launcher prüft automatisch:
-   • ob das Spiel vorhanden ist  
-   • ob Python und alle Module installiert sind  
-   • und ob alle benötigten Dateien vorhanden sind  
+    Der Launcher prüft automatisch:
+    • ob das Spiel vorhanden ist
+    • ob Python und alle Module installiert sind
+    • ob alle benötigten Dateien vorhanden sind
 
-4️⃣ Fehlt das Spiel, öffnet sich ein Auswahlfenster.  
-   Du kannst dort direkt die ZIP-Datei des Spiels auswählen.  
-   Sie wird automatisch in den Ordner /IWBTB entpackt.
+4️⃣ Fehlt das Spiel, öffnet sich ein Auswahlfenster.
+    Wähle dort die ZIP-Datei des Spiels aus – sie wird automatisch
+    entpackt und eingerichtet.
+
 
 --------------------------------------------------------------
 SPIELINFORMATIONEN
 --------------------------------------------------------------
 
 • Der Run startet immer mit dem **Tutorial**. Danach folgt –
-  abhängig von deinen GUI-Einstellungen – eine zufällige Route
+  abhängig von den GUI-Einstellungen – eine zufällige Route
   oder der Target Collect Mode.
 
-• Standardmäßig spielst du als **Dark Boshy**.  
-  Wenn du in der GUI „Random Character“ aktivierst, startest du stattdessen
-  als zufälliger Charakter (optional: Charakterwechsel pro Level/Boss).
+• Standardcharakter ist **Dark Boshy**.  
+  Mit der Option „Random Character“ startet der Run mit einem
+  zufälligen Charakter (optional Wechsel nach jeder Stage).
 
-• Beim ersten Start erscheint ein kleines Hinweisfenster:
-      – Drücke **Strg + R**, um einen neuen Run zu starten.
+• **Wichtig:**  
+  Wenn „Random Character“ aktiviert ist, wird das **Charakter-Menü (F3)
+  komplett gesperrt**, damit der festgelegte Charakter nachvollziehbar bleibt.
+
+• Beim ersten Start erscheint ein Hinweisfenster:
+      – Drücke mehrmals **Strg + R**, um einen neuen Run zu starten.
       – Es wird ausschließlich **SaveFile1** verwendet.
       – SaveFile2 und SaveFile3 bleiben deaktiviert.
-      – Wenn du das Spiel schließt, gilt der aktuelle Run als beendet.
+      – Beim Schließen des Spiels endet der Run.
 
-• **Achievements bleiben im gesamten Run erhalten.**
-  Nichts wird entfernt oder zurückgesetzt – egal welche Route du spielst.
+• Achievements, Collectables und Unlockables bleiben über den gesamten
+  Run erhalten und werden vom Randomizer nicht entfernt.
 
-• Die Triggerpunkte sind so gesetzt, dass sie möglichst stabil feuern.
-  Manche Bereiche (z. B. Miniboss-Zonen) sind daher in zwei Abschnitte
-  geteilt, um den Fortschritt korrekt zu erfassen.
+• Der Live Tracker zeigt während des Runs:
+      – Achievements
+      – Collectables
+      – Bosse
+      – Charaktere
+      – Zielobjekte (Target Mode)
+  und aktualisiert sich automatisch.
 
-• Das Item **Awesomesauce** ist zu Beginn im Save aktiviert, damit
-  alle Collectables – insbesondere **Gastly** – immer erreichbar sind.
+⚠️ **Hinweis zur Synchronität:**  
+   Werte wie Items, Stats, Boss-Tode oder Target-Fortschritt können
+   aus technischen Gründen **leicht verzögert** erscheinen
+   (typisch 0.3–1.0 Sekunden).
 
-• Wenn ein Trigger einmal nicht direkt auslöst:
-      – Spiele einfach weiter (Boss/Level abschließen).
-      – Das System fängt sich selbst, sobald der nächste Trigger
-        oder Abschnitt geladen wird.
-      – Falls du wiederholt etwas Auffälliges bemerkst, gib bitte Feedback.
-
-• Der **Live Tracker** zeigt während des Runs automatisch:
-      – Achievements  
-      – Collectables  
-      – Bosse  
-      – Charaktere  
-      – Target Items (falls Target Mode aktiv ist)  
-  Zusätzlich erscheinen kleine Pop-up-Meldungen bei jedem neuen Fund.
-
-• Im **Target Collect Mode**:
-      – Die normale Route-Auswahl wird ausgeblendet.
-      – Du sammelst die festgelegte Anzahl an Items/Charakteren.
-      – Alle optionalen Levels werden automatisch aktiviert.
+• Im Target Collect Mode:
+      – Die Route wird ausgeblendet.
+      – Der Spieler sammelt eine festgelegte Anzahl an Zielen.
+      – Alle optionalen Level werden automatisch aktiviert.
       – Gastly & Cheetahman werden verpflichtend eingeschaltet.
-      – Sobald du alle Ziele gefunden hast, erscheint automatisch Solgryn
-        als finaler Endboss.
+      – Beim Erreichen aller Ziele erscheint automatisch Solgryn.
+
+--------------------------------------------------------------
+SEED-SYSTEM
+--------------------------------------------------------------
+Der Randomizer unterstützt ein vollständiges **Seed-System**:
+
+• In der GUI kann ein Seed manuell eingegeben werden.
+• Alternativ erzeugt der Randomizer automatisch einen neuen Seed.
+• Der Seed definiert:
+      – die komplette Route (Ebenen & Bosse)
+      – optional die Charakter-Reihenfolge
+      – Zielobjekte (Target Collect Mode)
+• Seeds lassen sich an andere Spieler weitergeben,
+  damit exakt der gleiche Run erneut spielbar ist.
+• Der Seed wird angezeigt:
+      – beim Reset-Overlay
+      – nach dem Run im Endscreen
+      – im Debug-Log
 
 --------------------------------------------------------------
 BEKANNTE HINWEISE:
 --------------------------------------------------------------
-• Einige Triggerpunkte sind absichtlich leicht versetzt, um
-  das Zufallssystem stabil zu halten.  
+• Einige Triggerpunkte sind absichtlich versetzt gesetzt,
+  um den Ablauf stabil zu halten.
 
-• Falls du eigene Mods oder Savefiles nutzt, achte darauf, dass sie
-  nicht vom Randomizer überschrieben werden.  
+• Mods oder externe Savefiles können überschrieben werden –
+  nutze daher am besten frische Dateien.
 
 --------------------------------------------------------------
 TECHNISCHE DETAILS:
 --------------------------------------------------------------
-• Programmiert in Python 3.11  
-• Verwendete Bibliotheken:
-  pygetwindow, pyautogui, pillow, numpy, tkinter  
+• Programmiert in Python 3.11
+• Bibliotheken:
+  pygetwindow, pyautogui, pillow, numpy, tkinter
 
-• Automatisches Logging aller Ereignisse in:
-  INI/randomizer_debug.log  
+• Automatische Log-Datei:
+  **INI/randomizer_debug.log**
+
+Bitte sende bei Bugs immer **deinen Debug-Log mit**, sonst kann ich
+den Fehler nicht zuverlässig analysieren.
 
 --------------------------------------------------------------
 SUPPORT & COMMUNITY:
 --------------------------------------------------------------
 Bei Fragen, Feedback oder Bugs:
-• Twitch:   https://twitch.tv/THXel  
-• Discord:  https://discord.gg/ZXgTFjGw  (Boshy Speedrun Discord)  
+• Twitch:   https://twitch.tv/THXel
+• Discord:  https://discord.gg/ZXgTFjGw  (Boshy Speedrun Discord)
 
 --------------------------------------------------------------
 HAFTUNGSAUSSCHLUSS:
 --------------------------------------------------------------
 Dieses Projekt ist inoffiziell und steht in keiner Verbindung zu Solgryn
-oder offiziellen "I Wanna Be The Boshy"-Veröffentlichungen.  
+oder offiziellen "I Wanna Be The Boshy"-Veröffentlichungen.
 
-Verwendung auf eigene Gefahr.  
-Viel Spaß – und pass auf, dass du nicht boshy’d wirst!
+Verwendung auf eigene Gefahr.
+Viel Spaß – it´s Boshy Time !
