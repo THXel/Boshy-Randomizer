@@ -76,6 +76,7 @@
 ---
 
 ### 2️⃣ Install the Randomizer  
+Run Boshy Randomizer installer.exe
 After installation, **Boshy Randomizer.exe** appears automatically.
 
 ---
