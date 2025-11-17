@@ -33,7 +33,6 @@
 - 📊 **Live Tracker** – achievements, items, bosses & more  
 - 🧾 **Endscreen Stats** – run summary with seed code  
 - 🧪 **Deterministic Seeds** – share & replay routes  
-- 🔐 **Character Menu Lock** (F3 is blocked during Random Character mode)
 
 ---
 
