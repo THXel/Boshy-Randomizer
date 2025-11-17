@@ -41,18 +41,22 @@
 
 <div align="center">
 
-### 🟢 Main GUI
-<img src="Custom/GUI1.PNG?raw=true" alt="Boshy Randomizer GUI 1" width="550">
-
----
-
-### 🔧 Advanced Settings & Seed Options
-<img src="Custom/GUI2.PNG?raw=true" alt="Boshy Randomizer GUI 2" width="550">
-
----
-
-### 📡 Live Tracker Overlay
-<img src="Custom/livetracker.PNG?raw=true" alt="Boshy Randomizer Live Tracker" width="550">
+<table>
+<tr>
+<td align="center">
+  <img src="Custom/GUI1.PNG?raw=true" width="300"><br>
+  <b>GUI 1</b>
+</td>
+<td align="center">
+  <img src="Custom/GUI2.PNG?raw=true" width="300"><br>
+  <b>GUI 2</b>
+</td>
+<td align="center">
+  <img src="Custom/livetracker.PNG?raw=true" width="300"><br>
+  <b>Live Tracker</b>
+</td>
+</tr>
+</table>
 
 </div>
 
