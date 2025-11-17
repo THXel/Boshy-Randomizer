@@ -10,7 +10,7 @@ import os
 import json
 import time
 import random
-from typing import List, Set
+from typing import List, Set, Optional  # <- Optional ergänzt
 
 from PY.logger import log
 from PY.config import ini_folder, iwbtb_folder, save_enc, rc4_key
@@ -116,12 +116,19 @@ def _clear_target_file() -> None:
         log(f"⚠️ Failed to clear target_items.json: {e}")
 
 
-def _choose_targets(count: int) -> List[str]:
+def _choose_targets(count: int, seed: Optional[int] = None) -> List[str]:
     """
     Wählt `count` zufällige Items aus items.json aus.
     items.json: {"Awesomesauce":1, "Orc":1, ...}
     → wir benutzen nur die Keys; ob SaveFile oder License ist egal,
       da der Monitor beide Dateien checkt.
+
+    NEU:
+      - Optionaler Seed:
+          _choose_targets(count, seed=12345)
+        → benutzt eine lokale random.Random(seed) Instanz
+        → deterministische Auswahl für denselben Seed.
+      - Wenn seed=None, bleibt das Verhalten wie bisher (random.sample).
     """
     try:
         if not os.path.exists(ITEMS_FILE):
@@ -139,7 +146,17 @@ def _choose_targets(count: int) -> List[str]:
         if count >= len(all_items):
             chosen = all_items[:]  # alle
         else:
-            chosen = random.sample(all_items, count)
+            if seed is not None:
+                # deterministische Auswahl mit Seed
+                rnd = random.Random(int(seed))
+                items = list(all_items)
+                rnd.shuffle(items)
+                chosen = items[:count]
+                log(f"🎯 Chosen target items (seed={seed}): {', '.join(chosen)}")
+                return chosen
+            else:
+                # altes Verhalten (nicht-deterministisch)
+                chosen = random.sample(all_items, count)
 
         log(f"🎯 Chosen target items: {', '.join(chosen)}")
         return chosen

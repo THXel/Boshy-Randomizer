@@ -7,7 +7,7 @@
 #       * Characters -> onlineLicense.ini [Unlockables]
 #   - Ursprünglicher Fund wird zurück auf 0 gesetzt
 #   - RC4 Auto-Detect/Write (PY/rc4_utils.py, rc4_key aus PY/config.py)
-#   - Route-Swap Guard (_new/_old_plain.ini)
+#   - Route-Swap Guard (_old_plain.ini)
 #   - KEINE Popups/Sounds mehr (das macht der Live Tracker)
 # ======================================================
 
@@ -25,7 +25,7 @@ characters_path = os.path.join(ini_folder, "characters.json")
 
 # Temp-Dateien, die beim Route-Swap genutzt werden (nicht reinschreiben!)
 TMP_OLD = os.path.join(iwbtb_folder, "_old_plain.ini")
-TMP_NEW = os.path.join(iwbtb_folder, "_new_plain.ini")
+TMP_NEW = os.path.join(iwbtb_folder, "_new_plain.ini")  # liegt bei dir dauerhaft als Template
 
 # Einstellungen
 POLL_INTERVAL_SEC = 0.30
@@ -131,8 +131,12 @@ def _apply_values_in_section(original_text, section_name, kv_updates):
 # Route-Swap Guard
 # ------------------------------------------------------
 def _route_swap_in_progress():
-    """Während _new/_old_plain.ini existieren, nicht ins Save schreiben."""
-    return os.path.exists(TMP_NEW) or os.path.exists(TMP_OLD)
+    """
+    Während _old_plain.ini existiert, wird gerade ein Route-Swap durchgeführt.
+    _new_plain.ini liegt bei dir dauerhaft im IWBTB-Ordner als Template
+    und darf den Item-Randomizer NICHT blockieren.
+    """
+    return os.path.exists(TMP_OLD)
 
 
 # ------------------------------------------------------
@@ -230,7 +234,10 @@ def monitor_items(stop_event, enable_popups=False):
                     # echter 0→1 Übergang?
                     if old == "0" and v == "1":
                         # Ziel wählen
-                        candidates = [n for n in all_pool if (n not in used_names or not AVOID_REPEATS)]
+                        candidates = [
+                            n for n in all_pool
+                            if (n not in used_names or not AVOID_REPEATS)
+                        ]
                         if not candidates:
                             used_names.clear()
                             candidates = list(all_pool)
@@ -260,7 +267,11 @@ def monitor_items(stop_event, enable_popups=False):
                     txt2w, enc2w = _smart_read_text(license_path)
                     if txt2w is None:
                         txt2w, enc2w = "[Unlockables]\n", False
-                    new_txt2w = _apply_values_in_section(txt2w, "Unlockables", {unlock_to_write: "1"})
+                    new_txt2w = _apply_values_in_section(
+                        txt2w,
+                        "Unlockables",
+                        {unlock_to_write: "1"},
+                    )
                     _smart_write_text(license_path, new_txt2w, enc2w)
 
             # ---------- onlineLicense (Unlockables) ----------
@@ -269,7 +280,7 @@ def monitor_items(stop_event, enable_popups=False):
                 data2 = _parse_ini(txt2)
                 unl = data2.get("unlockables", {}) or {}
 
-                changes_unlock = {}  # {key: "0"/"1"} Wertupdates in Unlockables
+                changes_unlock = {}   # {key: "0"/"1"} Wertupdates in Unlockables
                 collect_to_write = None  # (target_name) falls Ziel-Item
 
                 for k, v in unl.items():
@@ -277,7 +288,10 @@ def monitor_items(stop_event, enable_popups=False):
                     last_unlock[k] = v
 
                     if old == "0" and v == "1":
-                        candidates = [n for n in all_pool if (n not in used_names or not AVOID_REPEATS)]
+                        candidates = [
+                            n for n in all_pool
+                            if (n not in used_names or not AVOID_REPEATS)
+                        ]
                         if not candidates:
                             used_names.clear()
                             candidates = list(all_pool)
@@ -307,7 +321,11 @@ def monitor_items(stop_event, enable_popups=False):
                     txtw, encw = _smart_read_text(savefile_path)
                     if txtw is None:
                         txtw, encw = "[Collectables]\n", False
-                    new_txtw = _apply_values_in_section(txtw, "Collectables", {collect_to_write: "1"})
+                    new_txtw = _apply_values_in_section(
+                        txtw,
+                        "Collectables",
+                        {collect_to_write: "1"},
+                    )
                     _smart_write_text(savefile_path, new_txtw, encw)
 
             time.sleep(POLL_INTERVAL_SEC)

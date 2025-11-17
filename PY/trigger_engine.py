@@ -36,6 +36,20 @@ ALLOW_FIRST_PIXEL_TO_START = True            # allow first valid pixel to start 
 ACCEPT_PIXEL_WITHOUT_LEVEL = True            # accept pixel triggers with no level set
 ENFORCE_TUTORIAL_FOR_FIRST_TRIGGER = True    # the very first pixel must be tutorial/global/None
 
+# ---------------- Achievement trigger timing (local to trigger_engine) -------
+# ACHIEVEMENT_STAGE_DELAY_S:
+#   Zeit, die nach einem Achievement-Trigger gewartet wird,
+#   bevor der Trigger nach außen als "True" zurückgegeben wird.
+#   -> Dadurch wird der Stage-Wechsel im Hauptscript verzögert.
+#
+# ACHIEVEMENT_BLOCK_S:
+#   Zeitfenster, in dem nach einem Achievement-Trigger
+#   keine weiteren Achievement-Trigger akzeptiert werden.
+#   -> Verhindert, dass zwei Achievements direkt hintereinander
+#      zwei Stage-Wechsel auslösen.
+ACHIEVEMENT_STAGE_DELAY_S: float = 2.0
+ACHIEVEMENT_BLOCK_S: float = 5.0
+
 
 def parse_ini_text(text: str) -> Dict[str, Dict[str, str]]:
     """Tiny INI reader sufficient for our save + onlineLicense format."""
@@ -104,9 +118,18 @@ def check_achievements_trigger(
     - Es wird nur getriggert, wenn der KEY-NAME in trigger_targets steht
       (also in deiner triggers.json).
     - Die INI-Section (Achievements, Unlockables, Collectables, ...) ist egal.
+
+    NEU:
+    - Nach einem erfolgreichen Achievement-Trigger:
+        * ACHIEVEMENT_STAGE_DELAY_S Sekunden warten (time.sleep),
+          bevor (True, "achievement:<name>") zurückgegeben wird
+          → verzögerter Stage-Wechsel im Hauptscript.
+        * Weitere Achievement-Trigger werden für ACHIEVEMENT_BLOCK_S Sekunden
+          geblockt (state["achievement_block_until"]).
     """
     try:
-        combined = {}
+        now = time.time()
+        combined: Dict[str, str] = {}
 
         # SaveFile1.ini
         if os.path.exists(save_enc):
@@ -127,9 +150,24 @@ def check_achievements_trigger(
             state["last_trophies"] = combined
             return (False, None)
 
+        # Achievement-Block aktiv?
+        block_until = state.get("achievement_block_until", 0.0)
+        if block_until and now < block_until:
+            # Snapshot trotzdem aktualisieren, damit wir nach dem Block
+            # mit dem aktuellen Stand weitermachen können.
+            state["last_trophies"] = combined
+            remaining = block_until - now
+            if remaining > 0:
+                log(
+                    f"⏳ Achievement triggers suppressed for another "
+                    f"{remaining:.1f}s."
+                )
+            return (False, None)
+
         # Compare with last snapshot
+        last = state.get("last_trophies", {})
         for key, val in combined.items():
-            old_val = state["last_trophies"].get(key)
+            old_val = last.get(key)
             sec, name = key.split("::", 1)
             # sec_l = sec.lower()   # Section wird absichtlich NICHT mehr hart verglichen
             name_l = name.lower()
@@ -143,7 +181,7 @@ def check_achievements_trigger(
                     #     continue
 
                     min_v = entry.get("min_value")
-                    val_int = None
+                    val_int: Optional[int] = None
                     try:
                         val_int = int(val)
                     except Exception:
@@ -160,10 +198,31 @@ def check_achievements_trigger(
                     # Trigger, wenn sich der Wert geändert hat ODER min_value erreicht wurde
                     if val != old_val or meets_min:
                         if meets_min and val_int is not None:
-                            log(f"🏆 Triggered by {sec.capitalize()}: {name}={val_int} (meets min_value={min_v})")
+                            log(
+                                f"🏆 Triggered by {sec.capitalize()}: {name}={val_int} "
+                                f"(meets min_value={min_v})"
+                            )
                         else:
                             log(f"🏆 Triggered by {sec.capitalize()}: {name}")
+
+                        # ⏳ 2s Verzögerung vor dem Level-Wechsel im Hauptscript
+                        if ACHIEVEMENT_STAGE_DELAY_S > 0:
+                            log(
+                                f"⏳ Achievement trigger – delaying stage transition "
+                                f"by {ACHIEVEMENT_STAGE_DELAY_S:.1f}s."
+                            )
+                            time.sleep(ACHIEVEMENT_STAGE_DELAY_S)
+
+                        # Item-Cooldown (wie bisher, z.B. für Item-Rando)
                         state["item_cooldown_until"] = time.time() + 3.0
+
+                        # 🚫 5s Block für weitere Achievement-Trigger
+                        state["achievement_block_until"] = time.time() + ACHIEVEMENT_BLOCK_S
+                        log(
+                            f"🚫 Achievement trigger cooldown active for "
+                            f"{ACHIEVEMENT_BLOCK_S:.1f}s."
+                        )
+
                         state["last_trophies"] = combined
                         return (True, f"achievement:{name_l}")
 

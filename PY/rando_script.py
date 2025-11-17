@@ -55,8 +55,12 @@ from PY.rc4_utils import decrypt_save, encrypt_save, rc4_crypt
 from PY.pixel_detector import check_pixel_regions as _pd_check_pixel_regions
 from PY.gui_config import build_gui_config, write_selected_difficulty_to_encrypted_save
 from PY.route_builder import build_random_route
-from PY.character_randomizer import set_random_character   # <<< Random-Character-API
-from PY.target_collect import (                           # <<< NEU: Target-Mode-API
+from PY.character_randomizer import (
+    set_random_character,       # Random-Character-API
+    enable_character_lock,      # F3 sperren
+    init_seed,                  # 🎲 NEU: Character-RNG seeden
+)
+from PY.target_collect import (                           # Target-Mode-API
     _clear_target_file,
     _choose_targets,
     _write_targets_file,
@@ -97,7 +101,33 @@ from PY.positions_utils import load_positions, apply_positions_to_save
 from PY.tracker_utils import start_live_tracker_robust
 from PY.trigger_engine import check_pixel_trigger, check_achievements_trigger
 
+### NEU: State Exporter importieren
+from PY import state_exporter
+### ENDE NEU
+
+
 # ------------------------------------------------------
+### NEU: Helper zum Starten des Exporters
+def start_state_exporter_thread(interval: float = 1.0):
+    """
+    Startet state_exporter.main() in einem Hintergrund-Thread.
+    Liest SaveFile1.ini + onlineLicense.ini alle `interval` Sekunden
+    und schreibt INI/live_tracker_state.json für den Live Tracker.
+    """
+    try:
+        t = Thread(
+            target=state_exporter.main,
+            kwargs={"loop": True, "interval": float(interval)},
+            daemon=True,
+        )
+        t.start()
+        log(f"[state_exporter] background exporter started (interval={interval:.2f}s)")
+        return t
+    except Exception as e:
+        log(f"[state_exporter] could not start exporter thread: {e}")
+        return None
+### ENDE NEU
+
 
 def perform_randomizer_overwrite(stage_name: str, POS_DATA):
     ok = apply_positions_to_save(stage_name, POS_DATA)
@@ -283,6 +313,57 @@ if __name__ == "__main__":
     log(f"🎚 Difficulty set to {diff_label}")
     log(f"📁 Using pools: Rooms={_cfg.room_folder} | Bosses={_cfg.boss_folder}")
 
+    # 🎲 Route-Seed aus der GUI lesen und loggen
+    route_seed_raw = getattr(cfg, "route_seed", None)
+    route_seed_int = None
+    if route_seed_raw in ("", None):
+        log("🎲 Route seed: none (standard random route)")
+    else:
+        try:
+            route_seed_int = int(route_seed_raw)
+            log(f"🎲 Route seed from GUI: {route_seed_int}")
+        except Exception as e:
+            log(f"⚠️ Invalid route seed ({route_seed_raw!r}) – ignoring: {e}")
+            route_seed_int = None
+
+    # 🎲 Route-Code (Einstellungen + Seed) ins Log schreiben
+    route_code = None
+    try:
+        if route_seed_int is not None:
+            rooms = int(getattr(cfg, "rooms_to_play", 0))
+            bosses = int(getattr(cfg, "bosses_to_play", 0))
+            t_flag = 1 if getattr(cfg, "target_collect_mode", False) else 0
+
+            if getattr(cfg, "random_character_per_stage", False):
+                c_flag = 2
+            elif getattr(cfg, "random_start_character", False):
+                c_flag = 1
+            else:
+                c_flag = 0
+
+            p_flag = 1 if getattr(cfg, "item_randomizer_enabled", False) else 0
+
+            route_code = f"R{rooms}-B{bosses}-T{t_flag}-C{c_flag}-P{p_flag}-{route_seed_int}"
+            log(f"🎲 Route code: {route_code}")
+    except Exception as e:
+        log(f"⚠️ Failed to compute route code: {e}")
+
+    # 🎲 Character-RNG mit demselben Seed initialisieren (falls vorhanden)
+    try:
+        init_seed(route_seed_int)
+    except Exception as e:
+        log(f"⚠️ Could not init character seed: {e}")
+
+    # 🔒 F3 sperren, wenn irgendein Random-Character-Modus aktiv ist
+    try:
+        if getattr(cfg, "random_start_character", False) or getattr(cfg, "random_character_per_stage", False):
+            enable_character_lock()
+            log("🔒 Character lock enabled – F3 (character menu) is blocked while random character mode is active.")
+        else:
+            log("ℹ️ Character lock not enabled (no random character mode selected).")
+    except Exception as e:
+        log(f"⚠️ Could not enable character lock: {e}")
+
     # <<< NEU: Target-Mode-Flag auch in config setzen, damit Live Tracker es kennt >>>
     try:
         _cfg.target_collect_mode = bool(getattr(cfg, "target_collect_mode", False))
@@ -308,6 +389,8 @@ if __name__ == "__main__":
         "item_cooldown_until": 0.0,
         "item_thread_running": True,
         "force_hwnd": None,
+        # Seed-Info fürs Overlay
+        "route_code": route_code,
     }
 
     # Write difficulty into save
@@ -318,12 +401,23 @@ if __name__ == "__main__":
 
     # ------------------ Route / Targets ------------------
     targets_done_event = Event()
+
+    # 🎲 Target-Mode RNG (für endlose Route in Target Collect)
+    if getattr(cfg, "target_collect_mode", False) and route_seed_int is not None:
+        target_rng = random.Random(route_seed_int + 1337)
+        log("🎲 Target Collect RNG initialized from route seed.")
+    else:
+        target_rng = random  # fällt auf global zurück
+
     if getattr(cfg, "target_collect_mode", False):
         try:
             _clear_target_file()
             target_count = int(getattr(cfg, "target_item_count", 5) or 5)
-            targets = _choose_targets(target_count)
+
+            # 🎯 Targets deterministisch nach Seed wählen (falls vorhanden)
+            targets = _choose_targets(target_count, seed=route_seed_int)
             _write_targets_file(targets)
+
             Thread(
                 target=_monitor_targets_thread,
                 args=(stop_event, targets_done_event),
@@ -358,12 +452,6 @@ if __name__ == "__main__":
     game_proc = subprocess.Popen([game_exe], cwd=iwbtb_folder)
     log("🎮 Game launched.")
 
-    # Reset-Overlay auch beim Spielstart
-    try:
-        show_reset_overlay(stop_event)
-    except Exception as e:
-        log(f"⚠️ Reset overlay failed on game start: {e}")
-
     ref_hash = initialize_saves_from(folder_used)
 
     log("⌛ Waiting for the game window to become visible...")
@@ -377,6 +465,17 @@ if __name__ == "__main__":
             log("🔗 Pixel detector pinned to game HWND (force_hwnd set).")
         except Exception:
             pass
+
+    # Reset-Overlay + Route-Code beim Start anzeigen
+    try:
+        show_reset_overlay(
+            stop_event,
+            duration=4.0,
+            route_code=state.get("route_code"),
+            route_code_duration=15.0,
+        )
+    except Exception as e:
+        log(f"⚠️ Reset overlay on startup failed: {e}")
 
     # copy license (Template aus INI → IWBTB)
     license_path = os.path.join(ini_folder, "onlineLicense.ini")
@@ -396,6 +495,10 @@ if __name__ == "__main__":
 
     audit_save("startup", force=True)
     mirror_plain_for_tracker()
+
+    ### NEU: State Exporter starten (liest INIs alle 1s → live_tracker_state.json)
+    exporter_thread = start_state_exporter_thread(interval=1.0)
+    ### ENDE NEU
 
     # Live Tracker
     tracker_proc = start_live_tracker_robust()
@@ -417,6 +520,7 @@ if __name__ == "__main__":
             terminate_proc_tree(game_proc, name="Game Process", wait_s=0.8)
         except Exception:
             pass
+        # exporter_thread läuft einfach bis Prozess endet; kein extra Stop nötig
     atexit.register(_cleanup)
 
     # ------------------------------- MAIN LOOP -------------------------------
@@ -451,8 +555,6 @@ if __name__ == "__main__":
                 if not reset_held:
                     reset_held = True
                     try:
-                        # Flag für Live Tracker ... (falls du da noch etwas hast)
-
                         reset_savefile1_from(folder_used)
                         ref_hash = initialize_saves_from(folder_used)
                         mark_last_writer("ctrl_r_reset")
@@ -463,18 +565,34 @@ if __name__ == "__main__":
                         if getattr(cfg, "target_collect_mode", False):
                             _clear_target_file()
                             target_count = int(getattr(cfg, "target_item_count", 5) or 5)
-                            targets = _choose_targets(target_count)
+                            # 🎯 Targets wieder seed-basiert wählen
+                            targets = _choose_targets(target_count, seed=route_seed_int)
                             _write_targets_file(targets)
                             targets_done_event.clear()
                             state["force_next_file"] = None
                             state["current_stage"] = None
+
+                            # Target-RNG bei Reset auch neu setzen
+                            if route_seed_int is not None:
+                                target_rng = random.Random(route_seed_int + 1337)
+                                log("🎲 Target Collect RNG reinitialized after reset.")
+                            else:
+                                target_rng = random
                         else:
                             route = build_random_route(cfg, POS_DATA)
                             state["route_i"] = 0
                             state["force_next_file"] = None
                             state["current_stage"] = None
 
-                        show_reset_overlay(stop_event)
+                        try:
+                            show_reset_overlay(
+                                stop_event,
+                                duration=4.0,
+                                route_code=state.get("route_code"),
+                                route_code_duration=15.0,
+                            )
+                        except Exception as e:
+                            log(f"⚠️ Reset overlay (with route code) failed: {e}")
                         if state.get("force_hwnd") and is_hwnd_valid(state["force_hwnd"]):
                             focus_hwnd(state["force_hwnd"])
                         press_f2()
@@ -515,10 +633,10 @@ if __name__ == "__main__":
                         bosses = list(POS_DATA["bosses"].keys())
                         preferred = "boss" if not state.get("last_was_boss", False) else "room"
                         if preferred == "boss" and bosses:
-                            planned_next_file = random.choice(bosses)
+                            planned_next_file = target_rng.choice(bosses)
                             state["last_was_boss"] = True
                         elif rooms:
-                            planned_next_file = random.choice(rooms)
+                            planned_next_file = target_rng.choice(rooms)
                             state["last_was_boss"] = False
                         state["current_stage"] = (planned_next_file or "").lower()
                     else:
@@ -532,6 +650,17 @@ if __name__ == "__main__":
                 ach_trig, ach_reason = check_achievements_trigger(trigger_targets, state)
                 if ach_trig:
                     triggered = True
+
+                    # 🏁 Wenn das Solgryn-Achievement getriggert wurde → End-Stats starten
+                    try:
+                        # Prüfen, ob das Achievement "Solgryn" erkannt wurde
+                        if isinstance(ach_reason, str) and ach_reason.lower() == "achievement:solgryn":
+                            log("🏁 Solgryn achievement detected – starting end stats overlay.")
+                            
+                            # End-Stats starten, Route-Code übergeben
+                            show_end_stats(stop_event, route_code=state.get("route_code"))
+                    except Exception as e:
+                        log(f"⚠️ Could not start end_stats overlay: {e}")
 
             # Target-Mode: wenn alles gesammelt wurde → Solgryn erzwingen
             if getattr(cfg, "target_collect_mode", False) and targets_done_event.is_set():
@@ -550,10 +679,10 @@ if __name__ == "__main__":
                         bosses = list(POS_DATA["bosses"].keys())
                         preferred = "boss" if not state.get("last_was_boss", False) else "room"
                         if preferred == "boss" and bosses:
-                            next_file = random.choice(bosses)
+                            next_file = target_rng.choice(bosses)
                             state["last_was_boss"] = True
                         elif rooms:
-                            next_file = random.choice(rooms)
+                            next_file = target_rng.choice(rooms)
                             state["last_was_boss"] = False
                         else:
                             next_file = None
@@ -594,7 +723,14 @@ if __name__ == "__main__":
                     step_info = None
                     if not getattr(cfg, "target_collect_mode", False) and len(route) > 0:
                         step_info = f"Step {state['route_i']+1}/{len(route)}"
-                    safe_begin_overlay(stop_event, text=overlay_text, step_info=step_info, blackout=True)
+
+                    safe_begin_overlay(
+                        stop_event,
+                        text=overlay_text,
+                        step_info=step_info,
+                        blackout=True,
+                        route_code=state.get("route_code"),
+                    )
 
                     try:
                         before_size = size_or_zero(save_enc)

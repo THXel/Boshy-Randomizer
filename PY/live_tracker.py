@@ -1,9 +1,8 @@
 # ======================================================
-# Boshy Live Tracker (Tkinter) — 60 FPS + custom font + caching + targets
-# Treeview version + in-game popup
+# Boshy Live Tracker (Tkinter) — 2-Spalten-Layout + Trophy-Icons
 # ======================================================
 from __future__ import annotations
-import os, sys, time, argparse, json, ctypes, traceback
+import os, sys, time, argparse, json, ctypes, traceback, re
 import tkinter as tk
 from tkinter import ttk
 import tkinter.font as tkfont
@@ -68,8 +67,26 @@ WINDOW_TITLE = getattr(_cfg, "window_title", "I Wanna Be The Boshy")
 WINDOW_TITLE_VARIANTS = getattr(_cfg, "window_title_variants", [])
 
 TARGETS_JSON = os.path.join(INI, "target_items.json")
+STATE_JSON = os.path.join(INI, "live_tracker_state.json")
 
-# ---- Smart reader with cooldown ---------------------------------------------
+TROPHY_DIR = os.path.join(os.path.dirname(CUSTOM_LOGO), "trophies")
+TROPHY_FALLBACK = os.path.join(TROPHY_DIR, "trophy.png")
+
+# --- Globaler Hotkey (optional) für Ctrl+R im Tracker ------------------------
+try:
+    GetAsyncKeyState = ctypes.windll.user32.GetAsyncKeyState
+except Exception:
+    GetAsyncKeyState = None
+
+def _hotkey_ctrl_r() -> bool:
+    """True, wenn STRG+R gerade gedrückt ist (für Timer-Reset im Live Tracker)."""
+    if GetAsyncKeyState is None:
+        return False
+    VK_CONTROL = 0x11
+    VK_R = 0x52
+    return (GetAsyncKeyState(VK_CONTROL) & 0x8000) and (GetAsyncKeyState(VK_R) & 0x8000)
+
+# ---- Smart reader with cooldown (Fallback, wenn STATE_JSON fehlt) -----------
 class CachedReader:
     def __init__(self, cooldown: float = 2.0):
         self.cooldown = float(cooldown)
@@ -169,17 +186,8 @@ def fmt_time_hhmmss_ms(seconds: float) -> str:
     ms = rem % 1_000
     return f"{hh:02d}:{mm:02d}:{ss:02d}.{ms:03d}"
 
-# ---- Items allowlist --------------------------------------------------------
 def load_items_allowlist() -> set[str]:
-    try:
-        p = os.path.join(INI, "items.json")
-        with open(p, "r", encoding="utf-8") as f:
-            j = json.load(f) or {}
-        if isinstance(j, dict) and "items" in j and isinstance(j["items"], dict):
-            return {k.strip().lower() for k in j["items"].keys()}
-        return {k.strip().lower() for k in j.keys()}
-    except Exception:
-        return set()
+    return set()
 
 ITEM_ALLOW = load_items_allowlist()
 
@@ -235,14 +243,19 @@ class LiveTrackerUI:
         self.font_name = choose_boshy_font()
         self.SIZE_TITLE = 12
         self.SIZE_TIMER = 21
+        self.SIZE_TIMER_MS = 12   # Millisekunden kleiner
         self.SIZE_DEATH = 10
         self.SIZE_SUB = 9
         self.SIZE_TINY = 8
 
-        # *** Wichtig: Tree-Tracking VOR _build() initialisieren ***
+        # Section- und Tree-Verwaltung
         self.section_nodes: dict[str, str] = {}
         self.section_children: dict[str, dict[str, str]] = {}
+        self.section_tree_map: dict[str, str] = {}
         self.targets_node: str | None = None
+
+        # Icon-Cache (Pfad -> PhotoImage)
+        self._icon_cache: dict[str, tk.PhotoImage] = {}
 
         self._build()
 
@@ -251,16 +264,21 @@ class LiveTrackerUI:
         self._start_ts = None
         self._solgryn_done = False
 
+        # Ctrl+R-Handling im Tracker
+        self._ctrl_r_held = False
+
         self._last_stats = {}
         self._last_ach = {}
         self._last_boss = {}
         self._last_col = {}
         self._last_char = {}
+        self._last_worlds = {}  # World-Status-Cache
         self._shown_keys = set()
 
         self._tick()
         self._poll_files()
 
+    # -------------------- UI-Aufbau (Header + 2 Spalten) ----------------------
     def _build(self):
         THEME = {
             "bg": "#0E0E10",
@@ -278,22 +296,23 @@ class LiveTrackerUI:
         except Exception:
             pass
 
+        # nochmal etwas schmaler
         try:
             sw = r.winfo_screenwidth()
-            r.geometry(f"380x640+{sw - 420}+60")
+            r.geometry(f"450x520+{sw - 500}+80")
         except Exception:
-            r.geometry("380x600+60+60")
+            r.geometry("440x520+60+60")
         r.configure(bg=THEME["bg"])
 
         logo_wrap = tk.Frame(r, bg=THEME["bg"])
         logo_wrap.pack(fill="x", padx=8, pady=(8, 2))
-        self._safe_logo(logo_wrap, max_w=350, max_h=80)
+        self._safe_logo(logo_wrap, max_w=420, max_h=70)
 
         top = tk.Frame(r, bg=THEME["bg"])
-        top.pack(fill="x", padx=12, pady=(0, 6))
+        top.pack(fill="x", padx=12, pady=(0, 4))
         self.lbl_title = tk.Label(
             top,
-            text="Boshy Live",
+            text="Boshy Live Tracker",
             bg=THEME["bg"],
             fg=THEME["fg"],
             font=(self.font_name, self.SIZE_TITLE, "bold"),
@@ -301,15 +320,29 @@ class LiveTrackerUI:
         self.lbl_title.pack(side="left")
 
         mid = tk.Frame(r, bg=THEME["bg"])
-        mid.pack(fill="x", padx=12, pady=(0, 6))
-        self.timer_lbl = tk.Label(
-            mid,
-            text="00:00:00.000",
+        mid.pack(fill="x", padx=12, pady=(0, 4))
+
+        # Timer: HH:MM:SS groß, .ms kleiner daneben
+        timer_row = tk.Frame(mid, bg=THEME["bg"])
+        timer_row.pack(anchor="w")
+        self.timer_lbl_main = tk.Label(
+            timer_row,
+            text="00:00:00",
             bg=THEME["bg"],
-            fg=THEME["accent"],
+            fg=self.THEME["accent"],
             font=(self.font_name, self.SIZE_TIMER, "bold"),
         )
-        self.timer_lbl.pack(anchor="w")
+        self.timer_lbl_main.pack(side="left")
+        self.timer_lbl_ms = tk.Label(
+            timer_row,
+            text=".000",
+            bg=THEME["bg"],
+            fg=self.THEME["accent"],
+            font=(self.font_name, self.SIZE_TIMER_MS, "bold"),
+        )
+        # Millisekunden noch weiter nach unten
+        self.timer_lbl_ms.pack(side="left", pady=(17, 0))
+
         self.deaths_lbl = tk.Label(
             mid,
             text="Deaths: 0",
@@ -320,10 +353,11 @@ class LiveTrackerUI:
         self.deaths_lbl.pack(anchor="w")
 
         pb_frame = tk.Frame(r, bg=THEME["bg"])
-        pb_frame.pack(fill="x", padx=12, pady=(0, 8))
+        pb_frame.pack(fill="x", padx=12, pady=(0, 6))
         style = ttk.Style()
         try:
-            style.theme_use("clam")
+            # 'alt' erlaubt besseres Styling der Scrollbars
+            style.theme_use("alt")
         except Exception:
             pass
         style.configure(
@@ -339,11 +373,11 @@ class LiveTrackerUI:
         )
         self.pb.pack(fill="x")
 
-        self._build_tree()
+        self._build_tree_2col()
 
-    def _build_tree(self):
-        frame = tk.Frame(self.root, bg=self.THEME["bg"])
-        frame.pack(fill="both", expand=True, padx=10, pady=(0, 10))
+    def _build_tree_2col(self):
+        outer = tk.Frame(self.root, bg=self.THEME["bg"])
+        outer.pack(fill="both", expand=True, padx=10, pady=(0, 10))
 
         style = ttk.Style()
         style.configure(
@@ -355,45 +389,105 @@ class LiveTrackerUI:
         )
         style.map("Boshy.Treeview", background=[("selected", "#1E88E5")])
 
-        tree = ttk.Treeview(frame, show="tree", style="Boshy.Treeview")
-        tree.pack(side="left", fill="both", expand=True)
-        sb = tk.Scrollbar(frame, orient="vertical", command=tree.yview)
-        tree.configure(yscrollcommand=sb.set)
-        sb.pack(side="right", fill="y")
+        # dunkle Scrollbar (Standard-Style, damit es wirklich greift)
+        style.configure(
+            "Vertical.TScrollbar",
+            troughcolor=self.THEME["panel"],
+            background="#2A2D33",
+            arrowcolor=self.THEME["fg"],
+            bordercolor=self.THEME["panel"],
+        )
 
-        self.tree = tree
+        columns_frame = tk.Frame(outer, bg=self.THEME["bg"])
+        columns_frame.pack(fill="both", expand=True)
 
-        # Root-Knoten für die Rubriken
-        self.section_nodes["achievements"] = self.tree.insert(
+        left_frame = tk.Frame(columns_frame, bg=self.THEME["bg"])
+        right_frame = tk.Frame(columns_frame, bg=self.THEME["bg"])
+        left_frame.pack(side="left", fill="both", expand=True, padx=(0, 4))
+        right_frame.pack(side="left", fill="both", expand=True, padx=(4, 0))
+
+        # Linke Spalte: Achievements + Bosses (+ Targets)
+        self.tree_left = ttk.Treeview(left_frame, show="tree", style="Boshy.Treeview")
+        self.tree_left.pack(side="left", fill="both", expand=True)
+        sb_left = ttk.Scrollbar(
+            left_frame,
+            orient="vertical",
+            command=self.tree_left.yview,
+            style="Vertical.TScrollbar",
+        )
+        self.tree_left.configure(yscrollcommand=sb_left.set)
+        sb_left.pack(side="right", fill="y")
+
+        # Rechte Spalte: Characters + Collectables + Worlds
+        self.tree_right = ttk.Treeview(right_frame, show="tree", style="Boshy.Treeview")
+        self.tree_right.pack(side="left", fill="both", expand=True)
+        sb_right = ttk.Scrollbar(
+            right_frame,
+            orient="vertical",
+            command=self.tree_right.yview,
+            style="Vertical.TScrollbar",
+        )
+        self.tree_right.configure(yscrollcommand=sb_right.set)
+        sb_right.pack(side="right", fill="y")
+
+        # Tags auf beiden Trees
+        for t in (self.tree_left, self.tree_right):
+            t.tag_configure(
+                "target_section",
+                foreground="#FFD75E",
+                font=(self.font_name, self.SIZE_SUB, "bold"),
+            )
+            t.tag_configure(
+                "target_item",
+                foreground="#FFE082",
+                font=(self.font_name, self.SIZE_TINY, "normal"),
+            )
+            t.tag_configure(
+                "world_item",
+                foreground="#A5D6A7",
+                font=(self.font_name, self.SIZE_TINY, "bold"),
+            )
+
+        # Mapping: welche Section in welchem Tree?
+        self.section_tree_map = {
+            "achievements": "left",
+            "bosses": "left",
+            "targets": "left",
+            "worlds": "right",
+            "collectables": "right",
+            "characters": "right",
+        }
+
+        # Section-Root-Knoten
+        self.section_nodes["achievements"] = self.tree_left.insert(
             "", "end", text="🏆 Achievements", open=True
         )
-        self.section_nodes["bosses"] = self.tree.insert(
+        self.section_nodes["bosses"] = self.tree_left.insert(
             "", "end", text="👑 Bosses", open=True
         )
-        self.section_nodes["collectables"] = self.tree.insert(
+
+        self.section_nodes["characters"] = self.tree_right.insert(
+            "", "end", text="🎭 Characters", open=True
+        )
+        self.section_nodes["collectables"] = self.tree_right.insert(
             "", "end", text="💎 Collectables", open=True
         )
-        self.section_nodes["characters"] = self.tree.insert(
-            "", "end", text="🎭 Characters", open=True
+        self.section_nodes["worlds"] = self.tree_right.insert(
+            "", "end", text="🌍 Worlds", open=True
         )
 
         self.section_children.setdefault("achievements", {})
+        self.section_children.setdefault("worlds", {})
         self.section_children.setdefault("bosses", {})
         self.section_children.setdefault("collectables", {})
         self.section_children.setdefault("characters", {})
+        self.section_children.setdefault("targets", {})
 
-        self.tree.tag_configure(
-            "target_section",
-            foreground="#FFD75E",
-            font=(self.font_name, self.SIZE_SUB, "bold"),
-        )
-        self.tree.tag_configure(
-            "target_item",
-            foreground="#FFE082",
-            font=(self.font_name, self.SIZE_TINY, "normal"),
-        )
+    def _get_tree_for_section(self, section_name: str):
+        side = self.section_tree_map.get(section_name, "left")
+        return self.tree_left if side == "left" else self.tree_right
 
-    def _safe_logo(self, parent, max_w=320, max_h=80):
+    def _safe_logo(self, parent, max_w=420, max_h=70):
         if not Image or not ImageTk:
             return
         p = CUSTOM_LOGO
@@ -409,31 +503,127 @@ class LiveTrackerUI:
             with open(BOOT_LOG, "a", encoding="utf-8", errors="ignore") as f:
                 f.write("logo load fail\n")
 
-    # ---- Main ticks ----------------------------------------------------------
+    # --------------------------- Icon-Handling ---------------------------------
+    def _get_icon_for(self, display_name: str) -> tk.PhotoImage | None:
+        """
+        Sucht in Custom/trophies nach einer passenden PNG.
+        Fallback: trophy.png
+        Skaliert Icons passend klein (z.B. 18x18), sofern PIL verfügbar ist.
+        """
+        if not display_name:
+            display_name = "trophy"
+
+        candidates = []
+        base = display_name.strip()
+        if base:
+            candidates.append(base)
+            candidates.append(base.replace("_", " "))
+            candidates.append(base.replace("_", " ").title())
+            candidates.append(base.replace(" ", ""))
+            candidates.append(base.replace(" ", "").title())
+
+        paths = []
+        for name in candidates:
+            paths.append(os.path.join(TROPHY_DIR, f"{name}.png"))
+        paths.append(TROPHY_FALLBACK)
+
+        for p in paths:
+            if not os.path.exists(p):
+                continue
+            if p in self._icon_cache:
+                return self._icon_cache[p]
+            try:
+                if Image and ImageTk:
+                    im = Image.open(p)
+                    im.thumbnail((18, 18))
+                    img = ImageTk.PhotoImage(im, master=self.root)
+                else:
+                    img = tk.PhotoImage(file=p, master=self.root)
+                self._icon_cache[p] = img
+                return img
+            except Exception:
+                continue
+        return None
+
+    # ------------------------------- Main ticks --------------------------------
     def _tick(self):
         try:
-            if self._solgryn_done and self._frozen_time is not None:
+            reset_now = False
+            try:
+                if _hotkey_ctrl_r():
+                    if not self._ctrl_r_held:
+                        self._ctrl_r_held = True
+                        self._timer_running = False
+                        self._frozen_time = None
+                        self._start_ts = None
+                        self._solgryn_done = False
+                        reset_now = True
+                else:
+                    self._ctrl_r_held = False
+            except Exception:
+                pass
+
+        ############################################################################
+        # Timer-Anzeige mit getrennten Millisekunden
+        ############################################################################
+            if reset_now:
+                cur = 0.0
+            elif self._solgryn_done and self._frozen_time is not None:
                 cur = self._frozen_time
             elif self._timer_running and self._start_ts is not None:
                 cur = max(0.0, time.time() - self._start_ts)
             else:
                 cur = 0.0
-            self.timer_lbl.config(text=fmt_time_hhmmss_ms(cur))
+
+            s = fmt_time_hhmmss_ms(cur)
+            if "." in s:
+                main, ms = s.split(".")
+                self.timer_lbl_main.config(text=main)
+                self.timer_lbl_ms.config(text="." + ms)
+            else:
+                self.timer_lbl_main.config(text=s)
+                self.timer_lbl_ms.config(text="")
+
         except Exception as e:
             log(f"[live] tick error: {e}")
         finally:
             self.root.after(16, self._tick)
 
+    # --------------------------- Poll / JSON-Read ------------------------------
     def _poll_files(self):
         try:
-            save_txt = READER.read(self.watch_save)
-            lic_txt = READER.read(self.watch_license)
+            state = None
+            if os.path.exists(STATE_JSON):
+                try:
+                    with open(STATE_JSON, "r", encoding="utf-8") as f:
+                        state = json.load(f) or {}
+                except Exception as e:
+                    log(f"[live] failed to read {STATE_JSON}: {e}")
 
-            stats, ach, bosses, col = self._parse_save_ini(save_txt)
-            chars = self._parse_license_ini(lic_txt)
+            if state:
+                save_sections = (state.get("save") or {}).get("sections") or {}
+                lic_sections = (state.get("license") or {}).get("sections") or {}
+
+                stats = save_sections.get("stats", {}) or {}
+
+                ach_raw = {k.strip(): v for k, v in (save_sections.get("achievements", {}) or {}).items()}
+                bos_raw = {k.strip(): v for k, v in (save_sections.get("bosses", {}) or {}).items()}
+                col_raw = {k.strip(): v for k, v in (save_sections.get("collectables", {}) or {}).items()}
+                chars_raw = {k.strip(): v for k, v in (lic_sections.get("unlockables", {}) or {}).items()}
+
+                ach = ach_raw
+                bosses = bos_raw
+                col = col_raw
+                chars = chars_raw
+            else:
+                save_txt = READER.read(self.watch_save)
+                lic_txt = READER.read(self.watch_license)
+                stats, ach, bosses, col = self._parse_save_ini(save_txt)
+                chars = self._parse_license_ini(lic_txt)
 
             self._apply_stats(stats)
             self._apply_section(self._last_ach, ach, "achievements")
+            self._apply_worlds_section(ach)
             self._apply_section(self._last_boss, bosses, "bosses")
             self._apply_section(self._last_col, col, "collectables")
             self._apply_section(self._last_char, chars, "characters", is_characters=True)
@@ -446,7 +636,7 @@ class LiveTrackerUI:
         finally:
             self.root.after(200, self._poll_files)
 
-    # ---- Parsing -------------------------------------------------------------
+    # ---- Parsing (nur Fallback, wenn STATE_JSON fehlt) ------------------------
     def _parse_save_ini(self, txt: str):
         data = {}
         sec = None
@@ -455,24 +645,17 @@ class LiveTrackerUI:
             if not s:
                 continue
             if s.startswith("[") and s.endswith("]"):
-                sec = s.strip("[]").lower()
+                sec = s.strip("[]")
                 data.setdefault(sec, {})
                 continue
             if "=" in s and sec:
                 k, v = [x.strip() for x in s.split("=", 1)]
                 data[sec][k] = v
-        stats = data.get("stats", {})
-        ach_raw = {k.strip().lower(): v for k, v in (data.get("achievements", {}) or {}).items()}
-        bos_raw = {k.strip().lower(): v for k, v in (data.get("bosses", {}) or {}).items()}
-        col_raw = {k.strip().lower(): v for k, v in (data.get("collectables", {}) or {}).items()}
-
-        if ITEM_ALLOW:
-            ach = {k: v for k, v in ach_raw.items() if k in ITEM_ALLOW}
-            bos = {k: v for k, v in bos_raw.items() if k in ITEM_ALLOW}
-            col = {k: v for k, v in col_raw.items() if k in ITEM_ALLOW}
-        else:
-            ach, bos, col = ach_raw, bos_raw, col_raw
-        return stats, ach, bos, col
+        stats = data.get("Stats", data.get("stats", {}))
+        ach_raw = {k.strip(): v for k, v in (data.get("Achievements", data.get("achievements", {})) or {}).items()}
+        bos_raw = {k.strip(): v for k, v in (data.get("Bosses", data.get("bosses", {})) or {}).items()}
+        col_raw = {k.strip(): v for k, v in (data.get("Collectables", data.get("collectables", {})) or {}).items()}
+        return stats or {}, ach_raw, bos_raw, col_raw
 
     def _parse_license_ini(self, txt: str):
         data = {}
@@ -482,28 +665,25 @@ class LiveTrackerUI:
             if not s:
                 continue
             if s.startswith("[") and s.endswith("]"):
-                sec = s.strip("[]").lower()
+                sec = s.strip("[]")
                 data.setdefault(sec, {})
                 continue
             if "=" in s and sec:
                 k, v = [x.strip() for x in s.split("=", 1)]
                 data[sec][k] = v
-        unlocks = {k.strip().lower(): v for k, v in (data.get("unlockables", {}) or {}).items()}
-        if ITEM_ALLOW:
-            unlocks = {k: v for k, v in unlocks.items() if k in ITEM_ALLOW}
+        unlocks = {k.strip(): v for k, v in (data.get("Unlockables", data.get("unlockables", {})) or {}).items()}
         return unlocks
 
-    # ---- Tree helpers --------------------------------------------------------
+    # -------------------------- Tree helpers / Sections ------------------------
     def _ensure_section_node(self, section_name: str):
-        # Wenn der Abschnitt schon existiert, direkt zurückgeben
         if section_name in self.section_nodes:
             return self.section_nodes[section_name]
 
-        # Targets immer ganz nach oben setzen
         if section_name == "targets":
-            node = self.tree.insert(
+            tree = self._get_tree_for_section("targets")
+            node = tree.insert(
                 "",
-                0,  # <-- erster Eintrag in der Root-Liste
+                0,
                 text="🎯 Target Items (Mode)",
                 open=True,
                 tags=("target_section",),
@@ -512,8 +692,8 @@ class LiveTrackerUI:
             self.section_children.setdefault(section_name, {})
             return node
 
-        # Alle anderen Abschnitte wie bisher ans Ende anhängen
-        node = self.tree.insert("", "end", text=section_name.title(), open=True)
+        tree = self._get_tree_for_section(section_name)
+        node = tree.insert("", "end", text=section_name.title(), open=True)
         self.section_nodes[section_name] = node
         self.section_children.setdefault(section_name, {})
         return node
@@ -525,21 +705,35 @@ class LiveTrackerUI:
         section_name: str,
         is_characters: bool = False,
     ):
-        # falls INI kurz leer / kaputt ist: alten Stand behalten
         if not new_map and cache_dict:
             return
 
         parent = self._ensure_section_node(section_name)
+        tree = self._get_tree_for_section(section_name)
         children = self.section_children.setdefault(section_name, {})
 
         display_items = []
-        for k, v in sorted(new_map.items()):
+        for k, v in sorted(new_map.items(), key=lambda kv: kv[0].lower()):
+            key_lower = k.strip().lower()
+
+            # DeathsWorldStats nie anzeigen
+            if section_name == "achievements" and key_lower == "deathsworldstats":
+                continue
+
+            # World-clear/PRO nicht in Achievements-Liste (sondern bei Worlds)
+            if section_name == "achievements":
+                if re.match(r"world\d+(clear|promode)$", key_lower):
+                    continue
+
             if str(v).strip() == "1":
                 display_items.append(k)
-                key_id = f"{section_name}:{k}"
-                if key_id not in self._shown_keys:
-                    self._shown_keys.add(key_id)
-                    self._popup_toast(k, is_characters=is_characters)
+
+                # Popups NUR für characters & collectables
+                if section_name in ("characters", "collectables"):
+                    key_id = f"{section_name}:{key_lower}"
+                    if key_id not in self._shown_keys:
+                        self._shown_keys.add(key_id)
+                        self._popup_toast(k, is_characters=(section_name == "characters"))
 
         if set(display_items) == set(cache_dict.keys()):
             return
@@ -553,33 +747,92 @@ class LiveTrackerUI:
 
         for k in old_keys - new_keys:
             try:
-                self.tree.delete(children[k])
+                tree.delete(children[k])
             except Exception:
                 pass
             children.pop(k, None)
 
-        icon = "•"
+        icon_emoji = "•"
         if section_name == "achievements":
-            icon = "🏆"
+            icon_emoji = "🏆"
         elif section_name == "bosses":
-            icon = "👑"
+            icon_emoji = "👑"
         elif section_name == "collectables":
-            icon = "💎"
+            icon_emoji = "💎"
         elif section_name == "characters":
-            icon = "🎭"
+            icon_emoji = "🎭"
+        elif section_name == "worlds":
+            icon_emoji = "🌍"
 
         for k in new_keys:
-            text = f"{icon} {k.replace('_', ' ')}"
+            display_name = k.replace("_", " ")
+            text = f"{icon_emoji} {display_name}"
+            img = self._get_icon_for(display_name)
+
             if k in children:
                 try:
-                    self.tree.item(children[k], text=text)
+                    tree.item(children[k], text=text, image=img)
                 except Exception:
                     pass
             else:
-                item_id = self.tree.insert(parent, "end", text=text)
+                item_id = tree.insert(parent, "end", text=text, image=img)
                 children[k] = item_id
 
-    # ---- Popup ---------------------------------------------------------------
+    def _apply_worlds_section(self, ach: dict):
+        parent = self._ensure_section_node("worlds")
+        tree = self._get_tree_for_section("worlds")
+        children = self.section_children.setdefault("worlds", {})
+
+        worlds_data: dict[int, dict[str, bool]] = {}
+
+        for k, v in ach.items():
+            key_lower = k.strip().lower()
+            m = re.match(r"world(\d+)(clear|promode)$", key_lower)
+            if not m:
+                continue
+            idx = int(m.group(1))
+            kind = m.group(2)
+            val = str(v).strip()
+            is_on = val not in ("", "0")
+            worlds_data.setdefault(idx, {})
+            worlds_data[idx][kind] = is_on
+
+        if not worlds_data and not self._last_worlds:
+            return
+
+        if worlds_data == self._last_worlds:
+            return
+        self._last_worlds = worlds_data
+
+        for _, item_id in list(children.items()):
+            try:
+                tree.delete(item_id)
+            except Exception:
+                pass
+        children.clear()
+
+        for idx in sorted(worlds_data.keys()):
+            info = worlds_data[idx]
+            clear_on = info.get("clear", False)
+            pro_on = info.get("promode", False)
+
+            s_clear = "✓" if clear_on else "·"
+            s_pro = "✓" if pro_on else "·"
+
+            display_name = f"World {idx}"
+            text = f"🌍 {display_name}:  Clear {s_clear}   PRO {s_pro}"
+            img = self._get_icon_for(display_name)
+
+            item_id = tree.insert(
+                parent,
+                "end",
+                text=text,
+                image=img,
+                tags=("world_item",),
+            )
+            children[idx] = item_id
+
+    # ------------------------------ Popup-Toasts -------------------------------
     def _popup_toast(self, name: str, is_characters: bool = False):
         try:
             win = tk.Toplevel(self.root)
@@ -619,8 +872,14 @@ class LiveTrackerUI:
             frame = tk.Frame(win, bg=bg)
             frame.pack(fill="both", expand=True)
 
-            img_path = os.path.join(os.path.dirname(CUSTOM_LOGO), "trophies", f"{name}.png")
-            if Image and ImageTk and os.path.exists(img_path):
+            img_path = os.path.join(TROPHY_DIR, f"{name}.png")
+            if not os.path.exists(img_path):
+                img = self._get_icon_for(name.replace("_", " "))
+                if img is not None:
+                    win._toast_img = img
+                else:
+                    img_path = TROPHY_FALLBACK
+            if os.path.exists(img_path) and (Image and ImageTk):
                 im = Image.open(img_path)
                 im.thumbnail((120, 120))
                 win._toast_img = ImageTk.PhotoImage(im, master=win)
@@ -675,7 +934,7 @@ class LiveTrackerUI:
         except Exception as e:
             log(f"[toast] failed: {e}")
 
-    # ---- Stats / progress ----------------------------------------------------
+    # --------------------------- Stats / Progress ------------------------------
     def _apply_stats(self, stats: dict):
         try:
             deaths = int(stats.get("Deaths", stats.get("deaths", "0")))
@@ -705,12 +964,20 @@ class LiveTrackerUI:
 
     def _apply_progress(self, ach: dict):
         try:
-            # --- Targets aus JSON lesen (unterstützt beide Formate) ---
+            sol_val = None
+            for k, v in ach.items():
+                if k.strip().lower() == "solgryn":
+                    sol_val = v
+                    break
+            if sol_val is not None and str(sol_val).strip() not in ("", "0"):
+                if not self._solgryn_done:
+                    self._solgryn_done = True
+                    log("[live] Solgryn achievement detected – timer will freeze")
+
             targets = []
             if os.path.exists(TARGETS_JSON):
                 with open(TARGETS_JSON, "r", encoding="utf-8") as f:
                     tj = json.load(f) or {}
-
                 raw_list = []
                 if isinstance(tj, dict):
                     raw_list = tj.get("targets") or []
@@ -718,47 +985,43 @@ class LiveTrackerUI:
                     raw_list = tj
                 targets = [str(x).strip().lower() for x in raw_list if str(x).strip()]
 
-            # Target-Mode ist aktiv, sobald eine Targets-Liste existiert
             use_target_mode = bool(targets)
-
             if use_target_mode:
-                # gesammelt wird über alle Caches geprüft (Achievments, Collectables, Characters)
                 got = 0
                 for name in targets:
-                    if (
-                        name in self._last_ach
-                        or name in self._last_col
-                        or name in self._last_char
-                    ):
+                    name_l = name.lower()
+                    if any(name_l == k.lower() for k in self._last_ach.keys()):
+                        got += 1
+                    elif any(name_l == k.lower() for k in self._last_col.keys()):
+                        got += 1
+                    elif any(name_l == k.lower() for k in self._last_char.keys()):
                         got += 1
                 total = len(targets)
                 self.pb["value"] = int(100 * got / total) if total else 0
                 return
 
-            # normaler Modus: nur Achievements zählen
             total = max(1, len(ach))
             got = sum(1 for v in ach.values() if str(v).strip() == "1")
             self.pb["value"] = int(100 * got / total)
         except Exception:
             self.pb["value"] = 0
 
+    # ------------------------------- Targets -----------------------------------
     def _apply_targets_section(self):
-        # JSON existiert nicht → Abschnitt entfernen
         if not os.path.exists(TARGETS_JSON):
             if "targets" in self.section_nodes:
+                tree = self._get_tree_for_section("targets")
                 node = self.section_nodes.pop("targets")
                 try:
-                    self.tree.delete(node)
+                    tree.delete(node)
                 except Exception:
                     pass
             self.targets_node = None
             return
 
-        # --- Targets aus JSON lesen (beide Formate unterstützt) ---
         try:
             with open(TARGETS_JSON, "r", encoding="utf-8") as f:
                 tj = json.load(f) or {}
-
             raw_list = []
             if isinstance(tj, dict):
                 raw_list = tj.get("targets") or []
@@ -768,53 +1031,52 @@ class LiveTrackerUI:
         except Exception:
             targets = []
 
-        # keine Targets → Abschnitt ausblenden
         if not targets:
             if "targets" in self.section_nodes:
+                tree = self._get_tree_for_section("targets")
                 node = self.section_nodes.pop("targets")
                 try:
-                    self.tree.delete(node)
+                    tree.delete(node)
                 except Exception:
                     pass
             self.targets_node = None
             return
 
         parent = self._ensure_section_node("targets")
-        self.targets_node = parent
+        tree = self._get_tree_for_section("targets")
         children = self.section_children.setdefault("targets", {})
 
         old_keys = set(children.keys())
         new_keys = set(targets)
 
-        # veraltete Einträge entfernen
         for k in old_keys - new_keys:
             try:
-                self.tree.delete(children[k])
+                tree.delete(children[k])
             except Exception:
                 pass
             children.pop(k, None)
 
-        # neue / aktualisierte Einträge
         for name in new_keys:
             collected = (
-                name in self._last_ach
-                or name in self._last_col
-                or name in self._last_char
+                any(name == k.lower() for k in self._last_ach.keys())
+                or any(name == k.lower() for k in self._last_col.keys())
+                or any(name == k.lower() for k in self._last_char.keys())
             )
             box = "[✓]" if collected else "[ ]"
-            text = f"{box} {name.replace('_', ' ')}"
+            display_name = name.replace("_", " ")
+            text = f"{box} {display_name}"
+            img = self._get_icon_for(display_name)
 
             if name in children:
                 try:
-                    self.tree.item(children[name], text=text, tags=("target_item",))
+                    tree.item(children[name], text=text, image=img, tags=("target_item",))
                 except Exception:
                     pass
             else:
-                item_id = self.tree.insert(
-                    parent, "end", text=text, tags=("target_item",)
+                item_id = tree.insert(
+                    parent, "end", text=text, image=img, tags=("target_item",)
                 )
                 children[name] = item_id
-
 
 # ---- CLI --------------------------------------------------------------------
 def main():

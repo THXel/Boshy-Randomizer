@@ -133,7 +133,7 @@ _overlay_external_stop_event = None
 _overlay_lock = threading.Lock()
 
 
-def _overlay_loop(text, step_info, blackout, max_duration_s):
+def _overlay_loop(text, step_info, blackout, max_duration_s, route_code=None):
     """
     Tkinter-Loop in eigenem Thread.
     Schließt, wenn:
@@ -190,6 +190,21 @@ def _overlay_loop(text, step_info, blackout, max_duration_s):
         logo_label = tk.Label(frame, image=logo_img, bg=bg)
         logo_label.image = logo_img  # Referenz halten
         logo_label.pack(pady=(10, 5))
+
+    # 🔢 Optional: Seed oben rechts im Overlay
+    if route_code:
+        try:
+            seed_label = tk.Label(
+                frame,
+                text=f"Seed: {route_code}",
+                fg="#FFFFFF",
+                bg=bg,
+                font=("Consolas", 16, "bold"),
+            )
+            # oben rechts mit etwas Abstand zum Rand
+            seed_label.place(relx=1.0, x=-16, y=10, anchor="ne")
+        except Exception as e:
+            log(f"⚠️ Failed to draw seed label: {e}")
 
     # Haupt-Text (zentriert, vertikal & horizontal)
     lbl_main = tk.Label(
@@ -269,7 +284,7 @@ def _overlay_loop(text, step_info, blackout, max_duration_s):
 
 def show_loading_overlay(stop_event=None, duration=0.3,
                          text="Loading next stage...", step_info=None,
-                         blackout=False):
+                         blackout=False, route_code=None):
     """
     Blocking Variante:
     Zeigt das Overlay für 'duration' Sekunden (oder bis stop_event gesetzt ist)
@@ -284,8 +299,13 @@ def show_loading_overlay(stop_event=None, duration=0.3,
     _overlay_external_stop_event = stop_event
 
     try:
-        _overlay_loop(text=text, step_info=step_info,
-                      blackout=blackout, max_duration_s=float(duration))
+        _overlay_loop(
+            text=text,
+            step_info=step_info,
+            blackout=blackout,
+            max_duration_s=float(duration),
+            route_code=route_code,
+        )
     except Exception as e:
         log(f"⚠️ show_loading_overlay (Tk) error: {e}")
     finally:
@@ -294,7 +314,7 @@ def show_loading_overlay(stop_event=None, duration=0.3,
 
 def begin_loading_overlay(stop_event=None, text="Loading next stage...",
                           step_info=None, max_duration_s=2.0,
-                          blackout=False):
+                          blackout=False, route_code=None):
     """
     Nicht-blockierende Variante:
       - Startet Overlay in eigenem Thread
@@ -322,6 +342,7 @@ def begin_loading_overlay(stop_event=None, text="Loading next stage...",
                     step_info=step_info,
                     blackout=blackout,
                     max_duration_s=float(max_duration_s),
+                    route_code=route_code,
                 )
             except Exception as e:
                 log(f"⚠️ begin_loading_overlay runner error: {e}")

@@ -1,4 +1,3 @@
-
 # ======================================================
 # save_utils.py
 # Atomic writes, snapshotting, auditing, plain mirror for Live-Tracker,
@@ -125,12 +124,31 @@ def write_save_tagged(tag: str, new_plain: str) -> None:
 
 # ------------------------------ Snapshots/Audit -------------------------------
 def snapshot_plain(prefix: str, plain: str) -> Optional[str]:
-    """Write a plaintext snapshot of the save for debugging/restore."""
+    """Write a plaintext snapshot of the save for debugging/restore (max 10 kept)."""
     try:
         ts = time.strftime("%Y%m%d-%H%M%S")  # no spaces
         p = os.path.join(SNAPSHOT_DIR, f"{prefix}_{ts}.ini")
         with open(p, "w", encoding="latin-1", errors="ignore") as f:
             f.write(plain)
+
+        # <<< LIMIT: max 10 snapshots im Ordner behalten >>>
+        try:
+            files = [
+                os.path.join(SNAPSHOT_DIR, fn)
+                for fn in os.listdir(SNAPSHOT_DIR)
+                if fn.lower().endswith(".ini")
+            ]
+            files.sort(key=os.path.getmtime, reverse=True)
+            # alles ab Index 10 löschen (älteste)
+            for old in files[10:]:
+                try:
+                    os.remove(old)
+                except Exception:
+                    pass
+        except Exception:
+            pass
+        # >>> ENDE LIMIT-LOGIK
+
         return p
     except Exception:
         return None

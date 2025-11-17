@@ -18,6 +18,9 @@ import os
 import json
 import platform
 import ctypes
+import random  
+import re
+import tkinter.messagebox as messagebox
 from typing import Dict, Tuple
 
 import customtkinter as ctk
@@ -76,6 +79,7 @@ class RouteConfig:
         self.cancelled = False
         self.disabled_bosses = set(DEFAULT_DISABLED_BOSSES.keys())
         self.disabled_rooms = set(DEFAULT_DISABLED_ROOMS.keys())
+        self.route_seed = None  # 🔢 NEU: Seed für die Route
 
 
 # ======================================================
@@ -441,16 +445,51 @@ def build_gui_config():
     # Random Character
     sec_char = ctk.CTkFrame(right_col, corner_radius=12)
     sec_char.pack(fill="x", padx=12, pady=(8, 12))
-    ctk.CTkLabel(sec_char, text="Random Character", font=ctk.CTkFont(size=14, weight="bold")).pack(anchor="w", padx=12, pady=10)
-    random_char_var = ctk.BooleanVar(value=False)
-    random_char_switch = ctk.CTkSwitch(sec_char, text="Start with Random Character", variable=random_char_var)
-    random_char_switch.pack(anchor="w", padx=12, pady=(0, 8))
-    random_char_stage_var = ctk.BooleanVar(value=False)
-    random_char_stage = ctk.CTkCheckBox(sec_char, text="🔁 Change Character after each Boss/Level",
-                                        variable=random_char_stage_var, state="disabled")
-    random_char_stage.pack(anchor="w", padx=12, pady=(0, 10))
-    ctk.CTkLabel(sec_char, text="Default: Dark Boshy", font=ctk.CTkFont(size=12), text_color="gray70").pack(anchor="w", padx=12, pady=(0, 10))
 
+    # Überschrift
+    ctk.CTkLabel(
+        sec_char,
+        text="Random Character",
+        font=ctk.CTkFont(size=14, weight="bold")
+    ).pack(anchor="w", padx=12, pady=(10, 0))
+
+    # Hinweis direkt unter der Überschrift
+    ctk.CTkLabel(
+        sec_char,
+        text="ℹ️ While Random Character is active,\n"
+             "the in-game Character Menu (F3) is disabled.",
+        font=ctk.CTkFont(size=12),
+        text_color="gray70",
+        justify="left"
+    ).pack(anchor="w", padx=12, pady=(2, 10))
+
+    # Start with Random Character
+    random_char_var = ctk.BooleanVar(value=False)
+    random_char_switch = ctk.CTkSwitch(
+        sec_char,
+        text="Start with Random Character",
+        variable=random_char_var
+    )
+    random_char_switch.pack(anchor="w", padx=12, pady=(0, 8))
+
+    # Change Character after each Stage
+    random_char_stage_var = ctk.BooleanVar(value=False)
+    random_char_stage = ctk.CTkCheckBox(
+        sec_char,
+        text="🔁 Change Character after each Boss/Level",
+        variable=random_char_stage_var,
+        state="disabled"
+    )
+    random_char_stage.pack(anchor="w", padx=12, pady=(0, 8))
+
+    # Info: Standard-Charakter
+    ctk.CTkLabel(
+        sec_char,
+        text="Default: Dark Boshy",
+        font=ctk.CTkFont(size=12),
+        text_color="gray70"
+    ).pack(anchor="w", padx=12, pady=(0, 10))
+    
     def on_random_char_toggle():
         if random_char_var.get():
             # Enable the secondary option
@@ -479,13 +518,49 @@ def build_gui_config():
     optional_wrap = ctk.CTkFrame(tab_optional, corner_radius=12)
     optional_wrap.pack(fill="both", expand=True, padx=12, pady=12)
 
-    opt_header = ctk.CTkLabel(optional_wrap, text="Optional content recommendations",
-                              font=ctk.CTkFont(size=16, weight="bold"))
+    opt_header = ctk.CTkLabel(
+        optional_wrap,
+        text="Optional content recommendations",
+        font=ctk.CTkFont(size=16, weight="bold")
+    )
     opt_header.pack(anchor="w", padx=12, pady=(12, 6))
-    opt_hint = ctk.CTkLabel(optional_wrap, text="(Checked = included in the generated random route)",
-                            font=ctk.CTkFont(size=12), text_color="gray70")
+
+    # --- Route Seed (optional) ---
+    sec_seed = ctk.CTkFrame(optional_wrap, corner_radius=12)
+    sec_seed.pack(fill="x", padx=12, pady=(4, 8))
+
+    ctk.CTkLabel(
+        sec_seed,
+        text="Route Seed (optional)",
+        font=ctk.CTkFont(size=14, weight="bold")
+    ).pack(anchor="w", padx=12, pady=(8, 2))
+
+    ctk.CTkLabel(
+        sec_seed,
+        text=(
+            "Enter either a pure number (e.g. 898677) or a full code like\n"
+            "R3-B3-T0-C1-P0-898677. Leave empty for a random seed."
+        ),
+        font=ctk.CTkFont(size=11),
+        text_color="gray70",
+        justify="left"
+    ).pack(anchor="w", padx=12, pady=(0, 4))
+
+    # Seed-Variable + Eingabefeld
+    seed_var = ctk.StringVar(value="")
+    seed_entry = ctk.CTkEntry(sec_seed, textvariable=seed_var, width=250)
+    seed_entry.pack(anchor="w", padx=12, pady=(0, 8))
+
+    # Hinweis JETZT unter dem Seed-Block
+    opt_hint = ctk.CTkLabel(
+        optional_wrap,
+        text="(Checked = included in the generated random route)",
+        font=ctk.CTkFont(size=12),
+        text_color="gray70"
+    )
     opt_hint.pack(anchor="w", padx=12, pady=(0, 10))
 
+    # Scrollbarer Bereich mit den Optional-Checkboxen
     opt_scroll = ctk.CTkScrollableFrame(optional_wrap, corner_radius=12, height=440)
     opt_scroll.pack(fill="both", expand=True, padx=12, pady=(0, 12))
 
@@ -497,8 +572,16 @@ def build_gui_config():
     opt_left.pack(side="left", fill="both", expand=True, padx=(0, 6))
     opt_right.pack(side="left", fill="both", expand=True, padx=(6, 0))
 
-    ctk.CTkLabel(opt_left, text="Bosses",  font=ctk.CTkFont(size=14, weight="bold")).pack(anchor="w", padx=10, pady=(10, 6))
-    ctk.CTkLabel(opt_right, text="Levels", font=ctk.CTkFont(size=14, weight="bold")).pack(anchor="w", padx=10, pady=(10, 6))
+    ctk.CTkLabel(
+        opt_left,
+        text="Bosses",
+        font=ctk.CTkFont(size=14, weight="bold")
+    ).pack(anchor="w", padx=10, pady=(10, 6))
+    ctk.CTkLabel(
+        opt_right,
+        text="Levels",
+        font=ctk.CTkFont(size=14, weight="bold")
+    ).pack(anchor="w", padx=10, pady=(10, 6))
 
     boss_vars: Dict[str, ctk.BooleanVar] = {}
     boss_checks: Dict[str, ctk.CTkCheckBox] = {}
@@ -541,7 +624,6 @@ def build_gui_config():
                 except Exception:
                     pass
             if hasattr(child, "winfo_children"):
-                # only go one level deep to avoid excessive recursion
                 for g in child.winfo_children():
                     if isinstance(g, (ctk.CTkSlider, ctk.CTkCheckBox, ctk.CTkSwitch,
                                       ctk.CTkOptionMenu, ctk.CTkRadioButton, ctk.CTkButton)):
@@ -554,6 +636,24 @@ def build_gui_config():
                             g.configure(text_color=("white" if enabled else "gray50"))
                         except Exception:
                             pass
+
+    # ======================================================
+    # Seed-Lock: Wenn Seed eingetragen → alles andere ausgrauen
+    # ======================================================
+    def _update_seed_lock(*_):
+        locked = bool(seed_var.get().strip())
+
+        # Diese Bereiche werden gesperrt, Seed-Bereich bleibt aktiv
+        _set_block_enabled(sec_stage, not locked)
+        _set_block_enabled(sec_target, not locked)
+        _set_block_enabled(sec_diff, not locked)
+        _set_block_enabled(sec_item, not locked)
+        _set_block_enabled(sec_char, not locked)
+        _set_block_enabled(opt_scroll, not locked)
+
+    # Trigger: jedes Mal, wenn sich das Seed-Feld ändert
+    seed_var.trace_add("write", _update_seed_lock)
+    _update_seed_lock()  # Initialer Zustand
 
     # ======================================================
     # Rules: Only Bosses / Only Levels
@@ -667,6 +767,14 @@ def build_gui_config():
     # START BUTTON
     # ======================================================
     def on_start():
+        """
+        Start-Button:
+        - Liest alle GUI-Einstellungen ein
+        - Optional: interpretiert den Route-Seed als
+          * einfache Zahl       → nur RNG-Seed
+          * Code R?-B?-T?-C?-P?-Seed → überschreibt Teile der Config
+        """
+        # Grundkonfiguration aus der GUI lesen
         cfg.target_collect_mode = bool(target_var.get())
         cfg.item_randomizer_enabled = (item_var.get() == "Yes")
         cfg.difficulty = diff_var.get()
@@ -687,6 +795,78 @@ def build_gui_config():
             cfg.only_rooms = bool(only_rooms_var.get())
             # keep last chosen target value
             cfg.target_item_count = int(round(target_slider.get()))
+
+        # 🔢 Route Seed aus GUI (Zahl oder Code)
+        try:
+            seed_text = seed_var.get().strip()
+        except Exception:
+            seed_text = ""
+
+        # Regex für Codes wie: R3-B3-T0-C1-P0-898677
+        code_pattern = re.compile(
+            r"^R(?P<R>\d+)-B(?P<B>\d+)-T(?P<T>[01])-C(?P<C>[0-2])-P(?P<P>[01])-(?P<S>\d+)$"
+        )
+
+        if seed_text:
+            m = code_pattern.match(seed_text)
+            if m:
+                # 🎯 Voller Code → Einstellungen aus dem Code übernehmen
+                try:
+                    rooms = int(m.group("R"))
+                    bosses = int(m.group("B"))
+                    t_flag = int(m.group("T"))
+                    c_flag = int(m.group("C"))
+                    p_flag = int(m.group("P"))
+                    s_val = int(m.group("S"))
+                except ValueError:
+                    messagebox.showerror(
+                        "Invalid Seed Code",
+                        "The seed code could not be parsed.\n"
+                        "Please use a format like: R3-B3-T0-C1-P0-898677"
+                    )
+                    return
+
+                cfg.route_seed = s_val
+
+                # Target Collect Mode (T0/T1)
+                cfg.target_collect_mode = bool(t_flag)
+
+                # Item Randomizer (P0/P1)
+                cfg.item_randomizer_enabled = bool(p_flag)
+
+                # Stage-Anzahl nur, wenn kein Target-Mode aktiv
+                if not cfg.target_collect_mode:
+                    cfg.rooms_to_play = rooms
+                    cfg.bosses_to_play = bosses
+
+                # Character-Mode:
+                # C0 = kein Random Character
+                # C1 = nur Start-Random
+                # C2 = Start-Random + pro Stage
+                if c_flag == 0:
+                    cfg.random_start_character = False
+                    cfg.random_character_per_stage = False
+                elif c_flag == 1:
+                    cfg.random_start_character = True
+                    cfg.random_character_per_stage = False
+                else:  # c_flag == 2
+                    cfg.random_start_character = True
+                    cfg.random_character_per_stage = True
+
+            else:
+                # Kein Code → einfache Zahl versuchen
+                try:
+                    cfg.route_seed = int(seed_text)
+                except ValueError:
+                    messagebox.showerror(
+                        "Invalid Seed",
+                        "Please enter either a number (e.g. 898677) or a full code like:\n"
+                        "R3-B3-T0-C1-P0-898677"
+                    )
+                    return
+        else:
+            # Kein Seed → automatisch einen generieren
+            cfg.route_seed = random.randint(100000, 999999)
 
         # Optional tab → disabled sets (unchecked = disabled)
         cfg.disabled_bosses = {name for name, var in boss_vars.items() if not var.get()}
@@ -733,4 +913,3 @@ def build_gui_config():
     root.protocol("WM_DELETE_WINDOW", on_close)
     root.mainloop()
     return cfg
-
