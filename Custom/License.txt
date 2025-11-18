@@ -6,7 +6,7 @@ Created by THXel and the I Wanna Be The Boshy Speedrun Community
 ABOUT
 --------------------------------------------------------------
 This program is a fan-made randomizer created for the game
-"I Wanna Be The Boshy" by Solgryn.
+"I Wanna Be The Boshy" by Solgryn (Grynsoft).
 
 It randomizes certain aspects of the game for fun and speedrunning
 purposes. This is NOT the original game, only the randomizer tool.
@@ -42,10 +42,10 @@ For questions, feedback, or bug reports:
 DISCLAIMER
 --------------------------------------------------------------
 This project is unofficial and not affiliated with or endorsed by
-Solgryn or any official "I Wanna Be The Boshy" releases.
+Solgryn (Grynsoft) or any official "I Wanna Be The Boshy" releases.
 
 Use at your own risk. The creator and contributors are not
 responsible for any data loss or issues resulting from the use
 of this software.
 
-Enjoy, have fun — and don’t get boshy’d!
+Enjoy, it´s Boshy Time!
