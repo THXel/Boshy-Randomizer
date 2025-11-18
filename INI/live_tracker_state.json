@@ -1,14 +1,13 @@
 {
   "meta": {
-    "generated_at": 1763410177.7029967,
+    "generated_at": 1763493298.162618,
     "source": "state_exporter.py"
   },
   "save": {
-    "raw": "[Achievements]\r\nAwesomeSauce=1\r\nDeathsWorldStats=1\r\nTriggerFinger=1\r\n[Check]\r\nSaveVersion=1\r\n[Collectables]\r\nAwesomesauce=1\r\n[Exploration]\r\nW8=1\r\n[Positions]\r\nframe=25\r\nxPos=1018\r\nyPos=216\r\n[Stats]\r\nDeaths=1\r\nDifficulty=1\r\nTimeSeconds=67",
+    "raw": "[Achievements]\r\nAwesomeSauce=1\r\nTriggerFinger=1\r\n[Check]\r\nSaveVersion=1\r\n[Collectables]\r\nAwesomesauce=1\r\n[Positions]\r\n[Stats]\r\nDeaths=0\r\nDifficulty=1\r\nTimeSeconds=8",
     "sections": {
       "achievements": {
         "AwesomeSauce": "1",
-        "DeathsWorldStats": "1",
         "TriggerFinger": "1"
       },
       "check": {
@@ -17,18 +16,11 @@
       "collectables": {
         "Awesomesauce": "1"
       },
-      "exploration": {
-        "W8": "1"
-      },
-      "positions": {
-        "frame": "25",
-        "xPos": "1018",
-        "yPos": "216"
-      },
+      "positions": {},
       "stats": {
-        "Deaths": "1",
+        "Deaths": "0",
         "Difficulty": "1",
-        "TimeSeconds": "67"
+        "TimeSeconds": "8"
       }
     }
   },
