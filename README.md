@@ -70,29 +70,70 @@
 
 ## 🟧 Installation
 
-### 1️⃣ Download the Original Game
-> https://grynsoft.com/old-games
+### 0️⃣ Download the Installer
+
+[⬇️ **Download Boshy Randomizer Installer**](https://github.com/THXel/Boshy-Randomizer/releases/latest/download/Boshy%20Randomizer%20installer.exe)
+
+*(Windows only — requires the original “I Wanna Be The Boshy” game.)*
+
+---
+
+### 1️⃣ Download the Original Game  
+You must download the original game from the official Grynsoft website:
+
+👉 https://grynsoft.com/old-games  
+
+This will give you the **I Wanna Be The Boshy ZIP file**, which the installer will import automatically.
 
 ---
 
 ### 2️⃣ Install the Randomizer  
-- Run **Boshy Randomizer installer.exe**
-- After installation, **Boshy Randomizer.exe** appears automatically.
+
+1. Run **Boshy Randomizer installer.exe**
+2. Follow the installation wizard:
+   - Choose the installation directory  
+   - Accept the license  
+   - The installer will automatically:
+     - 📁 Copy all Randomizer files  
+     - 📦 Ask for your **Boshy ZIP** and extract it into `/IWBTB`  
+     - 🐍 Check for **Python 3.x** (and install it if missing)  
+     - 🔧 Install all required Python modules  
+     - 🔤 Install the **“its-boshy-time”** font  
+     - 📌 Create Start Menu shortcuts  
+
+After installation, you will find:
+
+- **Boshy Randomizer** (launcher)
+- **Uninstall Boshy Randomizer**
+
+in the Windows Start Menu.
 
 ---
 
-### 3️⃣ Launch  
-The launcher automatically checks:
+### 3️⃣ Launch the Randomizer  
 
-- ✔ Game installed  
-- ✔ Python & dependencies  
-- ✔ All Randomizer files exist  
+Start **Boshy Randomizer.exe** from the Start Menu.
+
+When launched, the Randomizer automatically verifies:
+
+- ✔ The original IWBTB game was extracted correctly  
+- ✔ Python & all modules are installed  
+- ✔ All necessary Randomizer files are present  
+
+If something is missing, the launcher will show a detailed debug message.
 
 ---
 
-### 4️⃣ Missing Game?  
-You will be prompted to select the game ZIP.  
-It will be extracted automatically into `/IWBTB`.
+### 4️⃣ Missing the Game Files?  
+
+If you haven't imported the game yet:
+
+- The installer (or launcher) will prompt you to select your **I Wanna Be The Boshy ZIP**  
+- It will automatically extract the internal `IWBTB` folder into:  
+  `...\Boshy Randomizer\IWBTB\`
+- The Randomizer will not start until the game is successfully imported  
+
+Once completed, you can immediately start your first randomized run 🎮
 
 ---
 
