@@ -70,7 +70,7 @@
 
 ## 🟧 Installation
 
-### 0️⃣ Download the Installer
+### 1️⃣ Download the Installer
 
 [⬇️ **Download Boshy Randomizer Installer**](https://github.com/THXel/Boshy-Randomizer/releases/latest/download/Boshy%20Randomizer%20installer.exe)
 
@@ -78,7 +78,7 @@
 
 ---
 
-### 1️⃣ Download the Original Game  
+### 2️⃣ Download the Original Game  
 You must download the original game from the official Grynsoft website:
 
 👉 https://grynsoft.com/old-games  
@@ -87,7 +87,7 @@ This will give you the **I Wanna Be The Boshy ZIP file**, which the installer wi
 
 ---
 
-### 2️⃣ Install the Randomizer  
+### 3️⃣ Install the Randomizer  
 
 1. Run **Boshy Randomizer installer.exe**
 2. Follow the installation wizard:
@@ -110,7 +110,7 @@ in the Windows Start Menu.
 
 ---
 
-### 3️⃣ Launch the Randomizer  
+### 4️⃣ Launch the Randomizer  
 
 Start **Boshy Randomizer.exe** from the Start Menu.
 
@@ -124,7 +124,7 @@ If something is missing, the launcher will show a detailed debug message.
 
 ---
 
-### 4️⃣ Missing the Game Files?  
+### 5️⃣ Missing the Game Files? 5️⃣ 
 
 If you haven't imported the game yet:
 
