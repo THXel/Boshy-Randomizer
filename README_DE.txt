@@ -1,151 +1,177 @@
 ==============================================================
-🧩 BOSHY RANDOMIZER
-Erstellt von THXel & der I Wanna Be The Boshy Speedrun Community
-© 2025 THXel
+                    BOSHY RANDOMIZER
+        Erstellt von THXel & der Boshy Speedrun Community
+                          © 2025 THXel
 ==============================================================
 
-ÜBER:
---------------------------------------------------------------
-Der Boshy Randomizer ist ein von Fans entwickeltes Zusatz-Tool
-für das Spiel "I Wanna Be The Boshy" von Solgryn (Grynsoft).
-
-Das Programm mischt Level, Bosse, Items, Zielobjekte und Charaktere
-zufällig neu und erweitert das Spiel um automatische Trigger,
-Overlays, Statistiken, Seed-System und diverse Komfortfunktionen.
-
-Entwickelt wurde es von THXel in Zusammenarbeit mit der
-Boshy Speedrun Community.
-
-⚠️ Hinweis:
-Dies ist nicht das Originalspiel, sondern nur das Randomizer-Tool.
-Das Spiel muss manuell hinzugefügt werden (siehe unten).
-
+Moderner Randomizer für „I Wanna Be The Boshy“
+Zufällige Routen • Live Tracker • Seed-System • Klare GUI
 
 --------------------------------------------------------------
-VORAUSSETZUNGEN:
+FEATURES
+--------------------------------------------------------------
+• Zufällige Level- und Bossreihenfolge
+• Stabiles Handling von Items und Collectables
+• Zufällige Charaktere – beim Start oder pro Stage
+• Target Collect Mode – Sammle alle Ziele, Route verborgen
+• Live Tracker – Achievements, Items, Bosse, Charaktere
+• Endscreen-Statistiken inkl. Route Code
+• Deterministische Seeds – identische Runs reproduzierbar
+• Automatisches Setup – Python, Module, Fonts, Spielimport
+
+--------------------------------------------------------------
+VORAUSSETZUNGEN
 --------------------------------------------------------------
 • Windows 10 oder neuer
-• Internetzugang (für automatische Installation beim ersten Start)
-
-
---------------------------------------------------------------
-INSTALLATION UND START:
---------------------------------------------------------------
-1️⃣ Lade das Originalspiel "I Wanna Be The Boshy" von:
-    https://grynsoft.com/old-games
-
-2️⃣ Starte den Boshy Randomizer Installer.
-    Danach wird automatisch eine **Boshy Randomizer.exe** erstellt.
-
-3️⃣ Starte das Tool anschließend über diese **Boshy Randomizer.exe**.
-
-    Der Launcher prüft automatisch:
-    • ob das Spiel vorhanden ist
-    • ob Python und alle Module installiert sind
-    • ob alle benötigten Dateien vorhanden sind
-
-4️⃣ Fehlt das Spiel, öffnet sich ein Auswahlfenster.
-    Wähle dort die ZIP-Datei des Spiels aus – sie wird automatisch
-    entpackt und eingerichtet.
-
+• Internetverbindung für die erste Einrichtung
+• Eine legale Kopie von „I Wanna Be The Boshy“ (ZIP von Grynsoft)
 
 --------------------------------------------------------------
-SPIELINFORMATIONEN
+DOWNLOAD & INSTALLATION
 --------------------------------------------------------------
 
-• Der Run startet immer mit dem **Tutorial**. Danach folgt –
-  abhängig von den GUI-Einstellungen – eine zufällige Route
-  oder der Target Collect Mode.
+ZIP-Download:
+https://github.com/THXel/Boshy-Randomizer/archive/refs/heads/Boshy-Randomizer.zip
 
-• Standardcharakter ist **Dark Boshy**.  
-  Mit der Option „Random Character“ startet der Run mit einem
-  zufälligen Charakter (optional Wechsel nach jeder Stage).
+1) Lade die ZIP-Datei herunter.
 
-• **Wichtig:**  
-  Wenn „Random Character“ aktiviert ist, wird das **Charakter-Menü (F3)
-  komplett gesperrt**, damit der festgelegte Charakter nachvollziehbar bleibt.
+2) Entpacke die ZIP-Datei an einem beliebigen Ort, z. B.:
+   C:\Games\Boshy Randomizer\
 
-• Beim ersten Start erscheint ein Hinweisfenster:
-      – Drücke mehrmals **Strg + R**, um einen neuen Run zu starten.
-      – Es wird ausschließlich **SaveFile1** verwendet.
-      – SaveFile2 und SaveFile3 bleiben deaktiviert.
-      – Beim Schließen des Spiels endet der Run.
+   Nach dem Entpacken sollte der Ordner so aussehen:
 
-• Achievements, Collectables und Unlockables bleiben über den gesamten
-  Run erhalten und werden vom Randomizer nicht entfernt.
+      Boshy Randomizer/
+       ├─ Custom/
+       ├─ INI/
+       ├─ PY/
+       ├─ Installer Files...
+       └─ Boshy Randomizer Installer.exe
 
-• Der Live Tracker zeigt während des Runs:
-      – Achievements
-      – Collectables
-      – Bosse
-      – Charaktere
-      – Zielobjekte (Target Mode)
-  und aktualisiert sich automatisch.
+3) Starte den Installer:
+   Boshy Randomizer Installer.exe
 
-⚠️ **Hinweis zur Synchronität:**  
-   Werte wie Items, Stats, Boss-Tode oder Target-Fortschritt können
-   aus technischen Gründen **leicht verzögert** erscheinen
-   (typisch 0.3–1.0 Sekunden).
+   Der Installer führt automatisch aus:
+   • Kopieren aller Randomizer-Dateien
+   • Installation von Python 3.x (falls nicht vorhanden)
+   • Installation aller benötigten Module
+   • Installation der „its-boshy-time“-Schriftart
+   • Abfrage deiner IWBTB-ZIP
+   • Entpacken des Spiels in /IWBTB
+   • Anlegen von Startmenü-Verknüpfungen
 
-• Im Target Collect Mode:
-      – Die Route wird ausgeblendet.
-      – Der Spieler sammelt eine festgelegte Anzahl an Zielen.
-      – Alle optionalen Level werden automatisch aktiviert.
-      – Gastly & Cheetahman werden verpflichtend eingeschaltet.
-      – Beim Erreichen aller Ziele erscheint automatisch Solgryn.
+4) Starte den Randomizer:
+   Startmenü → Boshy Randomizer
+
+   Der Launcher prüft automatisch:
+   • ob das IWBTB-Spiel korrekt importiert wurde
+   • ob Python installiert ist
+   • ob alle Module vorhanden sind
+   • ob alle Randomizer-Dateien existieren
+
+   Bei Problemen erscheint eine klare Debug-Meldung.
+
+--------------------------------------------------------------
+GAMEPLAY & MODI
+--------------------------------------------------------------
+
+RUN-START
+• Jeder Run beginnt im Tutorial.
+• Danach wechselt das Spiel je nach GUI:
+  – Zufällige Route
+  – Target Collect Mode
+
+CHARAKTER-RANDOMIZER
+• Standardcharakter: Dark Boshy
+• Optional:
+  – Zufällig beim Run-Start
+  – Zufällig pro Stage
+• Während Random Character aktiv ist:
+  Das F3-Charaktermenü ist deaktiviert.
+
+--------------------------------------------------------------
+TARGET COLLECT MODE
+--------------------------------------------------------------
+
+• Routensteuerung wird ausgeblendet.
+• Alle notwendigen optionalen Level werden aktiviert.
+• Ziele werden Seed-basiert ausgewählt.
+• Wenn alle Ziele gesammelt wurden:
+  Solgryn erscheint automatisch als Endboss.
+
+WICHTIG:
+Nur diese optionalen Bereiche dürfen deaktiviert werden:
+• Boberman
+• Questionmark (?)
+• Ridley
+
+Alle anderen optionalen Bereiche müssen aktiv bleiben,
+um alle Items erreichen zu können.
+
+--------------------------------------------------------------
+SYSTEMVERHALTEN
+--------------------------------------------------------------
+
+• Es wird ausschließlich SaveFile1 verwendet.
+• SaveFile1 darf NICHT gelöscht werden.
+• SaveFile2 und SaveFile3 werden immer überschrieben.
+• Achievements und Unlockables bleiben für den gesamten Run erhalten.
+• Der Teleport-Raum funktioniert normal, aber:
+  Um weiterzukommen, MUSS das Level gespielt werden,
+  das der Randomizer vorgibt. Überspringen ist nicht möglich.
 
 --------------------------------------------------------------
 SEED-SYSTEM
 --------------------------------------------------------------
-Der Randomizer unterstützt ein vollständiges **Seed-System**:
 
-• In der GUI kann ein Seed manuell eingegeben werden.
-• Alternativ erzeugt der Randomizer automatisch einen neuen Seed.
-• Der Seed definiert:
-      – die komplette Route (Ebenen & Bosse)
-      – optional die Charakter-Reihenfolge
-      – Zielobjekte (Target Collect Mode)
-• Seeds lassen sich an andere Spieler weitergeben,
-  damit exakt der gleiche Run erneut spielbar ist.
-• Der Seed wird angezeigt:
-      – beim Reset-Overlay
-      – nach dem Run im Endscreen
-      – im Debug-Log
+Ein Seed definiert:
+• Level- und Bossreihenfolge
+• komplette Routenstruktur
+• optionale Charakter-RNG
+• die Zielauswahl im Target Mode
 
---------------------------------------------------------------
-BEKANNTE HINWEISE:
---------------------------------------------------------------
-• Einige Triggerpunkte sind absichtlich versetzt gesetzt,
-  um den Ablauf stabil zu halten.
+Ein Seed wird angezeigt:
+• im Lade-Overlay
+• im Run-Start-Overlay
+• im Endscreen
+• im Debug-Log
 
-• Mods oder externe Savefiles können überschrieben werden –
-  nutze daher am besten frische Dateien.
+Seeds können geteilt werden, um identische Runs zu spielen.
 
 --------------------------------------------------------------
-TECHNISCHE DETAILS:
+BEKANNTE HINWEISE
 --------------------------------------------------------------
-• Programmiert in Python 3.11
-• Bibliotheken:
+
+• Einige Trigger sind absichtlich leicht versetzt.
+• Benutzerdefinierte Savefiles oder Mods können stören.
+
+--------------------------------------------------------------
+TECHNISCHE INFORMATIONEN
+--------------------------------------------------------------
+
+• Python 3.11
+• Verwendete Bibliotheken:
   pygetwindow, pyautogui, pillow, numpy, tkinter
 
-• Automatische Log-Datei:
-  **INI/randomizer_debug.log**
-
-Bitte sende bei Bugs immer **deinen Debug-Log mit**, sonst kann ich
-den Fehler nicht zuverlässig analysieren.
+Debug-Log-Datei:
+INI/randomizer_debug.log
 
 --------------------------------------------------------------
-SUPPORT & COMMUNITY:
+SUPPORT
 --------------------------------------------------------------
-Bei Fragen, Feedback oder Bugs:
-• Twitch:   https://twitch.tv/THXel
-• Discord:  https://discord.gg/ZXgTFjGw  (Boshy Speedrun Discord)
+
+Twitch:
+https://twitch.tv/THXel
+
+Discord:
+https://discord.gg/ZXgTFjGw
 
 --------------------------------------------------------------
-HAFTUNGSAUSSCHLUSS:
+HAFTUNGSAUSSCHLUSS
 --------------------------------------------------------------
-Dieses Projekt ist inoffiziell und steht in keiner Verbindung zu Solgryn (Grynsoft)
-oder offiziellen "I Wanna Be The Boshy"-Veröffentlichungen.
 
-Verwendung auf eigene Gefahr.
-Viel Spaß – it´s Boshy Time !
+Dieses Projekt ist inoffiziell und steht in keiner Verbindung zu
+Solgryn (Grynsoft) oder offiziellen IWBTB-Veröffentlichungen.
+
+Nutzung auf eigene Gefahr.
+Viel Spaß – It's Boshy Time!
+--------------------------------------------------------------
