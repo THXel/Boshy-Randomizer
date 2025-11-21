@@ -2,7 +2,7 @@
 
   <img src="Custom/boshy_randomizer.png?raw=true" alt="Boshy Randomizer" width="420">
 
-  <p><strong>Created by THXel &amp; the I Wanna Be The Boshy Speedrun Community</strong><br>
+  <p><strong>Created by THXel & the I Wanna Be The Boshy Speedrun Community</strong><br>
   © 2025 THXel</p>
 
 </div>
@@ -17,7 +17,7 @@
 <p align="center">
   <a href="#-features">Features</a> •
   <a href="#-installation">Installation</a> •
-  <a href="#-gameplay--modes">Gameplay &amp; Modes</a> •
+  <a href="#-gameplay--modes">Gameplay & Modes</a> •
   <a href="#-technical">Technical</a> •
   <a href="#-support">Support</a>
 </p>
@@ -28,11 +28,12 @@
 
 - 🎲 **Random Routes** – Levels & bosses shuffled every run  
 - 🧩 **Item & Collectable Handling** – trigger-stable routing  
-- 🧍 **Random Characters** – start or per stage  
-- 🎯 **Target Collect Mode** – play until all targets are collected  
-- 📊 **Live Tracker** – achievements, items, bosses & more  
-- 🧾 **Endscreen Stats** – run summary with seed code  
-- 🧪 **Deterministic Seeds** – share & replay routes  
+- 🧍 **Random Characters** – on start or per stage  
+- 🎯 **Target Collect Mode** – route hidden, collect all targets  
+- 📊 **Live Tracker** – achievements, items, bosses, characters  
+- 🧾 **Endscreen Stats** – summary + route code  
+- 🔁 **Deterministic Seeds** – share & replay identical runs  
+- ⚙️ **Auto-Setup System** – Python, modules, fonts, game import  
 
 ---
 
@@ -63,181 +64,170 @@
 
 ## 🟩 Requirements
 - Windows 10 or newer  
-- Internet connection (initial setup only)  
-- You must provide your own copy of **I Wanna Be The Boshy**
+- Internet connection for setup  
+- A copy of **I Wanna Be The Boshy** (ZIP from Grynsoft)
 
 ---
 
 ## 🟧 Installation
 
-### 1️⃣ Download the Installer
+<div align="center">
 
-[⬇️ **Download Boshy Randomizer Installer**](https://github.com/THXel/Boshy-Randomizer/releases/latest/download/Boshy%20Randomizer%20installer.exe)
+<a href="https://github.com/THXel/Boshy-Randomizer/archive/refs/heads/Boshy-Randomizer.zip">
+  <img src="https://img.shields.io/badge/⬇️%20DOWNLOAD%20BOSHY%20RANDOMIZER%20ZIP-2f8cff?style=for-the-badge&logo=files&logoColor=white" alt="Download Randomizer ZIP">
+</a>
 
-*(Windows only — requires the original “I Wanna Be The Boshy” game.)*
-
----
-
-### 2️⃣ Download the Original Game  
-You must download the original game from the official Grynsoft website:
-
-👉 https://grynsoft.com/old-games  
-
-This will give you the **I Wanna Be The Boshy ZIP file**, which the installer will import automatically.
+</div>
 
 ---
 
-### 3️⃣ Install the Randomizer  
+### 📦 Step 1 — Download the ZIP  
+Click the button above to download the **Boshy Randomizer ZIP**.
 
-1. Run **Boshy Randomizer installer.exe**
-2. Follow the installation wizard:
-   - Choose the installation directory  
-   - Accept the license  
-   - The installer will automatically:
-     - 📁 Copy all Randomizer files  
-     - 📦 Ask for your **Boshy ZIP** and extract it into `/IWBTB`  
-     - 🐍 Check for **Python 3.x** (and install it if missing)  
-     - 🔧 Install all required Python modules  
-     - 🔤 Install the **“its-boshy-time”** font  
-     - 📌 Create Start Menu shortcuts  
+### 📂 Step 2 — Extract the ZIP  
+Extract the ZIP **anywhere you want**, for example:
 
-After installation, you will find:
+```
+C:\Games\Boshy Randomizer\
+```
 
-- **Boshy Randomizer** (launcher)
-- **Uninstall Boshy Randomizer**
+### ▶ Step 3 — Run the Installer  
+Inside the extracted folder start:
 
-in the Windows Start Menu.
+**`Boshy Randomizer Installer.exe`**
 
----
+The installer will automatically:
 
-### 4️⃣ Launch the Randomizer  
+- copy all Randomizer files  
+- install Python 3.x (if missing)  
+- install required Python modules  
+- install the “its-boshy-time” font  
+- ask for your **IWBTB ZIP**  
+- extract the IWBTB game into `/IWBTB`  
+- create Start Menu shortcuts  
 
-Start **Boshy Randomizer.exe** from the Start Menu.
+### ▶ Step 4 — Start the Randomizer  
+Launch via:
 
-When launched, the Randomizer automatically verifies:
+**Start Menu → Boshy Randomizer**
 
-- ✔ The original IWBTB game was extracted correctly  
-- ✔ Python & all modules are installed  
-- ✔ All necessary Randomizer files are present  
+The launcher verifies:
 
-If something is missing, the launcher will show a detailed debug message.
+- IWBTB game folder imported correctly  
+- Python & required modules installed  
+- all Randomizer files present  
 
----
-
-### 5️⃣ Missing the Game Files? 5️⃣ 
-
-If you haven't imported the game yet:
-
-- The installer (or launcher) will prompt you to select your **I Wanna Be The Boshy ZIP**  
-- It will automatically extract the internal `IWBTB` folder into:  
-  `...\Boshy Randomizer\IWBTB\`
-- The Randomizer will not start until the game is successfully imported  
-
-Once completed, you can immediately start your first randomized run 🎮
+If something is missing, a detailed debug message is shown.
 
 ---
 
-## 🟪 Gameplay & Modes
+# 🟪 Gameplay & Modes
 
-### ▶ Start of a Run
-- Runs always begin in the **Tutorial**
-- Then either:
-  - **Random Route Mode**, or  
-  - **Target Collect Mode**
+## ▶ Run Start
+Every run begins in the **Tutorial**, then continues either:
 
----
+- **Random Route Mode**, or  
+- **Target Collect Mode**
 
-### 🧍 Character Randomizer
-- Default character: **Dark Boshy**
+depending on the GUI settings.
+
+## 🧍 Character Randomizer
+- Default: **Dark Boshy**  
 - Optional:
-  - Random at run start  
-  - Random per boss/level  
-
-> 🔒 While Random Character mode is active,  
-> the in-game character menu **F3 is disabled**  
-> to keep seeds 100% deterministic.
+  - random on run start  
+  - random per stage  
+- When enabled:  
+  **F3 Character Menu is disabled** → deterministic seeds
 
 ---
 
-### 🎯 Target Collect Mode
+## 🎯 Target Collect Mode
+
 - Hides route sliders  
-- Activates all optional levels  
-- Forces **Gastly** & **Cheetahman**  
-- Target items are chosen deterministically via your seed  
-- After all targets are collected, **Solgryn** spawns as final boss
+- Enables all required optional levels  
+- Target selection is seed-based  
+- After all targets are collected: **Solgryn spawns automatically**
+
+### Important Logic Update  
+To ensure full item access, the **only optional areas that may be turned off** are:
+
+- **Boberman**  
+- **Questionmark (?)**  
+- **Ridley**
+
+All other optional areas **must remain enabled**.
 
 ---
 
-### 🧠 System Behaviour
-- Achievements persist for the entire run  
-- Trigger zones tuned for stability  
-- Awesomesauce enabled by default for full item accessibility  
+## 🧠 System Behaviour
 
-If a trigger doesn’t fire immediately:
-- just continue playing  
-- the system will auto-resync  
-- for repeated issues → please send `INI/randomizer_debug.log`
-
-⏱ Sync of items, stats & Target Collect may lag slightly (export loop).
+- Only **SaveFile1** is used  
+- **Do NOT delete SaveFile1**  
+- SaveFile2/3 are always overwritten with defaults  
+- Achievements & unlockables persist through the entire run  
+- Teleport Room works normally — but:  
+  **you must play the level the Randomizer gives you**  
+  → skipping progress via teleporter is not possible
 
 ---
 
-## 🎲 Seed System
+# 🎲 Seed System
 
-Every seed encodes:
+Each seed defines:
+- level & boss order  
+- full route structure  
+- optional character RNG  
+- target item selection  
 
-- Route structure  
-- Character RNG  
-- Target Collect RNG  
+Seeds appear in:
+- loading overlay  
+- run start overlay  
+- endscreen  
+- debug log  
 
-The seed is displayed in:
-
-- Start overlay  
-- Loading overlay  
-- Endscreen  
-- Debug log  
-
-You can share the full **route code** so others can replay the exact run.
+Seeds can be shared so others can replay identical runs.
 
 ---
 
-## 🟫 Known Notes
+# 🟫 Known Notes
 - Some triggers intentionally offset for stability  
-- Custom mods / savefiles may conflict with Randomizer files  
+- Mods or external savefiles may interfere  
 
 ---
 
-## 🔧 Technical
+# 🔧 Technical
+
 - Python **3.11**  
-- Libraries:
-  - `pygetwindow`
-  - `pyautogui`
-  - `pillow`
-  - `numpy`
-  - `tkinter`
+- Uses:
+  - pygetwindow  
+  - pyautogui  
+  - pillow  
+  - numpy  
+  - tkinter  
 
-- Debug logs:
-  - `INI/randomizer_debug.log`  
+Log file:
+```
+INI/randomizer_debug.log
+```
 
-Please attach this file when reporting bugs.
+Include this file when reporting bugs.
 
 ---
 
-## 🟨 Support
+# 🟨 Support
 
-**Twitch**  
+**Twitch:**  
 https://twitch.tv/THXel  
 
-**Discord**  
-https://discord.gg/ZXgTFjGw  
-*(I Wanna Be The Boshy Speedrun Community)*
+**Discord:**  
+https://discord.gg/ZXgTFjGw
 
 ---
 
-## ⚫ Disclaimer
+# ⚫ Disclaimer
 
-This is an unofficial fan project and is not affiliated with  
-**Solgryn (Grynsoft)** or any official *I Wanna Be The Boshy* releases.
+This project is unofficial and not affiliated with  
+**Solgryn (Grynsoft)** or any official IWBTB release.
 
 Use at your own risk.  
-**Have fun – it’s Boshy Time!** 😈
+**Have fun — it’s Boshy Time!**
