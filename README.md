@@ -109,7 +109,7 @@ The installer will then automatically:
 
 ---
 
-### ▶ Step 2 — Start the Randomizer  
+### ▶ Step 3 — Start the Randomizer  
 
 Launch via:
 
