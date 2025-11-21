@@ -1,9 +1,0 @@
-{
-  "ts": 1763498013.5648706,
-  "tag": "positions_replace",
-  "size_after_bytes": 807,
-  "details": {
-    "plain_len": 807
-  },
-  "stack": "File \"C:\\Python Projekt\\Boshy Randomizer\\boshy_save_tester.py\", line 124, in quick_overwrite\n    ok = apply_positions_to_save(stage_name, pos_data)\n  File \"C:\\Python Projekt\\Boshy Randomizer\\PY\\positions_utils.py\", line 97, in apply_positions_to_save\n    write_save_tagged(\"positions_replace\", new_plain)\n  File \"C:\\Python Projekt\\Boshy Randomizer\\PY\\save_utils.py\", line 119, in write_save_tagged\n    mark_last_writer(tag, {\"plain_len\": len(new_plain)})\n  File \"C:\\Python Projekt\\Boshy Randomizer\\PY\\save_utils.py\", line 69, in mark_last_writer\n    \"stack\": _short_stack(),"
-}
