@@ -1,0 +1,9 @@
+{
+  "ts": 1763761190.9080205,
+  "tag": "save_profile_manager",
+  "size_after_bytes": 115,
+  "details": {
+    "tag": "startup"
+  },
+  "stack": "File \"<frozen runpy>\", line 88, in _run_code\n  File \"C:\\Python Projekt\\Boshy Randomizer\\PY\\rando_script.py\", line 268, in <module>\n    write_all_saves_from_profiles(tag=\"startup\")\n  File \"C:\\Python Projekt\\Boshy Randomizer\\PY\\save_profile_manager.py\", line 104, in write_all_saves_from_profiles\n    mark_last_writer(\"save_profile_manager\", {\"tag\": str(tag)})\n  File \"C:\\Python Projekt\\Boshy Randomizer\\PY\\save_utils.py\", line 50, in mark_last_writer\n    \"stack\": _short_stack(),"
+}

@@ -1,0 +1,373 @@
+[
+  {
+    "Region": "Tutorial",
+    "relative": true,
+    "center": { "x": 786, "y": 560 },
+    "avg_color": "0xFF7373",
+    "samples": []
+  },
+
+  {
+    "Region": "save1.ini",
+    "relative": true,
+    "center": { "x": 146, "y": 198 },
+    "avg_color": "0x1C8F75",
+    "samples": []
+  },
+  {
+    "Region": "save1.ini",
+    "relative": true,
+    "center": { "x": 68, "y": 450 },
+    "avg_color": "0x6B88FF",
+    "samples": []
+  },
+
+  {
+    "Region": "save2.ini",
+    "relative": true,
+    "center": { "x": 302, "y": 75 },
+    "avg_color": "0xFDA84F",
+    "samples": []
+  },
+
+  {
+    "Region": "save5.ini",
+    "relative": true,
+    "center": { "x": 591, "y": 676 },
+    "avg_color": "0xF8FCF8",
+    "samples": []
+  },
+
+  {
+    "Region": "save6.ini",
+    "relative": true,
+    "center": { "x": 50, "y": 972 },
+    "avg_color": "0x6B2400",
+    "samples": []
+  },
+
+  {
+    "Region": "save7.ini",
+    "relative": true,
+    "center": { "x": 127, "y": 848 },
+    "avg_color": "0x7698AB",
+    "samples": []
+  },
+  {
+    "Region": "save7.ini",
+    "relative": true,
+    "center": { "x": 271, "y": 276 },
+    "avg_color": "0x9B8EEC",
+    "samples": []
+  },
+
+  {
+    "Region": "save8.ini",
+    "relative": true,
+    "center": { "x": 185, "y": 747 },
+    "avg_color": "0xACACAC",
+    "samples": []
+  },
+
+  {
+    "Region": "save9.ini",
+    "relative": true,
+    "center": { "x": 52, "y": 135 },
+    "avg_color": "0x241B94",
+    "samples": []
+  },
+  {
+    "Region": "save9.ini",
+    "relative": true,
+    "center": { "x": 656, "y": 905 },
+    "avg_color": "0x1787CB",
+    "samples": []
+  },
+
+  {
+    "Region": "save10.ini",
+    "relative": true,
+    "center": { "x": 736, "y": 625 },
+    "avg_color": "0xFC7460",
+    "samples": []
+  },
+
+  {
+    "Region": "save11.ini",
+    "relative": true,
+    "center": { "x": 1206, "y": 61 },
+    "avg_color": "0x2FEA1D",
+    "samples": []
+  },
+
+  {
+    "Region": "save12.ini",
+    "relative": true,
+    "center": { "x": 1007, "y": 856 },
+    "avg_color": "0x06287D",
+    "samples": []
+  },
+
+  {
+    "Region": "save13.ini",
+    "relative": true,
+    "center": { "x": 1140, "y": 517 },
+    "avg_color": "0x8374C1",
+    "samples": []
+  },
+
+  {
+    "Region": "save14.ini",
+    "relative": true,
+    "center": { "x": 679, "y": 392 },
+    "avg_color": "0xA4A213",
+    "samples": []
+  },
+
+  {
+    "Region": "save15.ini",
+    "relative": true,
+    "center": { "x": 1155, "y": 974 },
+    "avg_color": "0xBCBCBC",
+    "samples": []
+  },
+  {
+    "Region": "save15.ini",
+    "relative": true,
+    "center": { "x": 118, "y": 412 },
+    "avg_color": "0xBCBCBC",
+    "samples": []
+  },
+
+  {
+    "Region": "save17.ini",
+    "relative": true,
+    "center": { "x": 1179, "y": 136 },
+    "avg_color": "0xFF0000",
+    "samples": []
+  },
+
+  {
+    "Region": "save18.ini",
+    "relative": true,
+    "center": { "x": 620, "y": 713 },
+    "avg_color": "0xFFE3A2",
+    "samples": []
+  },
+
+  {
+    "Region": "save19.ini",
+    "relative": true,
+    "center": { "x": 456, "y": 280 },
+    "avg_color": "0x7850F8",
+    "samples": []
+  },
+
+  {
+    "Region": "save20.ini",
+    "relative": true,
+    "center": { "x": 464, "y": 88 },
+    "avg_color": "0x8CA6AF",
+    "samples": []
+  },
+
+  {
+    "Region": "save21.ini",
+    "relative": true,
+    "center": { "x": 1122, "y": 92 },
+    "avg_color": "0x050C2C",
+    "samples": []
+  },
+
+  {
+    "Region": "save22.ini",
+    "relative": true,
+    "center": { "x": 247, "y": 43 },
+    "avg_color": "0xFFFFFE",
+    "samples": []
+  },
+
+  {
+    "Region": "boss1.ini",
+    "relative": true,
+    "center": { "x": 26, "y": 823 },
+    "avg_color": "0xFCD8A8",
+    "samples": []
+  },
+
+  {
+    "Region": "boss2.ini",
+    "relative": true,
+    "center": { "x": 172, "y": 566 },
+    "avg_color": "0xFCA854",
+    "samples": []
+  },
+
+  {
+    "Region": "boss3.ini",
+    "relative": true,
+    "center": { "x": 608, "y": 646 },
+    "avg_color": "0x00E0F8",
+    "samples": []
+  },
+
+  {
+    "Region": "boss4.ini",
+    "relative": true,
+    "center": { "x": 274, "y": 308 },
+    "avg_color": "0xB45217",
+    "samples": []
+  },
+
+  {
+    "Region": "boss5.ini",
+    "relative": true,
+    "center": { "x": 274, "y": 306 },
+    "avg_color": "0xCD6221",
+    "samples": []
+  },
+
+  {
+    "Region": "boss6.ini",
+    "relative": true,
+    "center": { "x": 1256, "y": 851 },
+    "avg_color": "0x363E00",
+    "samples": []
+  },
+
+  {
+    "Region": "boss7.ini",
+    "relative": true,
+    "center": { "x": 1130, "y": 916 },
+    "avg_color": "0xDF455F",
+    "samples": []
+  },
+
+  {
+    "Region": "boss8.ini",
+    "relative": true,
+    "center": { "x": 89, "y": 400 },
+    "avg_color": "0x606060",
+    "samples": []
+  },
+
+  {
+    "Region": "boss9.ini",
+    "relative": true,
+    "center": { "x": 118, "y": 855 },
+    "avg_color": "0xA40000",
+    "samples": []
+  },
+
+  {
+    "Region": "boss10.ini",
+    "relative": true,
+    "center": { "x": 855, "y": 837 },
+    "avg_color": "0x512191",
+    "samples": []
+  },
+
+  {
+    "Region": "boss11.ini",
+    "relative": true,
+    "center": { "x": 1262, "y": 684 },
+    "avg_color": "0xE0FCA0",
+    "samples": []
+  },
+
+  {
+    "Region": "boss12.ini",
+    "relative": true,
+    "center": { "x": 852, "y": 628 },
+    "avg_color": "0xF67241",
+    "samples": []
+  },
+
+  {
+    "Region": "boss13.ini",
+    "relative": true,
+    "center": { "x": 505, "y": 600 },
+    "avg_color": "0x0C3394",
+    "samples": []
+  },
+
+  {
+    "Region": "boss14.ini",
+    "relative": true,
+    "center": { "x": 404, "y": 399 },
+    "avg_color": "0xFFA242",
+    "samples": []
+  },
+
+  {
+    "Region": "boss15.ini",
+    "relative": true,
+    "center": { "x": 127, "y": 969 },
+    "avg_color": "0xFFBCB4",
+    "samples": []
+  },
+
+  {
+    "Region": "boss16.ini",
+    "relative": true,
+    "center": { "x": 198, "y": 237 },
+    "avg_color": "0x00B800",
+    "samples": []
+  },
+
+  {
+    "Region": "boss17.ini",
+    "relative": true,
+    "center": { "x": 62, "y": 829 },
+    "avg_color": "0xCF8C51",
+    "samples": []
+  },
+
+  {
+    "Region": "boss18.ini",
+    "relative": true,
+    "center": { "x": 775, "y": 872 },
+    "avg_color": "0x0088F8",
+    "samples": []
+  },
+
+  {
+    "Region": "boss19.ini",
+    "relative": true,
+    "center": { "x": 14, "y": 34 },
+    "avg_color": "0x000000",
+    "samples": []
+  },
+
+  {
+    "Region": "boss20.ini",
+    "relative": true,
+    "center": { "x": 12, "y": 34 },
+    "avg_color": "0x000000",
+    "samples": []
+  },
+
+  {
+    "Region": "boss21.ini",
+    "relative": true,
+    "center": { "x": 119, "y": 550 },
+    "avg_color": "0xFCD991",
+    "samples": []
+  },
+
+  {
+    "Region": "boss22.ini",
+    "relative": true,
+    "center": { "x": 99, "y": 951 },
+    "avg_color": "0xFEBEB6",
+    "samples": []
+  },
+
+  {
+    "Region": "boss23.ini",
+    "relative": true,
+    "center": { "x": 119, "y": 789 },
+    "avg_color": "0xA40000",
+    "samples": []
+  }
+]

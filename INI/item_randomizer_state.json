@@ -1,0 +1,44 @@
+{
+  "collectables": [
+    "Timer",
+    "Trololol CD",
+    "RickRoll CD",
+    "Rupees",
+    "Metal Gear",
+    "AwesomeSauce",
+    "Awesomesauce"
+  ],
+  "unlockables": [
+    "Dark Boshy",
+    "Spike",
+    "Sonic",
+    "Ryu",
+    "Simon Belmont",
+    "Orc"
+  ],
+  "achievements": [
+    "Rupees",
+    "Timer",
+    "AwesomeSauce",
+    "Scouter",
+    "Cake",
+    "Wily CD",
+    "Lalalalalala CD",
+    "Chocolate CD",
+    "Mixer",
+    "Gastly",
+    "Trololol CD",
+    "RickRoll CD",
+    "Keyboard Cat CD",
+    "LIVE CD",
+    "Sexy Sax CD",
+    "Metal Gear",
+    "Cookie CD",
+    "Sax CD",
+    "Barrel Roll CD",
+    "Hamster CD"
+  ],
+  "handled_originals": [
+    "Wily CD"
+  ]
+}

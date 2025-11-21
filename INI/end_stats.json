@@ -1,0 +1,15 @@
+{
+  "savefile": {
+    "achievements": {
+      "TriggerFinger": "1"
+    },
+    "check": {
+      "SaveVersion": "1"
+    },
+    "stats": {
+      "Difficulty": "1",
+      "TimeSeconds": "21"
+    }
+  },
+  "license": {}
+}

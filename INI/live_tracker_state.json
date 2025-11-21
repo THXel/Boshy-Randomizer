@@ -1,0 +1,37 @@
+{
+  "meta": {
+    "generated_at": 1763761193.415483,
+    "source": "state_exporter.py"
+  },
+  "save": {
+    "raw": "[Check]\nSaveVersion=1\n[Stats]\nDeaths=0\nDifficulty=1\nTimeSeconds=0\n[Collectables]\nAwesomesauce=1\n[Positions]",
+    "sections": {
+      "check": {
+        "SaveVersion": "1"
+      },
+      "stats": {
+        "Deaths": "0",
+        "Difficulty": "1",
+        "TimeSeconds": "0"
+      },
+      "collectables": {
+        "Awesomesauce": "1"
+      },
+      "positions": {}
+    }
+  },
+  "license": {
+    "raw": "[License]\r\nCharacter=84\r\nCharacterName=Dark Boshy\r\nName=Boshy\r\nNeverDoneItBefore=1\r\n[Unlockables]\r\nDark Boshy=1",
+    "sections": {
+      "license": {
+        "Character": "84",
+        "CharacterName": "Dark Boshy",
+        "Name": "Boshy",
+        "NeverDoneItBefore": "1"
+      },
+      "unlockables": {
+        "Dark Boshy": "1"
+      }
+    }
+  }
+}
