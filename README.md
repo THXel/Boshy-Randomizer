@@ -73,26 +73,16 @@
 
 <div align="center">
 
-<a href="https://github.com/THXel/Boshy-Randomizer/archive/refs/heads/Boshy-Randomizer.zip">
-  <img src="https://img.shields.io/badge/⬇️%20DOWNLOAD%20BOSHY%20RANDOMIZER%20ZIP-2f8cff?style=for-the-badge&logo=files&logoColor=white" alt="Download Randomizer ZIP">
+<a href="https://github.com/THXel/Boshy-Randomizer/raw/refs/heads/Boshy-Randomizer/Boshy%20Randomizer%20installer.exe">
+  <img src="https://img.shields.io/badge/⬇️%20DOWNLOAD%20BOSHY%20RANDOMIZER%20INSTALLER-2f8cff?style=for-the-badge&logo=files&logoColor=white" alt="Download Randomizer ZIP">
 </a>
 
 </div>
 
 ---
 
-### 📦 Step 1 — Download the ZIP  
-Click the button above to download the **Boshy Randomizer ZIP**.
 
-### 📂 Step 2 — Extract the ZIP  
-Extract the ZIP **anywhere you want**, for example:
-
-```
-C:\Games\Boshy Randomizer\
-```
-
-### ▶ Step 3 — Run the Installer  
-Inside the extracted folder start:
+### ▶ Step 1 — Run the Installer  
 
 **`Boshy Randomizer Installer.exe`**
 
@@ -106,7 +96,7 @@ The installer will automatically:
 - extract the IWBTB game into `/IWBTB`  
 - create Start Menu shortcuts  
 
-### ▶ Step 4 — Start the Randomizer  
+### ▶ Step 2 — Start the Randomizer  
 Launch via:
 
 **Start Menu → Boshy Randomizer**
