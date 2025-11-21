@@ -30,45 +30,76 @@ REQUIREMENTS
 DOWNLOAD & INSTALLATION
 --------------------------------------------------------------
 
-Download ZIP:
-https://github.com/THXel/Boshy-Randomizer/archive/refs/heads/Boshy-Randomizer.zip
+Installer Download:
+https://github.com/THXel/Boshy-Randomizer/raw/refs/heads/Boshy-Randomizer/Boshy%20Randomizer%20installer.exe
 
-1) Download the ZIP file above.
+--------------------------------------------------------------
+1) Download the Installer
+--------------------------------------------------------------
 
-2) Extract the ZIP anywhere you want, for example:
-   C:\Games\Boshy Randomizer\
+Download the file:
 
-   After extraction, your folder should look like this:
-
-      Boshy Randomizer/
-       ├─ Custom/
-       ├─ INI/
-       ├─ PY/
-       ├─ Installer Files...
-       └─ Boshy Randomizer Installer.exe
-
-3) Run the installer:
    Boshy Randomizer Installer.exe
 
-   The installer will:
+⚠️ Note:
+Windows may show a SmartScreen warning:
+
+   "Windows protected your PC" / "Unrecognized app"
+
+This happens because the installer is not digitally signed.
+
+To continue installation:
+
+   • Click “More information”
+   • Click “Run anyway”
+
+This is normal and safe.
+
+--------------------------------------------------------------
+2) Run the Installer
+--------------------------------------------------------------
+
+The installer will automatically:
+
    • copy all Randomizer files
    • install Python 3.x if missing
-   • install all required modules
+   • install all required Python modules
    • install the “its-boshy-time” font
    • ask for your IWBTB ZIP
    • extract the IWBTB game into /IWBTB
    • create Start Menu shortcuts
 
-4) Start the Randomizer:
+No manual setup is required.
+
+--------------------------------------------------------------
+3) Select your IWBTB ZIP
+--------------------------------------------------------------
+
+When triggered, the installer opens the official Grynsoft website.
+
+Download the original IWBTB ZIP from there.
+
+The installer will then ask you to select it and will import
+and extract the game into:
+
+   IWBTB/
+
+--------------------------------------------------------------
+4) Start the Randomizer
+--------------------------------------------------------------
+
+Launch via:
+
    Start Menu → Boshy Randomizer
 
-   The launcher checks:
-   • IWBTB folder imported correctly
-   • Python installation
-   • required modules
-   • all Randomizer files
+The launcher automatically checks:
 
-   If something is missing, a debug message will appear.
+   • IWBTB folder imported correctly
+   • Python installed
+   • all required modules installed
+   • all Randomizer files present
+
+If something is missing, a clear debug message will explain the issue.
 
 --------------------------------------------------------------
 GAMEPLAY & MODES
