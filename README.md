@@ -85,15 +85,43 @@
 
 **`Boshy Randomizer Installer.exe`**
 
-The installer will automatically:
+⚠️ **Note:**  
+Windows may show a **SmartScreen warning** saying  
+“Windows protected your PC” / “Unrecognized app”.
+
+This happens because the installer is **not digitally signed**.
+
+To continue installation:
+
+1. Click **“More information”**  
+2. Click **“Run anyway”**
+
+This is normal and safe.
+
+The installer will then automatically:
 
 - copy all Randomizer files  
 - install Python 3.x (if missing)  
-- install required Python modules  
-- install the “its-boshy-time” font  
+- install required modules  
 - ask for your **IWBTB ZIP**  
 - extract the IWBTB game into `/IWBTB`  
 - create Start Menu shortcuts  
+
+---
+
+### ▶ Step 2 — Start the Randomizer  
+
+Launch via:
+
+**Start Menu → Boshy Randomizer**
+
+The launcher verifies:
+
+- IWBTB game folder imported correctly  
+- Python & required modules installed  
+- all Randomizer files present  
+
+If something is missing, a detailed debug message is shown.
 
 ---
 
