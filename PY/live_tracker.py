@@ -246,23 +246,32 @@ class LiveTrackerUI:
             "fg": "#EDEEF0",
             "muted": "#9AA0A6",
             "accent": "#13C3FF",
+
+            # Farben für Target-Items
+            "good": "#5EE37A",   # Grün ✔️
+            "bad":  "#FF6B6B",   # Rot ❌
         }
         self.THEME = THEME
+
         r = self.root
         r.title("Boshy Live Tracker")
         try:
             r.attributes("-topmost", True)
         except Exception:
             pass
+
         try:
             sw = r.winfo_screenwidth()
             r.geometry(f"450x520+{sw - 500}+80")
         except Exception:
             r.geometry("440x520+60+60")
+
         r.configure(bg=THEME["bg"])
+
         logo_wrap = tk.Frame(r, bg=THEME["bg"])
         logo_wrap.pack(fill="x", padx=8, pady=(8, 2))
         self._safe_logo(logo_wrap, max_w=420, max_h=70)
+
         top = tk.Frame(r, bg=THEME["bg"])
         top.pack(fill="x", padx=12, pady=(0, 4))
         self.lbl_title = tk.Label(
@@ -273,10 +282,14 @@ class LiveTrackerUI:
             font=(self.font_name, self.SIZE_TITLE, "bold"),
         )
         self.lbl_title.pack(side="left")
+
+        # Timer + Deaths
         mid = tk.Frame(r, bg=THEME["bg"])
         mid.pack(fill="x", padx=12, pady=(0, 4))
+
         timer_row = tk.Frame(mid, bg=THEME["bg"])
         timer_row.pack(anchor="w")
+
         self.timer_lbl_main = tk.Label(
             timer_row,
             text="00:00:00",
@@ -285,6 +298,7 @@ class LiveTrackerUI:
             font=(self.font_name, self.SIZE_TIMER, "bold"),
         )
         self.timer_lbl_main.pack(side="left")
+
         self.timer_lbl_ms = tk.Label(
             timer_row,
             text=".000",
@@ -293,6 +307,7 @@ class LiveTrackerUI:
             font=(self.font_name, self.SIZE_TIMER_MS, "bold"),
         )
         self.timer_lbl_ms.pack(side="left", pady=(17, 0))
+
         self.deaths_lbl = tk.Label(
             mid,
             text="Deaths: 0",
@@ -301,8 +316,10 @@ class LiveTrackerUI:
             font=(self.font_name, self.SIZE_DEATH, "bold"),
         )
         self.deaths_lbl.pack(anchor="w")
+
         self.pb_frame = tk.Frame(r, bg=THEME["bg"])
         self.pb_frame.pack(fill="x", padx=12, pady=(0, 6))
+
         self.progress_label = tk.Label(
             self.pb_frame,
             text="",
@@ -311,15 +328,18 @@ class LiveTrackerUI:
             font=(self.font_name, self.SIZE_SUB),
         )
         self.progress_label.pack(anchor="w", pady=(0, 1))
+
         style = ttk.Style()
         try:
             style.theme_use("alt")
         except Exception:
             pass
+
         style.configure(
             "Boshy.Horizontal.TProgressbar",
             troughcolor=THEME["panel"],
         )
+
         self.pb = ttk.Progressbar(
             self.pb_frame,
             mode="determinate",
@@ -328,11 +348,23 @@ class LiveTrackerUI:
             style="Boshy.Horizontal.TProgressbar",
         )
         self.pb.pack(fill="x")
+
         self.target_center_frame = tk.Frame(self.pb_frame, bg=THEME["panel"])
+
+        self.target_center_header = tk.Label(
+            self.target_center_frame,
+            text="🎯 Target collect items",
+            bg=self.THEME["panel"],
+            fg=self.THEME["accent"],
+            font=(self.font_name, self.SIZE_DEATH, "bold"),
+            anchor="w",
+        )
+        self.target_center_header.pack(fill="x", padx=4, pady=(4, 0))
+
         self.target_center_list = tk.Listbox(
             self.target_center_frame,
-            bg=THEME["panel"],
-            fg=THEME["fg"],
+            bg=self.THEME["panel"],
+            fg=self.THEME["fg"],
             selectbackground=self.THEME["accent"],
             selectforeground=self.THEME["bg"],
             activestyle="none",
@@ -340,8 +372,10 @@ class LiveTrackerUI:
             highlightbackground=self.THEME["accent"],
             borderwidth=0,
         )
-        self.target_center_list.pack(fill="x", expand=False, padx=4, pady=2)
+        self.target_center_list.pack(fill="x", expand=False, padx=4, pady=(2, 4))
+
         self.target_center_frame.pack_forget()
+
         self._build_tree_2col()
     def _build_tree_2col(self):
         outer = tk.Frame(self.root, bg=self.THEME["bg"])
@@ -879,6 +913,7 @@ class LiveTrackerUI:
                 if k.strip().lower() == "solgryn":
                     sol_val = v
                     break
+
             if sol_val is not None and str(sol_val).strip() not in ("", "0"):
                 if not self._solgryn_done:
                     self._solgryn_done = True
@@ -888,6 +923,7 @@ class LiveTrackerUI:
                         else:
                             self._frozen_time = 0.0
                     log("[live] Solgryn achievement detected – timer will freeze")
+
             targets: list[str] = []
             try:
                 if os.path.exists(TARGETS_JSON):
@@ -905,7 +941,9 @@ class LiveTrackerUI:
                     ]
             except Exception:
                 targets = []
+
             use_target_mode = bool(targets)
+
             if use_target_mode:
                 try:
                     if self.pb.winfo_ismapped():
@@ -934,6 +972,7 @@ class LiveTrackerUI:
                         self.pb.pack(fill="x")
                 except Exception:
                     pass
+
             if self.route_total and self.route_total > 0:
                 cur = max(0, min(self.route_index, self.route_total))
                 pct = int(100 * cur / self.route_total)
@@ -943,6 +982,7 @@ class LiveTrackerUI:
                 except Exception:
                     pass
                 return
+
             total = max(1, len(ach))
             got = sum(1 for v in ach.values() if str(v).strip() == "1")
             self.pb["value"] = int(100 * got / total)
@@ -954,19 +994,44 @@ class LiveTrackerUI:
     def _update_target_center_list(self, targets: list[str]):
         if not self.target_center_frame or not self.target_center_list:
             return
+
+        try:
+            y0, y1 = self.target_center_list.yview()
+        except Exception:
+            y0 = None
+
         self.target_center_list.delete(0, tk.END)
+
         n = max(1, min(len(targets), 10))
         self.target_center_list.config(height=n)
+
         for name in targets:
             collected = (
                 any(name == k.lower() for k in self._last_ach.keys())
                 or any(name == k.lower() for k in self._last_col.keys())
                 or any(name == k.lower() for k in self._last_char.keys())
             )
-            box = "[✓]" if collected else "[ ]"
+
+            check = "✔️" if collected else "❌"
             display_name = name.replace("_", " ")
-            text = f"{box} {display_name}"
+            text = f"{check} {display_name}"
+
+            idx = self.target_center_list.size()
             self.target_center_list.insert(tk.END, text)
+
+            color = self.THEME["good"] if collected else self.THEME["bad"]
+            try:
+                self.target_center_list.itemconfig(idx, fg=color)
+            except Exception:
+                pass
+
+        # Scrollposition wiederherstellen
+        if y0 is not None:
+            try:
+                self.target_center_list.yview_moveto(y0)
+            except Exception:
+                pass
+
     def _apply_targets_section(self):
         if not os.path.exists(TARGETS_JSON):
             if "targets" in self.section_nodes:
@@ -978,6 +1043,7 @@ class LiveTrackerUI:
                     pass
             self.targets_node = None
             return
+
         try:
             with open(TARGETS_JSON, "r", encoding="utf-8") as f:
                 tj = json.load(f) or {}
@@ -989,6 +1055,7 @@ class LiveTrackerUI:
             targets = [str(x).strip().lower() for x in raw_list if str(x).strip()]
         except Exception:
             targets = []
+
         if not targets:
             if "targets" in self.section_nodes:
                 tree = self._get_tree_for_section("targets")
@@ -999,6 +1066,7 @@ class LiveTrackerUI:
                     pass
             self.targets_node = None
             return
+
         use_target_mode = bool(targets)
         if use_target_mode:
             if "targets" in self.section_nodes:
@@ -1010,17 +1078,21 @@ class LiveTrackerUI:
                     pass
             self.targets_node = None
             return
+
         parent = self._ensure_section_node("targets")
         tree = self._get_tree_for_section("targets")
         children = self.section_children.setdefault("targets", {})
+
         old_keys = set(children.keys())
         new_keys = set(targets)
+
         for k in old_keys - new_keys:
             try:
                 tree.delete(children[k])
             except Exception:
                 pass
             children.pop(k, None)
+
         for name in new_keys:
             collected = (
                 any(name == k.lower() for k in self._last_ach.keys())
@@ -1033,7 +1105,12 @@ class LiveTrackerUI:
             img = self._get_icon_for(display_name)
             if name in children:
                 try:
-                    tree.item(children[name], text=text, image=img, tags=("target_item",))
+                    tree.item(
+                        children[name],
+                        text=text,
+                        image=img,
+                        tags=("target_item",),
+                    )
                 except Exception:
                     pass
             else:
