@@ -37,27 +37,10 @@
 
 ---
 
-## 🖼 Screenshots
+## 🎮 Gameplay Preview
 
 <div align="center">
-
-<table>
-<tr>
-<td align="center">
-  <img src="Custom/GUI1.PNG?raw=true" width="300"><br>
-  <b>GUI 1</b>
-</td>
-<td align="center">
-  <img src="Custom/GUI2.PNG?raw=true" width="300"><br>
-  <b>GUI 2</b>
-</td>
-<td align="center">
-  <img src="Custom/livetracker.PNG?raw=true" width="300"><br>
-  <b>Live Tracker</b>
-</td>
-</tr>
-</table>
-
+  <img src="Custom/gameplay.gif?raw=true" width="300">
 </div>
 
 ---
@@ -125,22 +108,6 @@ If something is missing, a detailed debug message is shown.
 
 ---
 
-### ▶ Step 3 — Start the Randomizer  
-
-Launch via:
-
-**Start Menu → Boshy Randomizer**
-
-The launcher verifies:
-
-- IWBTB game folder imported correctly  
-- Python & required modules installed  
-- all Randomizer files present  
-
-If something is missing, a detailed debug message is shown.
-
----
-
 # 🟪 Gameplay & Modes
 
 ## ▶ Run Start
@@ -191,21 +158,45 @@ All other optional areas **must remain enabled**.
 
 ---
 
+# 📊 Live Tracker
+
+<div align="left">
+  <img src="Custom/livetracker.gif?raw=true" width="300">
+</div>
+
+Tracks in real time:
+
+- items  
+- achievements  
+- bosses  
+- characters  
+- progression  
+
+Fully automatic — no input required.
+
+---
+
 # 🎲 Seed System
 
 Each seed defines:
+
 - level & boss order  
 - full route structure  
 - optional character RNG  
 - target item selection  
 
 Seeds appear in:
+
 - loading overlay  
 - run start overlay  
 - endscreen  
 - debug log  
 
-Seeds can be shared so others can replay identical runs.
+<div align="left">
+  <img src="Custom/route_overlay.gif?raw=true" width="300">
+</div>
+
+Share seeds so others can replay identical runs.
 
 ---
 
@@ -226,6 +217,7 @@ Seeds can be shared so others can replay identical runs.
   - tkinter  
 
 Log file:
+
 ```
 INI/randomizer_debug.log
 ```
