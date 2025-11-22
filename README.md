@@ -110,6 +110,11 @@ If something is missing, a detailed debug message is shown.
 
 # 🟪 Gameplay & Modes
 
+<div style="display: flex; gap: 20px; align-items: flex-start;">
+  <img src="Custom/GUI1.PNG?raw=true" width="300">
+  <img src="Custom/GUI2.PNG?raw=true" width="300">
+</div>
+
 ## ▶ Run Start
 Every run begins in the **Tutorial**, then continues either:
 
