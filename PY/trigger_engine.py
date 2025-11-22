@@ -165,47 +165,71 @@ def check_achievements_trigger(
                 )
             return (False, None)
         last = state.get("last_trophies", {})
+
         for key, val in combined.items():
             old_val = last.get(key)
-            sec, name = key.split("::", 1)
-            name_l = name.lower()
-            if name_l in trigger_targets:
-                for entry in trigger_targets[name_l]:
-                    min_v = entry.get("min_value")
-                    val_int: Optional[int] = None
+            try:
+                sec, name = key.split("::", 1)
+            except ValueError:
+                # Falls irgendwas kaputt ist, einfach überspringen
+                continue
+
+            sec_l = sec.lower().strip()
+            name_l = name.lower().strip()
+
+            if name_l not in trigger_targets:
+                continue
+
+            for entry in trigger_targets[name_l]:
+                # Nur die gewünschte Section aus triggers.json
+                section_filter = (entry.get("section") or "").lower().strip()
+                if section_filter and sec_l != section_filter:
+                    # z.B. section_filter="achievements", sec_l="collectables" -> ignorieren
+                    continue
+
+                min_v = entry.get("min_value")
+                val_int = None
+                try:
+                    val_int = int(val)
+                except Exception:
+                    val_int = None
+
+                meets_min = False
+                if min_v is not None and val_int is not None:
                     try:
-                        val_int = int(val)
+                        if val_int >= int(min_v):
+                            meets_min = True
                     except Exception:
-                        val_int = None
-                    meets_min = False
-                    if min_v is not None and val_int is not None:
-                        try:
-                            if val_int >= int(min_v):
-                                meets_min = True
-                        except Exception:
-                            pass
-                    if val != old_val or meets_min:
-                        if meets_min and val_int is not None:
-                            log(
-                                f"🏆 Triggered by {sec.capitalize()}: {name}={val_int} "
-                                f"(meets min_value={min_v})"
-                            )
-                        else:
-                            log(f"🏆 Triggered by {sec.capitalize()}: {name}")
-                        if ACHIEVEMENT_STAGE_DELAY_S > 0:
-                            log(
-                                f"⏳ Achievement trigger – delaying stage transition "
-                                f"by {ACHIEVEMENT_STAGE_DELAY_S:.1f}s."
-                            )
-                            time.sleep(ACHIEVEMENT_STAGE_DELAY_S)
-                        state["item_cooldown_until"] = time.time() + 3.0
-                        state["achievement_block_until"] = time.time() + ACHIEVEMENT_BLOCK_S
+                        pass
+
+                # Trigger-Bedingung:
+                # - Wert hat sich geändert ODER
+                # - min_value ist erreicht
+                if val != old_val or meets_min:
+                    if meets_min and val_int is not None:
                         log(
-                            f"🚫 Achievement trigger cooldown active for "
-                            f"{ACHIEVEMENT_BLOCK_S:.1f}s."
+                            f"🏆 Triggered by {sec_l.capitalize()}: {name}={val_int} "
+                            f"(meets min_value={min_v})"
                         )
-                        state["last_trophies"] = combined
-                        return (True, f"achievement:{name_l}")
+                    else:
+                        log(f"🏆 Triggered by {sec_l.capitalize()}: {name}")
+
+                    if ACHIEVEMENT_STAGE_DELAY_S > 0:
+                        log(
+                            f"⏳ Achievement trigger – delaying stage transition "
+                            f"by {ACHIEVEMENT_STAGE_DELAY_S:.1f}s."
+                        )
+                        time.sleep(ACHIEVEMENT_STAGE_DELAY_S)
+
+                    state["item_cooldown_until"] = time.time() + 3.0
+                    state["achievement_block_until"] = time.time() + ACHIEVEMENT_BLOCK_S
+                    log(
+                        f"🚫 Achievement trigger cooldown active for "
+                        f"{ACHIEVEMENT_BLOCK_S:.1f}s."
+                    )
+
+                    state["last_trophies"] = combined
+                    return (True, f"achievement:{name_l}")
         state["last_trophies"] = combined
         return (False, None)
     except Exception as e:

@@ -174,15 +174,33 @@ if __name__ == "__main__":
             raw_triggers = json.load(f)
     else:
         raw_triggers = {}
+
     trigger_targets = {}
+
     for name, entries in raw_triggers.items():
-        lname = name.lower()
+        lname = str(name).lower()
+
+        # Neues Format: Liste von Einträgen direkt aus JSON
         if isinstance(entries, list):
             trigger_targets[lname] = entries
-        else:
-            trigger_targets[lname] = [
-                {"section": "achievements", "source": "SaveFile1.ini", "description": "legacy trigger"}
-            ]
+            continue
+
+        # Legacy-Format: name: 1 oder 2  -> als min_value interpretieren
+        try:
+            min_val = int(entries)
+        except Exception:
+            min_val = None
+
+        entry = {
+            "section": "achievements",           # Nur Achievements-Section
+            "source": "SaveFile1.ini",
+            "description": "legacy trigger",
+        }
+        if min_val is not None:
+            entry["min_value"] = min_val
+
+        trigger_targets[lname] = [entry]
+
     total_entries = sum(len(v) for v in trigger_targets.values())
     log(f"{len(trigger_targets)} trigger names loaded ({total_entries} total entries)")
     if os.path.exists(pixel_json):
