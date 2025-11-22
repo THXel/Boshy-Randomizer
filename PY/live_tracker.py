@@ -584,8 +584,27 @@ class LiveTrackerUI:
                 chars = chars_raw
                 route_data = state.get("route") or {}
                 self.route_list = route_data.get("list", []) or []
-                self.route_index = int(route_data.get("index", 0) or 0)
-                self.route_total = int(route_data.get("total", len(self.route_list)) or 0)
+
+                try:
+                    idx_raw = route_data.get("index", 0)
+                    self.route_index = int(idx_raw if idx_raw is not None else 0)
+                except Exception:
+                    self.route_index = 0
+
+                # total robust lesen (zur Not Länge der Liste nehmen)
+                total_raw = route_data.get("total", None)
+                try:
+                    if total_raw in (None, "", False):
+                        total_int = 0
+                    else:
+                        total_int = int(total_raw)
+                except Exception:
+                    total_int = 0
+
+                if total_int <= 0:
+                    total_int = len(self.route_list)
+
+                self.route_total = int(total_int)
             else:
                 save_txt = READER.read(self.watch_save)
                 lic_txt = READER.read(self.watch_license)
@@ -975,10 +994,13 @@ class LiveTrackerUI:
 
             if self.route_total and self.route_total > 0:
                 cur = max(0, min(self.route_index, self.route_total))
-                pct = int(100 * cur / self.route_total)
+                pct = int(100 * cur / max(1, self.route_total))
                 self.pb["value"] = pct
                 try:
-                    self.progress_label.config(text=f"Step {cur}/{self.route_total}")
+                    display_cur = max(1, cur)
+                    self.progress_label.config(
+                        text=f"Route progress: {display_cur}/{self.route_total}"
+                    )
                 except Exception:
                     pass
                 return
@@ -986,11 +1008,19 @@ class LiveTrackerUI:
             total = max(1, len(ach))
             got = sum(1 for v in ach.values() if str(v).strip() == "1")
             self.pb["value"] = int(100 * got / total)
+            try:
+                self.progress_label.config(
+                    text=f"Achievements: {got}/{total}"
+                )
+            except Exception:
+                pass
+
         except Exception:
             try:
                 self.pb["value"] = 0
             except Exception:
                 pass
+
     def _update_target_center_list(self, targets: list[str]):
         if not self.target_center_frame or not self.target_center_list:
             return

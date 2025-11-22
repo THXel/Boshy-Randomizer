@@ -17,7 +17,7 @@ def press_f2(delay: float = 0.05):
     except Exception as e:
         try:
             from PY.logger import log as _log_inner
-            _log_inner(f"⚠️ Failed to send F2: {e}")
+            _log_inner(f" Failed to send F2: {e}")
         except Exception:
             pass
 os.environ.setdefault("QT_ENABLE_HIGHDPI_SCALING", "1")
@@ -57,29 +57,44 @@ def safe_begin_overlay(*args, **kwargs):
     try:
         begin_loading_overlay(*args, **kwargs)
     except Exception as e:
-        log(f"⚠️ begin_loading_overlay failed: {e}")
+        log(f" begin_loading_overlay failed: {e}")
 def safe_end_overlay():
     if not overlays_enabled:
         return
     try:
         end_loading_overlay()
     except Exception as e:
-        log(f"⚠️ end_loading_overlay failed: {e}")
+        log(f" end_loading_overlay failed: {e}")
 from PY.window_utils import find_game_hwnd_by_pid, is_hwnd_valid, focus_hwnd, send_ctrl_s, send_esc, send_key_R, terminate_proc_tree
 from PY.save_utils import audit_save, snapshot_plain, mirror_plain_for_tracker, size_or_zero, restore_if_save_shrunk, mark_last_writer
 from PY.positions_utils import load_positions, apply_positions_to_save
 from PY.tracker_utils import start_live_tracker_robust
 from PY.trigger_engine import check_pixel_trigger, check_achievements_trigger
+state = {
+    "route_i": 0,
+    "route_list": [],
+    "route_index": 0,
+    "current_stage": None,
+    "last_trophies": {},
+    "pixel_streak": 0,
+    "last_game_seen": time.time(),
+    "triggered_pixels": set(),
+    "pause_until": 0.0,
+    "last_trigger_time": 0.0,
+    "last_was_boss": False,
+    "force_solgryn_next": False,
+    "force_next_file": None,
+    "item_cooldown_until": 0.0,
+    "item_thread_running": True,
+    "force_hwnd": None,
+    "route_code": None,
+}
 from PY import state_exporter
 try:
     from PY.save_profile_manager import write_all_saves_from_profiles
 except ModuleNotFoundError:
     from save_profile_manager import write_all_saves_from_profiles
 def start_state_exporter_thread(interval: float = 1.0):
-\
-\
-\
-\
     try:
         t = Thread(
             target=state_exporter.main,
@@ -95,9 +110,9 @@ def start_state_exporter_thread(interval: float = 1.0):
 def perform_randomizer_overwrite(stage_name: str, POS_DATA):
     ok = apply_positions_to_save(stage_name, POS_DATA)
     if ok:
-        log("💾 Overwrite SaveFile (Randomizer) done.")
+        log(" Overwrite SaveFile (Randomizer) done.")
     else:
-        log("⚠️ Overwrite skipped (apply_positions_to_save failed)." )
+        log(" Overwrite skipped (apply_positions_to_save failed)." )
     mirror_plain_for_tracker()
     return ok
 def keep_game_liveness(game_proc, state, grace_s=game_absent_grace_s):
@@ -151,7 +166,7 @@ if __name__ == "__main__":
             pass
     log("Randomizer started (positions.json + overlay + Difficulty Modes)")
     try:
-        log(f"⚙️ Randomizer config loaded: poll={poll_interval:.1f}s, cooldown={trigger_pause_s:.1f}s, repeats={getattr(__import__('PY.config', fromlist=['allow_repeats']), 'allow_repeats', False)}")
+        log(f" Randomizer config loaded: poll={poll_interval:.1f}s, cooldown={trigger_pause_s:.1f}s, repeats={getattr(__import__('PY.config', fromlist=['allow_repeats']), 'allow_repeats', False)}")
     except Exception:
         pass
     if os.path.exists(trigger_json):
@@ -176,7 +191,7 @@ if __name__ == "__main__":
         log(f"{len(pixel_regions) if isinstance(pixel_regions, list) else 0} pixel regions loaded.")
     else:
         pixel_regions = []
-        log("⚠️ WARNING: pixel_regions.json not found, pixel detection disabled.")
+        log(" WARNING: pixel_regions.json not found, pixel detection disabled.")
     POS_DATA = load_positions()
     cfg = build_gui_config()
     if cfg.cancelled:
@@ -187,29 +202,29 @@ if __name__ == "__main__":
         _cfg.room_folder = _cfg.ez_room
         _cfg.boss_folder = _cfg.ez_boss
         folder_used = _cfg.ez_folder
-        diff_label = "Ez Mode 🧊"
+        diff_label = "Ez Mode "
     elif difficulty in ("rage", "rage mode", "rage-mode", "you're gonna rage"):
         _cfg.room_folder = _cfg.rage_room
         _cfg.boss_folder = _cfg.rage_boss
         folder_used = _cfg.rage_folder
-        diff_label = "Rage Mode 🔥"
+        diff_label = "Rage Mode "
     else:
         _cfg.room_folder = os.path.join(_cfg.ini_folder, "Room")
         _cfg.boss_folder = os.path.join(_cfg.ini_folder, "Boss")
         folder_used = _cfg.ini_folder
-        diff_label = "Average ⚖️"
-    log(f"🎚 Difficulty set to {diff_label}")
-    log(f"📁 Using pools: Rooms={_cfg.room_folder} | Bosses={_cfg.boss_folder}")
+        diff_label = "Average "
+    log(f" Difficulty set to {diff_label}")
+    log(f" Using pools: Rooms={_cfg.room_folder} | Bosses={_cfg.boss_folder}")
     route_seed_raw = getattr(cfg, "route_seed", None)
     route_seed_int = None
     if route_seed_raw in ("", None):
-        log("🎲 Route seed: none (standard random route)")
+        log(" Route seed: none (standard random route)")
     else:
         try:
             route_seed_int = int(route_seed_raw)
-            log(f"🎲 Route seed from GUI: {route_seed_int}")
+            log(f" Route seed from GUI: {route_seed_int}")
         except Exception as e:
-            log(f"⚠️ Invalid route seed ({route_seed_raw!r}) – ignoring: {e}")
+            log(f" Invalid route seed ({route_seed_raw!r})  ignoring: {e}")
             route_seed_int = None
     route_code = None
     try:
@@ -225,27 +240,27 @@ if __name__ == "__main__":
                 c_flag = 0
             p_flag = 1 if getattr(cfg, "item_randomizer_enabled", False) else 0
             route_code = f"R{rooms}-B{bosses}-T{t_flag}-C{c_flag}-P{p_flag}-{route_seed_int}"
-            log(f"🎲 Route code: {route_code}")
+            log(f" Route code: {route_code}")
     except Exception as e:
-        log(f"⚠️ Failed to compute route code: {e}")
+        log(f" Failed to compute route code: {e}")
     try:
         init_seed(route_seed_int)
     except Exception as e:
-        log(f"⚠️ Could not init character seed: {e}")
+        log(f" Could not init character seed: {e}")
     try:
         if getattr(cfg, "random_start_character", False) or getattr(cfg, "random_character_per_stage", False):
             enable_character_lock()
-            log("🔒 Character lock enabled – F3 (character menu) is blocked while random character mode is active.")
+            log(" Character lock enabled  F3 (character menu) is blocked while random character mode is active.")
         else:
-            log("ℹ️ Character lock not enabled (no random character mode selected).")
+            log(" Character lock not enabled (no random character mode selected).")
     except Exception as e:
-        log(f"⚠️ Could not enable character lock: {e}")
+        log(f" Could not enable character lock: {e}")
     try:
         _cfg.target_collect_mode = bool(getattr(cfg, "target_collect_mode", False))
     except Exception:
         pass
     stop_event = Event()
-    state = {
+    state.update({
         "route_i": 0,
         "route_list": [],
         "route_index": 0,
@@ -263,20 +278,20 @@ if __name__ == "__main__":
         "item_thread_running": True,
         "force_hwnd": None,
         "route_code": route_code,
-    }
+    })
     try:
         write_all_saves_from_profiles(tag="startup")
-        log("💾 Save profiles initialized from JSON (startup).")
+        log(" Save profiles initialized from JSON (startup).")
     except Exception as e:
-        log(f"⚠️ Failed to initialize saves from profiles: {e}")
+        log(f" Failed to initialize saves from profiles: {e}")
     try:
         write_selected_difficulty_to_encrypted_save(cfg.difficulty)
     except Exception as e:
-        log(f"⚠️ Failed to write Difficulty to save: {e}")
+        log(f" Failed to write Difficulty to save: {e}")
     targets_done_event = Event()
     if getattr(cfg, "target_collect_mode", False) and route_seed_int is not None:
         target_rng = random.Random(route_seed_int + 1337)
-        log("🎲 Target Collect RNG initialized from route seed.")
+        log(" Target Collect RNG initialized from route seed.")
     else:
         target_rng = random
     if getattr(cfg, "target_collect_mode", False):
@@ -291,40 +306,40 @@ if __name__ == "__main__":
                 daemon=True,
             ).start()
             route = []
-            log(f"➡️  Target Collect Mode active — endless random route until {target_count} targets are collected.")
+            log(f"  Target Collect Mode active  endless random route until {target_count} targets are collected.")
         except Exception as e:
             _clear_target_file()
             route = build_random_route(cfg, POS_DATA)
-            log(f"⚠️ Target Collect Mode init failed: {e}")
+            log(f" Target Collect Mode init failed: {e}")
     else:
         _clear_target_file()
         route = build_random_route(cfg, POS_DATA)
-        log("➡️  Route built: " + " -> ".join(route))
+        log("  Route built: " + " -> ".join(route))
         state["route_list"] = list(route)
         state["route_index"] = 0
     try:
         from PY.item_randomizer import monitor_items
         if getattr(cfg, "item_randomizer_enabled", True):
             Thread(target=monitor_items, args=(stop_event, getattr(cfg, "item_randomizer_popups", False)), daemon=True).start()
-            log("🧩 Item Randomizer (re)started.")
+            log(" Item Randomizer (re)started.")
         else:
-            log("🧩 Item Randomizer disabled by GUI.")
+            log(" Item Randomizer disabled by GUI.")
     except Exception as e:
-        log(f"⚠️ Item Randomizer thread failed: {e}")
+        log(f" Item Randomizer thread failed: {e}")
     if not os.path.exists(game_exe):
-        log(f"⛔ Game not found: {game_exe}")
+        log(f" Game not found: {game_exe}")
         sys.exit(1)
     game_proc = subprocess.Popen([game_exe], cwd=iwbtb_folder)
-    log("🎮 Game launched.")
-    log("⌛ Waiting for the game window to become visible...")
+    log(" Game launched.")
+    log(" Waiting for the game window to become visible...")
     game_hwnd = find_game_hwnd_by_pid(game_proc.pid, timeout_s=15.0, poll=0.1)
     if game_hwnd and is_hwnd_valid(game_hwnd):
-        log(f"🪟 Game window detected (HWND={game_hwnd}) — initializing…")
+        log(f" Game window detected (HWND={game_hwnd})  initializing")
         time.sleep(0.4)
         try:
             state["force_hwnd"] = game_hwnd
             state["last_game_seen"] = time.time()
-            log("🔗 Pixel detector pinned to game HWND (force_hwnd set).")
+            log(" Pixel detector pinned to game HWND (force_hwnd set).")
         except Exception:
             pass
     try:
@@ -335,18 +350,18 @@ if __name__ == "__main__":
             route_code_duration=15.0,
         )
     except Exception as e:
-        log(f"⚠️ Reset overlay on startup failed: {e}")
+        log(f" Reset overlay on startup failed: {e}")
     try:
         if getattr(cfg, "random_start_character", False):
             set_random_character()
     except Exception as e:
-        log(f"⚠️ Random start character failed: {e}")
+        log(f" Random start character failed: {e}")
     audit_save("startup", force=True)
     mirror_plain_for_tracker()
     exporter_thread = start_state_exporter_thread(interval=1.0)
     tracker_proc = start_live_tracker_robust()
     if tracker_proc is None:
-        log("⚠️ Live Tracker exited early. Check INI\\live_tracker_boot.log for details.")
+        log(" Live Tracker exited early. Check INI\\live_tracker_boot.log for details.")
     import atexit
     def _cleanup():
         try:
@@ -367,14 +382,14 @@ if __name__ == "__main__":
     while True:
         try:
             if game_proc.poll() is not None:
-                log("🎮 Game process has exited — shutting down randomizer.")
+                log(" Game process has exited  shutting down randomizer.")
                 try:
                     stop_event.set()
                 except Exception:
                     pass
                 break
             if not keep_game_liveness(game_proc, state, grace_s=game_absent_grace_s):
-                log("🧹 Game window not found for too long — shutting down randomizer.")
+                log(" Game window not found for too long  shutting down randomizer.")
                 try:
                     stop_event.set()
                 except Exception:
@@ -398,7 +413,7 @@ if __name__ == "__main__":
                             state["current_stage"] = None
                             if route_seed_int is not None:
                                 target_rng = random.Random(route_seed_int + 1337)
-                                log("🎲 Target Collect RNG reinitialized after reset.")
+                                log(" Target Collect RNG reinitialized after reset.")
                             else:
                                 target_rng = random
                         else:
@@ -406,6 +421,8 @@ if __name__ == "__main__":
                             state["route_i"] = 0
                             state["force_next_file"] = None
                             state["current_stage"] = None
+                            state["route_list"] = list(route)
+                            state["route_index"] = 0
                         try:
                             show_reset_overlay(
                                 stop_event,
@@ -414,13 +431,13 @@ if __name__ == "__main__":
                                 route_code_duration=15.0,
                             )
                         except Exception as e:
-                            log(f"⚠️ Reset overlay (with route code) failed: {e}")
+                            log(f" Reset overlay (with route code) failed: {e}")
                         if state.get("force_hwnd") and is_hwnd_valid(state["force_hwnd"]):
                             focus_hwnd(state["force_hwnd"])
                         press_f2()
                         time.sleep(0.4)
                     except Exception as e:
-                        log(f"⚠️ Reset failed: {e}")
+                        log(f" Reset failed: {e}")
             else:
                 reset_held = False
             now = time.time()
@@ -458,17 +475,17 @@ if __name__ == "__main__":
                         if route and state["route_i"] < len(route):
                             planned_next_file = route[state["route_i"]]
                             state["current_stage"] = (planned_next_file or "").lower()
-                log(f"✅ Pixel-trigger accepted ({p_region}) → preparing stage transition")
+                log(f" Pixel-trigger accepted ({p_region})  preparing stage transition")
             if not triggered:
                 ach_trig, ach_reason = check_achievements_trigger(trigger_targets, state)
                 if ach_trig:
                     triggered = True
                     try:
                         if isinstance(ach_reason, str) and ach_reason.lower() == "achievement:solgryn":
-                            log("🏁 Solgryn achievement detected – starting end stats overlay.")
+                            log(" Solgryn achievement detected  starting end stats overlay.")
                             show_end_stats(stop_event, route_code=state.get("route_code"))
                     except Exception as e:
-                        log(f"⚠️ Could not start end_stats overlay: {e}")
+                        log(f" Could not start end_stats overlay: {e}")
             if getattr(cfg, "target_collect_mode", False) and targets_done_event.is_set():
                 state["force_solgryn_next"] = True
             if triggered:
@@ -477,7 +494,7 @@ if __name__ == "__main__":
                     if state.get("force_solgryn_next", False):
                         next_file = "boss_solgryn.ini"
                         state["force_solgryn_next"] = False
-                        overlay_text = "Final Battle – Solgryn!"
+                        overlay_text = "Final Battle  Solgryn!"
                     else:
                         rooms = list(POS_DATA["rooms"].keys())
                         bosses = list(POS_DATA["bosses"].keys())
@@ -501,14 +518,14 @@ if __name__ == "__main__":
                         next_file = route[state["route_i"]]
                     overlay_text = "Loading next stage..."
                 if not next_file:
-                    log("⚠️ No next stage available (all pools disabled?).")
+                    log(" No next stage available (all pools disabled?).")
                     time.sleep(poll_interval)
                     continue
                 try:
                     if getattr(cfg, "random_character_per_stage", False):
                         set_random_character()
                 except Exception as e:
-                    log(f"⚠️ Random character per stage failed: {e}")
+                    log(f" Random character per stage failed: {e}")
                 try:
                     if state.get("force_hwnd") and is_hwnd_valid(state["force_hwnd"]):
                         focus_hwnd(state["force_hwnd"])
@@ -544,11 +561,11 @@ if __name__ == "__main__":
                         time.sleep(0.06)
                         quick_overwrite()
                         send_key_R()
-                        time.sleep(0.06)
+                        time.sleep(0.5)
                         send_ctrl_s()
-                        time.sleep(0.25)
+                        time.sleep(0.5)
                         send_key_R()
-                        time.sleep(0.25)
+                        time.sleep(0.5)
                         try:
                             post_plain = decrypt_save(save_enc, rc4_key)
                             from PY.save_utils import snapshot_plain
@@ -564,15 +581,15 @@ if __name__ == "__main__":
                     state["current_stage"] = (next_file or "").lower()
                     if not getattr(cfg, "target_collect_mode", False):
                         state["route_i"] += 1
-                        log(f"✅ Next stage loaded: {next_file} (Step {state['route_i']}/{len(route)})")
+                        log(f" Next stage loaded: {next_file} (Step {state['route_i']}/{len(route)})")
                         state["route_index"] = state["route_i"]
                         state["route_list"] = list(route)
                     else:
-                        log(f"✅ Next stage (endless): {next_file}")
+                        log(f" Next stage (endless): {next_file}")
                     audit_save("post_transition", force=True)
                     mirror_plain_for_tracker()
                 except Exception as e:
-                    log(f"⚠️ Route trigger failed: {e}")
+                    log(f" Route trigger failed: {e}")
             time.sleep(poll_interval)
         except KeyboardInterrupt:
             try:

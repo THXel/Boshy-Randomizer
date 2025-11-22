@@ -13,9 +13,6 @@ except Exception:
     overlays_enabled = True
 import tkinter as tk
 def _find_game_window_rect():
-\
-\
-\
     try:
         if gw is None:
             return None

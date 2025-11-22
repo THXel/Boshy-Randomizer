@@ -1,23 +1,26 @@
 {
   "meta": {
-    "generated_at": 1763761193.415483,
+    "generated_at": 1763815708.4260592,
     "source": "state_exporter.py"
   },
   "save": {
-    "raw": "[Check]\nSaveVersion=1\n[Stats]\nDeaths=0\nDifficulty=1\nTimeSeconds=0\n[Collectables]\nAwesomesauce=1\n[Positions]",
+    "raw": "[Achievements]\r\nAwesomeSauce=1\r\n[Check]\r\nSaveVersion=1\r\n[Collectables]\r\nAwesomesauce=1\r\n[Positions]\r\n[Stats]\r\nDeaths=0\r\nDifficulty=1\r\nTimeSeconds=0",
     "sections": {
+      "achievements": {
+        "AwesomeSauce": "1"
+      },
       "check": {
         "SaveVersion": "1"
-      },
-      "stats": {
-        "Deaths": "0",
-        "Difficulty": "1",
-        "TimeSeconds": "0"
       },
       "collectables": {
         "Awesomesauce": "1"
       },
-      "positions": {}
+      "positions": {},
+      "stats": {
+        "Deaths": "0",
+        "Difficulty": "1",
+        "TimeSeconds": "0"
+      }
     }
   },
   "license": {
@@ -33,5 +36,26 @@
         "Dark Boshy": "1"
       }
     }
+  },
+  "route": {
+    "list": [
+      "save2.ini",
+      "boss6.ini",
+      "save15.ini",
+      "boss16.ini",
+      "save5.ini",
+      "boss1.ini",
+      "save14.ini",
+      "boss2.ini",
+      "save17.ini",
+      "boss10.ini",
+      "save22.ini",
+      "boss13.ini",
+      "save9.ini",
+      "boss15.ini",
+      "boss_solgryn.ini"
+    ],
+    "index": 0,
+    "total": 15
   }
 }
