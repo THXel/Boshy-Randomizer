@@ -9,7 +9,7 @@
 
 <div align="center">
 
-  <img src="Custom/boshy_randomizer.png?raw=true" alt="Boshy Randomizer" width="420">
+  <img src="../Custom/boshy_randomizer.png?raw=true" alt="Boshy Randomizer" width="420">
 
   <p><strong>Created by THXel & the I Wanna Be The Boshy Speedrun Community</strong><br>
   © 2025 THXel</p>
@@ -49,7 +49,7 @@
 ## 🎮 Gameplay Preview
 
 <div align="center">
-  <img src="Custom/gameplay.gif?raw=true" width="300">
+  <img src="../Custom/gameplay.gif?raw=true" width="300">
 </div>
 
 ---
@@ -120,8 +120,8 @@ If something is missing, a detailed debug message is shown.
 # 🟪 Gameplay & Modes
 
 <div style="display: flex; gap: 20px; align-items: flex-start;">
-  <img src="Custom/GUI1.PNG?raw=true" width="300">
-  <img src="Custom/GUI2.PNG?raw=true" width="300">
+  <img src="../Custom/GUI1.PNG?raw=true" width="300">
+  <img src="../Custom/GUI2.PNG?raw=true" width="300">
 </div>
 
 ## ▶ Run Start
@@ -175,7 +175,7 @@ All other optional areas **must remain enabled**.
 # 📊 Live Tracker
 
 <div align="left">
-  <img src="Custom/livetracker.gif?raw=true" width="300">
+  <img src="../Custom/livetracker.gif?raw=true" width="300">
 </div>
 
 Tracks in real time:
@@ -207,7 +207,7 @@ Seeds appear in:
 - debug log  
 
 <div align="left">
-  <img src="Custom/route_overlay.gif?raw=true" width="300">
+  <img src="../Custom/route_overlay.gif?raw=true" width="300">
 </div>
 
 Share seeds so others can replay identical runs.
