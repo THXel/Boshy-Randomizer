@@ -9,7 +9,7 @@
 
 <div align="center">
 
-  <img src="Custom/boshy_randomizer.png?raw=true" alt="Boshy Randomizer" width="420">
+  <img src="../Custom/boshy_randomizer.png?raw=true" alt="Boshy Randomizer" width="420">
 
   <p><strong>Создано THXel и сообществом спидраннеров I Wanna Be The Boshy</strong><br>
   © 2025 THXel</p>
@@ -49,7 +49,7 @@
 ## 🎮 Gameplay Preview
 
 <div align="center">
-  <img src="Custom/gameplay.gif?raw=true" width="300">
+  <img src="../Custom/gameplay.gif?raw=true" width="300">
 </div>
 
 ---
@@ -121,8 +121,8 @@ Windows может показать предупреждение **SmartScreen**
 # 🟪 Gameplay & Modes
 
 <div style="display: flex; gap: 20px; align-items: flex-start;">
-  <img src="Custom/GUI1.PNG?raw=true" width="300">
-  <img src="Custom/GUI2.PNG?raw=true" width="300">
+  <img src="../Custom/GUI1.PNG?raw=true" width="300">
+  <img src="../Custom/GUI2.PNG?raw=true" width="300">
 </div>
 
 ## ▶ Старт забега
@@ -179,7 +179,7 @@ Windows может показать предупреждение **SmartScreen**
 # 📊 Live Tracker
 
 <div align="left">
-  <img src="Custom/livetracker.gif?raw=true" width="300">
+  <img src="../Custom/livetracker.gif?raw=true" width="300">
 </div>
 
 В реальном времени отслеживает:
@@ -211,7 +211,7 @@ Windows может показать предупреждение **SmartScreen**
 - отладочном логе  
 
 <div align="left">
-  <img src="Custom/route_overlay.gif?raw=true" width="300">
+  <img src="../Custom/route_overlay.gif?raw=true" width="300">
 </div>
 
 Делитесь сидами, чтобы другие могли точно повторить ваш забег.
