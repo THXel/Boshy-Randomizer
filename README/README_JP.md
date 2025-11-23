@@ -1,10 +1,10 @@
 <p align="right">
-  🌐 <b>Language / Sprache / Язык / Idioma / 言語:</b>
-  🇬🇧 <a href="README.md">English</a> |
-  🇩🇪 <a href="README_DE.md">Deutsch</a> |
-  🇷🇺 <a href="README_RU.md">Русский</a> |
-  🇪🇸 <a href="README_ES.md">Español</a> |
-  🇯🇵 <a href="README_JP.md"><b>日本語</b></a>
+  <strong>Language:</strong><br>
+  <a href="../README.md" title="English">🇬🇧 English</a> ·
+  <a href="README_DE.md" title="Deutsch">🇩🇪 Deutsch</a> ·
+  <a href="README_RU.md" title="Русский">🇷🇺 Русский</a> ·
+  <a href="README_ES.md" title="Español">🇪🇸 Español</a> ·
+  <a href="README_JP.md" title="日本語"><strong>🇯🇵 日本語</strong></a>
 </p>
 
 <div align="center">
