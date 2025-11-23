@@ -1,3 +1,10 @@
+<p align="right">
+  🌐 <b>Language / Sprache / Язык:</b>
+  🇬🇧 <a href="README.md">English</a> |
+  🇩🇪 <a href="README_DE.md">Deutsch</a> |
+  🇷🇺 <a href="README_RU.md"><b>Русский</b></a>
+</p>
+
 <div align="center">
 
   <img src="Custom/boshy_randomizer.png?raw=true" alt="Boshy Randomizer" width="420">
