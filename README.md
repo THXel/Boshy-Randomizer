@@ -1,11 +1,33 @@
 <p align="right">
   <b>Language:</b>
-  <a href="README.md" title="English">🇬🇧</a>
-  <a href="README/README_DE.md" title="Deutsch">🇩🇪</a>
-  <a href="README/README_RU.md" title="Русский">🇷🇺</a>
-  <a href="README/README_ES.md" title="Español">🇪🇸</a>
-  <a href="README/README_JP.md" title="日本語">🇯🇵</a>
+  <a href="README.md" title="English">
+    <span style="border:1px solid #ccc; padding:2px 7px; border-radius:999px; margin-left:4px;">
+      🇬🇧
+    </span>
+  </a>
+  <a href="README/README_DE.md" title="Deutsch">
+    <span style="border:1px solid #ccc; padding:2px 7px; border-radius:999px; margin-left:4px;">
+      🇩🇪
+    </span>
+  </a>
+  <a href="README/README_RU.md" title="Русский">
+    <span style="border:1px solid #ccc; padding:2px 7px; border-radius:999px; margin-left:4px;">
+      🇷🇺
+    </span>
+  </a>
+  <a href="README/README_ES.md" title="Español">
+    <span style="border:1px solid #ccc; padding:2px 7px; border-radius:999px; margin-left:4px;">
+      🇪🇸
+    </span>
+  </a>
+  <a href="README/README_JP.md" title="日本語">
+    <span style="border:1px solid #ccc; padding:2px 7px; border-radius:999px; margin-left:4px;">
+      🇯🇵
+    </span>
+  </a>
 </p>
+
+
 
 <div align="center">
 
