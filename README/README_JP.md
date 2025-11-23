@@ -9,7 +9,7 @@
 
 <div align="center">
 
-  <img src="Custom/boshy_randomizer.png?raw=true" alt="Boshy Randomizer" width="420">
+  <img src="../Custom/boshy_randomizer.png?raw=true" alt="Boshy Randomizer" width="420">
 
   <p><strong>THXel と I Wanna Be The Boshy スピードランコミュニティによって制作</strong><br>
   © 2025 THXel</p>
@@ -49,7 +49,7 @@
 ## 🎮 Gameplay Preview
 
 <div align="center">
-  <img src="Custom/gameplay.gif?raw=true" width="300">
+  <img src="../Custom/gameplay.gif?raw=true" width="300">
 </div>
 
 ---
@@ -121,8 +121,8 @@ Windows が **SmartScreen 警告** を表示する場合があります:
 # 🟪 Gameplay & Modes
 
 <div style="display: flex; gap: 20px; align-items: flex-start;">
-  <img src="Custom/GUI1.PNG?raw=true" width="300">
-  <img src="Custom/GUI2.PNG?raw=true" width="300">
+  <img src="../Custom/GUI1.PNG?raw=true" width="300">
+  <img src="../Custom/GUI2.PNG?raw=true" width="300">
 </div>
 
 ## ▶ ラン開始
@@ -180,7 +180,7 @@ Windows が **SmartScreen 警告** を表示する場合があります:
 # 📊 Live Tracker
 
 <div align="left">
-  <img src="Custom/livetracker.gif?raw=true" width="300">
+  <img src="../Custom/livetracker.gif?raw=true" width="300">
 </div>
 
 リアルタイムで表示:
@@ -212,7 +212,7 @@ Windows が **SmartScreen 警告** を表示する場合があります:
 - デバッグログ  
 
 <div align="left">
-  <img src="Custom/route_overlay.gif?raw=true" width="300">
+  <img src="../Custom/route_overlay.gif?raw=true" width="300">
 </div>
 
 シードを共有することで、他のプレイヤーがまったく同じランを再現できます。
