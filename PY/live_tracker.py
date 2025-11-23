@@ -9,6 +9,14 @@ try:
 except Exception:
     Image = ImageTk = None
 
+try:
+    from PY.file_utils import smart_read as _smart_read_global
+except ModuleNotFoundError:
+    try:
+        from file_utils import smart_read as _smart_read_global
+    except ModuleNotFoundError:
+        _smart_read_global = None
+
 
 def _import_deps():
     log = None
@@ -114,6 +122,12 @@ class CachedReader:
 
     @staticmethod
     def _smart_read(path: str) -> str:
+        if _smart_read_global is not None:
+            try:
+                text, _ = _smart_read_global(path)
+                return text or ""
+            except Exception:
+                pass
         try:
             with open(path, "rb") as f:
                 raw = f.read()
@@ -989,14 +1003,12 @@ class LiveTrackerUI:
             except Exception:
                 pass
 
-            # Farben / Akzent je nach Typ
             bg = "#111317"
             accent = "#FFB74D" if is_characters else "#13C3FF"
 
             win.configure(bg="#000000")
             self.root.update_idletasks()
 
-            # Position: möglichst ans Game-Fenster andocken, sonst an Live-Tracker
             game_rect = get_game_window_rect()
             w, h = 420, 160
             if game_rect:
@@ -1028,7 +1040,6 @@ class LiveTrackerUI:
             )
             frame.pack(fill="both", expand=True)
 
-            # Icon laden (Trophies / Fallback / _get_icon_for)
             img_path = os.path.join(TROPHY_DIR, f"{name}.png")
             if not os.path.exists(img_path):
                 img = self._get_icon_for(name.replace("_", " "))
@@ -1052,7 +1063,6 @@ class LiveTrackerUI:
                     bg=bg,
                 ).pack(side="left", padx=10, pady=10)
 
-            # Text-Bereich
             title = "Character randomized!" if is_characters else "Item randomized!"
             tk.Label(
                 frame,

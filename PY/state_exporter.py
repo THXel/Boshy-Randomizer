@@ -10,14 +10,19 @@ except ModuleNotFoundError:
     from logger import log
 
 try:
-    from PY.config import ini_folder, iwbtb_folder, save_enc, rc4_key, poll_interval
+    from PY.config import ini_folder, iwbtb_folder, save_enc, poll_interval
 except ModuleNotFoundError:
-    from config import ini_folder, iwbtb_folder, save_enc, rc4_key, poll_interval
+    from config import ini_folder, iwbtb_folder, save_enc, poll_interval
 
 try:
-    from PY.rc4_utils import rc4_crypt
+    from PY.file_utils import smart_read
 except ModuleNotFoundError:
-    from rc4_utils import rc4_crypt
+    from file_utils import smart_read
+
+try:
+    from PY.ini_utils import parse_ini
+except ModuleNotFoundError:
+    from ini_utils import parse_ini
 
 
 STATE_JSON = os.path.join(ini_folder, "live_tracker_state.json")
@@ -25,52 +30,15 @@ SAVEFILE_PATH = save_enc
 LICENSE_PATH = os.path.join(iwbtb_folder, "onlineLicense.ini")
 
 
-def _smart_read_text(path: str):
-    if not os.path.exists(path):
-        return None, False
-    try:
-        with open(path, "rb") as f:
-            raw = f.read()
-
-        sample = raw[:400]
-        # Falls es schon wie eine normale INI aussieht, direkt als Text zurückgeben
-        if b"[" in sample and b"=" in sample:
-            return raw.decode("latin-1", errors="ignore"), False
-
-        # Ansonsten als RC4-verschlüsselt behandeln
-        decrypted = rc4_crypt(rc4_key, raw)
-        return decrypted.decode("latin-1", errors="ignore"), True
-    except Exception as e:
-        log(f"[state_exporter] smart_read_text failed for {os.path.basename(path)}: {e}")
-        return None, False
-
-
-def _parse_ini(text: str):
-    data = {}
-    sec = None
-    for line in (text or "").splitlines():
-        s = line.strip()
-        if not s:
-            continue
-        if s.startswith("[") and s.endswith("]"):
-            sec = s.strip("[]").lower()
-            data.setdefault(sec, {})
-            continue
-        if "=" in s and sec:
-            k, v = [x.strip() for x in s.split("=", 1)]
-            data.setdefault(sec, {})[k] = v
-    return data
-
-
 def _build_state_snapshot():
-    save_txt, _ = _smart_read_text(SAVEFILE_PATH)
-    lic_txt, _ = _smart_read_text(LICENSE_PATH)
+    save_txt, _ = smart_read(SAVEFILE_PATH)
+    lic_txt, _ = smart_read(LICENSE_PATH)
 
     if not save_txt and not lic_txt:
         return None
 
-    save_sections = _parse_ini(save_txt or "")
-    lic_sections = _parse_ini(lic_txt or "")
+    save_sections = parse_ini(save_txt or "")
+    lic_sections = parse_ini(lic_txt or "")
 
     state = {
         "meta": {
@@ -91,7 +59,6 @@ def _build_state_snapshot():
         route_list = []
         route_index = 0
 
-        # 1. Versuch: aus dem aktuell laufenden __main__-Modul
         try:
             import __main__ as main_mod
             rstate = getattr(main_mod, "state", None)
@@ -101,7 +68,6 @@ def _build_state_snapshot():
         except Exception:
             rstate = None
 
-        # 2. Fallback: Modul-Import
         if not route_list:
             try:
                 from PY.rando_script import state as rstate_mod
@@ -128,11 +94,9 @@ def _write_state(state: dict):
     os.makedirs(ini_folder, exist_ok=True)
     tmp = STATE_JSON + ".tmp"
 
-    # Erst in TMP schreiben
     with open(tmp, "w", encoding="utf-8") as f:
         json.dump(state, f, ensure_ascii=False, indent=2)
 
-    # Kurz prüfen, ob die Datei gültiges JSON ist
     try:
         with open(tmp, "r", encoding="utf-8") as f:
             json.load(f)
@@ -143,7 +107,6 @@ def _write_state(state: dict):
     delay = 0.02
     last_err = None
 
-    # Deutlich mehr Retries, um PermissionError (Live Tracker liest gerade) abzufedern
     for attempt in range(50):
         try:
             os.replace(tmp, STATE_JSON)
@@ -158,7 +121,6 @@ def _write_state(state: dict):
             if delay < 0.5:
                 delay *= 1.5
 
-    # Fallback: non-atomic, wenn es nach allen Versuchen immer noch nicht geht
     try:
         log("[state_exporter] ❗ Using fallback overwrite (non-atomic).")
         try:

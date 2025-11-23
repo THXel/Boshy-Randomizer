@@ -5,12 +5,16 @@ import random
 import threading
 import ctypes
 import atexit
-from .config import ini_folder, iwbtb_folder, rc4_key
-from .rc4_utils import decrypt_save, encrypt_save
+
+from .config import ini_folder, iwbtb_folder
 from .logger import log
+
+from .file_utils import smart_read, smart_write
 
 _CHAR_JSON_PATH = os.path.join(ini_folder, "characters_rando.json")
 _IWBTB_LICENSE_PATH = os.path.join(iwbtb_folder, "onlineLicense.ini")
+_CHAR_HISTORY_PATH = os.path.join(ini_folder, "character_history.json")
+_HISTORY_LIMIT = 8
 
 _CHAR_POOL: list[dict] | None = None
 _UNUSED_POOL: list[dict] = []
@@ -40,6 +44,38 @@ def _shuffle_with_rng(seq: list, rnd: random.Random):
     for i in range(n - 1, 0, -1):
         j = int(rnd.random() * (i + 1))
         seq[i], seq[j] = seq[j], seq[i]
+        
+
+def _load_history() -> list[str]:
+    try:
+        if not os.path.exists(_CHAR_HISTORY_PATH):
+            return []
+        with open(_CHAR_HISTORY_PATH, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        if isinstance(data, dict):
+            recent = data.get("recent", [])
+        else:
+            recent = data
+        if not isinstance(recent, list):
+            return []
+        return [str(x) for x in recent if isinstance(x, (str, int))]
+    except Exception:
+        return []
+
+
+def _append_history(name: str):
+    try:
+        history = _load_history()
+        history.append(str(name))
+        if len(history) > _HISTORY_LIMIT:
+            history = history[-_HISTORY_LIMIT:]
+        with open(_CHAR_HISTORY_PATH, "w", encoding="utf-8") as f:
+            json.dump({"recent": history}, f, ensure_ascii=False)
+    except Exception as e:
+        try:
+            log(f"⚠️ Failed to update character history: {e}")
+        except Exception:
+            pass
 
 
 if os.name == "nt":
@@ -236,6 +272,23 @@ def _ensure_pool():
         )
 
 
+def _pick_from_pool_with_history() -> dict | None:
+    global _UNUSED_POOL
+    history = set(_load_history())
+    if not _UNUSED_POOL:
+        return None
+    if not history:
+        return _UNUSED_POOL.pop(0)
+    idx = None
+    for i, c in enumerate(_UNUSED_POOL):
+        if c.get("name") not in history:
+            idx = i
+            break
+    if idx is None:
+        return _UNUSED_POOL.pop(0)
+    return _UNUSED_POOL.pop(idx)
+
+
 def _next_character_from_pool() -> dict:
     global _UNUSED_POOL, _LAST_CHOICE
     _ensure_pool()
@@ -245,7 +298,9 @@ def _next_character_from_pool() -> dict:
     if not _UNUSED_POOL:
         _UNUSED_POOL = list(_CHAR_POOL or [])
         random.shuffle(_UNUSED_POOL)
-    choice = _UNUSED_POOL.pop(0)
+    choice = _pick_from_pool_with_history()
+    if choice is None:
+        choice = _UNUSED_POOL.pop(0)
     if (
         _LAST_CHOICE is not None
         and len(_UNUSED_POOL) > 0
@@ -253,7 +308,9 @@ def _next_character_from_pool() -> dict:
         and choice.get("name") == _LAST_CHOICE.get("name")
     ):
         _UNUSED_POOL.append(choice)
-        choice = _UNUSED_POOL.pop(0)
+        choice = _pick_from_pool_with_history()
+        if choice is None:
+            choice = _UNUSED_POOL.pop(0)
     _LAST_CHOICE = choice
     return choice
 
@@ -274,7 +331,9 @@ def _next_character_seeded() -> dict:
     if len(_UNUSED_POOL) == 0:
         _UNUSED_POOL = list(_CHAR_POOL or [])
         _shuffle_with_rng(_UNUSED_POOL, _SEEDED_RNG)
-    choice = _UNUSED_POOL.pop(0)
+    choice = _pick_from_pool_with_history()
+    if choice is None:
+        choice = _UNUSED_POOL.pop(0)
     if (
         _LAST_CHOICE is not None
         and len(_UNUSED_POOL) > 0
@@ -282,7 +341,9 @@ def _next_character_seeded() -> dict:
         and choice.get("name") == _LAST_CHOICE.get("name")
     ):
         _UNUSED_POOL.append(choice)
-        choice = _UNUSED_POOL.pop(0)
+        choice = _pick_from_pool_with_history()
+        if choice is None:
+            choice = _UNUSED_POOL.pop(0)
     _LAST_CHOICE = choice
     return choice
 
@@ -335,30 +396,35 @@ def _set_license_character_plaintext(plain: str, char_id: int, char_name: str) -
 def _update_license_file(path: str, char_id: int, char_name: str) -> bool:
     try:
         if os.path.exists(path):
-            plain = decrypt_save(path, rc4_key)
+            plain, enc = smart_read(path)
+            if plain is None:
+                plain, enc = "[License]\n", True
         else:
-            plain = "[License]\n"
+            plain, enc = "[License]\n", True
     except Exception as e:
-        log(f"⚠️ Failed to decrypt license at {path}, creating new [License]: {e}")
-        plain = "[License]\n"
+        log(f"⚠️ Failed to read license at {path}, creating new [License]: {e}")
+        plain, enc = "[License]\n", True
+
     new_plain = _set_license_character_plaintext(plain, int(char_id), str(char_name))
     try:
-        encrypt_save(new_plain, path, rc4_key)
+        smart_write(path, new_plain, enc)
         return True
     except Exception as e:
-        log(f"⚠️ Failed to encrypt/write license at {path}: {e}")
+        log(f"⚠️ Failed to write license at {path}: {e}")
         return False
 
 
 def _unlock_character_in_license(path: str, char_name: str) -> bool:
     try:
         if os.path.exists(path):
-            plain = decrypt_save(path, rc4_key)
+            plain, enc = smart_read(path)
+            if plain is None:
+                plain, enc = "[License]\n", True
         else:
-            plain = "[License]\n"
+            plain, enc = "[License]\n", True
     except Exception as e:
-        log(f"⚠️ Failed to decrypt license at {path}: {e}")
-        plain = "[License]\n"
+        log(f"⚠️ Failed to read license at {path}: {e}")
+        plain, enc = "[License]\n", True
 
     lines = plain.splitlines()
     out = []
@@ -396,7 +462,7 @@ def _unlock_character_in_license(path: str, char_name: str) -> bool:
     new_plain = "\n".join(out) + "\n"
 
     try:
-        encrypt_save(new_plain, path, rc4_key)
+        smart_write(path, new_plain, enc)
         log(f"🔓 Unlockable added: {char_name}=1")
         return True
     except Exception as e:
@@ -419,6 +485,7 @@ def set_random_character():
         status = str(choice.get("status", "unlocked")).lower()
         if status == "locked":
             _unlock_character_in_license(_IWBTB_LICENSE_PATH, choice["name"])
+        _append_history(choice["name"])
         log(f"🎲 (Seeded) Random character set → {choice['name']} (ID={choice['id']})")
         return choice
     choice = _next_character_from_pool()
@@ -426,5 +493,6 @@ def set_random_character():
     status = str(choice.get("status", "unlocked")).lower()
     if status == "locked":
         _unlock_character_in_license(_IWBTB_LICENSE_PATH, choice["name"])
+    _append_history(choice["name"])
     log(f"🎲 Random character set → {choice['name']} (ID={choice['id']})")
     return choice

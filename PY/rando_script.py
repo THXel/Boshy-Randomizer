@@ -2,37 +2,12 @@ from __future__ import annotations
 import os, sys, time, json, random, shutil, ctypes, subprocess
 from threading import Event, Thread, Lock
 import ctypes
-GetAsyncKeyState = ctypes.windll.user32.GetAsyncKeyState
-def _hotkey_ctrl_r():
-    VK_CONTROL = 0x11
-    VK_R = 0x52
-    return (GetAsyncKeyState(VK_CONTROL) & 0x8000) and (GetAsyncKeyState(VK_R) & 0x8000)
-def press_f2(delay: float = 0.05):
-    VK_F2 = 0x71
-    try:
-        user32 = ctypes.windll.user32
-        user32.keybd_event(VK_F2, 0, 0, 0)
-        time.sleep(delay)
-        user32.keybd_event(VK_F2, 0, 2, 0)
-    except Exception as e:
-        try:
-            from PY.logger import log as _log_inner
-            _log_inner(f" Failed to send F2: {e}")
-        except Exception:
-            pass
-os.environ.setdefault("QT_ENABLE_HIGHDPI_SCALING", "1")
-os.environ.setdefault("QT_AUTO_SCREEN_SCALE_FACTOR", "1")
-os.environ.setdefault("QT_LOGGING_RULES", "qt.qpa.window=false")
-import os as _os, sys as _sys
-_proj_root = _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__)))
-if _proj_root not in _sys.path:
-    _sys.path.insert(0, _proj_root)
+
 from PY.config import *
 from PY.logger import log
-from PY.rc4_utils import decrypt_save, encrypt_save, rc4_crypt
 from PY.pixel_detector import check_pixel_regions as _pd_check_pixel_regions
 from PY.gui_config import build_gui_config, write_selected_difficulty_to_encrypted_save
-from PY.route_builder import build_random_route
+from PY.route_builder import build_random_route, apply_history_filter, update_route_history
 from PY.character_randomizer import (
     set_random_character,
     enable_character_lock,
@@ -47,29 +22,70 @@ from PY.target_collect import (
 from PY.end_stats import show_end_stats
 from PY.reset_overlay import show_reset_overlay
 from PY.loading_overlay import begin_loading_overlay, end_loading_overlay
+from PY.window_utils import (
+    find_game_hwnd_by_pid,
+    is_hwnd_valid,
+    focus_hwnd,
+    send_ctrl_s,
+    send_esc,
+    send_key_R,
+    terminate_proc_tree,
+)
+from PY.save_utils import (
+    audit_save,
+    snapshot_plain,
+    mirror_plain_for_tracker,
+    size_or_zero,
+    restore_if_save_shrunk,
+    mark_last_writer,
+)
+from PY.positions_utils import load_positions, apply_positions_to_save
+from PY.tracker_utils import start_live_tracker_robust
+from PY.trigger_engine import check_pixel_trigger, check_achievements_trigger
+from PY.file_utils import smart_read
+from PY import state_exporter
+
 try:
     from PY.config import overlays_enabled
 except Exception:
     overlays_enabled = True
-def safe_begin_overlay(*args, **kwargs):
-    if not overlays_enabled:
-        return
+
+
+GetAsyncKeyState = ctypes.windll.user32.GetAsyncKeyState
+
+
+def _hotkey_ctrl_r():
+    VK_CONTROL = 0x11
+    VK_R = 0x52
+    return (GetAsyncKeyState(VK_CONTROL) & 0x8000) and (GetAsyncKeyState(VK_R) & 0x8000)
+
+
+def press_f2(delay: float = 0.05):
+    VK_F2 = 0x71
     try:
-        begin_loading_overlay(*args, **kwargs)
+        user32 = ctypes.windll.user32
+        user32.keybd_event(VK_F2, 0, 0, 0)
+        time.sleep(delay)
+        user32.keybd_event(VK_F2, 0, 2, 0)
     except Exception as e:
-        log(f" begin_loading_overlay failed: {e}")
-def safe_end_overlay():
-    if not overlays_enabled:
-        return
-    try:
-        end_loading_overlay()
-    except Exception as e:
-        log(f" end_loading_overlay failed: {e}")
-from PY.window_utils import find_game_hwnd_by_pid, is_hwnd_valid, focus_hwnd, send_ctrl_s, send_esc, send_key_R, terminate_proc_tree
-from PY.save_utils import audit_save, snapshot_plain, mirror_plain_for_tracker, size_or_zero, restore_if_save_shrunk, mark_last_writer
-from PY.positions_utils import load_positions, apply_positions_to_save
-from PY.tracker_utils import start_live_tracker_robust
-from PY.trigger_engine import check_pixel_trigger, check_achievements_trigger
+        try:
+            from PY.logger import log as _log_inner
+            _log_inner(f" Failed to send F2: {e}")
+        except Exception:
+            pass
+
+
+os.environ.setdefault("QT_ENABLE_HIGHDPI_SCALING", "1")
+os.environ.setdefault("QT_AUTO_SCREEN_SCALE_FACTOR", "1")
+os.environ.setdefault("QT_LOGGING_RULES", "qt.qpa.window=false")
+
+import os as _os, sys as _sys
+
+_proj_root = _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__)))
+if _proj_root not in _sys.path:
+    _sys.path.insert(0, _proj_root)
+
+
 state = {
     "route_i": 0,
     "route_list": [],
@@ -89,11 +105,32 @@ state = {
     "force_hwnd": None,
     "route_code": None,
 }
-from PY import state_exporter
+
+
 try:
     from PY.save_profile_manager import write_all_saves_from_profiles
 except ModuleNotFoundError:
     from save_profile_manager import write_all_saves_from_profiles
+
+
+def safe_begin_overlay(*args, **kwargs):
+    if not overlays_enabled:
+        return
+    try:
+        begin_loading_overlay(*args, **kwargs)
+    except Exception as e:
+        log(f" begin_loading_overlay failed: {e}")
+
+
+def safe_end_overlay():
+    if not overlays_enabled:
+        return
+    try:
+        end_loading_overlay()
+    except Exception as e:
+        log(f" end_loading_overlay failed: {e}")
+
+
 def start_state_exporter_thread(interval: float = 1.0):
     try:
         t = Thread(
@@ -107,14 +144,18 @@ def start_state_exporter_thread(interval: float = 1.0):
     except Exception as e:
         log(f"[state_exporter] could not start exporter thread: {e}")
         return None
+
+
 def perform_randomizer_overwrite(stage_name: str, POS_DATA):
     ok = apply_positions_to_save(stage_name, POS_DATA)
     if ok:
         log(" Overwrite SaveFile (Randomizer) done.")
     else:
-        log(" Overwrite skipped (apply_positions_to_save failed)." )
+        log(" Overwrite skipped (apply_positions_to_save failed).")
     mirror_plain_for_tracker()
     return ok
+
+
 def keep_game_liveness(game_proc, state, grace_s=game_absent_grace_s):
     now = time.time()
     hwnd = state.get("force_hwnd")
@@ -155,20 +196,29 @@ def keep_game_liveness(game_proc, state, grace_s=game_absent_grace_s):
     last_seen = state.get("last_game_seen", 0.0)
     too_long = ((now - last_seen) > grace_s) or (missing_secs > grace_s)
     return not too_long
+
+
 if __name__ == "__main__":
     try:
         DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2 = ctypes.c_void_p(-4)
-        ctypes.windll.user32.SetProcessDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2)
+        ctypes.windll.user32.SetProcessDpiAwarenessContext(
+            DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2
+        )
     except Exception:
         try:
             ctypes.windll.shcore.SetProcessDpiAwareness(2)
         except Exception:
             pass
+
     log("Randomizer started (positions.json + overlay + Difficulty Modes)")
     try:
-        log(f" Randomizer config loaded: poll={poll_interval:.1f}s, cooldown={trigger_pause_s:.1f}s, repeats={getattr(__import__('PY.config', fromlist=['allow_repeats']), 'allow_repeats', False)}")
+        log(
+            f" Randomizer config loaded: poll={poll_interval:.1f}s, cooldown={trigger_pause_s:.1f}s, "
+            f"repeats={getattr(__import__('PY.config', fromlist=['allow_repeats']), 'allow_repeats', False)}"
+        )
     except Exception:
         pass
+
     if os.path.exists(trigger_json):
         with open(trigger_json, "r", encoding="utf-8") as f:
             raw_triggers = json.load(f)
@@ -179,30 +229,25 @@ if __name__ == "__main__":
 
     for name, entries in raw_triggers.items():
         lname = str(name).lower()
-
-        # Neues Format: Liste von Einträgen direkt aus JSON
         if isinstance(entries, list):
             trigger_targets[lname] = entries
             continue
-
-        # Legacy-Format: name: 1 oder 2  -> als min_value interpretieren
         try:
             min_val = int(entries)
         except Exception:
             min_val = None
-
         entry = {
-            "section": "achievements",           # Nur Achievements-Section
+            "section": "achievements",
             "source": "SaveFile1.ini",
             "description": "legacy trigger",
         }
         if min_val is not None:
             entry["min_value"] = min_val
-
         trigger_targets[lname] = [entry]
 
     total_entries = sum(len(v) for v in trigger_targets.values())
     log(f"{len(trigger_targets)} trigger names loaded ({total_entries} total entries)")
+
     if os.path.exists(pixel_json):
         with open(pixel_json, "r", encoding="utf-8") as f:
             pixel_regions = json.load(f)
@@ -210,11 +255,14 @@ if __name__ == "__main__":
     else:
         pixel_regions = []
         log(" WARNING: pixel_regions.json not found, pixel detection disabled.")
+
     POS_DATA = load_positions()
     cfg = build_gui_config()
     if cfg.cancelled:
         sys.exit(0)
+
     import PY.config as _cfg
+
     difficulty = getattr(cfg, "difficulty", "Average").strip().lower()
     if difficulty in ("ez", "ez mode", "ez-mode"):
         _cfg.room_folder = _cfg.ez_room
@@ -231,8 +279,10 @@ if __name__ == "__main__":
         _cfg.boss_folder = os.path.join(_cfg.ini_folder, "Boss")
         folder_used = _cfg.ini_folder
         diff_label = "Average "
+
     log(f" Difficulty set to {diff_label}")
     log(f" Using pools: Rooms={_cfg.room_folder} | Bosses={_cfg.boss_folder}")
+
     route_seed_raw = getattr(cfg, "route_seed", None)
     route_seed_int = None
     if route_seed_raw in ("", None):
@@ -244,6 +294,7 @@ if __name__ == "__main__":
         except Exception as e:
             log(f" Invalid route seed ({route_seed_raw!r})  ignoring: {e}")
             route_seed_int = None
+
     route_code = None
     try:
         if route_seed_int is not None:
@@ -261,10 +312,12 @@ if __name__ == "__main__":
             log(f" Route code: {route_code}")
     except Exception as e:
         log(f" Failed to compute route code: {e}")
+
     try:
         init_seed(route_seed_int)
     except Exception as e:
         log(f" Could not init character seed: {e}")
+
     try:
         if getattr(cfg, "random_start_character", False) or getattr(cfg, "random_character_per_stage", False):
             enable_character_lock()
@@ -273,10 +326,12 @@ if __name__ == "__main__":
             log(" Character lock not enabled (no random character mode selected).")
     except Exception as e:
         log(f" Could not enable character lock: {e}")
+
     try:
         _cfg.target_collect_mode = bool(getattr(cfg, "target_collect_mode", False))
     except Exception:
         pass
+
     stop_event = Event()
     state.update({
         "route_i": 0,
@@ -297,21 +352,25 @@ if __name__ == "__main__":
         "force_hwnd": None,
         "route_code": route_code,
     })
+
     try:
         write_all_saves_from_profiles(tag="startup")
         log(" Save profiles initialized from JSON (startup).")
     except Exception as e:
         log(f" Failed to initialize saves from profiles: {e}")
+
     try:
         write_selected_difficulty_to_encrypted_save(cfg.difficulty)
     except Exception as e:
         log(f" Failed to write Difficulty to save: {e}")
+
     targets_done_event = Event()
     if getattr(cfg, "target_collect_mode", False) and route_seed_int is not None:
         target_rng = random.Random(route_seed_int + 1337)
         log(" Target Collect RNG initialized from route seed.")
     else:
         target_rng = random
+
     if getattr(cfg, "target_collect_mode", False):
         try:
             _clear_target_file()
@@ -335,21 +394,29 @@ if __name__ == "__main__":
         log("  Route built: " + " -> ".join(route))
         state["route_list"] = list(route)
         state["route_index"] = 0
+
     try:
         from PY.item_randomizer import monitor_items
         if getattr(cfg, "item_randomizer_enabled", True):
-            Thread(target=monitor_items, args=(stop_event, getattr(cfg, "item_randomizer_popups", False)), daemon=True).start()
+            Thread(
+                target=monitor_items,
+                args=(stop_event, getattr(cfg, "item_randomizer_popups", False)),
+                daemon=True,
+            ).start()
             log(" Item Randomizer (re)started.")
         else:
             log(" Item Randomizer disabled by GUI.")
     except Exception as e:
         log(f" Item Randomizer thread failed: {e}")
+
     if not os.path.exists(game_exe):
         log(f" Game not found: {game_exe}")
         sys.exit(1)
+
     game_proc = subprocess.Popen([game_exe], cwd=iwbtb_folder)
     log(" Game launched.")
     log(" Waiting for the game window to become visible...")
+
     game_hwnd = find_game_hwnd_by_pid(game_proc.pid, timeout_s=15.0, poll=0.1)
     if game_hwnd and is_hwnd_valid(game_hwnd):
         log(f" Game window detected (HWND={game_hwnd})  initializing")
@@ -360,6 +427,7 @@ if __name__ == "__main__":
             log(" Pixel detector pinned to game HWND (force_hwnd set).")
         except Exception:
             pass
+
     try:
         show_reset_overlay(
             stop_event,
@@ -369,18 +437,22 @@ if __name__ == "__main__":
         )
     except Exception as e:
         log(f" Reset overlay on startup failed: {e}")
+
     try:
         if getattr(cfg, "random_start_character", False):
             set_random_character()
     except Exception as e:
         log(f" Random start character failed: {e}")
+
     audit_save("startup", force=True)
     mirror_plain_for_tracker()
     exporter_thread = start_state_exporter_thread(interval=1.0)
     tracker_proc = start_live_tracker_robust()
     if tracker_proc is None:
         log(" Live Tracker exited early. Check INI\\live_tracker_boot.log for details.")
+
     import atexit
+
     def _cleanup():
         try:
             stop_event.set()
@@ -394,9 +466,12 @@ if __name__ == "__main__":
             terminate_proc_tree(game_proc, name="Game Process", wait_s=0.8)
         except Exception:
             pass
+
     atexit.register(_cleanup)
+
     reset_held = False
     _last_hb = 0.0
+
     while True:
         try:
             if game_proc.poll() is not None:
@@ -406,6 +481,7 @@ if __name__ == "__main__":
                 except Exception:
                     pass
                 break
+
             if not keep_game_liveness(game_proc, state, grace_s=game_absent_grace_s):
                 log(" Game window not found for too long  shutting down randomizer.")
                 try:
@@ -413,6 +489,7 @@ if __name__ == "__main__":
                 except Exception:
                     pass
                 break
+
             if _hotkey_ctrl_r():
                 if not reset_held:
                     reset_held = True
@@ -441,6 +518,7 @@ if __name__ == "__main__":
                             state["current_stage"] = None
                             state["route_list"] = list(route)
                             state["route_index"] = 0
+
                         try:
                             show_reset_overlay(
                                 stop_event,
@@ -450,6 +528,7 @@ if __name__ == "__main__":
                             )
                         except Exception as e:
                             log(f" Reset overlay (with route code) failed: {e}")
+
                         if state.get("force_hwnd") and is_hwnd_valid(state["force_hwnd"]):
                             focus_hwnd(state["force_hwnd"])
                         press_f2()
@@ -458,16 +537,20 @@ if __name__ == "__main__":
                         log(f" Reset failed: {e}")
             else:
                 reset_held = False
+
             now = time.time()
             if now < state.get("pause_until", 0.0):
                 time.sleep(poll_interval)
                 continue
+
             cooldown_until = 0.0
             if getattr(cfg, "target_collect_mode", False):
                 cooldown_until = max(state.get("item_cooldown_until", 0.0), 0.0)
+
             triggered = False
             planned_next_file = None
             current_stage = state.get("current_stage")
+
             trig, reason, p_region, p_level = check_pixel_trigger(
                 pixel_check_fn=_pd_check_pixel_regions,
                 pixel_regions=pixel_regions,
@@ -475,6 +558,7 @@ if __name__ == "__main__":
                 current_stage=current_stage,
                 cooldown_until=cooldown_until,
             )
+
             if trig:
                 triggered = True
                 if reason == "first_pixel":
@@ -494,6 +578,7 @@ if __name__ == "__main__":
                             planned_next_file = route[state["route_i"]]
                             state["current_stage"] = (planned_next_file or "").lower()
                 log(f" Pixel-trigger accepted ({p_region})  preparing stage transition")
+
             if not triggered:
                 ach_trig, ach_reason = check_achievements_trigger(trigger_targets, state)
                 if ach_trig:
@@ -504,8 +589,10 @@ if __name__ == "__main__":
                             show_end_stats(stop_event, route_code=state.get("route_code"))
                     except Exception as e:
                         log(f" Could not start end_stats overlay: {e}")
+
             if getattr(cfg, "target_collect_mode", False) and targets_done_event.is_set():
                 state["force_solgryn_next"] = True
+
             if triggered:
                 state["pause_until"] = now + trigger_pause_s
                 if getattr(cfg, "target_collect_mode", False):
@@ -514,17 +601,44 @@ if __name__ == "__main__":
                         state["force_solgryn_next"] = False
                         overlay_text = "Final Battle  Solgryn!"
                     else:
-                        rooms = list(POS_DATA["rooms"].keys())
-                        bosses = list(POS_DATA["bosses"].keys())
+                        rooms_all = [str(r).lower() for r in POS_DATA["rooms"].keys()]
+                        bosses_all = [str(b).lower() for b in POS_DATA["bosses"].keys()]
+
+                        disabled_rooms = [str(x).lower() for x in getattr(cfg, "disabled_rooms", [])]
+                        disabled_bosses = [str(x).lower() for x in getattr(cfg, "disabled_bosses", [])]
+
+                        enabled_rooms = [r for r in rooms_all if r not in disabled_rooms]
+                        enabled_bosses = [
+                            b for b in bosses_all
+                            if b not in disabled_bosses and b != "boss_solgryn.ini"
+                        ]
+
+                        enabled_rooms, enabled_bosses = apply_history_filter(
+                            enabled_rooms,
+                            enabled_bosses,
+                            rooms_requested=1,
+                            bosses_requested=1,
+                            mode="target",
+                        )
+
                         preferred = "boss" if not state.get("last_was_boss", False) else "room"
-                        if preferred == "boss" and bosses:
-                            next_file = target_rng.choice(bosses)
+                        next_file = None
+
+                        if preferred == "boss" and enabled_bosses:
+                            next_file = target_rng.choice(enabled_bosses)
                             state["last_was_boss"] = True
-                        elif rooms:
-                            next_file = target_rng.choice(rooms)
+                        elif enabled_rooms:
+                            next_file = target_rng.choice(enabled_rooms)
                             state["last_was_boss"] = False
-                        else:
-                            next_file = None
+
+                        if next_file:
+                            update_route_history(
+                                [next_file],
+                                rooms_all,
+                                bosses_all,
+                                mode="target",
+                            )
+
                         overlay_text = "Loading next stage..."
                 else:
                     if planned_next_file:
@@ -535,26 +649,35 @@ if __name__ == "__main__":
                     else:
                         next_file = route[state["route_i"]]
                     overlay_text = "Loading next stage..."
+
                 if not next_file:
                     log(" No next stage available (all pools disabled?).")
                     time.sleep(poll_interval)
                     continue
+
                 try:
                     if getattr(cfg, "random_character_per_stage", False):
                         set_random_character()
                 except Exception as e:
                     log(f" Random character per stage failed: {e}")
+
                 try:
                     if state.get("force_hwnd") and is_hwnd_valid(state["force_hwnd"]):
                         focus_hwnd(state["force_hwnd"])
+
                     try:
-                        pre_plain = decrypt_save(save_enc, rc4_key)
-                        pre_snap = snapshot_plain("pre_transition", pre_plain)
+                        pre_plain, _enc_pre = smart_read(save_enc)
+                        if pre_plain is not None:
+                            pre_snap = snapshot_plain("pre_transition", pre_plain)
+                        else:
+                            pre_snap = None
                     except Exception:
                         pre_snap = None
+
                     step_info = None
                     if not getattr(cfg, "target_collect_mode", False) and len(route) > 0:
                         step_info = f"Step {state['route_i']+1}/{len(route)}"
+
                     safe_begin_overlay(
                         stop_event,
                         text=overlay_text,
@@ -562,11 +685,14 @@ if __name__ == "__main__":
                         blackout=True,
                         route_code=state.get("route_code"),
                     )
+
                     try:
                         before_size = size_or_zero(save_enc)
+
                         def quick_overwrite():
                             perform_randomizer_overwrite(next_file, POS_DATA)
                             time.sleep(0.06)
+
                         send_ctrl_s()
                         time.sleep(0.06)
                         quick_overwrite()
@@ -584,19 +710,27 @@ if __name__ == "__main__":
                         time.sleep(0.5)
                         send_key_R()
                         time.sleep(0.5)
+
                         try:
-                            post_plain = decrypt_save(save_enc, rc4_key)
-                            from PY.save_utils import snapshot_plain
-                            snap = snapshot_plain("route_backup", post_plain)
-                            if snap:
-                                mark_last_writer("route_backup", {"snapshot": os.path.basename(snap)})
+                            post_plain, _enc_post = smart_read(save_enc)
+                            if post_plain is not None:
+                                from PY.save_utils import snapshot_plain as _snap2
+
+                                snap = _snap2("route_backup", post_plain)
+                                if snap:
+                                    mark_last_writer(
+                                        "route_backup",
+                                        {"snapshot": os.path.basename(snap)},
+                                    )
                         except Exception:
                             pass
                     finally:
                         safe_end_overlay()
+
                     restore_if_save_shrunk(before_size, min_expected=96, window_s=3.0)
                     state["last_trigger_time"] = time.time()
                     state["current_stage"] = (next_file or "").lower()
+
                     if not getattr(cfg, "target_collect_mode", False):
                         state["route_i"] += 1
                         log(f" Next stage loaded: {next_file} (Step {state['route_i']}/{len(route)})")
@@ -604,10 +738,12 @@ if __name__ == "__main__":
                         state["route_list"] = list(route)
                     else:
                         log(f" Next stage (endless): {next_file}")
+
                     audit_save("post_transition", force=True)
                     mirror_plain_for_tracker()
                 except Exception as e:
                     log(f" Route trigger failed: {e}")
+
             time.sleep(poll_interval)
         except KeyboardInterrupt:
             try:

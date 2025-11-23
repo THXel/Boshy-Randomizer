@@ -6,8 +6,9 @@ import random
 from typing import List, Set, Optional
 
 from PY.logger import log
-from PY.config import ini_folder, iwbtb_folder, save_enc, rc4_key
-from PY.rc4_utils import decrypt_save
+from PY.config import ini_folder, iwbtb_folder, save_enc
+from PY.file_utils import smart_read
+from PY.ini_utils import parse_ini
 
 TARGET_FILE = os.path.join(ini_folder, "target_items.json")
 ITEMS_FILE = os.path.join(ini_folder, "items.json")
@@ -16,31 +17,14 @@ LICENSE_FILE = os.path.join(iwbtb_folder, "onlineLicense.ini")
 BLACKLIST = {"Dark Boshy", "Gastly", "Awesomesauce"}
 
 
-def _parse_ini_sections(plain: str) -> dict:
-    data = {}
-    sec = None
-    for line in (plain or "").splitlines():
-        s = line.strip()
-        if not s:
-            continue
-        if s.startswith("[") and s.endswith("]"):
-            sec = s.strip("[]").lower()
-            data.setdefault(sec, {})
-            continue
-        if "=" in s and sec:
-            k, v = [x.strip() for x in s.split("=", 1)]
-            data[sec][k] = v
-    return data
-
-
 def _read_savefile_items() -> Set[str]:
     names: Set[str] = set()
-    try:
-        plain = decrypt_save(save_enc, rc4_key)
-    except Exception:
+
+    plain, _ = smart_read(save_enc)
+    if not plain:
         return names
 
-    data = _parse_ini_sections(plain)
+    data = parse_ini(plain)
     for sec_name in ("achievements", "collectables"):
         sec = data.get(sec_name, {})
         for k, v in sec.items():
@@ -54,16 +38,11 @@ def _read_license_items() -> Set[str]:
     if not os.path.exists(LICENSE_FILE):
         return names
 
-    try:
-        try:
-            plain = decrypt_save(LICENSE_FILE, rc4_key)
-        except Exception:
-            with open(LICENSE_FILE, "r", encoding="latin-1", errors="ignore") as f:
-                plain = f.read()
-    except Exception:
+    plain, _ = smart_read(LICENSE_FILE)
+    if not plain:
         return names
 
-    data = _parse_ini_sections(plain)
+    data = parse_ini(plain)
     sec = data.get("unlockables", {})
     for k, v in sec.items():
         if str(v).strip() == "1":

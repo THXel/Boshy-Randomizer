@@ -10,6 +10,8 @@ from tkinter import BOTH, Canvas
 from PIL import Image, ImageTk
 import pygetwindow as gw
 import traceback
+
+
 def _import_deps():
     log = None
     cfg = None
@@ -24,6 +26,7 @@ def _import_deps():
         except Exception:
             def _log(msg: str):
                 print(msg, flush=True)
+
         log = _log
         try:
             import config as _cfg
@@ -32,10 +35,18 @@ def _import_deps():
             class _Dummy:
                 ini_folder = os.path.join(os.getcwd(), "INI")
                 window_title = "I Wanna Be The Boshy"
-                custom_logo_path = os.path.join(os.getcwd(), "Custom", "boshy_randomizer.png")
+                custom_logo_path = os.path.join(
+                    os.getcwd(),
+                    "Custom",
+                    "boshy_randomizer.png",
+                )
+
             cfg = _Dummy()
     return log, cfg
+
+
 log, _cfg = _import_deps()
+
 INI_FOLDER = getattr(_cfg, "ini_folder", os.path.join(os.getcwd(), "INI"))
 WINDOW_TITLE = getattr(_cfg, "window_title", "I Wanna Be The Boshy")
 CUSTOM_LOGO = getattr(
@@ -46,12 +57,15 @@ CUSTOM_LOGO = getattr(
 WINDOW_TITLE_VARIANTS = getattr(_cfg, "window_title_variants", [])
 LEGACY_JSON_PATH = getattr(_cfg, "json_path", None)
 STATE_JSON = os.path.join(INI_FOLDER, "live_tracker_state.json")
+
 BG_COLOR = "#000000"
 CARD_BG = "#000000"
 FG_COLOR = "#FFFFFF"
 ACCENT = "#00D1FF"
 TEXT_DIM = "#AAAAAA"
 LINE_DIM = "#30343A"
+
+
 def _find_game_window_rect():
     try:
         candidates = []
@@ -62,6 +76,7 @@ def _find_game_window_rect():
         for t in WINDOW_TITLE_VARIANTS:
             if t and t not in titles:
                 titles.append(t)
+
         for title in titles:
             try:
                 wins = gw.getWindowsWithTitle(title)
@@ -76,6 +91,7 @@ def _find_game_window_rect():
                     candidates.append(w)
                 except Exception:
                     continue
+
         if not candidates:
             try:
                 all_wins = gw.getAllWindows()
@@ -97,13 +113,17 @@ def _find_game_window_rect():
                                 break
                 except Exception:
                     continue
+
         if not candidates:
             return None
+
         w = max(candidates, key=lambda win: win.width * win.height)
         return (w.left, w.top, w.width, w.height)
     except Exception as e:
         log(f"[end_stats] _find_game_window_rect failed: {e}")
         return None
+
+
 def _centered_geometry_over_game(w, h):
     rect = _find_game_window_rect()
     if rect:
@@ -120,6 +140,8 @@ def _centered_geometry_over_game(w, h):
         x = (sw - w) // 2
         y = (sh - h) // 2
         return f"{w}x{h}+{int(x)}+{int(y)}"
+
+
 def _draw_rounded_rect(canvas, x1, y1, x2, y2, r, fill):
     canvas.create_rectangle(x1 + r, y1, x2 - r, y2, fill=fill, outline="")
     canvas.create_rectangle(x1, y1 + r, x2, y2 - r, fill=fill, outline="")
@@ -133,58 +155,95 @@ def _draw_rounded_rect(canvas, x1, y1, x2, y2, r, fill):
                 fill=fill,
                 outline="",
             )
+
+
 def _register_private_font(ttf_path: str) -> None:
     try:
         if not os.path.exists(ttf_path):
             return
         FR_PRIVATE = 0x10
         import ctypes
+
         AddFontResourceEx = ctypes.windll.gdi32.AddFontResourceExW
         res = AddFontResourceEx(ttf_path, FR_PRIVATE, 0)
         if res > 0:
             HWND_BROADCAST = 0xFFFF
             WM_FONTCHANGE = 0x001D
-            ctypes.windll.user32.SendNotifyMessageW(HWND_BROADCAST, WM_FONTCHANGE, 0, 0)
+            ctypes.windll.user32.SendNotifyMessageW(
+                HWND_BROADCAST,
+                WM_FONTCHANGE,
+                0,
+                0,
+            )
     except Exception as e:
         log(f"[end_stats] font registration failed: {e}")
+
+
 def _choose_boshy_font(root: tk.Tk, fallback: str = "Consolas") -> str:
     try:
         custom_dir = os.path.dirname(CUSTOM_LOGO)
         ttf_candidate = os.path.join(custom_dir, "fonts", "its-boshy-time.ttf")
         _register_private_font(ttf_candidate)
         fams = set(str(f) for f in tkfont.families(root))
-        for name in ("It's Boshy Time!", "Its Boshy Time!", "It’s Boshy Time!", "It s Boshy Time!"):
+        for name in (
+            "It's Boshy Time!",
+            "Its Boshy Time!",
+            "It’s Boshy Time!",
+            "It s Boshy Time!",
+        ):
             if name in fams:
                 return name
     except Exception as e:
         log(f"[end_stats] choose_boshy_font failed: {e}")
     return fallback
+
+
 def _load_stats_from_json():
-\
-\
-\
     data = {}
     path = STATE_JSON if os.path.exists(STATE_JSON) else None
+
     if not path and LEGACY_JSON_PATH and os.path.exists(LEGACY_JSON_PATH):
         path = LEGACY_JSON_PATH
+
     if not path:
         log("[end_stats] no stats JSON found.")
         return {}
+
     try:
         with open(path, "r", encoding="utf-8") as f:
             data = json.load(f) or {}
     except Exception as e:
         log(f"[end_stats] failed to read JSON: {e}")
         return {}
+
     save_sections = {}
     lic_sections = {}
+
     if "save" in data and isinstance(data.get("save"), dict):
         save_sections = (data.get("save") or {}).get("sections") or {}
         lic_sections = (data.get("license") or {}).get("sections") or {}
-        stats = save_sections.get("stats", {}) or save_sections.get("Stats", {}) or {}
-        ach = save_sections.get("achievements", {}) or save_sections.get("Achievements", {}) or {}
-        col = save_sections.get("collectables", {}) or save_sections.get("Collectables", {}) or {}
-        bosses = save_sections.get("bosses", {}) or save_sections.get("Bosses", {}) or {}
+
+        stats = (
+            save_sections.get("stats", {})
+            or save_sections.get("Stats", {})
+            or {}
+        )
+        ach = (
+            save_sections.get("achievements", {})
+            or save_sections.get("Achievements", {})
+            or {}
+        )
+        col = (
+            save_sections.get("collectables", {})
+            or save_sections.get("Collectables", {})
+            or {}
+        )
+        bosses = (
+            save_sections.get("bosses", {})
+            or save_sections.get("Bosses", {})
+            or {}
+        )
+
         unlocks = {}
         for sec_name, sec_dict in lic_sections.items():
             if sec_name.lower() == "unlockables":
@@ -199,6 +258,7 @@ def _load_stats_from_json():
         unlocks = (data.get("license", {}) or {}).get("unlockables", {}) or {}
         save_sections = save
         lic_sections = data.get("license", {}) or {}
+
     def _ci(d, key, default="0"):
         if key in d:
             return d[key]
@@ -207,17 +267,21 @@ def _load_stats_from_json():
             if kk.lower() == lk:
                 return vv
         return default
+
     deaths_raw = str(_ci(stats, "Deaths", "0"))
     try:
         deaths = int(deaths_raw) if deaths_raw.strip().isdigit() else 0
     except Exception:
         deaths = 0
+
     diff_raw = str(_ci(stats, "Difficulty", "N/A"))
     time_raw = str(_ci(stats, "TimeSeconds", "0"))
+
     try:
         timesec = int(time_raw) if time_raw.strip().isdigit() else 0
     except Exception:
         timesec = 0
+
     diff_map = {
         "0": "Ez Mode",
         "1": "Totally Average Mode",
@@ -225,15 +289,25 @@ def _load_stats_from_json():
         "3": "Youre Gonna Rage Mode",
     }
     difficulty_label = diff_map.get(diff_raw, diff_raw)
+
     h = timesec // 3600
     m = (timesec % 3600) // 60
     s = timesec % 60
     time_str = f"{h:02d}:{m:02d}:{s:02d}"
-    achievements = {k: v for k, v in ach.items() if str(v).strip() not in ("", "0")}
-    collectables = {k: v for k, v in col.items() if str(v).strip() not in ("", "0")}
-    unlockables = {k: v for k, v in unlocks.items() if str(v).strip() not in ("", "0")}
+
+    achievements = {
+        k: v for k, v in ach.items() if str(v).strip() not in ("", "0")
+    }
+    collectables = {
+        k: v for k, v in col.items() if str(v).strip() not in ("", "0")
+    }
+    unlockables = {
+        k: v for k, v in unlocks.items() if str(v).strip() not in ("", "0")
+    }
+
     worlds_clear = 0
     worlds_pro = 0
+
     for k, v in achievements.items():
         if str(v).strip() in ("", "0"):
             continue
@@ -242,11 +316,13 @@ def _load_stats_from_json():
             worlds_clear += 1
         elif re.match(r"world\d+promode$", kl):
             worlds_pro += 1
+
     boss_deaths = {
         k: int(v)
         for k, v in bosses.items()
         if str(v).isdigit() and int(v) > 0
     }
+
     return {
         "summary": {
             "deaths": deaths,
@@ -262,13 +338,9 @@ def _load_stats_from_json():
         "save_sections": save_sections,
         "license_sections": lic_sections,
     }
+
+
 def show_end_stats(stop_event, route_code: str | None = None):
-\
-\
-\
-\
-\
-\
     def _run():
         try:
             delay = 10.0
@@ -277,15 +349,19 @@ def show_end_stats(stop_event, route_code: str | None = None):
                 if stop_event.is_set():
                     return
                 time.sleep(0.1)
+
             data = _load_stats_from_json()
             if not data:
                 log("[end_stats] no stats data, aborting overlay.")
                 return
+
             summary = data["summary"]
             save_sections = data.get("save_sections", {}) or {}
             license_sections = data.get("license_sections", {}) or {}
+
             w, h = 960, 640
             geom = _centered_geometry_over_game(w, h)
+
             root = tk.Tk()
             root.overrideredirect(True)
             root.attributes("-topmost", True)
@@ -293,15 +369,19 @@ def show_end_stats(stop_event, route_code: str | None = None):
             root.configure(bg=BG_COLOR)
             root.geometry(geom)
             root.focus_force()
+
             boshy_font = _choose_boshy_font(root, fallback="Consolas")
             base_font = ("Consolas", 11)
             big_font = (boshy_font, 15, "bold")
             section_font = (boshy_font, 11, "bold")
             small_dim = ("Consolas", 10, "italic")
+
             container = tk.Frame(root, bg=BG_COLOR)
             container.pack(fill=BOTH, expand=True)
+
             v_scroll = tk.Scrollbar(container, orient="vertical")
             v_scroll.pack(side="right", fill="y")
+
             canvas = Canvas(
                 container,
                 bg=BG_COLOR,
@@ -310,12 +390,17 @@ def show_end_stats(stop_event, route_code: str | None = None):
             )
             canvas.pack(side="left", fill="both", expand=True)
             v_scroll.config(command=canvas.yview)
+
             def _on_mousewheel(event):
                 canvas.yview_scroll(int(-1 * (event.delta / 120)), "units")
+
             root.bind_all("<MouseWheel>", _on_mousewheel)
+
             _draw_rounded_rect(canvas, 12, 12, w - 12, h - 12, 26, fill=CARD_BG)
+
             pad_top = 26
             logo_y = pad_top + 60
+
             try:
                 if os.path.exists(CUSTOM_LOGO):
                     img = Image.open(CUSTOM_LOGO)
@@ -328,9 +413,11 @@ def show_end_stats(stop_event, route_code: str | None = None):
             except Exception as e:
                 log(f"[end_stats] logo load failed: {e}")
                 pad_top += 72
+
             title_y = pad_top
             seed_id_holder = {"id": None}
             copy_status = {"id": None}
+
             def _set_copy_status(msg: str, duration_ms: int = 2000):
                 if copy_status["id"] is not None:
                     try:
@@ -350,6 +437,7 @@ def show_end_stats(stop_event, route_code: str | None = None):
                     )
                 except Exception:
                     return
+
                 def _clear():
                     if copy_status["id"] is not None:
                         try:
@@ -357,7 +445,9 @@ def show_end_stats(stop_event, route_code: str | None = None):
                         except Exception:
                             pass
                         copy_status["id"] = None
+
                 root.after(duration_ms, _clear)
+
             def _copy_route_code(event=None, code: str | None = None):
                 if not code:
                     return
@@ -368,21 +458,28 @@ def show_end_stats(stop_event, route_code: str | None = None):
                     _set_copy_status("Seed copied to clipboard!", 2500)
                     if seed_id_holder["id"] is not None:
                         try:
-                            canvas.itemconfigure(seed_id_holder["id"], fill="#FFFFFF")
+                            canvas.itemconfigure(
+                                seed_id_holder["id"],
+                                fill="#FFFFFF",
+                            )
                         except Exception:
                             pass
+
                         def _reset_color():
                             try:
                                 if seed_id_holder["id"] is not None:
                                     canvas.itemconfigure(
-                                        seed_id_holder["id"], fill=TEXT_DIM
+                                        seed_id_holder["id"],
+                                        fill=TEXT_DIM,
                                     )
                             except Exception:
                                 pass
+
                         root.after(800, _reset_color)
                 except Exception as e:
                     log(f"[end_stats] clipboard copy failed: {e}")
                     _set_copy_status("Copy failed :(", 2500)
+
             def draw_title_and_headers():
                 canvas.create_text(
                     w // 2,
@@ -415,13 +512,16 @@ def show_end_stats(stop_event, route_code: str | None = None):
                         "<Button-1>",
                         lambda e, code=route_code: _copy_route_code(e, code),
                     )
+
                 line_y = title_y + 24
                 canvas.create_line(60, line_y, w - 60, line_y, fill=LINE_DIM)
+
                 headers_y = line_y + 18
                 inner_left = 70
                 inner_right = w - 70
                 col_width = (inner_right - inner_left) / 4.0
                 col_left = [inner_left + i * col_width for i in range(4)]
+
                 header_texts = ["RUN", "ACHIEVEMENTS", "PROGRESS", "PROFILE"]
                 for i in range(4):
                     canvas.create_text(
@@ -432,7 +532,9 @@ def show_end_stats(stop_event, route_code: str | None = None):
                         font=section_font,
                         anchor="nw",
                     )
+
                 lines_start_y = headers_y + 24
+
                 _start_typewriter(
                     canvas,
                     root,
@@ -447,7 +549,9 @@ def show_end_stats(stop_event, route_code: str | None = None):
                     save_sections,
                     license_sections,
                 )
+
             draw_title_and_headers()
+
             def fade_in(step=0, max_alpha=0.88):
                 if stop_event.is_set():
                     try:
@@ -455,11 +559,14 @@ def show_end_stats(stop_event, route_code: str | None = None):
                     except Exception:
                         pass
                     return
+
                 alpha = max_alpha * (step / 10.0)
                 root.attributes("-alpha", alpha)
                 if step < 10:
                     root.after(30, fade_in, step + 1, max_alpha)
+
             fade_in(0)
+
             def close_event(event=None):
                 try:
                     for a in range(88, -1, -12):
@@ -472,17 +579,22 @@ def show_end_stats(stop_event, route_code: str | None = None):
                     try:
                         from PY.save_utils import copy_dest
                         from PY.reload_sequence import send_reload_sequence
+
                         base_dir = os.path.dirname(os.path.abspath(__file__))
                         ini_folder = os.path.join(base_dir, "..", "INI")
                         iwbtb_folder = os.path.join(base_dir, "..", "IWBTB")
                         end_path = os.path.join(ini_folder, "end.ini")
                         dest_path = os.path.join(iwbtb_folder, "SaveFile1.ini")
+
                         if os.path.exists(end_path) and os.path.exists(dest_path):
                             copy_dest(end_path, dest_path)
                             log("End stats trigger: end.ini -> SaveFile1.ini")
                             send_reload_sequence()
                         else:
-                            log("End stats trigger skipped (missing end.ini or SaveFile1.ini)")
+                            log(
+                                "End stats trigger skipped "
+                                "(missing end.ini or SaveFile1.ini)",
+                            )
                     except Exception as e2:
                         log(f"[end_stats] end.ini trigger error: {e2}")
                 except Exception:
@@ -490,63 +602,72 @@ def show_end_stats(stop_event, route_code: str | None = None):
                         root.destroy()
                     except Exception:
                         pass
+
             root.bind("<Escape>", close_event)
             root.bind("<Control-s>", close_event)
             root.bind("<F2>", close_event)
+
             while not stop_event.is_set():
                 try:
                     root.update()
                     time.sleep(0.03)
                 except tk.TclError:
                     break
+
             if stop_event.is_set():
                 try:
                     root.destroy()
                 except Exception:
                     pass
         except Exception as e:
-            log(f"Failed to display end_stats overlay: {e}\n{traceback.format_exc()}")
+            log(
+                f"Failed to display end_stats overlay: {e}\n"
+                f"{traceback.format_exc()}",
+            )
+
     threading.Thread(target=_run, daemon=True).start()
-def _start_typewriter(canvas: Canvas,
-                      root: tk.Tk,
-                      stop_event,
-                      col_left,
-                      col_width,
-                      base_y,
-                      base_font,
-                      small_font,
-                      section_font,
-                      summary,
-                      save_sections,
-                      license_sections):
-\
-\
-\
-\
-\
-\
-\
+
+
+def _start_typewriter(
+    canvas: Canvas,
+    root: tk.Tk,
+    stop_event,
+    col_left,
+    col_width,
+    base_y,
+    base_font,
+    small_font,
+    section_font,
+    summary,
+    save_sections,
+    license_sections,
+):
     n_cols = len(col_left)
     col_lines: list[list[tuple[str, str]]] = [[] for _ in range(n_cols)]
+
     def get_section(sections, *names):
         for name in names:
             for sec_name, sec in sections.items():
                 if sec_name.lower() == name.lower():
                     return sec or {}
         return {}
+
     stats_sec = get_section(save_sections, "Stats", "stats")
     ach_sec = get_section(save_sections, "Achievements", "achievements")
     boss_sec = get_section(save_sections, "Bosses", "bosses")
     coll_sec = get_section(save_sections, "Collectables", "collectables")
     unlock_sec = get_section(license_sections, "Unlockables", "unlockables")
+
     col_lines[0].append(("OVERVIEW", "header"))
     col_lines[0].append(("", "sep"))
     col_lines[0].append((f"Time  {summary['time_str']}", "normal"))
     col_lines[0].append((f"Deaths  {summary['deaths']}", "normal"))
     col_lines[0].append((f"Difficulty  {summary['difficulty_label']}", "normal"))
     col_lines[0].append(("", "normal"))
+
     col_lines[0].append(("STATS", "header"))
     col_lines[0].append(("", "sep"))
+
     stats_added = False
     for k, v in stats_sec.items():
         kl = k.lower()
@@ -556,9 +677,11 @@ def _start_typewriter(canvas: Canvas,
         stats_added = True
     if not stats_added:
         col_lines[0].append(("NONE", "normal"))
+
     col_lines[1].append(("ACHIEVEMENTS", "header"))
     col_lines[1].append(("", "sep"))
     col_lines[1].append((f"Total  {summary['achievements_count']}", "normal"))
+
     ach_any = False
     for k, v in sorted(ach_sec.items(), key=lambda kv: kv[0].lower()):
         if str(v).strip() in ("", "0"):
@@ -567,8 +690,10 @@ def _start_typewriter(canvas: Canvas,
         ach_any = True
     if not ach_any:
         col_lines[1].append(("NONE", "normal"))
+
     col_lines[2].append(("BOSSES", "header"))
     col_lines[2].append(("", "sep"))
+
     boss_any = False
     for k, v in sorted(boss_sec.items(), key=lambda kv: kv[0].lower()):
         if str(v).strip() in ("", "0"):
@@ -577,10 +702,12 @@ def _start_typewriter(canvas: Canvas,
         boss_any = True
     if not boss_any:
         col_lines[2].append(("NONE", "normal"))
+
     col_lines[2].append(("", "normal"))
     col_lines[2].append(("COLLECTABLES", "header"))
     col_lines[2].append(("", "sep"))
     col_lines[2].append((f"Total  {summary['collectables_count']}", "normal"))
+
     coll_any = False
     for k, v in sorted(coll_sec.items(), key=lambda kv: kv[0].lower()):
         if str(v).strip() in ("", "0"):
@@ -589,17 +716,25 @@ def _start_typewriter(canvas: Canvas,
         coll_any = True
     if not coll_any:
         col_lines[2].append(("NONE", "normal"))
+
     col_lines[2].append(("", "normal"))
     col_lines[2].append(("WORLDS", "header"))
     col_lines[2].append(("", "sep"))
+
     if summary["worlds_clear"] == 0 and summary["worlds_pro"] == 0:
         col_lines[2].append(("NONE", "normal"))
     else:
-        col_lines[2].append((f"Worlds clear  {summary['worlds_clear']}", "normal"))
-        col_lines[2].append((f"Worlds pro  {summary['worlds_pro']}", "normal"))
+        col_lines[2].append(
+            (f"Worlds clear  {summary['worlds_clear']}", "normal"),
+        )
+        col_lines[2].append(
+            (f"Worlds pro  {summary['worlds_pro']}", "normal"),
+        )
+
     col_lines[3].append(("CHARACTERS", "header"))
     col_lines[3].append(("", "sep"))
     col_lines[3].append((f"Total  {summary['unlockables_count']}", "normal"))
+
     char_any = False
     for k, v in sorted(unlock_sec.items(), key=lambda kv: kv[0].lower()):
         if str(v).strip() in ("", "0"):
@@ -608,28 +743,37 @@ def _start_typewriter(canvas: Canvas,
         char_any = True
     if not char_any:
         col_lines[3].append(("NONE", "normal"))
+
     col_lines[3].append(("", "normal"))
     col_lines[3].append(("OTHER", "header"))
     col_lines[3].append(("", "sep"))
+
     other_any = False
-    handled_save_sections = {n.lower() for n in ("Stats", "Achievements", "Bosses", "Collectables")}
+    handled_save_sections = {
+        n.lower() for n in ("Stats", "Achievements", "Bosses", "Collectables")
+    }
+
     for sec_name, sec in save_sections.items():
         if sec_name.lower() in handled_save_sections:
             continue
         for k, v in sec.items():
             col_lines[3].append((f"{sec_name}  {k}  {v}", "normal"))
             other_any = True
+
     for sec_name, sec in license_sections.items():
         if sec_name.lower() == "unlockables":
             continue
         for k, v in sec.items():
             col_lines[3].append((f"{sec_name}  {k}  {v}", "normal"))
             other_any = True
+
     if not other_any:
         col_lines[3].append(("NONE", "normal"))
+
     line_height = 18
     col_items: list[list[tuple[int, int, str]]] = [[] for _ in range(n_cols)]
     max_rows = max(len(c) for c in col_lines) if col_lines else 0
+
     for col in range(n_cols):
         for row, (text, kind) in enumerate(col_lines[col]):
             x_base = col_left[col]
@@ -654,11 +798,14 @@ def _start_typewriter(canvas: Canvas,
                 )
             else:
                 col_items[col].append((x_base + 6, y, text))
+
     total_height = base_y + (max_rows + 6) * line_height
     root.update_idletasks()
     canvas.config(scrollregion=(0, 0, canvas.winfo_width(), total_height))
+
     footer_drawn = {"value": False}
     col_done = [False] * n_cols
+
     def maybe_draw_footer():
         if footer_drawn["value"]:
             return
@@ -672,6 +819,7 @@ def _start_typewriter(canvas: Canvas,
                 font=small_font,
             )
             footer_drawn["value"] = True
+
     def type_line(col_idx: int, idx: int):
         if stop_event.is_set():
             return
@@ -680,6 +828,7 @@ def _start_typewriter(canvas: Canvas,
             col_done[col_idx] = True
             maybe_draw_footer()
             return
+
         x, y, full_text = items[idx]
         item_id = canvas.create_text(
             x,
@@ -689,6 +838,7 @@ def _start_typewriter(canvas: Canvas,
             font=base_font,
             anchor="nw",
         )
+
         def step(pos=0):
             if stop_event.is_set():
                 return
@@ -697,6 +847,8 @@ def _start_typewriter(canvas: Canvas,
                 root.after(12, step, pos + 1)
             else:
                 root.after(40, type_line, col_idx, idx + 1)
+
         step(0)
+
     for col in range(n_cols):
         root.after(400, type_line, col, 0)

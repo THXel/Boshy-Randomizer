@@ -1,3 +1,4 @@
+from __future__ import annotations
 import os
 import json
 import random
@@ -5,8 +6,11 @@ import threading
 import time
 
 from PY.logger import log
-from PY.config import iwbtb_folder, ini_folder, rc4_key, save_enc
-from PY.rc4_utils import rc4_crypt, encrypt_save
+from PY.config import iwbtb_folder, ini_folder, save_enc
+from PY.loading_overlay import is_loading_overlay_active
+
+from PY.file_utils import smart_read, smart_write
+from PY.ini_utils import parse_ini, apply_values_in_section
 
 items_path = os.path.join(ini_folder, "items.json")
 characters_path = os.path.join(ini_folder, "characters.json")
@@ -18,112 +22,10 @@ POLL_INTERVAL_SEC = 0.30
 AVOID_REPEATS = True
 
 BLACKLIST_SOURCES = {"Awesomesauce", "Dark Boshy"}
+BLACKLIST_NAMES = BLACKLIST_SOURCES
 
 EVENTS_PATH = os.path.join(ini_folder, "item_randomizer_events.json")
 
-
-def _smart_read_text(path):
-    if not os.path.exists(path):
-        return None, False
-    try:
-        with open(path, "rb") as f:
-            raw = f.read()
-        sample = raw[:400]
-        if b"[" in sample and b"=" in sample:
-            return raw.decode("latin-1", errors="ignore"), False
-        return rc4_crypt(rc4_key, raw).decode("latin-1", errors="ignore"), True
-    except Exception as e:
-        log(f"⚠️ smart_read_text failed for {os.path.basename(path)}: {e}")
-        return None, False
-
-
-def _smart_write_text(path, text, was_encrypted):
-    try:
-        if was_encrypted:
-            encrypt_save(text, path, rc4_key)
-        else:
-            with open(path, "w", encoding="latin-1", errors="ignore") as f:
-                f.write(text)
-    except Exception as e:
-        log(f"⚠️ smart_write_text failed for {os.path.basename(path)}: {e}")
-
-
-def _parse_ini(text):
-    data = {}
-    sec = None
-    for line in (text or "").splitlines():
-        s = line.strip()
-        if not s:
-            continue
-        if s.startswith("[") and s.endswith("]"):
-            sec = s.strip("[]").lower()
-            data.setdefault(sec, {})
-            continue
-        if "=" in s and sec:
-            k, v = [x.strip() for x in s.split("=", 1)]
-            data[sec][k] = v
-    return data
-
-
-def _apply_values_in_section(original_text, section_name, kv_updates):
-    lines = (original_text or "").splitlines()
-    out = []
-    sec = None
-    section_l = (section_name or "").lower()
-
-    seen_keys = set()
-    in_section = False
-    inserted_new = False
-
-    # Prüfen, ob Section überhaupt existiert
-    has_section = any(
-        (ln.strip().lower() == f"[{section_l}]") for ln in lines
-    )
-
-    for line in lines:
-        s = line.strip()
-
-        # Neuer Abschnitt beginnt
-        if s.startswith("[") and s.endswith("]"):
-            # Wenn wir gerade aus unserer Section rauslaufen und noch
-            # neue Keys übrig sind → jetzt einfügen
-            if in_section and not inserted_new:
-                for k, v in kv_updates.items():
-                    if k not in seen_keys:
-                        out.append(f"{k}={v}")
-                inserted_new = True
-
-            sec = s.strip("[]").lower()
-            in_section = (sec == section_l)
-            out.append(line)
-            continue
-
-        # Key-Value innerhalb unserer Ziel-Section
-        if "=" in s and in_section:
-            k, v = [x.strip() for x in s.split("=", 1)]
-            if k in kv_updates:
-                out.append(f"{k}={kv_updates[k]}")
-                seen_keys.add(k)
-            else:
-                out.append(line)
-        else:
-            out.append(line)
-
-    # Fall 1: Section existierte nicht → neue Section ans Ende
-    if not has_section:
-        out.append(f"[{section_name}]")
-        for k, v in kv_updates.items():
-            out.append(f"{k}={v}")
-        return "\n".join(out)
-
-    # Fall 2: Section existiert, aber wir haben noch keine neuen Keys eingefügt
-    # (z.B. wenn Section am Ende steht oder sie keine alten Keys hatte)
-    if has_section and not inserted_new:
-        for k, v in kv_updates.items():
-            if k not in seen_keys:
-                out.append(f"{k}={v}")
-
-    return "\n".join(out)
 
 def _route_swap_in_progress():
     return os.path.exists(TMP_OLD)
@@ -177,7 +79,7 @@ def monitor_items(stop_event, enable_popups=False):
     last_collect = {}
     last_unlock = {}
     used_names = set()
-    first_loop = True  # erste Runde: nur Zustand merken
+    first_loop = True
 
     log(f"🔄 Item randomizer initialized (pool size: {len(all_pool)}).")
 
@@ -187,11 +89,31 @@ def monitor_items(stop_event, enable_popups=False):
                 time.sleep(0.2)
                 continue
 
-            # ----- SaveFile1.ini (Collectables) -----
-            txt, enc = _smart_read_text(savefile_path)
+            if is_loading_overlay_active():
+                time.sleep(POLL_INTERVAL_SEC)
+                continue
+
+            txt, enc = smart_read(savefile_path)
+            positions = {}
             if txt:
-                data = _parse_ini(txt)
+                data = parse_ini(txt)
+                positions = data.get("positions", {}) or {}
                 col = data.get("collectables", {}) or {}
+
+                if not positions:
+                    for k, v in col.items():
+                        last_collect[k] = v
+
+                    txt_idle, enc_idle = smart_read(license_path)
+                    if txt_idle:
+                        data_idle = parse_ini(txt_idle)
+                        unl_idle = data_idle.get("unlockables", {}) or {}
+                        for k, v in unl_idle.items():
+                            last_unlock[k] = v
+
+                    time.sleep(POLL_INTERVAL_SEC)
+                    continue
+
                 changes_collect = {}
                 unlock_to_write = None
 
@@ -199,11 +121,9 @@ def monitor_items(stop_event, enable_popups=False):
                     old = last_collect.get(k, "0")
                     last_collect[k] = v
 
-                    # Blacklist: diese Quellen nie als Trigger verwenden
                     if k in BLACKLIST_NAMES:
                         continue
 
-                    # erste Schleife: nur Zustand übernehmen, nichts randomizen
                     if first_loop:
                         continue
 
@@ -224,44 +144,37 @@ def monitor_items(stop_event, enable_popups=False):
                         if AVOID_REPEATS:
                             used_names.add(target)
 
-                        changes_collect[k] = "0"
-
                         if is_char.get(target, False):
                             unlock_to_write = target
-                            log(
-                                f"🎲 Collectable {k} → Character {target} (write in onlineLicense)"
-                            )
+                            log(f"🎲 Collectable {k} → Character {target}")
                             _write_event(k, target, "collectable_to_char")
                         else:
                             changes_collect[target] = "1"
-                            log(
-                                f"🎲 Collectable {k} → Item {target} (write in SaveFile)"
-                            )
+                            log(f"🎲 Collectable {k} → Item {target}")
                             _write_event(k, target, "collectable_to_item")
 
                 if changes_collect:
-                    new_txt = _apply_values_in_section(
+                    new_txt = apply_values_in_section(
                         txt,
                         "Collectables",
                         changes_collect,
                     )
-                    _smart_write_text(savefile_path, new_txt, enc)
+                    smart_write(savefile_path, new_txt, enc)
 
                 if unlock_to_write:
-                    txt2w, enc2w = _smart_read_text(license_path)
+                    txt2w, enc2w = smart_read(license_path)
                     if txt2w is None:
                         txt2w, enc2w = "[Unlockables]\n", False
-                    new_txt2w = _apply_values_in_section(
+                    new_txt2w = apply_values_in_section(
                         txt2w,
                         "Unlockables",
                         {unlock_to_write: "1"},
                     )
-                    _smart_write_text(license_path, new_txt2w, enc2w)
+                    smart_write(license_path, new_txt2w, enc2w)
 
-            # ----- onlineLicense.ini (Unlockables) -----
-            txt2, enc2 = _smart_read_text(license_path)
+            txt2, enc2 = smart_read(license_path)
             if txt2:
-                data2 = _parse_ini(txt2)
+                data2 = parse_ini(txt2)
                 unl = data2.get("unlockables", {}) or {}
                 changes_unlock = {}
                 collect_to_write = None
@@ -270,11 +183,9 @@ def monitor_items(stop_event, enable_popups=False):
                     old = last_unlock.get(k, "0")
                     last_unlock[k] = v
 
-                    # Blacklist: auch hier keine Trigger
                     if k in BLACKLIST_NAMES:
                         continue
 
-                    # erste Schleife: nur Zustand übernehmen, nichts randomizen
                     if first_loop:
                         continue
 
@@ -295,41 +206,34 @@ def monitor_items(stop_event, enable_popups=False):
                         if AVOID_REPEATS:
                             used_names.add(target)
 
-                        changes_unlock[k] = "0"
-
                         if is_char.get(target, False):
                             changes_unlock[target] = "1"
-                            log(
-                                f"🎲 Unlockable {k} → Character {target} (write in onlineLicense)"
-                            )
+                            log(f"🎲 Unlockable {k} → Character {target}")
                             _write_event(k, target, "unlockable_to_char")
                         else:
                             collect_to_write = target
-                            log(
-                                f"🎲 Unlockable {k} → Item {target} (write in SaveFile)"
-                            )
+                            log(f"🎲 Unlockable {k} → Item {target}")
                             _write_event(k, target, "unlockable_to_item")
 
                 if changes_unlock:
-                    new_txt2 = _apply_values_in_section(
+                    new_txt2 = apply_values_in_section(
                         txt2,
                         "Unlockables",
                         changes_unlock,
                     )
-                    _smart_write_text(license_path, new_txt2, enc2)
+                    smart_write(license_path, new_txt2, enc2)
 
                 if collect_to_write:
-                    txtw, encw = _smart_read_text(savefile_path)
+                    txtw, encw = smart_read(savefile_path)
                     if txtw is None:
                         txtw, encw = "[Collectables]\n", False
-                    new_txtw = _apply_values_in_section(
+                    new_txtw = apply_values_in_section(
                         txtw,
                         "Collectables",
                         {collect_to_write: "1"},
                     )
-                    _smart_write_text(savefile_path, new_txtw, encw)
+                    smart_write(savefile_path, new_txtw, encw)
 
-            # ab jetzt dürfen echte Trigger feuern
             first_loop = False
 
             time.sleep(POLL_INTERVAL_SEC)

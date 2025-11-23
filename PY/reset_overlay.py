@@ -9,9 +9,8 @@ from .logger import log
 
 BG_COLOR = "#000000"
 FG_COLOR = "#FFFFFF"
-ACCENT   = "#00D1FF"
+ACCENT = "#00D1FF"
 
-# Sorgt dafür, dass nie zwei Overlays gleichzeitig Tk-Fenster anlegen
 _overlay_lock = threading.Lock()
 
 
@@ -21,7 +20,7 @@ def _find_game_window_rect():
         if wins:
             w = wins[0]
             if w.width > 100 and w.height > 100 and w.isVisible:
-                return (w.left, w.top, w.width, w.height)
+                return w.left, w.top, w.width, w.height
     except Exception:
         pass
     return None
@@ -78,23 +77,23 @@ def _top_left_geometry_over_game(w, h, margin=20):
 def _draw_rounded_rect(canvas, x1, y1, x2, y2, r, fill):
     canvas.create_rectangle(x1 + r, y1, x2 - r, y2, fill=fill, outline="")
     canvas.create_rectangle(x1, y1 + r, x2, y2 - r, fill=fill, outline="")
-
     for dx in (0, x2 - 2 * r - x1):
         for dy in (0, y2 - 2 * r - y1):
             canvas.create_oval(
-                x1 + dx, y1 + dy,
-                x1 + dx + 2 * r, y1 + dy + 2 * r,
-                fill=fill, outline=""
+                x1 + dx,
+                y1 + dy,
+                x1 + dx + 2 * r,
+                y1 + dy + 2 * r,
+                fill=fill,
+                outline="",
             )
 
 
 def show_reset_overlay(stop_event, duration=4.0, route_code=None, route_code_duration=15.0):
     def _run():
-        # Wenn globaler Stop schon aktiv: gar nicht erst anfangen
         if stop_event.is_set():
             return
 
-        # Nur ein Overlay gleichzeitig
         with _overlay_lock:
             if stop_event.is_set():
                 return
@@ -153,10 +152,12 @@ def show_reset_overlay(stop_event, duration=4.0, route_code=None, route_code_dur
                 try:
                     _draw_rounded_rect(
                         canvas,
-                        margin, margin,
-                        w - margin, h - margin,
+                        margin,
+                        margin,
+                        w - margin,
+                        h - margin,
                         r=16,
-                        fill="#202020"
+                        fill="#202020",
                     )
                 except TclError:
                     pass
@@ -169,22 +170,23 @@ def show_reset_overlay(stop_event, duration=4.0, route_code=None, route_code_dur
 
                 try:
                     canvas.create_text(
-                        w // 2, 40,
+                        w // 2,
+                        40,
                         text=title,
                         fill=ACCENT,
-                        font=("Segoe UI", 18, "bold")
+                        font=("Segoe UI", 18, "bold"),
                     )
                     canvas.create_text(
-                        w // 2, 90,
+                        w // 2,
+                        90,
                         text="\n".join(lines),
                         fill=FG_COLOR,
                         font=("Segoe UI", 13),
-                        justify="center"
+                        justify="center",
                     )
                 except TclError:
                     pass
 
-                # Route-Code-Overlay links oben
                 if route_code:
                     cw, ch = 260, 90
                     cx, cy = _top_left_geometry_over_game(cw, ch, margin=20)
@@ -224,7 +226,7 @@ def show_reset_overlay(stop_event, duration=4.0, route_code=None, route_code_dur
                                 bg="#181818",
                                 fg=ACCENT,
                                 font=("Segoe UI", 11, "bold"),
-                                anchor="w"
+                                anchor="w",
                             )
                             lbl_title.pack(fill="x", padx=10, pady=(6, 0))
 
@@ -234,18 +236,17 @@ def show_reset_overlay(stop_event, duration=4.0, route_code=None, route_code_dur
                                 bg="#181818",
                                 fg=FG_COLOR,
                                 font=("Consolas", 11),
-                                anchor="w"
+                                anchor="w",
                             )
                             lbl_code.pack(fill="x", padx=10, pady=(2, 4))
 
-                            # Kein StringVar, damit keine cross-thread-Destruktorprobleme
                             lbl_feedback = tk.Label(
                                 frame,
                                 text="",
                                 bg="#181818",
                                 fg="gray70",
                                 font=("Segoe UI", 9),
-                                anchor="w"
+                                anchor="w",
                             )
 
                             def _copy_code():
@@ -280,7 +281,6 @@ def show_reset_overlay(stop_event, duration=4.0, route_code=None, route_code_dur
                                 pass
                             code_win = None
 
-                # Fade-in
                 for a in range(0, 96, 8):
                     if stop_event.is_set():
                         break
@@ -308,7 +308,7 @@ def show_reset_overlay(stop_event, duration=4.0, route_code=None, route_code_dur
                 code_end = start + (float(route_code_duration) if route_code else float(duration))
 
                 hint_hidden = False
-                code_hidden = (code_win is None)
+                code_hidden = code_win is None
 
                 while not stop_event.is_set():
                     now = time.time()

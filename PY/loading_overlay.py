@@ -1,17 +1,23 @@
 import os
 import time
 import threading
+
 try:
     import pygetwindow as gw
 except Exception:
     gw = None
+
 from .logger import log
 from .config import window_title, window_title_variants, ini_folder
+
 try:
     from .config import overlays_enabled
 except Exception:
     overlays_enabled = True
+
 import tkinter as tk
+
+
 def _find_game_window_rect():
     try:
         if gw is None:
@@ -20,7 +26,11 @@ def _find_game_window_rect():
             wins = gw.getWindowsWithTitle(window_title)
             if wins:
                 w = wins[0]
-                if int(w.width) > 100 and int(w.height) > 100 and getattr(w, "isVisible", True):
+                if int(w.width) > 100 and int(w.height) > 100 and getattr(
+                    w,
+                    "isVisible",
+                    True,
+                ):
                     return int(w.left), int(w.top), int(w.width), int(w.height)
         except Exception:
             pass
@@ -38,17 +48,22 @@ def _find_game_window_rect():
                         ws = gw.getWindowsWithTitle(t)
                         if ws:
                             w = ws[0]
-                            if int(w.width) > 100 and int(w.height) > 100 and getattr(w, "isVisible", True):
-                                return int(w.left), int(w.top), int(w.width), int(w.height)
+                            if int(w.width) > 100 and int(w.height) > 100 and getattr(
+                                w,
+                                "isVisible",
+                                True,
+                            ):
+                                return int(w.left), int(w.top), int(w.width), int(
+                                    w.height
+                                )
                     except Exception:
                         continue
     except Exception:
         pass
     return None
+
+
 def _center_rect_over(width, height):
-\
-\
-\
     rect = _find_game_window_rect()
     if rect:
         left, top, gw_w, gw_h = rect
@@ -66,10 +81,9 @@ def _center_rect_over(width, height):
     x = (sw - width) // 2
     y = (sh - height) // 2
     return x, y, width, height
+
+
 def _full_game_rect():
-\
-\
-\
     rect = _find_game_window_rect()
     if rect:
         l, t, w, h = rect
@@ -83,23 +97,23 @@ def _full_game_rect():
     except Exception:
         sw, sh = 1920, 1080
     return 0, 0, sw, sh
+
+
 _overlay_thread = None
 _overlay_stop_event = None
 _overlay_external_stop_event = None
 _overlay_lock = threading.Lock()
+_overlay_active = False
+
+
 def _overlay_loop(text, step_info, blackout, max_duration_s, route_code=None):
-\
-\
-\
-\
-\
-\
-    global _overlay_stop_event, _overlay_external_stop_event
+    global _overlay_stop_event, _overlay_external_stop_event, _overlay_active
     try:
         root = tk.Tk()
     except Exception as e:
         log(f"⚠️ Tkinter overlay init failed: {e}")
         return
+    _overlay_active = True
     root.overrideredirect(True)
     root.attributes("-topmost", True)
     if blackout:
@@ -200,14 +214,17 @@ def _overlay_loop(text, step_info, blackout, max_duration_s, route_code=None):
         root.destroy()
     except tk.TclError:
         pass
-def show_loading_overlay(stop_event=None, duration=0.3,
-                         text="Loading next stage...", step_info=None,
-                         blackout=False, route_code=None):
-\
-\
-\
-\
-\
+    _overlay_active = False
+
+
+def show_loading_overlay(
+    stop_event=None,
+    duration=0.3,
+    text="Loading next stage...",
+    step_info=None,
+    blackout=False,
+    route_code=None,
+):
     if not overlays_enabled:
         return
     global _overlay_external_stop_event
@@ -225,15 +242,16 @@ def show_loading_overlay(stop_event=None, duration=0.3,
         log(f"⚠️ show_loading_overlay (Tk) error: {e}")
     finally:
         _overlay_external_stop_event = old_ext
-def begin_loading_overlay(stop_event=None, text="Loading next stage...",
-                          step_info=None, max_duration_s=2.0,
-                          blackout=False, route_code=None):
-\
-\
-\
-\
-\
-\
+
+
+def begin_loading_overlay(
+    stop_event=None,
+    text="Loading next stage...",
+    step_info=None,
+    max_duration_s=2.0,
+    blackout=False,
+    route_code=None,
+):
     if not overlays_enabled:
         return
     global _overlay_thread, _overlay_stop_event, _overlay_external_stop_event
@@ -242,6 +260,7 @@ def begin_loading_overlay(stop_event=None, text="Loading next stage...",
             return
         _overlay_stop_event = threading.Event()
         _overlay_external_stop_event = stop_event
+
         def runner():
             try:
                 _overlay_loop(
@@ -259,12 +278,12 @@ def begin_loading_overlay(stop_event=None, text="Loading next stage...",
                     _overlay_thread = None
                     _overlay_stop_event = None
                     _overlay_external_stop_event = None
+
         _overlay_thread = threading.Thread(target=runner, daemon=True)
         _overlay_thread.start()
+
+
 def end_loading_overlay():
-\
-\
-\
     if not overlays_enabled:
         return
     global _overlay_thread, _overlay_stop_event
@@ -277,3 +296,7 @@ def end_loading_overlay():
         _overlay_thread.join(timeout=0.5)
     except Exception:
         pass
+
+
+def is_loading_overlay_active():
+    return _overlay_active

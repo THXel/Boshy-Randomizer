@@ -14,6 +14,7 @@ from .config import (
     save_enc, rc4_key,
 )
 from .rc4_utils import decrypt_save, encrypt_save
+
 DEFAULT_DISABLED_BOSSES = {
     "boss5.ini":  "Gastly",
     "boss7.ini":  "Gravitron",
@@ -26,6 +27,7 @@ DEFAULT_DISABLED_BOSSES = {
     "boss21.ini": "Cheetahman",
     "boss23.ini": "Old Sonic",
 }
+
 DEFAULT_DISABLED_ROOMS = {
     "save5.ini":  "VVVVV (2nd Half)",
     "save9.ini":  "Pokémon World",
@@ -33,7 +35,10 @@ DEFAULT_DISABLED_ROOMS = {
     "save20.ini": "Tower",
     "save21.ini": "World of Warcraft",
 }
+
 DEFAULT_ENABLED_BOSSES = {"boss19.ini", "boss20.ini", "boss23.ini"}
+
+
 class RouteConfig:
     def __init__(self):
         self.rooms_to_play = 7
@@ -51,6 +56,8 @@ class RouteConfig:
         self.disabled_bosses = set(DEFAULT_DISABLED_BOSSES.keys())
         self.disabled_rooms = set(DEFAULT_DISABLED_ROOMS.keys())
         self.route_seed = None
+
+
 def _set_stats_difficulty_in_plaintext(plain_text: str, code: int) -> str:
     lines = plain_text.splitlines(keepends=False)
     out = []
@@ -75,6 +82,8 @@ def _set_stats_difficulty_in_plaintext(plain_text: str, code: int) -> str:
     if in_stats and not saw_difficulty:
         out.append(f"Difficulty={code}")
     return "\n".join(out) + ("\n" if plain_text.endswith("\n") else "")
+
+
 def _difficulty_code_from_label(label: str) -> int:
     l = (label or "").strip().lower()
     if l == "ez":
@@ -82,6 +91,8 @@ def _difficulty_code_from_label(label: str) -> int:
     if l == "rage":
         return 3
     return 1
+
+
 def write_selected_difficulty_to_encrypted_save(difficulty_label: str) -> None:
     try:
         plain = decrypt_save(save_enc, rc4_key)
@@ -90,6 +101,8 @@ def write_selected_difficulty_to_encrypted_save(difficulty_label: str) -> None:
     code = _difficulty_code_from_label(difficulty_label)
     new_plain = _set_stats_difficulty_in_plaintext(plain, code)
     encrypt_save(new_plain, save_enc, rc4_key)
+
+
 def _load_counts() -> Tuple[int, int]:
     total_rooms, total_bosses = 0, 0
     if os.path.exists(positions_json):
@@ -101,6 +114,8 @@ def _load_counts() -> Tuple[int, int]:
         except Exception:
             pass
     return total_rooms, total_bosses
+
+
 def _load_max_items() -> int:
     try:
         ini_dir = os.path.dirname(os.path.dirname(positions_json))
@@ -112,6 +127,8 @@ def _load_max_items() -> int:
     except Exception:
         pass
     return 20
+
+
 def _try_set_icon(root):
     if platform.system().lower() != "windows":
         return
@@ -147,23 +164,31 @@ def _try_set_icon(root):
             pass
     except Exception:
         pass
+
+
 def build_gui_config():
     cfg = RouteConfig()
     total_rooms, total_bosses = _load_counts()
     max_items = _load_max_items()
+
     ctk.set_appearance_mode("Dark")
     ctk.set_default_color_theme("dark-blue")
+
     root = ctk.CTk()
     root.title("Boshy Randomizer – v1.0")
     root.geometry("1000x760")
     root.resizable(False, False)
     _try_set_icon(root)
+
     top = ctk.CTkFrame(root, fg_color="transparent")
     top.pack(side="top", fill="x", padx=16, pady=12)
+
     top_left = ctk.CTkFrame(top, fg_color="transparent")
     top_left.pack(side="left", fill="x", expand=True)
+
     top_right = ctk.CTkFrame(top, fg_color="transparent")
     top_right.pack(side="right")
+
     if os.path.exists(custom_logo_path):
         try:
             img = Image.open(custom_logo_path)
@@ -173,81 +198,173 @@ def build_gui_config():
             logo = ctk.CTkImage(light_image=img, dark_image=img, size=(w, h))
             ctk.CTkLabel(top_left, image=logo, text="").pack(side="left", padx=(0, 12))
         except Exception:
-            ctk.CTkLabel(top_left, text="Boshy Randomizer", font=ctk.CTkFont(size=20, weight="bold")).pack(side="left")
+            ctk.CTkLabel(
+                top_left,
+                text="Boshy Randomizer",
+                font=ctk.CTkFont(size=20, weight="bold"),
+            ).pack(side="left")
     else:
-        ctk.CTkLabel(top_left, text="Boshy Randomizer", font=ctk.CTkFont(size=20, weight="bold")).pack(side="left")
-    start_btn = ctk.CTkButton(top_right, text="🚀 Create Route & Launch Game",
-                              width=280, height=44, font=ctk.CTkFont(size=14, weight="bold"))
+        ctk.CTkLabel(
+            top_left,
+            text="Boshy Randomizer",
+            font=ctk.CTkFont(size=20, weight="bold"),
+        ).pack(side="left")
+
+    start_btn = ctk.CTkButton(
+        top_right,
+        text="🚀 Create Route & Launch Game",
+        width=280,
+        height=44,
+        font=ctk.CTkFont(size=14, weight="bold"),
+    )
     start_btn.pack(side="right")
+
     tabs = ctk.CTkTabview(root, width=960, height=640)
     tabs.pack(fill="both", expand=True, padx=16, pady=(0, 16))
+
     tab_general = tabs.add("General Settings")
     tab_optional = tabs.add("Optional Content")
+
     left_col = ctk.CTkFrame(tab_general, corner_radius=12)
     left_col.pack(side="left", fill="both", expand=True, padx=(0, 8), pady=8)
+
     right_col = ctk.CTkFrame(tab_general, corner_radius=12)
     right_col.pack(side="right", fill="both", expand=True, padx=(8, 0), pady=8)
+
     sec_stage = ctk.CTkFrame(left_col, corner_radius=12)
     sec_stage.pack(fill="x", padx=12, pady=(12, 8))
-    ctk.CTkLabel(sec_stage, text="Stage Selection", font=ctk.CTkFont(size=15, weight="bold")).pack(anchor="w", padx=12, pady=10)
+
+    ctk.CTkLabel(
+        sec_stage,
+        text="Stage Selection",
+        font=ctk.CTkFont(size=15, weight="bold"),
+    ).pack(anchor="w", padx=12, pady=10)
+
     bosses_var = ctk.IntVar(value=max(0, min(cfg.bosses_to_play, total_bosses)))
     boss_block = ctk.CTkFrame(sec_stage, corner_radius=10)
     boss_block.pack(fill="x", padx=12, pady=6)
-    ctk.CTkLabel(boss_block, text=f"Number of Bosses (available: {total_bosses})",
-                 font=ctk.CTkFont(size=13, weight="bold")).pack(anchor="w", padx=10, pady=(10, 2))
-    boss_val_lbl = ctk.CTkLabel(boss_block, text=f"Selected: {bosses_var.get()} / {total_bosses}", font=ctk.CTkFont(size=12))
+
+    ctk.CTkLabel(
+        boss_block,
+        text=f"Number of Bosses (available: {total_bosses})",
+        font=ctk.CTkFont(size=13, weight="bold"),
+    ).pack(anchor="w", padx=10, pady=(10, 2))
+
+    boss_val_lbl = ctk.CTkLabel(
+        boss_block,
+        text=f"Selected: {bosses_var.get()} / {total_bosses}",
+        font=ctk.CTkFont(size=12),
+    )
     boss_val_lbl.pack(anchor="w", padx=10, pady=(0, 6))
+
     boss_slider = ctk.CTkSlider(
-        boss_block, from_=0, to=max(1, total_bosses),
-        number_of_steps=max(1, max(1, total_bosses)-1),
-        command=lambda v: boss_val_lbl.configure(text=f"Selected: {int(round(v))} / {total_bosses}")
+        boss_block,
+        from_=0,
+        to=max(1, total_bosses),
+        number_of_steps=max(1, max(1, total_bosses) - 1),
+        command=lambda v: boss_val_lbl.configure(
+            text=f"Selected: {int(round(v))} / {total_bosses}"
+        ),
     )
     boss_slider.set(bosses_var.get())
     boss_slider.pack(fill="x", padx=10, pady=(0, 12))
+
     rooms_var = ctk.IntVar(value=max(0, min(cfg.rooms_to_play, total_rooms)))
     level_block = ctk.CTkFrame(sec_stage, corner_radius=10)
     level_block.pack(fill="x", padx=12, pady=6)
-    ctk.CTkLabel(level_block, text=f"Number of Levels (available: {total_rooms})",
-                 font=ctk.CTkFont(size=13, weight="bold")).pack(anchor="w", padx=10, pady=(10, 2))
-    level_val_lbl = ctk.CTkLabel(level_block, text=f"Selected: {rooms_var.get()} / {total_rooms}", font=ctk.CTkFont(size=12))
+
+    ctk.CTkLabel(
+        level_block,
+        text=f"Number of Levels (available: {total_rooms})",
+        font=ctk.CTkFont(size=13, weight="bold"),
+    ).pack(anchor="w", padx=10, pady=(10, 2))
+
+    level_val_lbl = ctk.CTkLabel(
+        level_block,
+        text=f"Selected: {rooms_var.get()} / {total_rooms}",
+        font=ctk.CTkFont(size=12),
+    )
     level_val_lbl.pack(anchor="w", padx=10, pady=(0, 6))
+
     level_slider = ctk.CTkSlider(
-        level_block, from_=0, to=max(1, total_rooms),
-        number_of_steps=max(1, max(1, total_rooms)-1),
-        command=lambda v: level_val_lbl.configure(text=f"Selected: {int(round(v))} / {total_rooms}")
+        level_block,
+        from_=0,
+        to=max(1, total_rooms),
+        number_of_steps=max(1, max(1, total_rooms) - 1),
+        command=lambda v: level_val_lbl.configure(
+            text=f"Selected: {int(round(v))} / {total_rooms}"
+        ),
     )
     level_slider.set(rooms_var.get())
     level_slider.pack(fill="x", padx=10, pady=(0, 12))
+
     only_bosses_var = ctk.BooleanVar(value=False)
     only_rooms_var = ctk.BooleanVar(value=False)
+
     toggle_block = ctk.CTkFrame(sec_stage, corner_radius=10)
     toggle_block.pack(fill="x", padx=12, pady=(0, 10))
-    only_bosses_chk = ctk.CTkCheckBox(toggle_block, text="⚔️ Only Bosses", variable=only_bosses_var)
-    only_rooms_chk  = ctk.CTkCheckBox(toggle_block, text="🧱 Only Levels", variable=only_rooms_var)
+
+    only_bosses_chk = ctk.CTkCheckBox(
+        toggle_block,
+        text="⚔️ Only Bosses",
+        variable=only_bosses_var,
+    )
+    only_rooms_chk = ctk.CTkCheckBox(
+        toggle_block,
+        text="🧱 Only Levels",
+        variable=only_rooms_var,
+    )
+
     only_bosses_chk.pack(side="left", padx=(10, 6), pady=10)
-    only_rooms_chk.pack(side="left", padx=(6, 10),  pady=10)
+    only_rooms_chk.pack(side="left", padx=(6, 10), pady=10)
+
     sec_target = ctk.CTkFrame(left_col, corner_radius=12)
     sec_target.pack(fill="x", padx=12, pady=(8, 8))
-    ctk.CTkLabel(sec_target, text="★ Target Collect Mode ★",
-                 font=ctk.CTkFont(size=16, weight="bold")).pack(anchor="w", padx=12, pady=(12, 4))
+
     ctk.CTkLabel(
         sec_target,
-        text="Play endlessly until all target items or characters are collected.\n"
-             "Once completed, Solgryn will appear as the final boss.",
-        font=ctk.CTkFont(size=12), text_color="gray70"
+        text="★ Target Collect Mode ★",
+        font=ctk.CTkFont(size=16, weight="bold"),
+    ).pack(anchor="w", padx=12, pady=(12, 4))
+
+    ctk.CTkLabel(
+        sec_target,
+        text=(
+            "Play endlessly until all target items or characters are collected.\n"
+            "Once completed, Solgryn will appear as the final boss."
+        ),
+        font=ctk.CTkFont(size=12),
+        text_color="gray70",
     ).pack(anchor="w", padx=12, pady=(0, 8))
+
     target_var = ctk.BooleanVar(value=False)
-    target_switch = ctk.CTkSwitch(sec_target, text="Enable Target Collect Mode", variable=target_var)
+    target_switch = ctk.CTkSwitch(
+        sec_target,
+        text="Enable Target Collect Mode",
+        variable=target_var,
+    )
     target_switch.pack(anchor="w", padx=12, pady=(0, 10))
+
     target_frame = ctk.CTkFrame(sec_target, corner_radius=10)
-    target_title = ctk.CTkLabel(target_frame, text="Target Item Count",
-                                font=ctk.CTkFont(size=13, weight="bold"))
+
+    target_title = ctk.CTkLabel(
+        target_frame,
+        text="Target Item Count",
+        font=ctk.CTkFont(size=13, weight="bold"),
+    )
     target_title.pack(anchor="w", padx=12, pady=(10, 2))
-    target_val_label = ctk.CTkLabel(target_frame, text="", font=ctk.CTkFont(size=12))
+
+    target_val_label = ctk.CTkLabel(
+        target_frame,
+        text="",
+        font=ctk.CTkFont(size=12),
+    )
     target_val_label.pack(anchor="w", padx=12, pady=(0, 6))
+
     target_slider = ctk.CTkSlider(
         target_frame,
-        from_=1, to=max_items,
+        from_=1,
+        to=max_items,
         number_of_steps=max(1, max_items - 1),
         command=lambda v: target_val_label.configure(
             text=f"Selected: {int(round(v))} / {max_items}"
@@ -258,181 +375,14 @@ def build_gui_config():
         text=f"Selected: {int(round(target_slider.get()))} / {max_items}"
     )
     target_slider.pack(fill="x", padx=12, pady=(0, 12))
+
     target_hint_box = ctk.CTkFrame(sec_target, corner_radius=10)
     target_hint_label = ctk.CTkLabel(
         target_hint_box,
         text="🎯 Endless Mode active — Play until all target items are collected!",
         font=ctk.CTkFont(size=12, weight="bold"),
     )
-    def apply_target_rules():
-        on = target_var.get()
-        if on:
-            sec_stage.pack_forget()
-            if not target_frame.winfo_ismapped():
-                target_frame.pack(fill="x", padx=12, pady=(0, 12))
-            if not target_hint_box.winfo_ismapped():
-                target_hint_box.pack(fill="x", padx=12, pady=(0, 10))
-                target_hint_label.pack(anchor="w", padx=12, pady=10)
-            target_slider.configure(state="normal")
-            target_val_label.configure(text_color="white")
-            _force_levels_checked_and_disabled(True)
-            _force_bosses_gastly_cheetah(True)
-        else:
-            try:
-                target_frame.pack_forget()
-                target_hint_box.pack_forget()
-            except Exception:
-                pass
-            if not sec_stage.winfo_ismapped():
-                sec_stage.pack(before=sec_target, fill="x", padx=12, pady=(12, 8))
-            target_slider.configure(state="disabled")
-            target_val_label.configure(text_color="gray50")
-            _force_levels_checked_and_disabled(False)
-            _force_bosses_gastly_cheetah(False)
-            apply_only_rules()
-        root.after(50, lambda: root.update_idletasks())
-    target_switch.configure(command=apply_target_rules)
-    sec_diff = ctk.CTkFrame(right_col, corner_radius=12)
-    sec_diff.pack(fill="x", padx=12, pady=(12, 8))
-    ctk.CTkLabel(
-        sec_diff,
-        text="Difficulty",
-        font=ctk.CTkFont(size=14, weight="bold")
-    ).pack(anchor="w", padx=12, pady=10)
-    diff_var = ctk.StringVar(value="Average")
-    diff_menu = ctk.CTkOptionMenu(
-        sec_diff,
-        variable=diff_var,
-        values=["Ez", "Average", "Rage"],
-        width=160
-    )
-    diff_menu.pack(anchor="w", padx=12, pady=(0, 12))
-    sec_item = ctk.CTkFrame(right_col, corner_radius=12)
-    sec_item.pack(fill="x", padx=12, pady=(12, 8))
-    ctk.CTkLabel(sec_item, text="Item Randomizer", font=ctk.CTkFont(size=14, weight="bold")).pack(anchor="w", padx=12, pady=10)
-    item_var = ctk.StringVar(value="No")
-    item_yes = ctk.CTkRadioButton(sec_item, text="Yes", variable=item_var, value="Yes")
-    item_no  = ctk.CTkRadioButton(sec_item, text="No",  variable=item_var, value="No")
-    item_yes.pack(side="left", padx=(12, 6), pady=(0, 12))
-    item_no.pack(side="left",  padx=(6, 12),  pady=(0, 12))
-    sec_char = ctk.CTkFrame(right_col, corner_radius=12)
-    sec_char.pack(fill="x", padx=12, pady=(8, 12))
-    ctk.CTkLabel(
-        sec_char,
-        text="Random Character",
-        font=ctk.CTkFont(size=14, weight="bold")
-    ).pack(anchor="w", padx=12, pady=(10, 0))
-    ctk.CTkLabel(
-        sec_char,
-        text="ℹ️ While Random Character is active,\n"
-             "the in-game Character Menu (F3) is disabled.",
-        font=ctk.CTkFont(size=12),
-        text_color="gray70",
-        justify="left"
-    ).pack(anchor="w", padx=12, pady=(2, 10))
-    random_char_var = ctk.BooleanVar(value=False)
-    random_char_switch = ctk.CTkSwitch(
-        sec_char,
-        text="Start with Random Character",
-        variable=random_char_var
-    )
-    random_char_switch.pack(anchor="w", padx=12, pady=(0, 8))
-    random_char_stage_var = ctk.BooleanVar(value=False)
-    random_char_stage = ctk.CTkCheckBox(
-        sec_char,
-        text="🔁 Change Character after each Boss/Level",
-        variable=random_char_stage_var,
-        state="disabled"
-    )
-    random_char_stage.pack(anchor="w", padx=12, pady=(0, 8))
-    ctk.CTkLabel(
-        sec_char,
-        text="Default: Dark Boshy",
-        font=ctk.CTkFont(size=12),
-        text_color="gray70"
-    ).pack(anchor="w", padx=12, pady=(0, 10))
-    def on_random_char_toggle():
-        if random_char_var.get():
-            random_char_stage.configure(state="normal")
-        else:
-            random_char_stage_var.set(False)
-            random_char_stage.configure(state="disabled")
-    def on_random_char_stage_toggle():
-        if not random_char_var.get() and random_char_stage_var.get():
-            random_char_stage_var.set(False)
-            random_char_stage.configure(state="disabled")
-    random_char_switch.configure(command=on_random_char_toggle)
-    random_char_stage.configure(command=on_random_char_stage_toggle)
-    on_random_char_toggle()
-    optional_wrap = ctk.CTkFrame(tab_optional, corner_radius=12)
-    optional_wrap.pack(fill="both", expand=True, padx=12, pady=12)
-    opt_header = ctk.CTkLabel(
-        optional_wrap,
-        text="Optional content recommendations",
-        font=ctk.CTkFont(size=16, weight="bold")
-    )
-    opt_header.pack(anchor="w", padx=12, pady=(12, 6))
-    sec_seed = ctk.CTkFrame(optional_wrap, corner_radius=12)
-    sec_seed.pack(fill="x", padx=12, pady=(4, 8))
-    ctk.CTkLabel(
-        sec_seed,
-        text="Route Seed (optional)",
-        font=ctk.CTkFont(size=14, weight="bold")
-    ).pack(anchor="w", padx=12, pady=(8, 2))
-    ctk.CTkLabel(
-        sec_seed,
-        text=(
-            "Enter either a pure number (e.g. 898677) or a full code like\n"
-            "R3-B3-T0-C1-P0-898677. Leave empty for a random seed."
-        ),
-        font=ctk.CTkFont(size=11),
-        text_color="gray70",
-        justify="left"
-    ).pack(anchor="w", padx=12, pady=(0, 4))
-    seed_var = ctk.StringVar(value="")
-    seed_entry = ctk.CTkEntry(sec_seed, textvariable=seed_var, width=250)
-    seed_entry.pack(anchor="w", padx=12, pady=(0, 8))
-    opt_hint = ctk.CTkLabel(
-        optional_wrap,
-        text="(Checked = included in the generated random route)",
-        font=ctk.CTkFont(size=12),
-        text_color="gray70"
-    )
-    opt_hint.pack(anchor="w", padx=12, pady=(0, 10))
-    opt_scroll = ctk.CTkScrollableFrame(optional_wrap, corner_radius=12, height=440)
-    opt_scroll.pack(fill="both", expand=True, padx=12, pady=(0, 12))
-    opt_cols = ctk.CTkFrame(opt_scroll, fg_color="transparent")
-    opt_cols.pack(fill="x", padx=6, pady=6)
-    opt_left  = ctk.CTkFrame(opt_cols, corner_radius=12)
-    opt_right = ctk.CTkFrame(opt_cols, corner_radius=12)
-    opt_left.pack(side="left", fill="both", expand=True, padx=(0, 6))
-    opt_right.pack(side="left", fill="both", expand=True, padx=(6, 0))
-    ctk.CTkLabel(
-        opt_left,
-        text="Bosses",
-        font=ctk.CTkFont(size=14, weight="bold")
-    ).pack(anchor="w", padx=10, pady=(10, 6))
-    ctk.CTkLabel(
-        opt_right,
-        text="Levels",
-        font=ctk.CTkFont(size=14, weight="bold")
-    ).pack(anchor="w", padx=10, pady=(10, 6))
-    boss_vars: Dict[str, ctk.BooleanVar] = {}
-    boss_checks: Dict[str, ctk.CTkCheckBox] = {}
-    room_vars: Dict[str, ctk.BooleanVar] = {}
-    room_checks: Dict[str, ctk.CTkCheckBox] = {}
-    for name, label in DEFAULT_DISABLED_BOSSES.items():
-        var = ctk.BooleanVar(value=(name not in DEFAULT_ENABLED_BOSSES))
-        chk = ctk.CTkCheckBox(opt_left, text=label, variable=var)
-        chk.pack(anchor="w", padx=10, pady=2)
-        boss_vars[name] = var
-        boss_checks[name] = chk
-    for name, label in DEFAULT_DISABLED_ROOMS.items():
-        var = ctk.BooleanVar(value=True)
-        chk = ctk.CTkCheckBox(opt_right, text=label, variable=var)
-        chk.pack(anchor="w", padx=10, pady=2)
-        room_vars[name] = var
-        room_checks[name] = chk
+
     def _set_block_enabled(block: ctk.CTkBaseClass, enabled: bool):
         st = "normal" if enabled else "disabled"
         try:
@@ -440,8 +390,17 @@ def build_gui_config():
         except Exception:
             children = []
         for child in children:
-            if isinstance(child, (ctk.CTkSlider, ctk.CTkCheckBox, ctk.CTkSwitch,
-                                  ctk.CTkOptionMenu, ctk.CTkRadioButton, ctk.CTkButton)):
+            if isinstance(
+                child,
+                (
+                    ctk.CTkSlider,
+                    ctk.CTkCheckBox,
+                    ctk.CTkSwitch,
+                    ctk.CTkOptionMenu,
+                    ctk.CTkRadioButton,
+                    ctk.CTkButton,
+                ),
+            ):
                 try:
                     child.configure(state=st)
                 except Exception:
@@ -453,8 +412,17 @@ def build_gui_config():
                     pass
             if hasattr(child, "winfo_children"):
                 for g in child.winfo_children():
-                    if isinstance(g, (ctk.CTkSlider, ctk.CTkCheckBox, ctk.CTkSwitch,
-                                      ctk.CTkOptionMenu, ctk.CTkRadioButton, ctk.CTkButton)):
+                    if isinstance(
+                        g,
+                        (
+                            ctk.CTkSlider,
+                            ctk.CTkCheckBox,
+                            ctk.CTkSwitch,
+                            ctk.CTkOptionMenu,
+                            ctk.CTkRadioButton,
+                            ctk.CTkButton,
+                        ),
+                    ):
                         try:
                             g.configure(state=st)
                         except Exception:
@@ -464,6 +432,7 @@ def build_gui_config():
                             g.configure(text_color=("white" if enabled else "gray50"))
                         except Exception:
                             pass
+
     def _set_item_randomizer_enabled(enabled: bool, force_no: bool = False):
         if force_no:
             try:
@@ -476,6 +445,269 @@ def build_gui_config():
             item_no.configure(state=state)
         except Exception:
             pass
+
+    def _force_levels_checked_and_disabled(force_on: bool):
+        for name, chk in room_checks.items():
+            try:
+                if force_on:
+                    room_vars[name].set(True)
+                    chk.configure(state="disabled")
+                else:
+                    chk.configure(state="normal")
+            except Exception:
+                pass
+
+    def _force_bosses_target_mode(force_on: bool):
+        exceptions = {"boss15.ini", "boss19.ini", "boss20.ini"}
+        for name, chk in boss_checks.items():
+            try:
+                if force_on:
+                    boss_vars[name].set(True)
+                    if name in exceptions:
+                        chk.configure(state="normal")
+                    else:
+                        chk.configure(state="disabled")
+                else:
+                    chk.configure(state="normal")
+            except Exception:
+                pass
+
+    def apply_target_rules():
+        on = target_var.get()
+        if on:
+            sec_stage.pack_forget()
+            if not target_frame.winfo_ismapped():
+                target_frame.pack(fill="x", padx=12, pady=(0, 12))
+            if not target_hint_box.winfo_ismapped():
+                target_hint_box.pack(fill="x", padx=12, pady=(0, 10))
+                target_hint_label.pack(anchor="w", padx=12, pady=10)
+            target_slider.configure(state="normal")
+            target_val_label.configure(text_color="white")
+            _force_levels_checked_and_disabled(True)
+            _force_bosses_target_mode(True)
+            _set_item_randomizer_enabled(False, force_no=True)
+        else:
+            try:
+                target_frame.pack_forget()
+                target_hint_box.pack_forget()
+            except Exception:
+                pass
+            if not sec_stage.winfo_ismapped():
+                sec_stage.pack(
+                    before=sec_target,
+                    fill="x",
+                    padx=12,
+                    pady=(12, 8),
+                )
+            target_slider.configure(state="disabled")
+            target_val_label.configure(text_color="gray50")
+            _force_levels_checked_and_disabled(False)
+            _force_bosses_target_mode(False)
+            _set_item_randomizer_enabled(True)
+            apply_only_rules()
+        root.after(50, lambda: root.update_idletasks())
+
+    target_switch.configure(command=apply_target_rules)
+
+    sec_diff = ctk.CTkFrame(right_col, corner_radius=12)
+    sec_diff.pack(fill="x", padx=12, pady=(12, 8))
+
+    ctk.CTkLabel(
+        sec_diff,
+        text="Difficulty",
+        font=ctk.CTkFont(size=14, weight="bold"),
+    ).pack(anchor="w", padx=12, pady=10)
+
+    diff_var = ctk.StringVar(value="Average")
+    diff_menu = ctk.CTkOptionMenu(
+        sec_diff,
+        variable=diff_var,
+        values=["Ez", "Average", "Rage"],
+        width=160,
+    )
+    diff_menu.pack(anchor="w", padx=12, pady=(0, 12))
+
+    sec_item = ctk.CTkFrame(right_col, corner_radius=12)
+    sec_item.pack(fill="x", padx=12, pady=(12, 8))
+
+    ctk.CTkLabel(
+        sec_item,
+        text="Item Randomizer",
+        font=ctk.CTkFont(size=14, weight="bold"),
+    ).pack(anchor="w", padx=12, pady=10)
+
+    item_var = ctk.StringVar(value="No")
+    item_yes = ctk.CTkRadioButton(sec_item, text="Yes", variable=item_var, value="Yes")
+    item_no = ctk.CTkRadioButton(sec_item, text="No", variable=item_var, value="No")
+    item_yes.pack(side="left", padx=(12, 6), pady=(0, 12))
+    item_no.pack(side="left", padx=(6, 12), pady=(0, 12))
+
+    sec_char = ctk.CTkFrame(right_col, corner_radius=12)
+    sec_char.pack(fill="x", padx=12, pady=(8, 12))
+
+    ctk.CTkLabel(
+        sec_char,
+        text="Random Character",
+        font=ctk.CTkFont(size=14, weight="bold"),
+    ).pack(anchor="w", padx=12, pady=(10, 0))
+
+    ctk.CTkLabel(
+        sec_char,
+        text=(
+            "ℹ️ While Random Character is active,\n"
+            "the in-game Character Menu (F3) is disabled."
+        ),
+        font=ctk.CTkFont(size=12),
+        text_color="gray70",
+        justify="left",
+    ).pack(anchor="w", padx=12, pady=(2, 10))
+
+    random_char_var = ctk.BooleanVar(value=False)
+    random_char_switch = ctk.CTkSwitch(
+        sec_char,
+        text="Start with Random Character",
+        variable=random_char_var,
+    )
+    random_char_switch.pack(anchor="w", padx=12, pady=(0, 8))
+
+    random_char_stage_var = ctk.BooleanVar(value=False)
+    random_char_stage = ctk.CTkCheckBox(
+        sec_char,
+        text="🔁 Change Character after each Boss/Level",
+        variable=random_char_stage_var,
+        state="disabled",
+    )
+    random_char_stage.pack(anchor="w", padx=12, pady=(0, 8))
+
+    ctk.CTkLabel(
+        sec_char,
+        text="Default: Dark Boshy",
+        font=ctk.CTkFont(size=12),
+        text_color="gray70",
+    ).pack(anchor="w", padx=12, pady=(0, 10))
+
+    def on_random_char_toggle():
+        if random_char_var.get():
+            random_char_stage.configure(state="normal")
+        else:
+            random_char_stage_var.set(False)
+            random_char_stage.configure(state="disabled")
+
+    def on_random_char_stage_toggle():
+        if not random_char_var.get() and random_char_stage_var.get():
+            random_char_stage_var.set(False)
+            random_char_stage.configure(state="disabled")
+
+    random_char_switch.configure(command=on_random_char_toggle)
+    random_char_stage.configure(command=on_random_char_stage_toggle)
+    on_random_char_toggle()
+
+    optional_wrap = ctk.CTkFrame(tab_optional, corner_radius=12)
+    optional_wrap.pack(fill="both", expand=True, padx=12, pady=12)
+
+    opt_header = ctk.CTkLabel(
+        optional_wrap,
+        text="Optional content recommendations",
+        font=ctk.CTkFont(size=16, weight="bold"),
+    )
+    opt_header.pack(anchor="w", padx=12, pady=(12, 6))
+
+    sec_seed = ctk.CTkFrame(optional_wrap, corner_radius=12)
+    sec_seed.pack(fill="x", padx=12, pady=(4, 8))
+
+    ctk.CTkLabel(
+        sec_seed,
+        text="Route Seed (optional)",
+        font=ctk.CTkFont(size=14, weight="bold"),
+    ).pack(anchor="w", padx=12, pady=(8, 2))
+
+    ctk.CTkLabel(
+        sec_seed,
+        text=(
+            "Enter either a pure number (e.g. 898677) or a full code like\n"
+            "R3-B3-T0-C1-P0-898677. Leave empty for a random seed."
+        ),
+        font=ctk.CTkFont(size=11),
+        text_color="gray70",
+        justify="left",
+    ).pack(anchor="w", padx=12, pady=(0, 4))
+
+    seed_var = ctk.StringVar(value="")
+    seed_entry = ctk.CTkEntry(sec_seed, textvariable=seed_var, width=250)
+    seed_entry.pack(anchor="w", padx=12, pady=(0, 8))
+
+    opt_hint = ctk.CTkLabel(
+        optional_wrap,
+        text="(Checked = included in the generated random route)",
+        font=ctk.CTkFont(size=12),
+        text_color="gray70",
+    )
+    opt_hint.pack(anchor="w", padx=12, pady=(0, 10))
+
+    opt_scroll = ctk.CTkScrollableFrame(optional_wrap, corner_radius=12, height=440)
+    opt_scroll.pack(fill="both", expand=True, padx=12, pady=(0, 12))
+
+    opt_cols = ctk.CTkFrame(opt_scroll, fg_color="transparent")
+    opt_cols.pack(fill="x", padx=6, pady=6)
+
+    opt_left = ctk.CTkFrame(opt_cols, corner_radius=12)
+    opt_right = ctk.CTkFrame(opt_cols, corner_radius=12)
+    opt_left.pack(side="left", fill="both", expand=True, padx=(0, 6))
+    opt_right.pack(side="left", fill="both", expand=True, padx=(6, 0))
+
+    ctk.CTkLabel(
+        opt_left,
+        text="Bosses",
+        font=ctk.CTkFont(size=14, weight="bold"),
+    ).pack(anchor="w", padx=10, pady=(10, 6))
+
+    ctk.CTkLabel(
+        opt_right,
+        text="Levels",
+        font=ctk.CTkFont(size=14, weight="bold"),
+    ).pack(anchor="w", padx=10, pady=(10, 6))
+
+    boss_vars: Dict[str, ctk.BooleanVar] = {}
+    boss_checks: Dict[str, ctk.CTkCheckBox] = {}
+    room_vars: Dict[str, ctk.BooleanVar] = {}
+    room_checks: Dict[str, ctk.CTkCheckBox] = {}
+
+    for name, label in DEFAULT_DISABLED_BOSSES.items():
+        var = ctk.BooleanVar(value=(name not in DEFAULT_ENABLED_BOSSES))
+        chk = ctk.CTkCheckBox(opt_left, text=label, variable=var)
+        chk.pack(anchor="w", padx=10, pady=2)
+        boss_vars[name] = var        
+        boss_checks[name] = chk
+
+    for name, label in DEFAULT_DISABLED_ROOMS.items():
+        var = ctk.BooleanVar(value=True)
+        chk = ctk.CTkCheckBox(opt_right, text=label, variable=var)
+        chk.pack(anchor="w", padx=10, pady=2)
+        room_vars[name] = var
+        room_checks[name] = chk
+
+    def apply_only_rules():
+        ob = bool(only_bosses_var.get())
+        oroom = bool(only_rooms_var.get())
+        if ob and oroom:
+            only_rooms_var.set(False)
+            oroom = False
+        boss_enabled = True
+        level_enabled = True
+        if ob:
+            level_enabled = False
+            level_slider.set(0)
+            level_val_lbl.configure(text=f"Selected: 0 / {total_rooms}")
+        elif oroom:
+            boss_enabled = False
+            boss_slider.set(0)
+            boss_val_lbl.configure(text=f"Selected: 0 / {total_bosses}")
+        _set_block_enabled(boss_block, boss_enabled)
+        _set_block_enabled(level_block, level_enabled)
+
+    only_bosses_chk.configure(command=apply_only_rules)
+    only_rooms_chk.configure(command=apply_only_rules)
+
     def _update_seed_lock(*_):
         locked = bool(seed_var.get().strip())
         _set_block_enabled(sec_stage, not locked)
@@ -512,84 +744,10 @@ def build_gui_config():
                     except Exception:
                         pass
                 _set_item_randomizer_enabled(True)
+
     seed_var.trace_add("write", _update_seed_lock)
     _update_seed_lock()
-    def apply_only_rules():
-        ob = bool(only_bosses_var.get())
-        oroom = bool(only_rooms_var.get())
-        if ob and oroom:
-            only_rooms_var.set(False)
-            oroom = False
-        boss_enabled = True
-        level_enabled = True
-        if ob:
-            level_enabled = False
-            level_slider.set(0)
-            level_val_lbl.configure(text=f"Selected: 0 / {total_rooms}")
-        elif oroom:
-            boss_enabled = False
-            boss_slider.set(0)
-            boss_val_lbl.configure(text=f"Selected: 0 / {total_bosses}")
-        _set_block_enabled(boss_block, boss_enabled)
-        _set_block_enabled(level_block, level_enabled)
-    only_bosses_chk.configure(command=apply_only_rules)
-    only_rooms_chk.configure(command=apply_only_rules)
-    def _force_levels_checked_and_disabled(force_on: bool):
-        for name, chk in room_checks.items():
-            try:
-                if force_on:
-                    room_vars[name].set(True)
-                    chk.configure(state="disabled")
-                else:
-                    chk.configure(state="normal")
-            except Exception:
-                pass
-    def _force_bosses_target_mode(force_on: bool):
-        exceptions = {"boss15.ini", "boss19.ini", "boss20.ini"}
-        for name, chk in boss_checks.items():
-            try:
-                if force_on:
-                    boss_vars[name].set(True)
-                    if name in exceptions:
-                        chk.configure(state="normal")
-                    else:
-                        chk.configure(state="disabled")
-                else:
-                    chk.configure(state="normal")
-            except Exception:
-                pass
-    def apply_target_rules():
-        on = target_var.get()
-        if on:
-            sec_stage.pack_forget()
-            if not target_frame.winfo_ismapped():
-                target_frame.pack(fill="x", padx=12, pady=(0, 12))
-            if not target_hint_box.winfo_ismapped():
-                target_hint_box.pack(fill="x", padx=12, pady=(0, 10))
-                target_hint_label.pack(anchor="w", padx=12, pady=10)
-            target_slider.configure(state="normal")
-            target_val_label.configure(text_color="white")
-            _force_levels_checked_and_disabled(True)
-            _force_bosses_target_mode(True)
-            _set_item_randomizer_enabled(False, force_no=True)
-        else:
-            try:
-                target_frame.pack_forget()
-                target_hint_box.pack_forget()
-            except Exception:
-                pass
-            if not sec_stage.winfo_ismapped():
-                sec_stage.pack(before=sec_target, fill="x", padx=12, pady=(12, 8))
-            target_slider.configure(state="disabled")
-            target_val_label.configure(text_color="gray50")
-            _force_levels_checked_and_disabled(False)
-            _force_bosses_target_mode(False)
-            _set_item_randomizer_enabled(True)
-            apply_only_rules()
-        root.after(50, lambda: root.update_idletasks())
-    target_switch.configure(command=apply_target_rules)
-    apply_only_rules()
-    apply_target_rules()
+
     def on_start():
         cfg.target_collect_mode = bool(target_var.get())
         cfg.item_randomizer_enabled = (item_var.get() == "Yes")
@@ -630,7 +788,7 @@ def build_gui_config():
                     messagebox.showerror(
                         "Invalid Seed Code",
                         "The seed code could not be parsed.\n"
-                        "Please use a format like: R3-B3-T0-C1-P0-898677"
+                        "Please use a format like: R3-B3-T0-C1-P0-898677",
                     )
                     return
                 cfg.route_seed = s_val
@@ -655,21 +813,32 @@ def build_gui_config():
                     messagebox.showerror(
                         "Invalid Seed",
                         "Please enter either a number (e.g. 898677) or a full code like:\n"
-                        "R3-B3-T0-C1-P0-898677"
+                        "R3-B3-T0-C1-P0-898677",
                     )
                     return
         else:
             cfg.route_seed = random.randint(100000, 999999)
-        cfg.disabled_bosses = {name for name, var in boss_vars.items() if not var.get()}
-        cfg.disabled_rooms = {name for name, var in room_vars.items() if not var.get()}
+
+        cfg.disabled_bosses = {
+            name for name, var in boss_vars.items() if not var.get()
+        }
+        cfg.disabled_rooms = {
+            name for name, var in room_vars.items() if not var.get()
+        }
+
         write_selected_difficulty_to_encrypted_save(cfg.difficulty)
+
         try:
             base_dir = os.path.dirname(os.path.dirname(__file__))
             wav_path = os.path.join(base_dir, "Custom", "its-boshy-time.wav")
             if os.path.exists(wav_path):
                 try:
                     import winsound
-                    winsound.PlaySound(wav_path, winsound.SND_FILENAME | winsound.SND_ASYNC)
+
+                    winsound.PlaySound(
+                        wav_path,
+                        winsound.SND_FILENAME | winsound.SND_ASYNC,
+                    )
                 except Exception:
                     pass
                 start_btn.configure(state="disabled", text="Creating Route...")
@@ -677,11 +846,15 @@ def build_gui_config():
                 return
         except Exception:
             pass
+
         root.destroy()
+
     start_btn.configure(command=on_start)
+
     def on_close():
         cfg.cancelled = True
         root.destroy()
+
     root.protocol("WM_DELETE_WINDOW", on_close)
     root.mainloop()
     return cfg
