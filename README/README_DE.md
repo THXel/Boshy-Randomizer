@@ -1,3 +1,12 @@
+<p align="right">
+  <strong>Language:</strong><br>
+  <a href="../README.md" title="English">🇬🇧 English</a> ·
+  <a href="README_DE.md" title="Deutsch"><strong>🇩🇪 Deutsch</strong></a> ·
+  <a href="README_RU.md" title="Русский">🇷🇺 Русский</a> ·
+  <a href="README_ES.md" title="Español">🇪🇸 Español</a> ·
+  <a href="README_JP.md" title="日本語">🇯🇵 日本語</a>
+</p>
+
 <div align="center">
 
   <img src="Custom/boshy_randomizer.png?raw=true" alt="Boshy Randomizer" width="420">
@@ -253,3 +262,4 @@ Dieses Projekt ist inoffiziell und steht in keiner Verbindung zu
 
 Nutzung auf eigene Gefahr.  
 **Viel Spaß – it’s Boshy Time!**
+
