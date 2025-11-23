@@ -1,0 +1,30 @@
+{
+  "normal": {
+    "rooms": [
+      "save14.ini",
+      "save17.ini",
+      "save18.ini",
+      "save22.ini",
+      "save1.ini",
+      "save6.ini",
+      "save15.ini",
+      "save8.ini"
+    ],
+    "bosses": [
+      "boss18.ini",
+      "boss3.ini",
+      "boss6.ini",
+      "boss14.ini",
+      "boss7.ini",
+      "boss11.ini",
+      "boss21.ini",
+      "boss_solgryn.ini"
+    ]
+  },
+  "target": {
+    "rooms": [
+      "save19.ini"
+    ],
+    "bosses": []
+  }
+}

@@ -1,9 +1,9 @@
 {
-  "ts": 1763761190.9080205,
-  "tag": "save_profile_manager",
-  "size_after_bytes": 115,
+  "ts": 1763902708.2151778,
+  "tag": "route_backup",
+  "size_after_bytes": 238,
   "details": {
-    "tag": "startup"
+    "snapshot": "route_backup_20251123-135828.ini"
   },
-  "stack": "File \"<frozen runpy>\", line 88, in _run_code\n  File \"C:\\Python Projekt\\Boshy Randomizer\\PY\\rando_script.py\", line 268, in <module>\n    write_all_saves_from_profiles(tag=\"startup\")\n  File \"C:\\Python Projekt\\Boshy Randomizer\\PY\\save_profile_manager.py\", line 104, in write_all_saves_from_profiles\n    mark_last_writer(\"save_profile_manager\", {\"tag\": str(tag)})\n  File \"C:\\Python Projekt\\Boshy Randomizer\\PY\\save_utils.py\", line 50, in mark_last_writer\n    \"stack\": _short_stack(),"
+  "stack": "File \"<frozen runpy>\", line 198, in _run_module_as_main\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"C:\\Python Projekt\\Boshy Randomizer\\PY\\rando_script.py\", line 624, in <module>\n    mark_last_writer(\"route_backup\", {\"snapshot\": os.path.basename(snap)})\n  File \"C:\\Python Projekt\\Boshy Randomizer\\PY\\save_utils.py\", line 50, in mark_last_writer\n    \"stack\": _short_stack(),"
 }
