@@ -1,8 +1,10 @@
 <p align="right">
-  🌐 <b>Language / Sprache / Язык:</b>
-  🇬🇧 <a href="README.md"><b>English</b></a> |
-  🇩🇪 <a href="README_DE.md">Deutsch</a> |
-  🇷🇺 <a href="README_RU.md">Русский</a>
+  <b>Language:</b>
+  <a href="README.md" title="English">🇬🇧</a>
+  <a href="README/README_DE.md" title="Deutsch">🇩🇪</a>
+  <a href="README/README_RU.md" title="Русский">🇷🇺</a>
+  <a href="README/README_ES.md" title="Español">🇪🇸</a>
+  <a href="README/README_JP.md" title="日本語">🇯🇵</a>
 </p>
 
 <div align="center">
