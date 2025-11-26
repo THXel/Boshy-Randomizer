@@ -219,7 +219,7 @@ def _overlay_loop(text, step_info, blackout, max_duration_s, route_code=None):
 
 def show_loading_overlay(
     stop_event=None,
-    duration=0.3,
+    duration=2.0,
     text="Loading next stage...",
     step_info=None,
     blackout=False,
@@ -242,7 +242,6 @@ def show_loading_overlay(
         log(f"⚠️ show_loading_overlay (Tk) error: {e}")
     finally:
         _overlay_external_stop_event = old_ext
-
 
 def begin_loading_overlay(
     stop_event=None,
@@ -267,7 +266,7 @@ def begin_loading_overlay(
                     text=text,
                     step_info=step_info,
                     blackout=blackout,
-                    max_duration_s=float(max_duration_s),
+                    max_duration_s=max_duration_s,
                     route_code=route_code,
                 )
             except Exception as e:
@@ -281,7 +280,6 @@ def begin_loading_overlay(
 
         _overlay_thread = threading.Thread(target=runner, daemon=True)
         _overlay_thread.start()
-
 
 def end_loading_overlay():
     if not overlays_enabled:

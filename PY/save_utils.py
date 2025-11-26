@@ -14,9 +14,9 @@ except ModuleNotFoundError:
     from logger import log
 
 try:
-    from PY.config import ini_folder, iwbtb_folder, save_enc
+    from PY.config import ini_folder, iwbtb_folder, save_enc, rc4_key
 except ModuleNotFoundError:
-    from config import ini_folder, iwbtb_folder, save_enc
+    from config import ini_folder, iwbtb_folder, save_enc, rc4_key
 
 try:
     from PY.file_utils import smart_read, smart_write
@@ -29,9 +29,9 @@ except ModuleNotFoundError:
     from ini_utils import parse_ini
 
 try:
-    from PY.rc4_utils import encrypt_save
+    from PY.rc4_utils import decrypt_save, encrypt_save
 except ModuleNotFoundError:
-    from rc4_utils import encrypt_save
+    from rc4_utils import decrypt_save, encrypt_save
 
 
 LAST_WRITER_MARKER = os.path.join(ini_folder, "state_last_writer.json")
@@ -39,7 +39,7 @@ SNAPSHOT_DIR = os.path.join(ini_folder, "_snapshots")
 os.makedirs(SNAPSHOT_DIR, exist_ok=True)
 
 
-def _short_stack(max_lines=4) -> str:
+def _short_stack(max_lines: int = 4) -> str:
     import traceback
     try:
         stack = "".join(
@@ -63,6 +63,42 @@ def size_or_zero(p: str) -> int:
         return os.path.getsize(p) if os.path.exists(p) else 0
     except Exception:
         return 0
+
+
+def _wait_for_savefile_ready(timeout_s: float = 3.0, stable_s: float = 0.25) -> bool:
+    t0 = time.time()
+    last_size: Optional[int] = None
+    last_head: Optional[bytes] = None
+    last_change = time.time()
+
+    while time.time() - t0 < timeout_s:
+        try:
+            if os.path.exists(save_enc):
+                try:
+                    with open(save_enc, "rb") as f:
+                        head = f.read(128)
+                except Exception:
+                    head = b""
+                sz = os.path.getsize(save_enc)
+
+                if last_size is None:
+                    last_size = sz
+                    last_head = head
+                    last_change = time.time()
+                else:
+                    if sz != last_size or head != last_head:
+                        last_size = sz
+                        last_head = head
+                        last_change = time.time()
+                    else:
+                        if time.time() - last_change >= stable_s:
+                            return True
+        except Exception:
+            pass
+
+        time.sleep(0.05)
+
+    return os.path.exists(save_enc)
 
 
 def mark_last_writer(tag: str, details: dict | None = None) -> None:
@@ -134,12 +170,14 @@ def encrypt_save_atomic(
 
 def write_save_tagged(tag: str, new_plain: str) -> None:
     try:
-        text, was_encrypted = smart_read(save_enc)
-        if was_encrypted:
-            encrypt_save(new_plain, save_enc, None)
-        else:
-            smart_write(save_enc, new_plain, False)
+        if not isinstance(new_plain, str):
+            log(
+                f"⚠️ write_save_tagged '{tag}' got non-string payload "
+                f"({type(new_plain).__name__}) - skipping"
+            )
+            return
 
+        encrypt_save_atomic(new_plain, save_enc, rc4_key)
         mark_last_writer(tag, {"plain_len": len(new_plain)})
         audit_save(f"post_write:{tag}", force=True)
         mirror_plain_for_tracker()
@@ -191,10 +229,32 @@ def audit_save(reason: str, force: bool = False) -> None:
         if size < 40:
             log(f"🔎 Audit({reason}): suspicious size={size} bytes")
 
+        if (
+            reason.startswith("post_transition")
+            or reason.startswith("post_write:")
+            or reason.startswith("startup")
+        ):
+            _wait_for_savefile_ready(timeout_s=1.5, stable_s=0.2)
+
         plain, _ = smart_read(save_enc)
         if not plain:
             log(f"🔎 Audit({reason}): could not read save")
             return
+
+        head_raw = plain[:256]
+        if head_raw:
+            non_text = 0
+            for c in head_raw:
+                o = ord(c)
+                if (o < 32 and c not in "\r\n\t") or o > 126:
+                    non_text += 1
+            ratio = non_text / max(1, len(head_raw))
+            if ratio > 0.6:
+                log(
+                    f"🔎 Audit({reason}): unreadable/binary-looking content "
+                    f"(ratio={ratio:.2f}) – likely game write in progress, skipping detailed audit"
+                )
+                return
 
         data = parse_ini(plain)
         has_pos_section = "positions" in data
@@ -202,20 +262,37 @@ def audit_save(reason: str, force: bool = False) -> None:
         has_stats = "stats" in data and bool(data["stats"])
 
         if pos_values:
-            head = (
-                plain[:300].replace("\r", "").replace("\n", "\\n")
-            ).strip()
-            log(
-                f"❗ Audit({reason}): Positions section has unexpected values "
-                f"(len={len(pos_values)}) – this may break fresh start, "
-                f"head='{head[:200]}...'"
-            )
-            snap = snapshot_plain(
-                f"audit_{reason}_positions_nonempty",
-                plain,
-            )
-            if snap:
-                log(f"🧾 Snapshot written: {snap}")
+            pos_len = len(pos_values)
+            if pos_len < 3:
+                head = (
+                    plain[:300].replace("\r", "").replace("\n", "\\n")
+                ).strip()
+                log(
+                    f"❗ Audit({reason}): Positions section incomplete "
+                    f"(len={pos_len}) – possible write race or corruption. "
+                    f"head='{head[:200]}...'"
+                )
+                snap = snapshot_plain(
+                    f"audit_{reason}_positions_incomplete",
+                    plain,
+                )
+                if snap:
+                    log(f"🧾 Snapshot written: {snap}")
+            elif pos_len > 10:
+                head = (
+                    plain[:300].replace("\r", "").replace("\n", "\\n")
+                ).strip()
+                log(
+                    f"❗ Audit({reason}): Positions section has too many entries "
+                    f"(len={pos_len}) – likely corrupted. "
+                    f"head='{head[:200]}...'"
+                )
+                snap = snapshot_plain(
+                    f"audit_{reason}_positions_corrupt",
+                    plain,
+                )
+                if snap:
+                    log(f"🧾 Snapshot written: {snap}")
 
         if not has_pos_section or not has_stats:
             head = (
@@ -334,7 +411,7 @@ def initialize_saves() -> dict[int, str]:
                 ref_hash[i] = _file_hash(src)
             log(f"Initial copy: {src} -> {dst}")
         else:
-            log(f"⚠️ WARNING: {src} missing – not copied")
+            log(f"⚠️ WARNING: {src} missing - not copied")
 
     try:
         mirror_plain_for_tracker()
@@ -356,12 +433,12 @@ def check_auto_restore(ref_hash: dict[int, str]) -> None:
                     if cur != ref_hash[i]:
                         shutil.copy2(src, dst)
                         log(
-                            f"Auto-restore: SaveFile{i}.ini changed → restored"
+                            f"Auto-restore: SaveFile{i}.ini changed -> restored"
                         )
             elif os.path.exists(src):
                 shutil.copy2(src, dst)
                 log(
-                    f"Auto-restore: SaveFile{i}.ini missing → recreated"
+                    f"Auto-restore: SaveFile{i}.ini missing -> recreated"
                 )
         except Exception as e:
             log(f"⚠️ Auto-restore SaveFile{i}.ini failed: {e}")

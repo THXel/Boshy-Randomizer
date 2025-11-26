@@ -175,7 +175,7 @@ def build_gui_config():
     ctk.set_default_color_theme("dark-blue")
 
     root = ctk.CTk()
-    root.title("Boshy Randomizer – v1.0")
+    root.title("Boshy Randomizer – v0.8")
     root.geometry("1000x760")
     root.resizable(False, False)
     _try_set_icon(root)

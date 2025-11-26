@@ -3,6 +3,11 @@ import os, sys, time, json, random, shutil, ctypes, subprocess
 from threading import Event, Thread, Lock
 import ctypes
 
+import os as _os, sys as _sys
+_proj_root = _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__)))
+if _proj_root not in _sys.path:
+    _sys.path.insert(0, _proj_root)
+
 from PY.config import *
 from PY.logger import log
 from PY.pixel_detector import check_pixel_regions as _pd_check_pixel_regions
@@ -12,6 +17,8 @@ from PY.character_randomizer import (
     set_random_character,
     enable_character_lock,
     init_seed,
+    enable_full_keyboard_lock,
+    disable_full_keyboard_lock,
 )
 from PY.target_collect import (
     _clear_target_file,
@@ -54,10 +61,10 @@ except Exception:
 GetAsyncKeyState = ctypes.windll.user32.GetAsyncKeyState
 
 
-def _hotkey_ctrl_r():
+def _hotkey_ctrl_f2():
     VK_CONTROL = 0x11
-    VK_R = 0x52
-    return (GetAsyncKeyState(VK_CONTROL) & 0x8000) and (GetAsyncKeyState(VK_R) & 0x8000)
+    VK_F2 = 0x71
+    return (GetAsyncKeyState(VK_CONTROL) & 0x8000) and (GetAsyncKeyState(VK_F2) & 0x8000)
 
 
 def press_f2(delay: float = 0.05):
@@ -490,13 +497,13 @@ if __name__ == "__main__":
                     pass
                 break
 
-            if _hotkey_ctrl_r():
+            if _hotkey_ctrl_f2():
                 if not reset_held:
                     reset_held = True
                     try:
-                        write_all_saves_from_profiles(tag="ctrl_r_reset")
-                        mark_last_writer("ctrl_r_reset")
-                        audit_save("post_ctrl_r_reset", force=True)
+                        write_all_saves_from_profiles(tag="ctrl_f2_reset")
+                        mark_last_writer("ctrl_f2_reset")
+                        audit_save("post_ctrl_f2_reset", force=True)
                         mirror_plain_for_tracker()
                         if getattr(cfg, "target_collect_mode", False):
                             _clear_target_file()
@@ -595,6 +602,7 @@ if __name__ == "__main__":
 
             if triggered:
                 state["pause_until"] = now + trigger_pause_s
+
                 if getattr(cfg, "target_collect_mode", False):
                     if state.get("force_solgryn_next", False):
                         next_file = "boss_solgryn.ini"
@@ -609,7 +617,8 @@ if __name__ == "__main__":
 
                         enabled_rooms = [r for r in rooms_all if r not in disabled_rooms]
                         enabled_bosses = [
-                            b for b in bosses_all
+                            b
+                            for b in bosses_all
                             if b not in disabled_bosses and b != "boss_solgryn.ini"
                         ]
 
@@ -667,10 +676,7 @@ if __name__ == "__main__":
 
                     try:
                         pre_plain, _enc_pre = smart_read(save_enc)
-                        if pre_plain is not None:
-                            pre_snap = snapshot_plain("pre_transition", pre_plain)
-                        else:
-                            pre_snap = None
+                        pre_snap = snapshot_plain("pre_transition", pre_plain) if pre_plain else None
                     except Exception:
                         pre_snap = None
 
@@ -678,11 +684,14 @@ if __name__ == "__main__":
                     if not getattr(cfg, "target_collect_mode", False) and len(route) > 0:
                         step_info = f"Step {state['route_i']+1}/{len(route)}"
 
+                    enable_full_keyboard_lock()
+
                     safe_begin_overlay(
                         stop_event,
                         text=overlay_text,
                         step_info=step_info,
                         blackout=True,
+                        max_duration_s=None,
                         route_code=state.get("route_code"),
                     )
 
@@ -696,26 +705,31 @@ if __name__ == "__main__":
                         send_ctrl_s()
                         time.sleep(0.06)
                         quick_overwrite()
+
                         send_key_R()
                         time.sleep(0.06)
                         quick_overwrite()
+
                         send_key_R()
                         time.sleep(0.06)
+
                         send_key_R()
                         time.sleep(0.06)
+
                         quick_overwrite()
                         send_key_R()
-                        time.sleep(0.5)
+                        time.sleep(0.2)
+
                         send_ctrl_s()
-                        time.sleep(0.5)
+                        time.sleep(0.2)
+
                         send_key_R()
                         time.sleep(0.5)
 
                         try:
                             post_plain, _enc_post = smart_read(save_enc)
-                            if post_plain is not None:
+                            if post_plain:
                                 from PY.save_utils import snapshot_plain as _snap2
-
                                 snap = _snap2("route_backup", post_plain)
                                 if snap:
                                     mark_last_writer(
@@ -724,8 +738,10 @@ if __name__ == "__main__":
                                     )
                         except Exception:
                             pass
+
                     finally:
                         safe_end_overlay()
+                        disable_full_keyboard_lock()
 
                     restore_if_save_shrunk(before_size, min_expected=96, window_s=3.0)
                     state["last_trigger_time"] = time.time()
@@ -741,6 +757,7 @@ if __name__ == "__main__":
 
                     audit_save("post_transition", force=True)
                     mirror_plain_for_tracker()
+
                 except Exception as e:
                     log(f" Route trigger failed: {e}")
 

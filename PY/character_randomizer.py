@@ -5,11 +5,10 @@ import random
 import threading
 import ctypes
 import atexit
-
-from .config import ini_folder, iwbtb_folder
+from .config import ini_folder, iwbtb_folder, rc4_key
+from .rc4_utils import decrypt_save, encrypt_save
 from .logger import log
-
-from .file_utils import smart_read, smart_write
+from .item_randomizer import suppress_unlock_randomizer_for
 
 _CHAR_JSON_PATH = os.path.join(ini_folder, "characters_rando.json")
 _IWBTB_LICENSE_PATH = os.path.join(iwbtb_folder, "onlineLicense.ini")
@@ -44,7 +43,7 @@ def _shuffle_with_rng(seq: list, rnd: random.Random):
     for i in range(n - 1, 0, -1):
         j = int(rnd.random() * (i + 1))
         seq[i], seq[j] = seq[j], seq[i]
-        
+
 
 def _load_history() -> list[str]:
     try:
@@ -139,6 +138,7 @@ if os.name == "nt":
     )
 
     _F3_BLOCK_ACTIVE: bool = False
+    _FULL_LOCK_ACTIVE: bool = False
     _HOOK_PROC: LowLevelKeyboardProc | None = None
     _HOOK_HANDLE = None
     _HOOK_THREAD: threading.Thread | None = None
@@ -147,7 +147,12 @@ if os.name == "nt":
         try:
             if nCode == 0 and wParam in (WM_KEYDOWN, WM_SYSKEYDOWN):
                 kb = ctypes.cast(lParam, ctypes.POINTER(KBDLLHOOKSTRUCT)).contents
-                if kb.vkCode == VK_F3 and _F3_BLOCK_ACTIVE:
+                injected = bool(kb.flags & 0x10)
+
+                if _FULL_LOCK_ACTIVE and not injected:
+                    return 1
+
+                if kb.vkCode == VK_F3 and _F3_BLOCK_ACTIVE and not injected:
                     return 1
         except Exception as e:
             try:
@@ -220,6 +225,23 @@ if os.name == "nt":
         except Exception:
             pass
 
+    def enable_full_keyboard_lock():
+        global _FULL_LOCK_ACTIVE
+        _ensure_hook_thread()
+        _FULL_LOCK_ACTIVE = True
+        try:
+            log("🔒 Full keyboard lock enabled during stage transition.")
+        except Exception:
+            pass
+
+    def disable_full_keyboard_lock():
+        global _FULL_LOCK_ACTIVE
+        _FULL_LOCK_ACTIVE = False
+        try:
+            log("🔓 Full keyboard lock disabled.")
+        except Exception:
+            pass
+
 else:
 
     def enable_character_lock():
@@ -227,6 +249,12 @@ else:
 
     def disable_character_lock():
         log("ℹ️ Character lock (F3 block) not available on this platform.")
+
+    def enable_full_keyboard_lock():
+        log("ℹ️ Full keyboard lock not available on this platform.")
+
+    def disable_full_keyboard_lock():
+        log("ℹ️ Full keyboard lock not available on this platform.")
 
 
 def _load_char_pool_from_disk() -> list[dict]:
@@ -272,7 +300,7 @@ def _ensure_pool():
         )
 
 
-def _pick_from_pool_with_history() -> dict | None:
+def _pick_from_pool_with_history() -> dict:
     global _UNUSED_POOL
     history = set(_load_history())
     if not _UNUSED_POOL:
@@ -396,35 +424,30 @@ def _set_license_character_plaintext(plain: str, char_id: int, char_name: str) -
 def _update_license_file(path: str, char_id: int, char_name: str) -> bool:
     try:
         if os.path.exists(path):
-            plain, enc = smart_read(path)
-            if plain is None:
-                plain, enc = "[License]\n", True
+            plain = decrypt_save(path, rc4_key)
         else:
-            plain, enc = "[License]\n", True
+            plain = "[License]\n"
     except Exception as e:
-        log(f"⚠️ Failed to read license at {path}, creating new [License]: {e}")
-        plain, enc = "[License]\n", True
-
+        log(f"⚠️ Failed to decrypt license at {path}, creating new [License]: {e}")
+        plain = "[License]\n"
     new_plain = _set_license_character_plaintext(plain, int(char_id), str(char_name))
     try:
-        smart_write(path, new_plain, enc)
+        encrypt_save(new_plain, path, rc4_key)
         return True
     except Exception as e:
-        log(f"⚠️ Failed to write license at {path}: {e}")
+        log(f"⚠️ Failed to encrypt/write license at {path}: {e}")
         return False
 
 
 def _unlock_character_in_license(path: str, char_name: str) -> bool:
     try:
         if os.path.exists(path):
-            plain, enc = smart_read(path)
-            if plain is None:
-                plain, enc = "[License]\n", True
+            plain = decrypt_save(path, rc4_key)
         else:
-            plain, enc = "[License]\n", True
+            plain = "[License]\n"
     except Exception as e:
-        log(f"⚠️ Failed to read license at {path}: {e}")
-        plain, enc = "[License]\n", True
+        log(f"⚠️ Failed to decrypt license at {path}: {e}")
+        plain = "[License]\n"
 
     lines = plain.splitlines()
     out = []
@@ -462,7 +485,7 @@ def _unlock_character_in_license(path: str, char_name: str) -> bool:
     new_plain = "\n".join(out) + "\n"
 
     try:
-        smart_write(path, new_plain, enc)
+        encrypt_save(new_plain, path, rc4_key)
         log(f"🔓 Unlockable added: {char_name}=1")
         return True
     except Exception as e:
@@ -484,6 +507,7 @@ def set_random_character():
         set_character(choice["id"], choice["name"])
         status = str(choice.get("status", "unlocked")).lower()
         if status == "locked":
+            suppress_unlock_randomizer_for(1.0)
             _unlock_character_in_license(_IWBTB_LICENSE_PATH, choice["name"])
         _append_history(choice["name"])
         log(f"🎲 (Seeded) Random character set → {choice['name']} (ID={choice['id']})")
@@ -492,6 +516,7 @@ def set_random_character():
     set_character(choice["id"], choice["name"])
     status = str(choice.get("status", "unlocked")).lower()
     if status == "locked":
+        suppress_unlock_randomizer_for(1.0)
         _unlock_character_in_license(_IWBTB_LICENSE_PATH, choice["name"])
     _append_history(choice["name"])
     log(f"🎲 Random character set → {choice['name']} (ID={choice['id']})")

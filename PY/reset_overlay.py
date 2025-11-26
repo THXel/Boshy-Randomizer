@@ -165,7 +165,7 @@ def show_reset_overlay(stop_event, duration=4.0, route_code=None, route_code_dur
                 title = "HINT"
                 lines = [
                     "only SaveFile 1 works, dont delete it. just play",
-                    "Press Ctrl+R to reset and create a new seed",
+                    "Press Ctrl+F2 to reset and create a new seed",
                 ]
 
                 try:

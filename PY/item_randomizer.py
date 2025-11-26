@@ -26,6 +26,34 @@ BLACKLIST_NAMES = BLACKLIST_SOURCES
 
 EVENTS_PATH = os.path.join(ini_folder, "item_randomizer_events.json")
 
+_SUPPRESS_UNLOCK_UNTIL = 0.0
+
+# --- NEU: globaler Cooldown für Randomizer-Events ---
+MIN_RANDOM_INTERVAL = 3.0  # Sekunden Mindestabstand zwischen Randomizer-Events
+_last_random_event_ts = 0.0
+
+
+def _can_randomize_event() -> bool:
+    """Abkühlzeit zwischen Randomizer-Events erzwingen."""
+    global _last_random_event_ts
+    now = time.time()
+    if now - _last_random_event_ts < MIN_RANDOM_INTERVAL:
+        return False
+    _last_random_event_ts = now
+    return True
+
+
+def suppress_unlock_randomizer_for(seconds: float = 1.0):
+    global _SUPPRESS_UNLOCK_UNTIL
+    try:
+        secs = float(seconds)
+    except Exception:
+        secs = 1.0
+    now = time.time()
+    until = now + max(0.0, secs)
+    if until > _SUPPRESS_UNLOCK_UNTIL:
+        _SUPPRESS_UNLOCK_UNTIL = until
+
 
 def _route_swap_in_progress():
     return os.path.exists(TMP_OLD)
@@ -101,6 +129,7 @@ def monitor_items(stop_event, enable_popups=False):
                 col = data.get("collectables", {}) or {}
 
                 if not positions:
+                    # Idle / kein aktiver Run – nur State-Cache updaten
                     for k, v in col.items():
                         last_collect[k] = v
 
@@ -117,6 +146,7 @@ def monitor_items(stop_event, enable_popups=False):
                 changes_collect = {}
                 unlock_to_write = None
 
+                # --- Collectables überwachen ---
                 for k, v in col.items():
                     old = last_collect.get(k, "0")
                     last_collect[k] = v
@@ -128,6 +158,14 @@ def monitor_items(stop_event, enable_popups=False):
                         continue
 
                     if old == "0" and v == "1":
+                        # NEU: Anti-Spam-Schutz
+                        if not _can_randomize_event():
+                            log(
+                                f"⏱️ Extra collectable '{k}' innerhalb der "
+                                f"{MIN_RANDOM_INTERVAL:.1f}s-Cooldown – Randomizer ignoriert dieses Event."
+                            )
+                            continue
+
                         candidates = [
                             n
                             for n in all_pool
@@ -153,6 +191,11 @@ def monitor_items(stop_event, enable_popups=False):
                             log(f"🎲 Collectable {k} → Item {target}")
                             _write_event(k, target, "collectable_to_item")
 
+                        # OPTIONAL (auskommentiert):
+                        # Ursprüngliches Item neutralisieren, falls du _nur_
+                        # das ersetzte Item aktiv haben willst:
+                        # changes_collect[k] = "0"
+
                 if changes_collect:
                     new_txt = apply_values_in_section(
                         txt,
@@ -172,6 +215,7 @@ def monitor_items(stop_event, enable_popups=False):
                     )
                     smart_write(license_path, new_txt2w, enc2w)
 
+            # --- Unlockables überwachen ---
             txt2, enc2 = smart_read(license_path)
             if txt2:
                 data2 = parse_ini(txt2)
@@ -179,9 +223,14 @@ def monitor_items(stop_event, enable_popups=False):
                 changes_unlock = {}
                 collect_to_write = None
 
+                suppress_unlocks = time.time() < _SUPPRESS_UNLOCK_UNTIL
+
                 for k, v in unl.items():
                     old = last_unlock.get(k, "0")
                     last_unlock[k] = v
+
+                    if suppress_unlocks:
+                        continue
 
                     if k in BLACKLIST_NAMES:
                         continue
@@ -190,6 +239,14 @@ def monitor_items(stop_event, enable_popups=False):
                         continue
 
                     if old == "0" and v == "1":
+                        # NEU: Anti-Spam-Schutz auch für Unlockables
+                        if not _can_randomize_event():
+                            log(
+                                f"⏱️ Extra unlockable '{k}' innerhalb der "
+                                f"{MIN_RANDOM_INTERVAL:.1f}s-Cooldown – Randomizer ignoriert dieses Event."
+                            )
+                            continue
+
                         candidates = [
                             n
                             for n in all_pool
