@@ -20,13 +20,14 @@
 
 <p align="center">
   <b>Moderner Randomizer für <i>I Wanna Be The Boshy</i></b><br>
-  Zufällige Routen • Live-Tracker • Routen-Seeds • Aufgeräumte GUI
+  Zufällige Routen • Seed-Codes • ER/EB Masken • Live-Tracker • Aufgeräumte GUI
 </p>
 
 <p align="center">
   <a href="#-features">Features</a> •
   <a href="#-installation">Installation</a> •
   <a href="#-gameplay--modes">Gameplay & Modes</a> •
+  <a href="#-seed-system">Seed-System</a> •
   <a href="#-technical">Technical</a> •
   <a href="#-support">Support</a>
 </p>
@@ -35,14 +36,15 @@
 
 ## 🟦 Features
 
-- 🎲 **Random Routes** – Level- & Boss-Reihenfolge wird bei jedem Run neu gemischt  
-- 🧩 **Item- & Collectable-Handling** – trigger-stabile Routenlogik  
-- 🧍 **Random Characters** – zufällige Charaktere beim Start oder pro Stage  
-- 🎯 **Target Collect Mode** – Route versteckt, sammle alle Ziel-Items  
-- 📊 **Live Tracker** – Achievements, Items, Bosse, Charaktere  
-- 🧾 **Endscreen Stats** – Zusammenfassung + Route-Code  
-- 🔁 **Deterministische Seeds** – Runs teilen & identisch nachspielen  
-- ⚙️ **Auto-Setup-System** – Python, Module, Fonts, Game-Import  
+- 🎲 **Random Routes** – deterministische, seed-basierte Level- & Boss-Routen  
+- 🧩 **Item Randomizer (Sicherer Stats-Modus)** – *gesammelte Charaktere werden zufällig*, Items bleiben im Spiel unverändert (ansonsten Spielabsturz)  
+- 🧍 **Character Randomizer** – zufällig beim Start oder pro Stage, vollständig seed-deterministisch  
+- 🎯 **Target Collect Mode** – versteckte Route, seed-basierte Targets  
+- 📊 **Live Tracker** – verfolgt Items, Bosse, Achievements & Charaktere  
+- 🔁 **Deterministische Seeds** – Runs teilen und exakt reproduzieren  
+- 🧱 **ER/EB Masken** – optional aktivierte Level/Bosse in Seed gespeichert  
+- 🔒 **Seed-Lock GUI** – Seed eingeben → GUI zeigt Einstellungen & wird gesperrt  
+- ⚙️ **Auto-Setup** – installiert Python, Module & importiert IWBTB automatisch  
 
 ---
 
@@ -50,15 +52,8 @@
 
 <div align="center">
   <img src="../Custom/gameplay.gif?raw=true" width="300">
+  <img src="../Custom/gameplay2.gif?raw=true" width="300">
 </div>
-
----
-
-## 🟩 Requirements
-
-- Windows 10 oder neuer  
-- Internetverbindung für das Setup  
-- Eine Kopie von **I Wanna Be The Boshy** (ZIP von Grynsoft)
 
 ---
 
@@ -67,54 +62,51 @@
 <div align="center">
 
 <a href="https://github.com/THXel/Boshy-Randomizer/raw/refs/heads/Boshy-Randomizer/Boshy%20Randomizer%20installer.exe">
-  <img src="https://img.shields.io/badge/⬇️%20DOWNLOAD%20BOSHY%20RANDOMIZER%20INSTALLER-2f8cff?style=for-the-badge&logo=files&logoColor=white" width="550" alt="Download Installer">
+  <img src="https://img.shields.io/badge/⬇️%20BOSHY%20RANDOMIZER%20INSTALLER%20HERUNTERLADEN-2f8cff?style=for-the-badge&logo=files&logoColor=white" width="550">
 </a>
 
 </div>
 
 ---
 
-### ▶ Schritt 1 — Installer ausführen  
+### ▶ Schritt 1 — Installer ausführen
 
 **`Boshy Randomizer Installer.exe`**
 
-⚠️ **Hinweis:**  
-Windows kann eine **SmartScreen-Warnung** anzeigen wie  
+⚠️ **SmartScreen-Hinweis:**  
+Windows kann anzeigen:
+
 „Windows hat Ihren PC geschützt“ / „Unbekannte App“.
 
-Das passiert, weil der Installer **nicht digital signiert** ist.
+Das ist normal – der Installer ist **nicht digital signiert**.
 
-Um die Installation fortzusetzen:
+Klicke:
 
-1. Klicke auf **„Weitere Informationen“**  
-2. Klicke auf **„Trotzdem ausführen“**
+1. **Weitere Informationen**  
+2. **Trotzdem ausführen**
 
-Das ist normal und sicher.
-
-Der Installer übernimmt anschließend automatisch:
+Der Installer erledigt automatisch:
 
 - Kopieren aller Randomizer-Dateien  
-- Installation von Python 3.x (falls nicht vorhanden)  
-- Installation der benötigten Module  
-- Abfrage deiner **IWBTB ZIP**  
-- Entpacken des IWBTB-Games nach `/IWBTB`  
-- Erstellen von Startmenü-Verknüpfungen  
+- Installation von Python 3 (falls nicht vorhanden)  
+- Installation aller Module  
+- Abfrage der **IWBTB ZIP**  
+- Entpacken nach `/IWBTB`  
+- Anlegen der Startmenü-Verknüpfungen  
 
 ---
 
-### ▶ Schritt 2 — Randomizer starten  
-
-Starte ihn über:
+### ▶ Schritt 2 — Randomizer starten
 
 **Startmenü → Boshy Randomizer**
 
 Der Launcher prüft:
 
-- ob der IWBTB-Game-Ordner korrekt importiert wurde  
-- ob Python & alle benötigten Module installiert sind  
-- ob alle Randomizer-Dateien vorhanden sind  
+- IWBTB korrekt importiert  
+- Python & Module installiert  
+- Dateien vollständig  
 
-Falls etwas fehlt, wird eine ausführliche Debug-Meldung angezeigt.
+Bei Fehlern erscheint eine Debug-Meldung.
 
 ---
 
@@ -127,52 +119,61 @@ Falls etwas fehlt, wird eine ausführliche Debug-Meldung angezeigt.
 
 ## ▶ Run-Start
 
-Jeder Run beginnt im **Tutorial** und geht dann weiter in:
+• Jeder Run beginnt im **Tutorial**.  
+• Danach je nach GUI-Einstellung:  
+  – **Zufällige Route**  
+  – **Target Collect Mode**
 
-- den **Random Route Mode**, oder  
-- den **Target Collect Mode**  
+## ▶ Systemverhalten
 
-abhängig von den GUI-Einstellungen.
+• Es wird ausschließlich **SaveFile1** verwendet.  
+• **SaveFile1 darf NICHT gelöscht werden.**  
+• SaveFile2 und SaveFile3 werden immer überschrieben.  
+• Achievements & Unlockables bleiben für den gesamten Run bestehen.  
+• Das Item **Awesomesauce** ist zu Run-Beginn immer verfügbar, um den Erhalt von **Gastly** sicherzustellen.
+• Der Teleport-Raum funktioniert normal, aber:  
+  Um weiterzukommen, **muss das Level gespielt werden**,  
+  das der Randomizer vorgibt – Überspringen ist nicht möglich.
+
+---
 
 ## 🧍 Character Randomizer
 
-- Standard: **Dark Boshy**  
-- Optional:
-  - zufälliger Charakter beim Run-Start  
-  - zufälliger Charakter pro Stage  
-- Wenn aktiviert:  
-  **Das F3-Charaktermenü ist deaktiviert** → deterministische Seeds
+- Standard: Dark Boshy  
+- Optional:  
+  - zufällig beim Run-Start  
+  - zufällig pro Stage  
+- Während Random Character aktiv ist:  
+  **F3-Charaktermenü deaktiviert** → deterministische Seeds  
+
+---
+
+## 🧩 Item Randomizer – Details
+
+IWBTB stürzt ab, wenn Items **direkt im Spiel** ersetzt werden.  
+Darum funktioniert der Item Randomizer so:
+
+- ✔ **Gesammelte Charaktere werden zufällig ersetzt**  
+- ✖ **Items werden NICHT im Spiel ausgetauscht** (Crash-Schutz)  
+- ✔ Items erscheinen zufällig **nur in der Stats-Anzeige**  
+- ✔ Keine Gameplay-Risiken  
+- ✔ Stabil und 100% kompatibel mit Routing  
 
 ---
 
 ## 🎯 Target Collect Mode
 
-- Blendet die Routen-Slider aus  
-- Aktiviert alle nötigen optionalen Level  
-- Ziel-Auswahl basiert auf dem Seed  
-- Nachdem alle Targets gesammelt wurden: **Solgryn spawnt automatisch**
+- Route verborgen  
+- Targets werden per Seed bestimmt  
+- Wenn alle Targets gesammelt wurden → **Solgryn erscheint automatisch**
 
-### Wichtige Logik-Änderung  
+Deaktivierbare optionale Bereiche:
 
-Um vollen Zugriff auf alle Items zu gewährleisten, dürfen **nur folgende optionalen Bereiche deaktiviert werden**:
+- Boberman  
+- „?“  
+- Ridley  
 
-- **Boberman**  
-- **Questionmark (?)**  
-- **Ridley**
-
-Alle anderen optionalen Bereiche **müssen aktiviert bleiben**.
-
----
-
-## 🧠 Systemverhalten
-
-- Es wird ausschließlich **SaveFile1** verwendet  
-- **SaveFile1 darf NICHT gelöscht werden**  
-- SaveFile2/3 werden immer mit Standardwerten überschrieben  
-- Achievements & Unlocks bleiben während des gesamten Runs erhalten  
-- Der Teleport-Raum funktioniert normal – aber:  
-  **Du musst das Level spielen, das dir der Randomizer gibt**  
-  → Fortschritt per Teleporter zu überspringen ist nicht möglich
+Alle anderen müssen aktiv bleiben.
 
 ---
 
@@ -182,85 +183,69 @@ Alle anderen optionalen Bereiche **müssen aktiviert bleiben**.
   <img src="../Custom/livetracker.gif?raw=true" width="300">
 </div>
 
-Verfolgt in Echtzeit:
+Verfolgt:
 
-- Items  
-- Achievements  
-- Bosse  
-- Charaktere  
-- Fortschritt  
+- Items
+- Achievements
+- Bosse
+- Charaktere
+- Live-Fortschritt
+- **Im Target Collect Mode:** die benötigten **Target-Items**
 
-Komplett automatisch – keine Eingaben nötig.
+Automatisch und ohne Eingabe.
 
 ---
 
 # 🎲 Seed-System
 
-Jeder Seed definiert:
+Ein Seed-Code wie:
 
-- Reihenfolge von Leveln & Bossen  
-- komplette Routenstruktur  
-- optionale Charakter-RNG  
-- Auswahl der Ziel-Items  
+```
+R14-B4-T0-C2-P1-S152722-ER5-EB34C
+```
 
-Seeds erscheinen in:
+bedeutet:
 
-- Loading-Overlay  
-- Run-Start-Overlay  
-- Endscreen  
-- Debug-Log  
+- **R** – Level  
+- **B** – Bosse  
+- **T** – Target Collect  
+- **C** – Character Randomizer  
+- **P** – Item Randomizer  
+- **S** – Seed  
+- **ER** – optionale Level  
+- **EB** – optionale Bosse  
 
-<div align="left">
-  <img src="../Custom/route_overlay.gif?raw=true" width="300">
-</div>
-
-Teile Seeds, damit andere denselben Run exakt nachspielen können.
-
----
-
-# 🟫 Bekannte Hinweise
-
-- Manche Trigger sind absichtlich leicht versetzt, um Stabilität zu erhöhen  
-- Mods oder externe Savefiles können das Verhalten beeinflussen  
+Damit lässt sich jeder Run **1:1 reproduzieren**.
 
 ---
 
 # 🔧 Technical
 
-- Python **3.11**  
-- Nutzt:
-  - pygetwindow  
-  - pyautogui  
+- Python 3.11  
+- Bibliotheken:
   - pillow  
   - numpy  
+  - pyautogui  
+  - pygetwindow  
   - tkinter  
 
 Log-Datei:
 
-```txt
+```
 INI/randomizer_debug.log
 ```
-
-Diese Datei bitte anhängen, wenn du Bugs meldest.
 
 ---
 
 # 🟨 Support
 
-**Twitch:**  
-https://twitch.tv/THXel  
-
-**Discord:**  
-https://discord.gg/ZXgTFjGw
+**Twitch:** https://twitch.tv/THXel  
+**Discord:** https://discord.gg/ZXgTFjGw  
 
 ---
 
 # ⚫ Disclaimer
 
-Dieses Projekt ist inoffiziell und steht in keiner Verbindung zu  
-**Solgryn (Grynsoft)** oder irgendeinem offiziellen IWBTB-Release.
-
+Inoffizielles Projekt, nicht verbunden mit **Solgryn (Grynsoft)**.  
 Nutzung auf eigene Gefahr.  
 **Viel Spaß – it’s Boshy Time!**
-
-
