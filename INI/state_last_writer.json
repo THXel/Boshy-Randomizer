@@ -1,9 +1,0 @@
-{
-  "ts": 1764190025.5961034,
-  "tag": "route_backup",
-  "size_after_bytes": 213,
-  "details": {
-    "snapshot": "route_backup_20251126-214705.ini"
-  },
-  "stack": "File \"<frozen runpy>\", line 198, in _run_module_as_main\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"C:\\Python Projekt\\Boshy Randomizer\\PY\\rando_script.py\", line 735, in <module>\n    mark_last_writer(\n  File \"C:\\Python Projekt\\Boshy Randomizer\\PY\\save_utils.py\", line 112, in mark_last_writer\n    \"stack\": _short_stack(),"
-}
