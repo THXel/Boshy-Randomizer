@@ -1,0 +1,23 @@
+{
+  "meta": {
+    "generated_at": 0,
+    "source": "installer_default"
+  },
+  "save": {
+    "raw": "",
+    "sections": {
+      "achievements": {},
+      "check": {},
+      "collectables": {},
+      "exploration": {},
+      "positions": {},
+      "stats": {}
+    }
+  },
+  "license": {},
+  "route": {
+    "list": [],
+    "index": 0,
+    "total": 0
+  }
+}

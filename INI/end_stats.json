@@ -1,0 +1,13 @@
+{
+  "savefile": {
+    "achievements": {},
+    "check": {
+      "SaveVersion": "1"
+    },
+    "stats": {
+      "Difficulty": "1",
+      "TimeSeconds": "0"
+    }
+  },
+  "license": {}
+}
