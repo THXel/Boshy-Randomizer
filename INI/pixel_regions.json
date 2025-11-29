@@ -1,15 +1,5 @@
 [
   {
-    "Region": "Tutorial",
-    "relative": true,
-    "center": {
-      "x": 786,
-      "y": 560
-    },
-    "avg_color": "0xFF7373",
-    "samples": []
-  },
-  {
     "Region": "save1.ini",
     "relative": true,
     "center": {
@@ -477,6 +467,46 @@
       "y": 102
     },
     "avg_color": "0x902A9C",
+    "samples": []
+  },
+  {
+    "Region": "save4.ini",
+    "relative": true,
+    "center": {
+      "x": 1089,
+      "y": 45
+    },
+    "avg_color": "0x99EB83",
+    "samples": []
+  },
+  {
+    "Region": "boss5.ini",
+    "relative": true,
+    "center": {
+      "x": 416,
+      "y": 75
+    },
+    "avg_color": "0xCFD2CF",
+    "samples": []
+  },
+  {
+    "Region": "save3.ini",
+    "relative": true,
+    "center": {
+      "x": 178,
+      "y": 324
+    },
+    "avg_color": "0x0C3433",
+    "samples": []
+  },
+  {
+    "Region": "Tutorial",
+    "relative": true,
+    "center": {
+      "x": 1163,
+      "y": 786
+    },
+    "avg_color": "0x0380F4",
     "samples": []
   }
 ]
