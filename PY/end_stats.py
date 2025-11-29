@@ -404,12 +404,9 @@ def _load_stats_from_json():
 def show_end_stats(stop_event, route_code: str | None = None):
     def _run():
         try:
+            # Wait 10 seconds AFTER Solgryn achievement, regardless of stop_event
             delay = 10.0
-            t_end_delay = time.time() + delay
-            while time.time() < t_end_delay:
-                if stop_event.is_set():
-                    return
-                time.sleep(0.1)
+            time.sleep(delay)
 
             data = _load_stats_from_json()
             if not data:

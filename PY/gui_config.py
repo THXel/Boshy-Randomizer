@@ -643,11 +643,19 @@ def build_gui_config():
         else:
             random_char_stage_var.set(False)
             random_char_stage.configure(state="disabled")
+        try:
+            _apply_pokemon_random_char_rule()
+        except Exception:
+            pass
 
     def on_random_char_stage_toggle():
         if not random_char_var.get() and random_char_stage_var.get():
             random_char_stage_var.set(False)
             random_char_stage.configure(state="disabled")
+        try:
+            _apply_pokemon_random_char_rule()
+        except Exception:
+            pass
 
     random_char_switch.configure(command=on_random_char_toggle)
     random_char_stage.configure(command=on_random_char_stage_toggle)
@@ -746,7 +754,34 @@ def build_gui_config():
         chk.pack(anchor="w", padx=10, pady=2)
         room_vars[name] = var
         room_checks[name] = chk
+        
+    POKEMON_ROOM_KEY = "save9.ini"
 
+    def _apply_pokemon_random_char_rule():
+        try:
+            chk = room_checks.get(POKEMON_ROOM_KEY)
+            var = room_vars.get(POKEMON_ROOM_KEY)
+            if not chk or not var:
+                return
+
+            random_mode = bool(random_char_var.get() or random_char_stage_var.get())
+
+            if random_mode:
+                var.set(False)
+                chk.configure(
+                    state="disabled",
+                    text="Pokémon World (disabled in Random Character mode – may cause softlock)",
+                )
+            else:
+                chk.configure(
+                    state="normal",
+                    text=DEFAULT_DISABLED_ROOMS.get(POKEMON_ROOM_KEY, "Pokémon World"),
+                )
+        except Exception:
+            pass
+            
+    _apply_pokemon_random_char_rule()
+        
     def apply_only_rules():
         ob = bool(only_bosses_var.get())
         oroom = bool(only_rooms_var.get())

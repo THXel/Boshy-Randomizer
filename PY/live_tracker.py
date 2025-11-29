@@ -919,12 +919,14 @@ class LiveTrackerUI:
             return
 
         is_char = section_name == "characters"
-        replaced_from = None
 
-        if self.item_randomizer_enabled:
-            replaced_from = self._find_virtual_source_for_target(
-                item_key, is_characters=is_char
-            )
+        replaced_from = self._find_virtual_source_for_target(
+            item_key,
+            is_characters=is_char,
+        )
+
+        if not replaced_from:
+            return
 
         key_id = f"{section_name}:{item_key.strip().lower()}"
         if key_id in self._shown_keys:
@@ -936,7 +938,7 @@ class LiveTrackerUI:
             is_characters=is_char,
             replaced_from=replaced_from,
         )
-
+        
     def _apply_section(
         self,
         cache_dict: dict,
