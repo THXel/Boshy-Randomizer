@@ -403,7 +403,7 @@ if __name__ == "__main__":
         state["route_index"] = 0
 
     try:
-        from PY.item_randomizer import monitor_items
+        from PY.item_randomizer import monitor_items, notify_stage_transition
         if getattr(cfg, "item_randomizer_enabled", True):
             Thread(
                 target=monitor_items,
@@ -685,6 +685,8 @@ if __name__ == "__main__":
                         step_info = f"Step {state['route_i']+1}/{len(route)}"
 
                     enable_full_keyboard_lock()
+                    
+                    time.sleep(0.5)
 
                     safe_begin_overlay(
                         stop_event,
@@ -718,10 +720,10 @@ if __name__ == "__main__":
 
                         quick_overwrite()
                         send_key_R()
-                        time.sleep(0.2)
+                        time.sleep(0.06)
 
                         send_ctrl_s()
-                        time.sleep(0.2)
+                        time.sleep(0.5)
 
                         send_key_R()
                         time.sleep(0.5)
@@ -747,13 +749,18 @@ if __name__ == "__main__":
                     state["last_trigger_time"] = time.time()
                     state["current_stage"] = (next_file or "").lower()
 
+                    try:
+                        notify_stage_transition()
+                    except Exception:
+                        pass
+
                     if not getattr(cfg, "target_collect_mode", False):
                         state["route_i"] += 1
                         log(f" Next stage loaded: {next_file} (Step {state['route_i']}/{len(route)})")
                         state["route_index"] = state["route_i"]
                         state["route_list"] = list(route)
                     else:
-                        log(f" Next stage (endless): {next_file}")
+                        log(f" Next stage loaded (target mode): {next_file}")
 
                     audit_save("post_transition", force=True)
                     mirror_plain_for_tracker()

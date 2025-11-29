@@ -29,6 +29,20 @@ STATE_JSON = os.path.join(ini_folder, "live_tracker_state.json")
 SAVEFILE_PATH = save_enc
 LICENSE_PATH = os.path.join(iwbtb_folder, "onlineLicense.ini")
 
+# 🔥 Neu: Item-Randomizer Stage Source File
+STAGE_SOURCES_JSON = os.path.join(ini_folder, "item_randomizer_stage_sources.json")
+
+def _load_stage_sources() -> set[str]:
+    """Reads the list of source items from item_randomizer_stage_sources.json."""
+    try:
+        if not os.path.exists(STAGE_SOURCES_JSON):
+            return set()
+        with open(STAGE_SOURCES_JSON, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        return {str(x) for x in data}
+    except Exception:
+        return set()
+
 
 def _decrypt_or_none(path: str, label: str) -> str | None:
     try:
@@ -88,6 +102,34 @@ def _build_state_snapshot() -> dict | None:
         time.sleep(1.0)
         return None
 
+    # 🔥 Stage Source Items vom Item Randomizer laden
+    stage_sources = _load_stage_sources()
+    stage_sources_lower = {s.lower() for s in stage_sources}
+
+    # 🔥 Save-Sections für Live Tracker filtern (Source-Items werden ausgeblendet)
+    if isinstance(save_sections, dict) and stage_sources_lower:
+        filtered_save_sections: dict[str, dict] = {}
+        for sec_name, kv in save_sections.items():
+            if not isinstance(kv, dict):
+                filtered_save_sections[sec_name] = kv
+                continue
+
+            sec_lower = sec_name.lower()
+
+            if sec_lower in ("collectables", "achievements"):
+                new_kv = {
+                    k: v
+                    for k, v in kv.items()
+                    if k.lower() not in stage_sources_lower
+                }
+                filtered_save_sections[sec_name] = new_kv
+            else:
+                filtered_save_sections[sec_name] = kv
+
+        save_sections = filtered_save_sections
+
+
+    # ---- State JSON bauen ----
     state: dict = {
         "meta": {
             "generated_at": time.time(),
@@ -103,13 +145,13 @@ def _build_state_snapshot() -> dict | None:
         },
     }
 
+    # ---- Route-Infos ----
     try:
         route_list = []
         route_index = 0
 
         try:
             import __main__ as main_mod
-
             rstate = getattr(main_mod, "state", None)
             if isinstance(rstate, dict):
                 route_list = list(rstate.get("route_list", []) or [])

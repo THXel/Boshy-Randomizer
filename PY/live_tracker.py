@@ -324,7 +324,7 @@ class LiveTrackerUI:
 
         self._last_stats = {}
         self._last_ach = {}
-        self._last_boss = {}
+        self._last_boss: dict[str, int] = {}
         self._last_col = {}
         self._last_char = {}
         self._last_worlds = {}
@@ -480,7 +480,6 @@ class LiveTrackerUI:
             background=self.THEME["bg"],
             borderwidth=0,
         )
-        # Tabs use normal UI font, not Boshy font
         style.configure(
             "TNotebook.Tab",
             background=self.THEME["panel"],
@@ -546,6 +545,16 @@ class LiveTrackerUI:
             tree.tag_configure(
                 "world_item",
                 foreground="#A5D6A7",
+                font=(self.font_name, self.SIZE_LIST - 1),
+            )
+            tree.tag_configure(
+                "world_header",
+                foreground="#A5D6A7",
+                font=(self.font_name, self.SIZE_LIST),
+            )
+            tree.tag_configure(
+                "world_detail",
+                foreground=self.THEME["muted"],
                 font=(self.font_name, self.SIZE_LIST - 1),
             )
             tree.tag_configure(
@@ -808,11 +817,16 @@ class LiveTrackerUI:
                 k.strip(): v
                 for k, v in (lic_sections.get("unlockables", {}) or {}).items()
             }
+            exploration_raw = {
+                k.strip(): v
+                for k, v in (save_sections.get("exploration", {}) or {}).items()
+            }
 
             ach = ach_raw
             bosses = bos_raw
             col = col_raw
             chars = chars_raw
+            exploration = exploration_raw
 
             route_data = state.get("route") or {}
             self.route_list = route_data.get("list", []) or []
@@ -839,8 +853,8 @@ class LiveTrackerUI:
 
             self._apply_stats(stats)
             self._apply_section(self._last_ach, ach, "achievements")
-            self._apply_worlds_section(ach)
-            self._apply_section(self._last_boss, bosses, "bosses")
+            self._apply_worlds_section(exploration)
+            self._apply_bosses_section(bosses)
             self._apply_section(self._last_col, col, "collectables")
             self._apply_section(
                 self._last_char, chars, "characters", is_characters=True
@@ -999,35 +1013,48 @@ class LiveTrackerUI:
             for name in new_items:
                 self._highlight_tree_item(section_name, name)
 
-    def _apply_worlds_section(self, ach: dict):
+    def _apply_worlds_section(self, exploration: dict):
         parent = self._ensure_section_node("worlds")
         tree = self._get_tree_for_section("worlds")
         if not tree:
             return
         children = self.section_children.setdefault("worlds", {})
 
+        # Mapping: index -> (world name, boss name or None)
+        WORLDS: dict[int, tuple[str, str | None]] = {
+            1: ("Prehistorik 2", "Hello Kitty"),
+            2: ("Kirby's Adventure", "Ryu"),
+            3: ("Cheetahmen II", "Mario"),
+            4: ("VVVVVV", "Biollante"),
+            5: ("Wario Land", "Sonic"),
+            6: ("Castlevania", "Skeleton King"),
+            7: ("Random World", "Mega Man"),
+            8: ("Mega Man", "Shang Tsung"),
+            9: ("Kid Icarus", "Ganon"),
+            10: ("Ninja Gaiden", "Missingno"),
+            11: ("Mario Desert", None),
+            12: ("Final Path", "Solgryn"),
+        }
+
+        # Build current world / boss completion state from [Exploration]
         worlds_data: dict[int, dict[str, bool]] = {}
+        for idx, (w_name, b_name) in WORLDS.items():
+            w_key = f"W{idx}"
+            b_key = f"B{idx}"
+            w_val = str(exploration.get(w_key, "")).strip()
+            b_val = str(exploration.get(b_key, "")).strip()
+            world_done = w_val not in ("", "0")
+            boss_done = b_val not in ("", "0")
+            if world_done or boss_done:
+                worlds_data[idx] = {"world_done": world_done, "boss_done": boss_done}
 
-        for k, v in ach.items():
-            key_lower = k.strip().lower()
-            m = re.match(r"world(\d+)(clear|promode)$", key_lower)
-            if not m:
-                continue
-            idx = int(m.group(1))
-            kind = m.group(2)
-            val = str(v).strip()
-            is_on = val not in ("", "0")
-            worlds_data.setdefault(idx, {})
-            worlds_data[idx][kind] = is_on
-
-        if not worlds_data and not self._last_worlds:
-            return
-
+        # If nothing changed, do nothing
         if worlds_data == self._last_worlds:
             return
 
         self._last_worlds = worlds_data
 
+        # Clear old entries
         for _, item_id in list(children.items()):
             try:
                 tree.delete(item_id)
@@ -1035,23 +1062,129 @@ class LiveTrackerUI:
                 pass
         children.clear()
 
-        for idx in sorted(worlds_data.keys()):
-            info = worlds_data[idx]
-            clear_on = info.get("clear", False)
-            pro_on = info.get("promode", False)
-            s_clear = "✓" if clear_on else "·"
-            s_pro = "✓" if pro_on else "·"
-            display_name = f"World {idx}"
-            text = f"🌍 {display_name}:  Clear {s_clear}   PRO {s_pro}"
-            img = self._get_icon_for(display_name)
-            item_id = tree.insert(
+        # Insert rows in order 1..12 for all worlds that have progress
+        for idx in sorted(WORLDS.keys()):
+            if idx not in worlds_data:
+                continue
+
+            w_name, b_name = WORLDS[idx]
+            state = worlds_data[idx]
+            world_done = state.get("world_done", False)
+            boss_done = state.get("boss_done", False)
+
+            world_mark = "[x]" if world_done else "[ ]"
+            boss_mark = "[x]" if boss_done else "[ ]"
+
+            header_text = f"🌍 {idx}. {w_name}"
+            img = self._get_icon_for(w_name)
+            parent_key = f"W{idx}"
+
+            header_id = tree.insert(
                 parent,
                 "end",
-                text=text,
+                text=header_text,
                 image=img,
-                tags=("world_item",),
+                tags=("world_header",),
             )
-            children[idx] = item_id
+            # immer ausgeklappt
+            tree.item(header_id, open=True)
+            children[parent_key] = header_id
+
+            # Zeile für World
+            detail_world = f"   World   {world_mark}"
+            world_id = tree.insert(
+                header_id,
+                "end",
+                text=detail_world,
+                tags=("world_detail",),
+            )
+            children[f"{parent_key}_world"] = world_id
+
+            # Zeile für Bossname + Checkbox (falls Boss vorhanden)
+            if b_name:
+                detail_boss = f"   {b_name}   {boss_mark}"
+            else:
+                detail_boss = "   (kein Boss)"
+            boss_id = tree.insert(
+                header_id,
+                "end",
+                text=detail_boss,
+                tags=("world_detail",),
+            )
+            children[f"{parent_key}_boss"] = boss_id
+
+    def _apply_bosses_section(self, bosses: dict):
+        parent = self._ensure_section_node("bosses")
+        tree = self._get_tree_for_section("bosses")
+        if not tree:
+            return
+        children = self.section_children.setdefault("bosses", {})
+
+        new_values: dict[str, int] = {}
+        any_increase = False
+
+        for k, v in sorted(bosses.items(), key=lambda kv: kv[0].lower()):
+            key_lower = k.strip().lower()
+            if not key_lower.endswith("deaths"):
+                continue
+
+            raw = str(v).strip()
+            if raw == "":
+                count = 0
+            else:
+                try:
+                    count = int(raw)
+                except Exception:
+                    try:
+                        count = int(float(raw))
+                    except Exception:
+                        count = 0
+
+            base_name = re.sub(r"(?i)deaths$", "", k).replace("_", " ").strip()
+            if not base_name:
+                base_name = k.replace("_", " ").strip()
+
+            # Spezialfall: BombermanDeaths sind in-game Sonic Deaths
+            if base_name.lower() == "bomberman":
+                base_name = "Sonic"
+
+            # Name + " Deaths" mit Leerzeichen
+            display_name = f"{base_name} Deaths"
+
+            text = f"👑 {display_name}: {count}"
+            img = self._get_icon_for(display_name)
+
+            if k in children:
+                try:
+                    tree.item(children[k], text=text, image=img)
+                except Exception:
+                    pass
+            else:
+                item_id = tree.insert(parent, "end", text=text, image=img)
+                children[k] = item_id
+
+            try:
+                prev = int(self._last_boss.get(k, 0))
+            except Exception:
+                prev = 0
+            if count > prev:
+                any_increase = True
+                self._highlight_tree_item("bosses", k)
+
+            new_values[k] = count
+
+        for existing in list(children.keys()):
+            if existing not in new_values:
+                try:
+                    tree.delete(children[existing])
+                except Exception:
+                    pass
+                children.pop(existing, None)
+
+        self._last_boss = dict(new_values)
+
+        if any_increase:
+            self._focus_section_tab("bosses")
 
     def _popup_toast(
         self, name: str, is_characters: bool = False, replaced_from: str | None = None
@@ -1134,12 +1267,30 @@ class LiveTrackerUI:
             ).pack(anchor="nw", padx=10, pady=(10, 0))
 
             display_name = name.replace("_", " ")
+
+            # Dynamische Schriftgröße für lange Namen
+            try:
+                base_size = 16
+                name_font = tkfont.Font(
+                    family=self.font_name,
+                    size=base_size,
+                    weight="bold",
+                )
+                # verfügbare Breite rechts vom Icon
+                max_text_width = max(80, w - 180)
+                while name_font.measure(display_name) > max_text_width and base_size > 8:
+                    base_size -= 1
+                    name_font.configure(size=base_size)
+                name_font_to_use = name_font
+            except Exception:
+                name_font_to_use = (self.font_name, 16, "bold")
+
             tk.Label(
                 frame,
                 text=display_name,
                 fg=accent,
                 bg=bg,
-                font=(self.font_name, 16, "bold"),
+                font=name_font_to_use,
             ).pack(anchor="nw", padx=10, pady=(2, 0))
 
             if replaced_from:

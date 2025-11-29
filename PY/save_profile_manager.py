@@ -45,6 +45,9 @@ SAVE_PATHS = {
     "onlineLicense": os.path.join(iwbtb_folder, "onlineLicense.ini"),
 }
 
+# NEW: allow disabling the save-profile manager via env var for testing
+DISABLE_SAVE_PROFILES = os.environ.get("BOSHY_DISABLE_SAVE_PROFILES", "0") == "1"
+
 
 def _load_profiles() -> Dict[str, List[str]]:
     if not os.path.exists(SAVE_PROFILES_JSON):
@@ -82,6 +85,11 @@ def _write_single_profile(name: str, lines: List[str], path: str) -> None:
 
 
 def write_all_saves_from_profiles(tag: str = "init") -> None:
+    # Allow disabling via env var (useful for item-randomizer / live tests)
+    if DISABLE_SAVE_PROFILES:
+        log("[save_profile_manager] Disabled via BOSHY_DISABLE_SAVE_PROFILES=1")
+        return
+
     try:
         profiles = _load_profiles()
     except Exception as e:

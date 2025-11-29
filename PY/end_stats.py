@@ -65,6 +65,9 @@ ACCENT = "#00D1FF"
 TEXT_DIM = "#AAAAAA"
 LINE_DIM = "#30343A"
 
+TROPHY_DIR = os.path.join(os.path.dirname(CUSTOM_LOGO), "trophies")
+TROPHY_FALLBACK = os.path.join(TROPHY_DIR, "trophy.png")
+
 
 def _find_game_window_rect():
     try:
@@ -198,6 +201,49 @@ def _choose_boshy_font(root: tk.Tk, fallback: str = "Consolas") -> str:
     return fallback
 
 
+def _get_icon_for(display_name: str | None, root: tk.Tk, size=(22, 22)):
+    """Lädt ein Icon aus Custom/trophies passend verkleinert."""
+    if not display_name:
+        return None
+    display_name = display_name.strip()
+    if not display_name:
+        return None
+
+    if not hasattr(root, "_icon_cache"):
+        root._icon_cache = {}
+
+    cache = root._icon_cache
+
+    candidates = []
+    base = display_name
+    candidates.append(base)
+    candidates.append(base.replace(" ", "_"))
+    candidates.append(base.replace("_", " "))
+    candidates.append(base.lower())
+    candidates.append(base.title())
+
+    paths = []
+    for name in candidates:
+        paths.append(os.path.join(TROPHY_DIR, f"{name}.png"))
+    paths.append(TROPHY_FALLBACK)
+
+    for p in paths:
+        if not os.path.exists(p):
+            continue
+        key = (p, size)
+        if key in cache:
+            return cache[key]
+        try:
+            img = Image.open(p)
+            img.thumbnail(size)
+            tk_img = ImageTk.PhotoImage(img, master=root)
+            cache[key] = tk_img
+            return tk_img
+        except Exception:
+            continue
+    return None
+
+
 def _load_stats_from_json():
     data = {}
     path = STATE_JSON if os.path.exists(STATE_JSON) else None
@@ -317,11 +363,19 @@ def _load_stats_from_json():
         elif re.match(r"world\d+promode$", kl):
             worlds_pro += 1
 
-    boss_deaths = {
-        k: int(v)
-        for k, v in bosses.items()
-        if str(v).isdigit() and int(v) > 0
-    }
+    # BossDeaths wie im Live Tracker: nur *Deaths
+    boss_deaths = {}
+    for k, v in bosses.items():
+        kl = k.lower()
+        if not kl.endswith("deaths"):
+            continue
+        vv = str(v).strip()
+        if not vv.isdigit():
+            continue
+        iv = int(vv)
+        if iv <= 0:
+            continue
+        boss_deaths[k] = iv
 
     return {
         "summary": {
@@ -373,7 +427,7 @@ def show_end_stats(stop_event, route_code: str | None = None):
             boshy_font = _choose_boshy_font(root, fallback="Consolas")
             base_font = ("Consolas", 11)
             big_font = (boshy_font, 15, "bold")
-            section_font = (boshy_font, 11, "bold")
+            section_font = (boshy_font, 9)
             small_dim = ("Consolas", 10, "italic")
 
             container = tk.Frame(root, bg=BG_COLOR)
@@ -519,11 +573,15 @@ def show_end_stats(stop_event, route_code: str | None = None):
                 headers_y = line_y + 18
                 inner_left = 70
                 inner_right = w - 70
-                col_width = (inner_right - inner_left) / 4.0
-                col_left = [inner_left + i * col_width for i in range(4)]
+                col_width = (inner_right - inner_left) / 3.0
+                col_left = [inner_left + i * col_width for i in range(3)]
 
-                header_texts = ["RUN", "ACHIEVEMENTS", "PROGRESS", "PROFILE"]
-                for i in range(4):
+                header_texts = [
+                    "RUN / BOSSES / PROFILE",
+                    "ACHIEVEMENTS / ITEMS",
+                    "WORLDS",
+                ]
+                for i in range(len(header_texts)):
                     canvas.create_text(
                         col_left[i],
                         headers_y,
@@ -604,7 +662,7 @@ def show_end_stats(stop_event, route_code: str | None = None):
                         pass
 
             root.bind("<Escape>", close_event)
-            root.bind("<Control-s>", close_event)
+            root.bind("<Control-F2>", close_event)
             root.bind("<F2>", close_event)
 
             while not stop_event.is_set():
@@ -657,123 +715,156 @@ def _start_typewriter(
     boss_sec = get_section(save_sections, "Bosses", "bosses")
     coll_sec = get_section(save_sections, "Collectables", "collectables")
     unlock_sec = get_section(license_sections, "Unlockables", "unlockables")
+    expl_sec = get_section(save_sections, "Exploration", "exploration")
 
-    col_lines[0].append(("OVERVIEW", "header"))
+    # ---------- Spalte 0: RUN SUMMARY + BOSSES + PROFILE/CHARACTERS ----------
+    time_str = summary.get("time_str", "00:00:00")
+    deaths = summary.get("deaths", 0)
+    diff_label = summary.get("difficulty_label", "N/A")
+    unlock_count = summary.get("unlockables_count", len(unlock_sec))
+
+    col_lines[0].append(("RUN SUMMARY", "header"))
     col_lines[0].append(("", "sep"))
-    col_lines[0].append((f"Time  {summary['time_str']}", "normal"))
-    col_lines[0].append((f"Deaths  {summary['deaths']}", "normal"))
-    col_lines[0].append((f"Difficulty  {summary['difficulty_label']}", "normal"))
+    col_lines[0].append((f"Time      {time_str}", "primary"))
+    col_lines[0].append((f"Deaths    {deaths}", "primary"))
+    col_lines[0].append((f"Difficulty  {diff_label}", "primary"))
     col_lines[0].append(("", "normal"))
 
-    col_lines[0].append(("STATS", "header"))
+    col_lines[0].append(("BOSSES", "header"))
     col_lines[0].append(("", "sep"))
 
-    stats_added = False
-    for k, v in stats_sec.items():
-        kl = k.lower()
-        if kl in ("deaths", "timeseconds", "difficulty"):
+    boss_any = False
+    for k, v in sorted(boss_sec.items(), key=lambda kv: kv[0].lower()):
+        kl = k.strip().lower()
+        if not kl.endswith("deaths"):
             continue
-        col_lines[0].append((f"{k}  {v}", "normal"))
-        stats_added = True
-    if not stats_added:
+        raw = str(v).strip()
+        if not raw or not raw.isdigit():
+            continue
+        count = int(raw)
+
+        base_name = re.sub(r"(?i)deaths$", "", k).replace("_", " ").strip()
+        if not base_name:
+            base_name = k.replace("_", " ").strip()
+
+        # BombermanDeaths -> Sonic Deaths
+        if base_name.lower() == "bomberman":
+            base_name = "Sonic"
+
+        display = f"{base_name} Deaths  {count}"
+        col_lines[0].append((display, "normal"))
+        boss_any = True
+    if not boss_any:
         col_lines[0].append(("NONE", "normal"))
+
+    col_lines[0].append(("", "normal"))
+    col_lines[0].append(("PROFILE / CHARACTERS", "header"))
+    col_lines[0].append(("", "sep"))
+    col_lines[0].append((f"Total  {unlock_count}", "normal"))
+
+    char_any = False
+    for k, v in sorted(unlock_sec.items(), key=lambda kv: kv[0].lower()):
+        if str(v).strip() in ("", "0"):
+            continue
+        col_lines[0].append((f"{k}", "normal"))
+        char_any = True
+    if not char_any:
+        col_lines[0].append(("NONE", "normal"))
+
+    # ---------- Spalte 1: ACHIEVEMENTS + COLLECTABLES ----------
+    ach_count = summary.get("achievements_count", len(ach_sec))
+    coll_count = summary.get("collectables_count", len(coll_sec))
 
     col_lines[1].append(("ACHIEVEMENTS", "header"))
     col_lines[1].append(("", "sep"))
-    col_lines[1].append((f"Total  {summary['achievements_count']}", "normal"))
+    col_lines[1].append((f"Total  {ach_count}", "normal"))
 
     ach_any = False
     for k, v in sorted(ach_sec.items(), key=lambda kv: kv[0].lower()):
         if str(v).strip() in ("", "0"):
+            continue
+        kl = k.strip().lower()
+        # wie im Live Tracker: DeathsWorldStats ausblenden
+        if kl == "deathsworldstats":
+            continue
+        # WorldXClear / WorldXProMode gehen in die WORLDS-Anzeige
+        if re.match(r"world\d+(clear|promode)$", kl):
             continue
         col_lines[1].append((f"{k}  {v}", "normal"))
         ach_any = True
     if not ach_any:
         col_lines[1].append(("NONE", "normal"))
 
-    col_lines[2].append(("BOSSES", "header"))
-    col_lines[2].append(("", "sep"))
-
-    boss_any = False
-    for k, v in sorted(boss_sec.items(), key=lambda kv: kv[0].lower()):
-        if str(v).strip() in ("", "0"):
-            continue
-        col_lines[2].append((f"{k}  {v}", "normal"))
-        boss_any = True
-    if not boss_any:
-        col_lines[2].append(("NONE", "normal"))
-
-    col_lines[2].append(("", "normal"))
-    col_lines[2].append(("COLLECTABLES", "header"))
-    col_lines[2].append(("", "sep"))
-    col_lines[2].append((f"Total  {summary['collectables_count']}", "normal"))
+    col_lines[1].append(("", "normal"))
+    col_lines[1].append(("COLLECTABLES", "header"))
+    col_lines[1].append(("", "sep"))
+    col_lines[1].append((f"Total  {coll_count}", "normal"))
 
     coll_any = False
     for k, v in sorted(coll_sec.items(), key=lambda kv: kv[0].lower()):
         if str(v).strip() in ("", "0"):
             continue
-        col_lines[2].append((f"{k}  {v}", "normal"))
+        col_lines[1].append((f"{k}  {v}", "normal"))
         coll_any = True
     if not coll_any:
-        col_lines[2].append(("NONE", "normal"))
+        col_lines[1].append(("NONE", "normal"))
 
-    col_lines[2].append(("", "normal"))
+    # ---------- Spalte 2: WORLDS (alleine) ----------
     col_lines[2].append(("WORLDS", "header"))
     col_lines[2].append(("", "sep"))
 
-    if summary["worlds_clear"] == 0 and summary["worlds_pro"] == 0:
-        col_lines[2].append(("NONE", "normal"))
-    else:
-        col_lines[2].append(
-            (f"Worlds clear  {summary['worlds_clear']}", "normal"),
-        )
-        col_lines[2].append(
-            (f"Worlds pro  {summary['worlds_pro']}", "normal"),
-        )
-
-    col_lines[3].append(("CHARACTERS", "header"))
-    col_lines[3].append(("", "sep"))
-    col_lines[3].append((f"Total  {summary['unlockables_count']}", "normal"))
-
-    char_any = False
-    for k, v in sorted(unlock_sec.items(), key=lambda kv: kv[0].lower()):
-        if str(v).strip() in ("", "0"):
-            continue
-        col_lines[3].append((f"{k}", "normal"))
-        char_any = True
-    if not char_any:
-        col_lines[3].append(("NONE", "normal"))
-
-    col_lines[3].append(("", "normal"))
-    col_lines[3].append(("OTHER", "header"))
-    col_lines[3].append(("", "sep"))
-
-    other_any = False
-    handled_save_sections = {
-        n.lower() for n in ("Stats", "Achievements", "Bosses", "Collectables")
+    WORLDS_MAP: dict[int, tuple[str, str | None]] = {
+        1: ("Prehistorik 2", "Hello Kitty"),
+        2: ("Kirby's Adventure", "Ryu"),
+        3: ("Cheetahmen II", "Mario"),
+        4: ("VVVVVV", "Biollante"),
+        5: ("Wario Land", "Sonic"),
+        6: ("Castlevania", "Skeleton King"),
+        7: ("Random World", "Mega Man"),
+        8: ("Mega Man", "Shang Tsung"),
+        9: ("Kid Icarus", "Ganon"),
+        10: ("Ninja Gaiden", "Missingno"),
+        11: ("Mario Desert", None),
+        12: ("Final Path", "Solgryn"),
     }
 
-    for sec_name, sec in save_sections.items():
-        if sec_name.lower() in handled_save_sections:
+    worlds_any = False
+    for idx in sorted(WORLDS_MAP.keys()):
+        w_name, b_name = WORLDS_MAP[idx]
+        w_key = f"W{idx}"
+        b_key = f"B{idx}"
+        w_val = str(expl_sec.get(w_key, "")).strip()
+        b_val = str(expl_sec.get(b_key, "")).strip()
+        world_done = w_val not in ("", "0")
+        boss_done = b_val not in ("", "0")
+
+        if not (world_done or boss_done):
             continue
-        for k, v in sec.items():
-            col_lines[3].append((f"{sec_name}  {k}  {v}", "normal"))
-            other_any = True
 
-    for sec_name, sec in license_sections.items():
-        if sec_name.lower() == "unlockables":
-            continue
-        for k, v in sec.items():
-            col_lines[3].append((f"{sec_name}  {k}  {v}", "normal"))
-            other_any = True
+        worlds_any = True
+        world_mark = "[x]" if world_done else "[ ]"
+        boss_mark = "[x]" if boss_done else "[ ]"
 
-    if not other_any:
-        col_lines[3].append(("NONE", "normal"))
+        col_lines[2].append((f"{idx}. {w_name}", "normal"))
+        col_lines[2].append((f"   World   {world_mark}", "normal"))
+        if b_name:
+            col_lines[2].append((f"   {b_name}   {boss_mark}", "normal"))
+        else:
+            col_lines[2].append(("   (kein Boss)", "normal"))
+        col_lines[2].append(("", "normal"))
 
+    if not worlds_any:
+        col_lines[2].append(("NONE", "normal"))
+
+    # Spalte 3 bleibt leer / wird nicht genutzt
     line_height = 18
-    col_items: list[list[tuple[int, int, str]]] = [[] for _ in range(n_cols)]
+    col_items: list[list[tuple[int, int, str, str, tuple]]] = [[] for _ in range(n_cols)]
     max_rows = max(len(c) for c in col_lines) if col_lines else 0
 
+    base_family = base_font[0]
+    base_size = base_font[1]
+
+    # ---------- Texte vorbereiten + Auto-Skalierung ----------
     for col in range(n_cols):
         for row, (text, kind) in enumerate(col_lines[col]):
             x_base = col_left[col]
@@ -797,7 +888,21 @@ def _start_typewriter(
                     fill=LINE_DIM,
                 )
             else:
-                col_items[col].append((x_base + 6, y, text))
+                # dynamische Fontgröße pro Zeile
+                size = base_size + 1 if kind == "primary" else base_size
+                font_tuple = (base_family, size)
+                try:
+                    f_obj = tkfont.Font(family=base_family, size=size)
+                    max_width = col_width - 30  # Platz für Icon + Padding
+                    while f_obj.measure(text) > max_width and size > 8:
+                        size -= 1
+                        f_obj.configure(size=size)
+                    font_tuple = (base_family, size)
+                except Exception:
+                    pass
+
+                x_text = x_base + 26  # etwas Platz links für Icon
+                col_items[col].append((x_text, y, text, kind, font_tuple))
 
     total_height = base_y + (max_rows + 6) * line_height
     root.update_idletasks()
@@ -814,12 +919,13 @@ def _start_typewriter(
             canvas.create_text(
                 canvas.winfo_width() // 2,
                 footer_y,
-                text="Close: Esc  Ctrl+S  F2  (closes automatically when run ends)",
+                text="Close: Esc  Ctrl+F2  F2  (closes automatically when run ends)",
                 fill=TEXT_DIM,
                 font=small_font,
             )
             footer_drawn["value"] = True
 
+    # ---------- Typewriter + Icons ----------
     def type_line(col_idx: int, idx: int):
         if stop_event.is_set():
             return
@@ -829,13 +935,30 @@ def _start_typewriter(
             maybe_draw_footer()
             return
 
-        x, y, full_text = items[idx]
+        x, y, full_text, kind, font_tuple = items[idx]
+        color = ACCENT if kind == "primary" else FG_COLOR
+
+        # Icon vor dem Text
+        raw = full_text.lstrip()
+        icon_key = None
+        parts = raw.split("  ")
+        if parts:
+            icon_key = parts[0].strip()
+        img = _get_icon_for(icon_key, root)
+        if img is not None:
+            canvas.create_image(
+                x - 12,
+                y + line_height * 0.55,
+                image=img,
+                anchor="center",
+            )
+
         item_id = canvas.create_text(
             x,
             y,
             text="",
-            fill=FG_COLOR,
-            font=base_font,
+            fill=color,
+            font=font_tuple,
             anchor="nw",
         )
 
