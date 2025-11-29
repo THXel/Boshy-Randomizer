@@ -153,7 +153,8 @@ if os.name == "nt":
                 if _FULL_LOCK_ACTIVE and not injected:
                     return 1
 
-                if kb.vkCode == VK_F3 and _F3_BLOCK_ACTIVE and not injected:
+                # Changed: F3 is blocked regardless of injected flag while character lock is active
+                if kb.vkCode == VK_F3 and _F3_BLOCK_ACTIVE:
                     return 1
         except Exception as e:
             try:
@@ -367,7 +368,6 @@ def _next_character_seeded() -> dict:
     if not _UNUSED_POOL:
         return _next_character_from_pool()
 
-    # Seeded mode: fully deterministic, ignore history file
     choice = _UNUSED_POOL.pop(0)
 
     if (

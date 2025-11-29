@@ -690,11 +690,17 @@ if __name__ == "__main__":
                     time.sleep(poll_interval)
                     continue
 
+                locked_for_char = False
                 try:
                     if getattr(cfg, "random_character_per_stage", False):
+                        enable_full_keyboard_lock()
+                        locked_for_char = True
                         set_random_character()
                 except Exception as e:
                     log(f" Random character per stage failed: {e}")
+                finally:
+                    if locked_for_char:
+                        disable_full_keyboard_lock()
 
                 try:
                     if state.get("force_hwnd") and is_hwnd_valid(state["force_hwnd"]):
