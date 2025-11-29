@@ -1,5 +1,5 @@
 <p align="right">
-  <strong>Language:</strong><br>
+  <strong>言語:</strong><br>
   <a href="../README.md" title="English">🇬🇧 English</a> ·
   <a href="README_DE.md" title="Deutsch">🇩🇪 Deutsch</a> ·
   <a href="README_RU.md" title="Русский">🇷🇺 Русский</a> ·
@@ -11,7 +11,7 @@
 
   <img src="../Custom/boshy_randomizer.png?raw=true" alt="Boshy Randomizer" width="420">
 
-  <p><strong>THXel と I Wanna Be The Boshy スピードランコミュニティによって制作</strong><br>
+  <p><strong>作成者: THXel & I Wanna Be The Boshy スピードランコミュニティ</strong><br>
   © 2025 THXel</p>
 
 </div>
@@ -19,247 +19,236 @@
 ---
 
 <p align="center">
-  <b><i>I Wanna Be The Boshy</i> 向けモダンランダマイザー</b><br>
-  ランダムルート • ライブトラッカー • ルートシード • クリーンな GUI
+  <b><i>I Wanna Be The Boshy</i> 用モダンランダマイザー</b><br>
+  ランダムルート • Seedコード • ER/EBマスク • ライブトラッカー • クリーンGUI
 </p>
 
 <p align="center">
-  <a href="#-features">機能</a> •
-  <a href="#-installation">インストール</a> •
-  <a href="#-gameplay--modes">ゲームプレイ & モード</a> •
-  <a href="#-technical">技術情報</a> •
-  <a href="#-support">サポート</a>
+  <a href="#-特徴">特徴</a> •
+  <a href="#-インストール">インストール</a> •
+  <a href="#-ゲームプレイ--モード">ゲームプレイ & モード</a> •
+  <a href="#-seedシステム">Seedシステム</a> •
+  <a href="#-技術情報">技術情報</a> •
+  <a href="#-サポート">サポート</a>
 </p>
 
 ---
 
-## 🟦 Features
+## 🟦 特徴
 
-- 🎲 **Random Routes** – 各ランごとにステージとボスの順番がシャッフルされます  
-- 🧩 **Item & Collectable Handling** – アイテム／コレクタブル用の安定したトリガーロジック  
-- 🧍 **Random Characters** – ラン開始時、またはステージごとにランダムキャラ  
-- 🎯 **Target Collect Mode** – ルート非表示で、指定されたターゲットをすべて集めるモード  
-- 📊 **Live Tracker** – 実績・アイテム・ボス・キャラをリアルタイム表示  
-- 🧾 **Endscreen Stats** – エンドスクリーンにサマリー + ルートコードを表示  
-- 🔁 **Deterministic Seeds** – 同じシードでランを完全再現・共有可能  
-- ⚙️ **Auto-Setup System** – Python、モジュール、フォント、ゲームインポートを自動セットアップ  
+- 🎲 **ランダムルート** – シードに基づく完全決定的なステージ & ボスルート  
+- 🧩 **アイテムランダマイザー（安全なステータスモード）** – *取得したキャラクターはランダム化*、ゲーム内アイテムは変更されずクラッシュ回避  
+- 🧍 **キャラクターランダマイザー** – ラン開始時またはステージ毎にランダム、完全決定的  
+- 🎯 **ターゲットコレクトモード** – ルート非表示、Seedでターゲット決定  
+- 📊 **ライブトラッカー** – アイテム、ボス、実績、キャラクター、ターゲットアイテムを追跡  
+- 🔁 **決定的シード** – 同じRunを100%再現可能  
+- 🧱 **ER/EBマスク** – オプションステージ・ボスのON/OFF情報をSeedに保存  
+- 🔒 **SeedロックGUI** – Seed入力でGUIをロックし設定を表示  
+- ⚙️ **自動セットアップ** – Python、モジュール、フォントを自動インストールし IWBTB をインポート  
 
 ---
 
-## 🎮 Gameplay Preview
+## 🎮 ゲームプレイプレビュー
 
 <div align="center">
   <img src="../Custom/gameplay.gif?raw=true" width="300">
+  <img src="../Custom/gameplay2.gif?raw=true" width="300">
 </div>
 
 ---
 
-## 🟩 Requirements
-
-- Windows 10 以上  
-- セットアップ用のインターネット接続  
-- **I Wanna Be The Boshy** のコピー（Grynsoft 配布の ZIP）
-
----
-
-## 🟧 Installation
+## 🟧 インストール
 
 <div align="center">
 
 <a href="https://github.com/THXel/Boshy-Randomizer/raw/refs/heads/Boshy-Randomizer/Boshy%20Randomizer%20installer.exe">
-  <img src="https://img.shields.io/badge/⬇️%20DOWNLOAD%20BOSHY%20RANDOMIZER%20INSTALLER-2f8cff?style=for-the-badge&logo=files&logoColor=white" width="550" alt="Download Installer">
+  <img src="https://img.shields.io/badge/⬇️%20BOSHY%20RANDOMIZER%20インストーラーをダウンロード-2f8cff?style=for-the-badge&logo=files&logoColor=white" width="550">
 </a>
 
 </div>
 
 ---
 
-### ▶ 手順 1 — インストーラーを実行  
+### ▶ ステップ1 — インストーラーを実行
 
 **`Boshy Randomizer Installer.exe`**
 
-⚠️ **注意:**  
-Windows が **SmartScreen 警告** を表示する場合があります:  
-“Windows protected your PC” / “Unrecognized app”
+⚠️ **SmartScreen 注意:**  
+Windows が次のように表示する場合があります：
 
-これはインストーラーが **デジタル署名されていない** ためです。
+“Windows により PC が保護されました” / “不明なアプリ”。
 
-インストールを続行するには:
+これは正常で、インストーラーは **デジタル署名されていません**。
 
-1. **「More information」** をクリック  
-2. **「Run anyway」** をクリック  
+続行するには：
 
-これは正常で、安全に実行できます。
+1. **詳細情報** をクリック  
+2. **実行** を選択  
 
-その後、インストーラーが自動的に以下を行います:
+インストーラーは自動的に以下を行います：
 
-- ランダマイザーファイル一式のコピー  
-- Python 3.x のインストール（未インストールの場合）  
-- 必要なモジュールのインストール  
-- **IWBTB ZIP** のパスを確認  
-- IWBTB 本体を `/IWBTB` に展開  
-- スタートメニューにショートカットを作成  
+- Randomizerファイルをコピー  
+- Python 3 をインストール（必要な場合）  
+- 必要なモジュールをインストール  
+- **IWBTB ZIP** を要求  
+- `/IWBTB` に展開  
+- スタートメニューにショートカット追加  
 
 ---
 
-### ▶ 手順 2 — ランダマイザーを起動  
-
-起動方法:
+### ▶ ステップ2 — ランダマイザーを起動
 
 **スタートメニュー → Boshy Randomizer**
 
-ランチャーは次の内容をチェックします:
+ランチャーは以下をチェックします：
 
-- IWBTB ゲームフォルダが正しくインポートされているか  
-- Python と必要なモジュールがインストールされているか  
-- すべてのランダマイザーファイルが揃っているか  
+- IWBTB が正しくインポートされたか  
+- Python & モジュールがインストール済みか  
+- 必要なファイルが揃っているか  
 
-不足がある場合は、詳細なデバッグメッセージが表示されます。
+問題がある場合はデバッグメッセージを表示します。
 
 ---
 
-# 🟪 Gameplay & Modes
+# 🟪 ゲームプレイ & モード
 
 <div style="display: flex; gap: 20px; align-items: flex-start;">
   <img src="../Custom/GUI1.PNG?raw=true" width="300">
   <img src="../Custom/GUI2.PNG?raw=true" width="300">
 </div>
 
-## ▶ ラン開始
+## ▶ Run開始
 
-すべてのランはまず **Tutorial** から始まり、その後いずれかのモードに進みます:
+• すべてのRunは **チュートリアル** から始まります。  
+• その後、GUI設定に応じて：  
+  – **ランダムルートモード**  
+  – **ターゲットコレクトモード**
 
-- **Random Route Mode**  
-- **Target Collect Mode**  
+## ▶ システム動作
 
-どちらになるかは GUI 設定によって決まります。
-
-## 🧍 Character Randomizer
-
-- デフォルトキャラ: **Dark Boshy**  
-- オプション:
-  - ラン開始時にランダムキャラ  
-  - 各ステージごとにランダムキャラ  
-- 有効化時:  
-  **F3 キャラクターメニューが無効化されます** → シードは完全に決定論的になります
-
----
-
-## 🎯 Target Collect Mode
-
-- ルートスライダーを非表示にします  
-- 必要なオプションエリアをすべて有効化します  
-- ターゲット選択はシードに基づきます  
-- すべてのターゲットを集めると **Solgryn が自動で出現** します  
-
-### ロジックに関する重要な変更  
-
-すべてのアイテムにアクセスできるようにするため、  
-**無効化してよいオプションエリアは次の 3 つのみです**:
-
-- **Boberman**  
-- **Questionmark (?)**  
-- **Ridley**
-
-それ以外のオプションエリアは **必ず有効にしておく必要があります**。
+• 使用されるのは **SaveFile1 のみ**。  
+• **SaveFile1 を削除しないでください。**  
+• SaveFile2/3 は毎回初期化されます。  
+• 実績・アンロック項目は全Runで維持されます。  
+• **Awesomesauce** は Run開始時に必ず所持 → **Gastly を確実に入手可能**。  
+• テレポートルームは通常通り動作しますが：  
+  **ランダマイザーが指定するステージを必ずプレイする必要があります。**
 
 ---
 
-## 🧠 System Behaviour
+## 🧍 キャラクターランダマイザー
 
-- 使用されるのは **SaveFile1** のみです  
-- **SaveFile1 を削除しないでください**  
-- SaveFile2/3 は常にデフォルト値で上書きされます  
-- 実績およびアンロック要素はラン全体を通して保持されます  
-- テレポートルームは通常どおり機能しますが:  
-  **ランダマイザーが指定したステージを必ずプレイする必要があります**  
-  → テレポーターで進行度をスキップすることはできません  
+- デフォルト: Dark Boshy  
+- オプション:  
+  - Run開始時ランダム  
+  - ステージ毎にランダム  
+- 有効時：  
+  **F3 キャラクターメニュー無効化** → 完全決定的  
 
 ---
 
-# 📊 Live Tracker
+## 🧩 アイテムランダマイザー – 詳細
+
+IWBTB はゲーム内アイテムの差し替えで **クラッシュ** します。  
+そのため以下の仕様：
+
+- ✔ **取得したキャラクターのみランダム化**  
+- ✖ **ゲーム内アイテムは変更されない**（クラッシュ防止）  
+- ✔ アイテムは **ステータス画面のみ** ランダム表示  
+- ✔ ゲームプレイに影響なし  
+- ✔ 安定 & ルーティング完全対応  
+
+---
+
+## 🎯 ターゲットコレクトモード
+
+- ルート非表示  
+- Seed によりターゲット決定  
+- すべて集めると → **Solgryn が出現**
+
+無効化できるオプションステージ：
+
+- Boberman  
+- “?”  
+- Ridley  
+
+その他は常に有効である必要があります。
+
+---
+
+# 📊 ライブトラッカー
 
 <div align="left">
   <img src="../Custom/livetracker.gif?raw=true" width="300">
 </div>
 
-リアルタイムで表示:
+追跡内容：
 
 - アイテム  
 - 実績  
 - ボス  
 - キャラクター  
-- 進行状況  
+- プログレッション  
+- **ターゲットコレクトモードでは：必要なターゲットアイテム**
 
-完全自動 — プレイヤー側の操作は不要です。
+全自動で動作します。
 
 ---
 
-# 🎲 Seed-System
-
-各シードは次の要素を定義します:
-
-- ステージとボスの順番  
-- ルート全体の構造  
-- 任意のキャラクター RNG  
-- ターゲットアイテムの選択  
-
-シードは以下の場所に表示されます:
-
-- ローディングオーバーレイ  
-- ラン開始オーバーレイ  
-- エンドスクリーン  
-- デバッグログ  
+# 🎲 Seedシステム
 
 <div align="left">
   <img src="../Custom/route_overlay.gif?raw=true" width="300">
 </div>
 
-シードを共有することで、他のプレイヤーがまったく同じランを再現できます。
+例：
+
+```
+R14-B4-T0-C2-P1-S152722-ER5-EB34C
+```
+
+意味：
+
+- **R** – ステージ数  
+- **B** – ボス数  
+- **T** – ターゲットモード  
+- **C** – キャラクターランダム  
+- **P** – アイテムランダム  
+- **S** – Seed値  
+- **ER** – ステージマスク  
+- **EB** – ボスマスク  
+
+このSeedを使用すれば誰でも **同じRunを完全再現** できます。
 
 ---
 
-# 🟫 既知の注意点
+# 🔧 技術情報
 
-- 安定性向上のため、一部のトリガー位置は意図的に少しずらされています  
-- MOD や外部のセーブファイルは動作に影響を与える可能性があります  
-
----
-
-# 🔧 Technical
-
-- Python **3.11**  
+- Python 3.11  
 - 使用ライブラリ:
-  - pygetwindow  
-  - pyautogui  
   - pillow  
   - numpy  
+  - pyautogui  
+  - pygetwindow  
   - tkinter  
 
-ログファイル:
+ログファイル：
 
-```txt
+```
 INI/randomizer_debug.log
 ```
 
-バグ報告の際はこのファイルを添付してください。
+---
+
+# 🟨 サポート
+
+**Twitch:** https://twitch.tv/THXel  
+**Discord:** https://discord.gg/ZXgTFjGw  
 
 ---
 
-# 🟨 Support
+# ⚫ 免責事項
 
-**Twitch:**  
-https://twitch.tv/THXel  
-
-**Discord:**  
-https://discord.gg/ZXgTFjGw
-
----
-
-# ⚫ Disclaimer
-
-このプロジェクトは非公式であり、  
-**Solgryn (Grynsoft)** および公式 IWBTB リリースとは一切関係ありません。
-
-ご利用は自己責任でお願いします。  
-**楽しんでください — it’s Boshy Time!**
+本プロジェクトは **Solgryn (Grynsoft)** とは無関係の非公式ツールです。  
+使用は自己責任でお願いします。  
+**楽しんでください — It’s Boshy Time!**
