@@ -206,21 +206,28 @@ Fully automatic — no input required.
 A seed code like:
 
 ```
-R14-B4-T0-C2-P1-S152722-ER5-EB34C
+R14-B4-T0-C2-P1-D1-S152722-ER5-EB34C
 ```
 
 means:
 
 - **R** – rooms  
 - **B** – bosses  
-- **T** – target mode  
+- **T** – target mode (0 = off, 1 = Target Collect)  
 - **C** – character randomizer  
-- **P** – item randomizer  
+  - 0 = off  
+  - 1 = random on run start  
+  - 2 = random per stage  
+- **P** – item randomizer (0 = off, 1 = on – characters randomized, items stay in-game)  
+- **D** – difficulty  
+  - 0 = Ez  
+  - 1 = Average  
+  - 3 = Rage  
 - **S** – seed  
-- **ER** – optional rooms mask  
-- **EB** – optional bosses mask  
+- **ER** – optional rooms enable mask  
+- **EB** – optional bosses enable mask  
 
-Anyone using this code will get the **exact same run**.
+Anyone using this code will get the **exact same route, difficulty, and character RNG**.
 
 ---
 
