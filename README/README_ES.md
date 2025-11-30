@@ -206,21 +206,28 @@ Completamente automático — sin entrada del jugador.
 Un código seed como:
 
 ```
-R14-B4-T0-C2-P1-S152722-ER5-EB34C
+R14-B4-T0-C2-P1-D1-S152722-ER5-EB34C
 ```
 
 significa:
 
 - **R** – niveles  
 - **B** – jefes  
-- **T** – target mode  
-- **C** – character randomizer  
-- **P** – item randomizer  
+- **T** – modo Target Collect (0 = apagado, 1 = activado)  
+- **C** – randomizador de personaje  
+  - 0 = desactivado  
+  - 1 = personaje aleatorio al iniciar el run  
+  - 2 = personaje aleatorio por nivel  
+- **P** – item randomizer (0 = apagado, 1 = encendido — personajes se randomizan, items no se cambian dentro del juego)  
+- **D** – dificultad  
+  - 0 = Ez  
+  - 1 = Average  
+  - 3 = Rage  
 - **S** – seed  
-- **ER** – niveles opcionales  
-- **EB** – jefes opcionales  
+- **ER** – máscara de niveles opcionales activados  
+- **EB** – máscara de jefes opcionales activados  
 
-Permite reproducir cualquier run **1:1**.
+Cualquier jugador que use este código obtendrá **exactamente la misma ruta, dificultad y RNG de personajes**.
 
 ---
 
