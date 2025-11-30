@@ -684,7 +684,7 @@ def build_gui_config():
         sec_seed,
         text=(
             "Enter either a pure number (e.g. 898677) or a full code like\n"
-            "R3-B3-T0-C1-P0-898677. Leave empty for a random seed."
+            "R3-B3-T0-C1-P0-D1-S898677-ERFFFF-EBFFFF. Leave empty for a random seed."
         ),
         font=ctk.CTkFont(size=11),
         text_color="gray70",
@@ -692,7 +692,7 @@ def build_gui_config():
     ).pack(anchor="w", padx=12, pady=(0, 4))
 
     seed_var = ctk.StringVar(value="")
-    seed_entry = ctk.CTkEntry(sec_seed, textvariable=seed_var, width=250)
+    seed_entry = ctk.CTkEntry(sec_seed, textvariable=seed_var, width=280)
     seed_entry.pack(anchor="w", padx=12, pady=(0, 8))   
     seed_code_extended_pattern = re.compile(
         r"^R(?P<R>\d+)"
@@ -700,6 +700,7 @@ def build_gui_config():
         r"-T(?P<T>[01])"
         r"-C(?P<C>[0-2])"
         r"-P(?P<P>[01])"
+        r"(?:-D(?P<D>[0-3]))?"
         r"-S(?P<S>\d+)"
         r"(?:-ER(?P<ER>[0-9A-Fa-f]+))?"
         r"(?:-EB(?P<EB>[0-9A-Fa-f]+))?$"
@@ -817,9 +818,11 @@ def build_gui_config():
                     t_flag = int(m.group("T"))
                     c_flag = int(m.group("C"))
                     p_flag = int(m.group("P"))
+                    d_group = m.groupdict().get("D")
                 except Exception:
                     rooms = bosses = None
                     t_flag = c_flag = p_flag = None
+                    d_group = None
 
                 er = m.group("ER") if m else None
                 eb = m.group("EB") if m else None
@@ -860,6 +863,18 @@ def build_gui_config():
 
                 if p_flag is not None:
                     item_var.set("Yes" if p_flag else "No")
+
+                if d_group is not None:
+                    try:
+                        d_flag = int(d_group)
+                        if d_flag == 0:
+                            diff_var.set("Ez")
+                        elif d_flag == 1:
+                            diff_var.set("Average")
+                        elif d_flag == 2:
+                            diff_var.set("Rage")
+                    except Exception:
+                        pass
 
                 room_order = sorted(DEFAULT_DISABLED_ROOMS.keys())
                 boss_order = sorted(DEFAULT_DISABLED_BOSSES.keys())
@@ -958,6 +973,7 @@ def build_gui_config():
             r"-T(?P<T>[01])"
             r"-C(?P<C>[0-2])"
             r"-P(?P<P>[01])"
+            r"-D(?P<D>[0-3])"
             r"-S(?P<S>\d+)"
             r"(?:-ER(?P<ER>[0-9A-Fa-f]+))?"
             r"(?:-EB(?P<EB>[0-9A-Fa-f]+))?$"
@@ -978,13 +994,14 @@ def build_gui_config():
                     t_flag = int(m_ext.group("T"))
                     c_flag = int(m_ext.group("C"))
                     p_flag = int(m_ext.group("P"))
+                    d_flag = int(m_ext.group("D"))
                     s_val = int(m_ext.group("S"))
                 except ValueError:
                     messagebox.showerror(
                         "Invalid Seed Code",
                         (
                             "The seed code could not be parsed.\n"
-                            "Expected format: R3-B3-T0-C1-P0-S898677-ERFFFF-EBFFFF"
+                            "Expected format: R3-B3-T0-C1-P0-D1-S898677-ERFFFF-EBFFFF"
                         ),
                     )
                     return
@@ -997,6 +1014,7 @@ def build_gui_config():
                     cfg.rooms_to_play = rooms
                     cfg.bosses_to_play = bosses
 
+                # Character randomizer mode
                 if c_flag == 0:
                     cfg.random_start_character = False
                     cfg.random_character_per_stage = False
@@ -1006,6 +1024,16 @@ def build_gui_config():
                 else:
                     cfg.random_start_character = True
                     cfg.random_character_per_stage = True
+
+                # Difficulty from D flag
+                if d_flag == 0:
+                    cfg.difficulty = "Ez"
+                elif d_flag == 3:
+                    cfg.difficulty = "Rage"
+                else:
+                    cfg.difficulty = "Average"
+                cfg.difficulty_code = _difficulty_code_from_label(cfg.difficulty)
+                diff_var.set(cfg.difficulty)
 
                 er = m_ext.group("ER")
                 eb = m_ext.group("EB")
@@ -1048,10 +1076,10 @@ def build_gui_config():
                         s_val = int(m.group("S"))
                     except ValueError:
                         messagebox.showerror(
-                            "Invalid Seed Code",
+                            "Invalid Seed",
                             (
-                                "The seed code could not be parsed.\n"
-                                "Please use a format like: R3-B3-T0-C1-P0-898677"
+                                "Enter a seed number (e.g. 152722) "
+                                "or a full route code:\nR14-B4-T0-C2-P1-D1-S152722-ER5-EB34C"
                             ),
                         )
                         return
@@ -1081,7 +1109,7 @@ def build_gui_config():
                             "Invalid Seed",
                             (
                                 "Enter a seed number (e.g. 152722) "
-                                "or a full route code:\nR14-B4-T0-C2-P1-S152722-ER5-EB34C"
+                                "or a full route code:\nR3-B3-T0-C1-P0-D1-S898677-ERFFFF-EBFFFF"
                             ),
                         )
                         return

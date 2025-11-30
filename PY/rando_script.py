@@ -323,6 +323,15 @@ if __name__ == "__main__":
 
             p_flag = 1 if getattr(cfg, "item_randomizer_enabled", False) else 0
 
+            # difficulty: 0 = Ez, 1 = Average, 3 = Rage
+            diff_label = (getattr(cfg, "difficulty", "Average") or "Average").strip().lower()
+            if diff_label.startswith("ez"):
+                d_flag = 0
+            elif diff_label.startswith("rage"):
+                d_flag = 3
+            else:
+                d_flag = 1
+
             disabled_rooms = set(getattr(cfg, "disabled_rooms", set()) or [])
             disabled_bosses = set(getattr(cfg, "disabled_bosses", set()) or [])
 
@@ -340,7 +349,7 @@ if __name__ == "__main__":
             eb_mask = _build_enable_mask(boss_order, disabled_bosses)
 
             route_code = (
-                f"R{rooms}-B{bosses}-T{t_flag}-C{c_flag}-P{p_flag}"
+                f"R{rooms}-B{bosses}-T{t_flag}-C{c_flag}-P{p_flag}-D{d_flag}"
                 f"-S{route_seed_int}-ER{er_mask:X}-EB{eb_mask:X}"
             )
             log(f" Route code: {route_code}")
