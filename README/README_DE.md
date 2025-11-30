@@ -201,21 +201,32 @@ Automatisch und ohne Eingabe.
 Ein Seed-Code wie:
 
 ```
-R14-B4-T0-C2-P1-S152722-ER5-EB34C
+R14-B4-T0-C2-P1-D1-S152722-ER5-EB34C
 ```
 
 bedeutet:
 
-- **R** – Level  
-- **B** – Bosse  
-- **T** – Target Collect  
-- **C** – Character Randomizer  
-- **P** – Item Randomizer  
+- **R** – Anzahl der Level  
+- **B** – Anzahl der Bosse  
+- **T** – Target Collect Modus  
+  - 0 = aus  
+  - 1 = an  
+- **C** – Charakter-Randomizer  
+  - 0 = deaktiviert  
+  - 1 = zufälliger Charakter beim Run-Start  
+  - 2 = zufälliger Charakter pro Stage  
+- **P** – Item-Randomizer  
+  - 0 = aus  
+  - 1 = an (nur Charaktere werden randomisiert; Items bleiben im Spiel unverändert, um Crashes zu verhindern)  
+- **D** – Schwierigkeit  
+  - 0 = Ez  
+  - 1 = Average  
+  - 3 = Rage  
 - **S** – Seed  
-- **ER** – optionale Level  
-- **EB** – optionale Bosse  
+- **ER** – Aktiv-Maske der optionalen Level  
+- **EB** – Aktiv-Maske der optionalen Bosse  
 
-Damit lässt sich jeder Run **1:1 reproduzieren**.
+Wer diesen Code nutzt, erhält **exakt dieselbe Route, Schwierigkeit und Charakter-RNG**.
 
 ---
 
@@ -249,3 +260,4 @@ INI/randomizer_debug.log
 Inoffizielles Projekt, nicht verbunden mit **Solgryn (Grynsoft)**.  
 Nutzung auf eigene Gefahr.  
 **Viel Spaß – it’s Boshy Time!**
+
