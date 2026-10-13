@@ -342,5 +342,11 @@
   "Downloading Wine Staging 11.2 (72 MiB)…": "Wine Staging 11.2 をダウンロード中 (72 MiB)…",
   "Installing verified Wine Staging 11.2…": "検証済みの Wine Staging 11.2 をインストール中…",
   "Preparing your private Wine environment…": "専用の Wine 環境を準備中…",
-  "Wine download verification failed. Please try again.": "Wine の検証に失敗しました。再試行してください。"
+  "Wine download verification failed. Please try again.": "Wine の検証に失敗しました。再試行してください。",
+  "Vollständigen BR3-/BR2-Seed einfügen oder neu generieren.": "完全なBR3 / BR2シードを貼り付けるか、新しく生成してください。",
+  "Bitte einen vollständigen geteilten Seed mit BR3- oder BR2- am Anfang einfügen.": "BR3 / BR2-で始まる完全な共有シードを貼り付けてください。",
+  "Teilbarer Seed-Code": "共有用シードコード",
+  "{0} Zeichen": "{0}文字",
+  "Dieser Code enthält den Seed und alle Laufeinstellungen.": "シードとランの全設定がこのコードに含まれています。",
+  "Code unvollständig oder ungültig.": "コードが不完全または無効です。"
 }

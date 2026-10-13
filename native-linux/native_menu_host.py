@@ -2,6 +2,7 @@
 import json,time,traceback
 from lab import BASE,game_window,key
 from native_session import real_store
+from native_models import slot_available
 from native_profiles import activate,finish
 from native_player import Player,transient_read_error
 from menu_runtime import MenuGame
@@ -27,7 +28,8 @@ def run():
    while True:
     if game is None:
      game=MenuGame(position=cover.position if cover else None)
-     if cover:cover.restore_game();cover.close();cover=None;activate_game()
+     if cover:cover.restore_game();cover.close();cover=None
+     activate_game()
     model.action=None
     while s.game_running() and model.action is None:
      tracker.menu();model.pump();debug.commands();debug.tick('menu',model=model)
@@ -46,7 +48,7 @@ def run():
      if action=='delete':
       s.delete(slot);model.message=f'Speicherplatz {slot} gelöscht und gesichert.'
      elif action in ('new','resume'):
-      if action=='new' and (s.base/'IWBTB'/f'SaveFile{slot}.ini').exists() and (s.base/'IWBTB'/f'SaveFile{slot}.ini').stat().st_size>0:raise ValueError('Dieser Speicherplatz ist belegt. Bitte zuerst im Menü löschen.')
+      if action=='new' and not slot_available(s,slot):raise ValueError('Dieser Speicherplatz ist belegt. Bitte zuerst im Menü löschen.')
       m=s.prepare(settings['seed'],slot,settings['options']) if action=='new' else s.current(slot)
       if m and m['status']=='ready':
        s.validate(m);activate(s,m);player=Player(s,m);player.start(position=cover.position)

@@ -1,6 +1,6 @@
 # Boshy Randomizer — Русский
 
-[Linux download — 2026.10.13 RC1](https://github.com/THXel/Boshy-Randomizer/releases/tag/v2026.10.13-rc1) · [DEB](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.13-rc1/boshy-randomizer_2026.10.13-1_amd64.deb)
+[Linux download — 2026.10.13 RC1](https://github.com/THXel/Boshy-Randomizer/releases/tag/v2026.10.13-rc1) · [DEB](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.13-rc1/boshy-randomizer_2026.10.13-2_amd64.deb)
 
 Текущая версия встроена в оригинальное анимированное меню Boshy: три независимых сохранения, Randomizer и Target Select, общие BR2-сиды, расширенные настройки уровней и боссов, смешанные награды, отдельный трекер и окно отладки по Ctrl+Alt+D.
 
@@ -9,7 +9,7 @@
 Пакет Debian предназначен для Linux Mint 22.x / Ubuntu 24.04, amd64, X11. **Обновлённая версия Windows появится позже.** Файлы Windows в корне репозитория относятся к старой версии.
 
 ```sh
-sudo apt install ./boshy-randomizer_2026.10.13-1_amd64.deb
+sudo apt install ./boshy-randomizer_2026.10.13-2_amd64.deb
 ```
 
 Wine, Lutris и необходимые библиотеки устанавливаются как зависимости. Запустите **Boshy Randomizer** из меню приложений и выберите папку Boshy или ZIP с игрой. **Сама игра не входит в пакет и не скачивается.** Установщик проверяет версию и создаёт отдельную копию, не изменяя исходные сохранения и настройки.

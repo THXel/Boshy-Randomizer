@@ -2,7 +2,7 @@
 
 ## Target and install
 
-Linux Mint 22.x / Ubuntu 24.04, amd64, Python 3.12, X11. Install with `sudo apt install ./boshy-randomizer_2026.10.13-1_amd64.deb` so APT resolves dependencies, including Wine and Lutris. Installing a `.deb` with `dpkg -i` alone does not fetch missing dependencies.
+Linux Mint 22.x / Ubuntu 24.04, amd64, Python 3.12, X11. Install with `sudo apt install ./boshy-randomizer_2026.10.13-2_amd64.deb` so APT resolves dependencies, including Wine and Lutris. Installing a `.deb` with `dpkg -i` alone does not fetch missing dependencies.
 
 The package ships the randomizer and its native helper binaries, **not the original game, player saves, credentials or a Wine prefix**. The first-run wizard accepts a game folder or ZIP, verifies the supported EXE hash and creates a separate copy. Unsafe archives, ambiguous game copies and unsupported executables are rejected. Existing destinations are not overwritten.
 

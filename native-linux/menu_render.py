@@ -4,7 +4,7 @@ from PIL import Image,ImageDraw,ImageFont
 from pathlib import Path
 import os,json
 from native_models import duration
-from menu_model import DIFFICULTIES
+from menu_model import DIFFICULTIES,seed_layout
 from run_extras import EXTRAS,SHOT_MODES,SHOT_LABELS,shot_label,presentation
 from run_settings import LEVELS,BOSSES as ROUTE_BOSSES,ADVANCED_PAGE_SIZE,ADVANCED_PAGES
 from beta_catalogue import goals,BOSSES,confirmed
@@ -147,6 +147,7 @@ class Renderer:
    self.text(257,y+17,self.fit(hint,584,10),10,'#b3c3ce')
   self.box((245,608,856,642),m.focus==len(EXTRAS));self.text(260,618,tr('Zurück · Alle Extras werden im geteilten Seed gespeichert.'),12)
  def seed_dialog(self,m):
+  valid=False
   self.text(252,265,tr('Seed · teilen und einfügen'),20)
   try:
    seed,o=m.seed_value(m.seed_text)
@@ -154,15 +155,30 @@ class Renderer:
    details=(tr('{0} Ziel-Items / {1} Ziel-Bosse', str(o['target_count']), str(o['boss_count'])) if o['mode']=='target' else tr('{0} Level / {1} Bosse', str(o['level_count']), str(o['route_boss_count'])))
    self.text(253,296,self.fit(mode+' · '+DIFFICULTIES[o['difficulty']]+' · '+details,596,11),11,'#92ee92')
    self.text(253,313,self.fit(tr('Start: ')+o['start_character']+tr(' / Charakterwechsel: ')+(tr('AN') if o['characters'] else tr('AUS'))+tr(' / Items: ')+(tr('AN') if o['items'] else tr('AUS')),596,10),10)
-  except ValueError:self.text(253,299,tr('Vollständigen BR2-Seed einfügen oder neu generieren.'),12)
-  self.box((251,329,851,486),m.focus==0)
-  if m.seed_selected:self.d.rectangle((254,332,848,483),fill='#31567b')
-  text=m.seed_text+('|' if m.focus==0 and not m.seed_selected else '')
-  lines=[text[i:i+88] for i in range(0,len(text),88)] or ['']
-  if len(lines)>10:lines=['…']+lines[-9:]
-  for i,line in enumerate(lines):self.text(259,338+i*14,Localized(line),11)
+   valid=True
+  except ValueError:self.text(253,299,tr('Vollständigen BR3-/BR2-Seed einfügen oder neu generieren.'),12)
+  field,buttons=seed_layout(m.seed_text);compact=len(m.seed_text)<=180
+  if compact:
+   self.text(253,334,tr('Teilbarer Seed-Code'),12,'#b3c3ce')
+   self.text(675,334,tr('{0} Zeichen',str(len(m.seed_text))),11,'#b3c3ce')
+  self.box(field,m.focus==0)
+  if m.seed_selected:self.d.rounded_rectangle((field[0]+3,field[1]+3,field[2]-3,field[3]-3),radius=4,fill='#31567b')
+  value=m.seed_text+('|' if m.focus==0 and not m.seed_selected else '')
+  size=22 if compact and self.d.textlength(value,font=self.fonts[22])<=568 else 14 if compact else 11
+  lines=[];line=''
+  for char in value:
+   if line and self.d.textlength(line+char,font=self.fonts[size])>568:lines.append(line);line=''
+   line+=char
+  lines.append(line)
+  limit=max(1,(field[3]-field[1]-16)//(size+4))
+  if len(lines)>limit:lines=['…']+lines[-(limit-1):] if limit>1 else [lines[-1]]
+  y=field[1]+(field[3]-field[1]-len(lines)*(size+4))//2
+  for line in lines:
+   x=field[0]+(field[2]-field[0]-self.d.textlength(line,font=self.fonts[size]))//2 if compact and len(lines)==1 else field[0]+14
+   self.text(x,y,Localized(line),size);y+=size+4
   for i,(left,right,label) in enumerate(((251,443,tr('Neu generieren')),(455,647,tr('Kopieren')),(659,851,tr('Einfügen'))),1):
-   self.box((left,499,right,533),m.focus==i);self.text(left+13,509,label,13)
+   self.box((left,buttons[0],right,buttons[1]),m.focus==i);self.text(left+13,buttons[0]+10,label,13)
+  if compact:self.wrap(253,505,tr('Dieser Code enthält den Seed und alle Laufeinstellungen.') if valid else tr('Code unvollständig oder ungültig.'),595,12,'#92ee92' if valid else '#ffcf75')
   self.wrap(253,544,m.message or tr('Strg+A: Text markieren · Strg+V: Einfügen · Strg+C: Kopieren. Übernehmen lädt Seed und Einstellungen; Esc verwirft den Entwurf.'),595,11,'#ffcf75' if m.message else '#dddddd')
   self.box((251,604,546,640),m.focus==4);self.text(327,615,tr('Übernehmen'),14)
   self.box((558,604,851,640),m.focus==5);self.text(646,615,tr('Abbrechen'),14)

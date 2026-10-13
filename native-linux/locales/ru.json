@@ -342,5 +342,11 @@
   "Downloading Wine Staging 11.2 (72 MiB)…": "Загрузка Wine Staging 11.2 (72 МиБ)…",
   "Installing verified Wine Staging 11.2…": "Установка проверенной версии Wine Staging 11.2…",
   "Preparing your private Wine environment…": "Подготовка отдельной среды Wine…",
-  "Wine download verification failed. Please try again.": "Проверка Wine не пройдена. Повторите попытку."
+  "Wine download verification failed. Please try again.": "Проверка Wine не пройдена. Повторите попытку.",
+  "Vollständigen BR3-/BR2-Seed einfügen oder neu generieren.": "Вставьте полный сид BR3 / BR2 или создайте новый.",
+  "Bitte einen vollständigen geteilten Seed mit BR3- oder BR2- am Anfang einfügen.": "Вставьте полный код сида, начинающийся с BR3 / BR2-.",
+  "Teilbarer Seed-Code": "Код сида для обмена",
+  "{0} Zeichen": "{0} символов",
+  "Dieser Code enthält den Seed und alle Laufeinstellungen.": "Код содержит сид и все настройки забега.",
+  "Code unvollständig oder ungültig.": "Код неполный или недействительный."
 }

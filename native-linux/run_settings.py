@@ -61,13 +61,13 @@ def character(base,seed,options):
     return next((dict(name=c['name'],id=c['id']) for c in roster(base) if c['name']==name),None) or _invalid_character()
 def _invalid_character():raise ValueError('Dieser Startcharakter ist nicht verfügbar.')
 
-def encode(seed,options):
+def _encode_legacy(seed,options):
     # All gameplay settings travel with the seed, including the rules revision.
     payload=json.dumps([2,str(seed),normalize(options)],sort_keys=True,separators=(',',':')).encode()
     body=base64.urlsafe_b64encode(zlib.compress(payload,9)).decode().rstrip('=')
     return 'BR2-'+body+'.'+hashlib.sha256(payload).hexdigest()[:12]
 
-def decode(value,options=None):
+def _decode_legacy(value,options=None):
     value=str(value).strip()
     if not value.startswith('BR'):
         if not value or len(value)>128 or any(ord(c)<32 or ord(c)>126 for c in value):raise ValueError('Seed: 1–128 druckbare Zeichen verwenden.')
@@ -83,3 +83,125 @@ def decode(value,options=None):
         if version!=2 or not isinstance(seed,str) or not seed or len(seed)>128 or any(ord(c)<32 or ord(c)>126 for c in seed):raise ValueError()
         return seed,normalize(settings)
     except (ValueError,TypeError,KeyError,zlib.error) as e:raise ValueError('Der geteilte Seed ist unvollständig oder beschädigt.') from e
+
+
+# BR3 is a wire format, independent of future UI defaults/catalogue order.
+# Never reorder or extend these tables in place: introduce a new seed version.
+_BR3_LEVELS=('save1.ini','save10.ini','save11.ini','save12.ini','save13.ini','save14.ini','save15.ini','save17.ini','save18.ini','save19.ini','save2.ini','save20.ini','save21.ini','save22.ini','save23.ini','save3.ini','save4.ini','save6.ini','save7.ini','save9.ini','tutorial')
+_BR3_BOSSES=('biollante','bomberman','cheetahman','ganon','gradius','gravitron','hellokitty','kingdedede','kracko','mario','megaman','missingno','ninja_ryu','oldsonic','questionmark','ridley','ryu','shangtsung','skeletonking','sonic')
+_BR3_EXTRAS=('quiet_pickups','no_mouse_ghost','one_hp','god_mode','autofire','mirror','death_character','skip_intro','fast_chests')
+_BR3_SHOTS=('off','random_interval','spot','death','death_and_spot')
+_BR3_KEYS=('difficulty','levels','items','characters','mode','target_count','boss_count','route_version','level_pool','boss_pool','level_count','route_boss_count','start_character','extras')
+
+def _br3_defaults():
+    return dict(difficulty=1,levels=True,items=True,characters=False,mode='randomizer',target_count=5,boss_count=0,
+                route_version=5,level_pool=list(_BR3_LEVELS),boss_pool=list(_BR3_BOSSES),level_count=7,route_boss_count=7,start_character='Auto',
+                extras=dict(version=3,shot_mode='off',shot_interval_seconds=300,**{k:i<2 for i,k in enumerate(_BR3_EXTRAS)}))
+
+def _seed_text(seed):
+    seed=str(seed)
+    if not seed or len(seed)>128 or any(ord(c)<32 or ord(c)>126 for c in seed):raise ValueError('Seed: 1–128 druckbare Zeichen verwenden.')
+    return seed
+
+def _varuint(value):
+    out=bytearray()
+    while value>=128:out.append((value&127)|128);value>>=7
+    out.append(value);return bytes(out)
+
+class _SeedReader:
+    def __init__(self,data):self.data=data;self.at=0
+    def take(self,n):
+        if n<0 or self.at+n>len(self.data):raise ValueError('Truncated seed')
+        data=self.data[self.at:self.at+n];self.at+=n;return data
+    def number(self):
+        value=0
+        for shift in range(0,35,7):
+            b=self.take(1)[0];value|=(b&127)<<shift
+            if not b&128:return value
+        raise ValueError('Seed integer too large')
+    def text(self):
+        n=self.number()
+        if n>200:raise ValueError('Seed text too long')
+        return self.take(n).decode('utf-8')
+
+def _seed_string(value):
+    data=value.encode('utf-8');return _varuint(len(data))+data
+
+def _seed_mask(values,table):
+    if any(v not in table for v in values):raise ValueError('Unsupported seed catalogue')
+    return sum(1<<table.index(v) for v in values)
+
+def _seed_pool(mask,table):
+    if mask>>len(table):raise ValueError('Unknown seed catalogue bit')
+    return [v for i,v in enumerate(table) if mask&(1<<i)]
+
+def encode(seed,options):
+    """Lossless offline share code. Only differences from frozen defaults travel."""
+    seed=_seed_text(seed);settings=normalize(options);baseline=_br3_defaults()
+    present=sum(1<<i for i,k in enumerate(_BR3_KEYS) if k in settings)
+    changed=sum(1<<i for i,k in enumerate(_BR3_KEYS) if k in settings and settings[k]!=baseline[k])
+    hex_seed=len(seed)==8 and all(c in '0123456789ABCDEF' for c in seed)
+    full=(1<<len(_BR3_KEYS))-1
+    payload=bytearray([int(hex_seed)|(2 if present!=full else 0)])
+    payload.extend(bytes.fromhex(seed) if hex_seed else _seed_string(seed))
+    if present!=full:payload.extend(_varuint(present))
+    payload.extend(_varuint(changed))
+    for i,k in enumerate(_BR3_KEYS):
+        if not changed&(1<<i):continue
+        value=settings[k]
+        if k in ('levels','items','characters'):continue # Changed boolean is its inverse.
+        if k=='mode':payload.append(int(value=='target'))
+        elif k in ('level_pool','boss_pool'):payload.extend(_varuint(_seed_mask(value,_BR3_LEVELS if k=='level_pool' else _BR3_BOSSES)))
+        elif k=='start_character':payload.extend(_seed_string(value))
+        elif k=='extras':
+            version=value['version'];payload.append(version)
+            rows=_BR3_EXTRAS[:7] if version==1 else _BR3_EXTRAS
+            payload.extend(_varuint(sum(1<<j for j,key in enumerate(rows) if value[key])))
+            if version>=2:payload.append(_BR3_SHOTS.index(value['shot_mode']))
+            if version>=3:payload.extend(_varuint(0 if value['shot_interval_seconds']==300 else value['shot_interval_seconds']))
+        else:payload.extend(_varuint(value))
+    payload.extend(hashlib.sha256(b'BR3\0'+payload).digest()[:4])
+    return 'BR3-'+base64.urlsafe_b64encode(payload).decode().rstrip('=')
+
+def _decode_compact(code):
+    try:
+        if len(code)>1024:raise ValueError()
+        body=code[4:];packet=base64.b64decode(body+'='*(-len(body)%4),altchars=b'-_',validate=True)
+        if len(packet)<6:raise ValueError()
+        payload,checksum=packet[:-4],packet[-4:]
+        if hashlib.sha256(b'BR3\0'+payload).digest()[:4]!=checksum:raise ValueError()
+        r=_SeedReader(payload);flags=r.take(1)[0]
+        if flags&~3:raise ValueError()
+        seed=r.take(4).hex().upper() if flags&1 else r.text();_seed_text(seed)
+        full=(1<<len(_BR3_KEYS))-1;present=r.number() if flags&2 else full;changed=r.number()
+        if present&~full or changed&~present:raise ValueError()
+        baseline=_br3_defaults();settings={k:baseline[k] for i,k in enumerate(_BR3_KEYS) if present&(1<<i)}
+        for i,k in enumerate(_BR3_KEYS):
+            if not changed&(1<<i):continue
+            if k in ('levels','items','characters'):value=not baseline[k]
+            elif k=='mode':
+                mode=r.take(1)[0]
+                if mode not in (0,1):raise ValueError()
+                value=('randomizer','target')[mode]
+            elif k in ('level_pool','boss_pool'):value=_seed_pool(r.number(),_BR3_LEVELS if k=='level_pool' else _BR3_BOSSES)
+            elif k=='start_character':value=r.text()
+            elif k=='extras':
+                version=r.take(1)[0]
+                if version not in (1,2,3):raise ValueError()
+                rows=_BR3_EXTRAS[:7] if version==1 else _BR3_EXTRAS;mask=r.number()
+                if mask>>len(rows):raise ValueError()
+                value=dict(version=version,**{key:bool(mask&(1<<j)) for j,key in enumerate(rows)})
+                if version>=2:value['shot_mode']=_BR3_SHOTS[r.take(1)[0]]
+                if version>=3:value['shot_interval_seconds']=r.number() or 300
+            else:value=r.number()
+            settings[k]=value
+        if r.at!=len(payload):raise ValueError()
+        normalized=normalize(settings)
+        if settings!=normalized or encode(seed,normalized)!=code:raise ValueError()
+        return seed,normalized
+    except (ValueError,TypeError,KeyError,IndexError,OverflowError) as e:
+        raise ValueError('Der geteilte Seed ist unvollständig oder beschädigt.') from e
+
+def decode(value,options=None):
+    value=str(value).strip()
+    return _decode_compact(value) if value.startswith('BR3-') else _decode_legacy(value,options)

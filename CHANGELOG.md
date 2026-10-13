@@ -2,6 +2,15 @@
 
 All update logs remain in English, regardless of the UI language.
 
+## 2026-10-13 — Linux package revision 2
+
+- Focus the game at startup and return focus once if the live tracker appears later.
+- Fix new-run startup when the game creates a metadata-only save stub; preserve real saves.
+- Add compact BR3 share codes: 18 characters for the standard configuration, with settings and checksum included. Existing BR2 codes remain importable.
+- Improve the seed dialog with larger text, character count, adaptive layout and invalid-code feedback.
+- Verify 41 automated tests, including randomized seed compatibility checks.
+- Windows support will follow. The original game remains a separate user-supplied import.
+
 ## 2026-10-13 — Linux Debian package preparation
 
 - Add a game-free Debian package with Wine and Lutris dependencies.

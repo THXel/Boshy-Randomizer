@@ -1,6 +1,6 @@
 # Boshy Randomizer — 日本語
 
-[Linux download — 2026.10.13 RC1](https://github.com/THXel/Boshy-Randomizer/releases/tag/v2026.10.13-rc1) · [DEB](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.13-rc1/boshy-randomizer_2026.10.13-1_amd64.deb)
+[Linux download — 2026.10.13 RC1](https://github.com/THXel/Boshy-Randomizer/releases/tag/v2026.10.13-rc1) · [DEB](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.13-rc1/boshy-randomizer_2026.10.13-2_amd64.deb)
 
 現在のバージョンは、Boshy 本来のアニメーション付きメニューに設定を統合しています。独立した3つのセーブ、Randomizer と Target Select、共有可能な BR2 シード、ステージとボスの詳細設定、アイテムとキャラクターの混合報酬、別ウィンドウのトラッカー、Ctrl+Alt+D のデバッグ画面を利用できます。
 
@@ -9,7 +9,7 @@
 Debian パッケージの対象は Linux Mint 22.x / Ubuntu 24.04、amd64、X11 です。**更新版の Windows バージョンは後日提供予定です。** リポジトリ直下の Windows 実行ファイルは旧バージョンです。
 
 ```sh
-sudo apt install ./boshy-randomizer_2026.10.13-1_amd64.deb
+sudo apt install ./boshy-randomizer_2026.10.13-2_amd64.deb
 ```
 
 Wine、Lutris、必要なライブラリが依存パッケージとしてインストールされます。アプリケーションメニューから **Boshy Randomizer** を起動し、Boshy のフォルダーまたはゲームの ZIP を選択してください。**ゲーム本体は同梱されず、ダウンロードもされません。** バージョンを確認して専用コピーを作成するため、元のセーブや設定は変更されません。

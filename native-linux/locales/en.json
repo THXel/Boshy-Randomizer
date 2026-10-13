@@ -342,5 +342,11 @@
   "Downloading Wine Staging 11.2 (72 MiB)…": "Downloading Wine Staging 11.2 (72 MiB)…",
   "Installing verified Wine Staging 11.2…": "Installing verified Wine Staging 11.2…",
   "Preparing your private Wine environment…": "Preparing your private Wine environment…",
-  "Wine download verification failed. Please try again.": "Wine download verification failed. Please try again."
+  "Wine download verification failed. Please try again.": "Wine download verification failed. Please try again.",
+  "Vollständigen BR3-/BR2-Seed einfügen oder neu generieren.": "Paste a full BR3 / BR2 seed or generate a new one.",
+  "Bitte einen vollständigen geteilten Seed mit BR3- oder BR2- am Anfang einfügen.": "Paste a complete shared seed starting with BR3 / BR2-.",
+  "Teilbarer Seed-Code": "Shareable seed code",
+  "{0} Zeichen": "{0} characters",
+  "Dieser Code enthält den Seed und alle Laufeinstellungen.": "This code includes the seed and all run settings.",
+  "Code unvollständig oder ungültig.": "Code incomplete or invalid."
 }

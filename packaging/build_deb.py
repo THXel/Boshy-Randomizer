@@ -2,7 +2,7 @@
 """Create a game-free Debian package from the reviewed native source tree."""
 from pathlib import Path
 import json,hashlib,shutil,subprocess,os,sys
-ROOT=Path(__file__).resolve().parents[1];SOURCE=ROOT/'native-linux';VERSION='2026.10.13-1'
+ROOT=Path(__file__).resolve().parents[1];SOURCE=ROOT/'native-linux';VERSION='2026.10.13-2'
 # Fail before creating a package if the runtime export is incomplete.
 sys.path.insert(0,str(SOURCE))
 from native_session import ASSETS

@@ -18,9 +18,40 @@ def location(frame):return FRAME_NAMES.get(int(frame or 0),f'Szene {frame}')
 def duration(seconds):
  n=max(0,int(float(seconds or 0)));return f'{n//3600:02}:{n//60%60:02}:{n%60:02}'
 def owned(group):return [k for k,v in group.items() if v not in ('','0','false','False')]
+def slot_available(store,slot):
+ """Only absent files and known menu-created stubs are free; fail closed."""
+ import configparser
+ m=store.current(slot)
+ if m and m.get('status')!='restored':return False
+ path=store.base/'IWBTB'/f'SaveFile{slot}.ini'
+ if path.is_symlink():return False
+ if not path.exists():return True
+ if not path.is_file():return False
+ if path.stat().st_size==0:return True
+ try:
+  text=store.read_save(path)
+  if not text or not text.strip():return False
+  parser=configparser.ConfigParser(interpolation=None,strict=True)
+  parser.read_string(text)
+  if parser.defaults():return False
+  sections=parser.sections()
+  if len({name.casefold() for name in sections})!=len(sections):return False
+  data={name.casefold():dict(parser[name]) for name in sections}
+  if not data or not set(data)<= {'check','stats'}:return False
+  allowed={'check':{'saveversion'},'stats':{'difficulty','timeseconds'}}
+  for group,values in data.items():
+   if not set(values)<=allowed[group]:return False
+   for key,value in values.items():
+    if not value.isascii() or not value.isdecimal():return False
+    n=int(value)
+    if key=='saveversion' and n!=1:return False
+    if key=='difficulty' and not 0<=n<=3:return False
+  return True
+ except (OSError,ValueError,TypeError,configparser.Error):return False
+
 def slot_summary(store,slot):
  path=store.base/'IWBTB'/f'SaveFile{slot}.ini';m=store.current(slot)
- if not path.exists() or (path.stat().st_size==0 and not (m and m['status']=='ready')):return dict(slot=slot,exists=False,managed=False,title='Freier Speicherplatz',seed='',items=[],characters=[])
+ if slot_available(store,slot):return dict(slot=slot,exists=False,managed=False,title='Freier Speicherplatz',seed='',items=[],characters=[])
  d=ini(store,path);managed=bool(m and m['status']=='ready');folder=store.root/m['run_id'] if managed else None
  profile=folder/'profile.ini' if managed and (folder/'profile.ini').exists() else store.base/'IWBTB/onlineLicense.ini'
  license=ini(store,profile);pos=d.get('positions',{});stats=d.get('stats',{});frame=int(pos.get('frame',0));live={}

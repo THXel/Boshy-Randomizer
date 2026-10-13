@@ -8,7 +8,7 @@
 - Portable PE launch helpers and install-time runtime path rebasing, retaining executable signature and process ownership checks.
 - A consolidated build for the two launch helpers, four native DLLs and two hook payloads. Package creation checks its required resource inventory before building.
 - Fixed missing launch/route modules and loading icon metadata found during the package test. Fresh options use the game's encrypted format. Empty save files created by the original menu no longer make an unused slot appear occupied.
-- Twenty automated tests covering game import, save preservation, unsafe archives, runner verification/reuse, resource completeness, startup imports, empty slots, localization and loading cleanup.
+- 41 automated tests covering game import, save preservation, unsafe archives, runner verification/reuse, resource completeness, startup imports, empty slots, localization and loading cleanup.
 - Updated English, German, Russian, Spanish and Japanese READMEs, actual Mint VM screenshots and a menu GIF. Update logs remain English.
 
 ## Fresh-install VM evidence
@@ -28,3 +28,7 @@ The original game is not bundled. Keep the existing third-party attribution and 
 ## Source/install boundary
 
 `native-linux/` is the current package source. `source-manifest.json` inventories the source/resources, while each built package has its own payload hash manifest. Generated native binaries and user data are excluded from Git. The existing host game installation was not used as the test target: all 238 protected live files matched the pre-update baseline after packaging work.
+
+## Package revision 2
+
+Adds the startup focus handoff, metadata-only save detection and compact BR3 seed format with BR2 import support. Seed tests cover historical option versions, every character, randomized settings and damaged inputs; startup-focus tests cover delayed tracker/game creation and bounded retries. The first revision's VM findings above remain the fresh-install baseline, not a claim of a repeated VM test for revision 2.

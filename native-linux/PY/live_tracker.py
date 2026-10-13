@@ -1760,6 +1760,9 @@ def main():
         raise
 
     ui = (NativeLiveTrackerUI if args.native else LiveTrackerUI)(root, save_path, lic_path)
+    if args.native and os.environ.get("BOSHY_TRACKER_HOST"):
+        from game_focus import handoff_tracker_startup
+        handoff_tracker_startup(root)
     root.mainloop()
 
 

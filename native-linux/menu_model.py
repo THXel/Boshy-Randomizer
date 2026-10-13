@@ -32,6 +32,10 @@ def summary(store,slot):
     d['bosses']=[v[0] for k,v in catalogue(m['options']).items() if int(earned.get(k,0))>=2]
     if int(a.get('solgryn',0))>=2:d['bosses'].append('Solgryn')
  return d
+def seed_layout(value):
+ compact=len(value)<=180
+ return ((251,353,851,433),(451,489)) if compact else ((251,329,851,486),(499,533))
+
 class Menu:
  def __init__(self,store,slot=1):
   self.advanced_page=0;self.clipboard=None;self.seed_text='';self.seed_selected=False;self.character_names=[];self.store=store;self.slot=slot;self.page='slots';self.focus=0;self.seed=secrets.token_hex(4).upper();self.options=dict(difficulty=1,levels=True,items=True,characters=False,mode='randomizer',target_count=5,boss_count=0);self.options.update(defaults());self.options['extras']=extra_defaults();self.message='';self.dirty=True;self.action=None;self.reload()
@@ -136,9 +140,10 @@ class Menu:
    if 251<=x<=546 and 604<=y<=640:self.focus=0;self.result_key(13)
    elif 558<=x<=851 and 604<=y<=640:self.focus=1;self.result_key(13)
   elif self.page=='seed':
-   if 251<=x<=851 and 329<=y<=486:self.focus=0;return
+   field,buttons=seed_layout(self.seed_text)
+   if field[0]<=x<=field[2] and field[1]<=y<=field[3]:self.focus=0;return
    for i,(left,right) in enumerate(((251,443),(455,647),(659,851)),1):
-    if left<=x<=right and 499<=y<=533:self.focus=i;self.seed_key(13);return
+    if left<=x<=right and buttons[0]<=y<=buttons[1]:self.focus=i;self.seed_key(13);return
    if 251<=x<=546 and 604<=y<=640:self.focus=4;self.seed_key(13)
    elif 558<=x<=851 and 604<=y<=640:self.focus=5;self.seed_key(13)
   elif self.page=='characters':
@@ -194,8 +199,8 @@ class Menu:
   except ValueError as e:self.message=str(display(str(e)));return
   self.page='seed';self.focus=0;self.seed_selected=False;self.message='';self.dirty=True
  def seed_value(self,value):
-  if not isinstance(value,str) or not value.strip().startswith('BR2-'):
-   raise ValueError(tr('Bitte einen vollständigen geteilten Seed mit BR2- am Anfang einfügen.'))
+  if not isinstance(value,str) or not value.strip().startswith(('BR2-','BR3-')):
+   raise ValueError(tr('Bitte einen vollständigen geteilten Seed mit BR3- oder BR2- am Anfang einfügen.'))
   seed,options=decode(value)
   if options.get('route_version') not in (2,3,4,5):raise ValueError(tr('Dieser ältere Seed enthält keine Advanced-Route. Bestehenden Lauf über Fortsetzen laden.'))
   character(self.store.base,seed,options)

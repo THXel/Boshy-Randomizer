@@ -1,6 +1,6 @@
 # Boshy Randomizer
 
-[Linux download — 2026.10.13 RC1](https://github.com/THXel/Boshy-Randomizer/releases/tag/v2026.10.13-rc1) · [DEB](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.13-rc1/boshy-randomizer_2026.10.13-1_amd64.deb)
+[Linux download — 2026.10.13 RC1](https://github.com/THXel/Boshy-Randomizer/releases/tag/v2026.10.13-rc1) · [DEB](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.13-rc1/boshy-randomizer_2026.10.13-2_amd64.deb)
 
 [Deutsch](README/README_DE.md) · [Русский](README/README_RU.md) · [Español](README/README_ES.md) · [日本語](README/README_JP.md)
 
@@ -15,7 +15,7 @@ The current version integrates run setup into the **original animated game menu*
 Install the downloaded package using your graphical package manager, or:
 
 ```sh
-sudo apt install ./boshy-randomizer_2026.10.13-1_amd64.deb
+sudo apt install ./boshy-randomizer_2026.10.13-2_amd64.deb
 ```
 
 APT installs Wine, Lutris and the required desktop/Python libraries. Launch **Boshy Randomizer** from the applications menu. At first launch:
@@ -40,7 +40,7 @@ Actual captures from the Linux Mint test VM (German UI). Its limited VM resource
 - Three independent saves, per-run character profiles, save summaries and deletion with a backup.
 - **Randomizer:** engine-state level/boss transitions, advanced route pools and mixed item/character rewards.
 - **Target Select:** random item goals with configurable count and optional boss goals; original item placements, randomized positions and a final Solgryn fight.
-- Portable **BR2 seeds** include run settings and can be copied or pasted from the game menu and tracker.
+- Portable **BR3 seeds** (BR2 import supported) include run settings and can be copied or pasted from the game menu and tracker.
 - Optional character randomization and projectile/effect randomization on transitions, deaths or configurable random time intervals.
 - Advanced comfort/training options, original game options, end-of-run results and a separate compact live tracker.
 - Optional **Ctrl+Alt+D debug window** with live state, test actions and exportable recordings.
