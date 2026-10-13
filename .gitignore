@@ -1,0 +1,48 @@
+# Python/build products
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+*.o
+*.so
+*.elf
+# Local runtime, private run data and diagnostic recordings
+**/wineprefix/
+**/native-runs/
+**/rule-versions/
+**/menu-runtime/
+**/debug-reports/
+**/evidence/
+**/linux-backup/
+**/linux-updates/
+**/linux-settings.json
+**/INI/native-live.json
+**/INI/live_tracker.json
+**/INI/tracker-view.json
+**/INI/stats.json
+**/INI/*state*.json
+**/INI/*virtual*.json
+**/INI/settings.json
+**/SaveFile*.ini
+**/onlineLicense.ini
+**/options.ini
+**/*.log
+**/*.zip
+**/.linux-instance.lock
+.env
+.env.*
+# Supply the game locally; never add a user's game installation.
+native-linux/IWBTB/
+**/INI/twitch_config.json
+**/INI/tracker-view.json
+**/.live-tracker.lock
+
+# Generated native package build output
+/dist/
+native-linux/*.exe
+native-linux/*.dll
+native-linux/slot_reward_context.bin
+native-linux/slot_reward_hook.bin
+native-linux/slot_reward_extras.bin
+native-linux/slot_reward_symbols.json
+native-linux/slot_reward_extras_symbols.json

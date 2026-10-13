@@ -1,0 +1,264 @@
+{
+  "0": {
+    "name": "Pre-Title Screen",
+    "icon": "boshy.webp"
+  },
+  "1": {
+    "name": "Pre-Title Screen",
+    "icon": "boshy.webp"
+  },
+  "2": {
+    "name": "Title Screen",
+    "icon": "boshy.webp"
+  },
+  "3": {
+    "world": "World 1",
+    "name": "Prehistorik 2",
+    "icon": "prehistorik.png"
+  },
+  "4": {
+    "world": "World 1 \u00b7 Boss",
+    "name": "Hello Kitty",
+    "icon": "hello_kitty.png"
+  },
+  "5": {
+    "world": "World 2",
+    "name": "Kirby's Adventure",
+    "icon": "kirbys_adventure.png"
+  },
+  "6": {
+    "world": "World 2 \u00b7 Miniboss",
+    "name": "King Dedede",
+    "icon": "kirbys_adventure.png"
+  },
+  "7": {
+    "world": "World 2 \u00b7 Boss",
+    "name": "Ryu",
+    "icon": "ryu.png"
+  },
+  "8": {
+    "world": "World 3",
+    "name": "Cheetahmen II",
+    "icon": "cheetahmen.png"
+  },
+  "9": {
+    "world": "World 3 \u00b7 Challenge",
+    "name": "Gastly",
+    "icon": "cheetahmen.png"
+  },
+  "10": {
+    "world": "World 3 \u00b7 Boss",
+    "name": "Mario",
+    "icon": "mario.png"
+  },
+  "11": {
+    "world": "World 4",
+    "name": "VVVVVV",
+    "icon": "vvvvvv.png"
+  },
+  "12": {
+    "world": "World 4 \u00b7 Boss",
+    "name": "Biollante",
+    "icon": "biollante.png"
+  },
+  "13": {
+    "world": "World 5",
+    "name": "Wario Land",
+    "icon": "wario_land.png"
+  },
+  "14": {
+    "world": "World 5 \u00b7 Boss",
+    "name": "Sonic",
+    "icon": "sonic.png"
+  },
+  "15": {
+    "world": "World 6",
+    "name": "Castlevania",
+    "icon": "castlevania.png"
+  },
+  "16": {
+    "name": "Trophies",
+    "icon": "boshy.webp"
+  },
+  "17": {
+    "world": "World 6 \u00b7 Boss",
+    "name": "Skeleton King",
+    "icon": "skeleton_king.png"
+  },
+  "18": {
+    "name": "Online",
+    "icon": "boshy.webp"
+  },
+  "19": {
+    "name": "I Wanna Be The Lobby",
+    "icon": "boshy.webp"
+  },
+  "20": {
+    "name": "Options",
+    "icon": "boshy.webp"
+  },
+  "21": {
+    "name": "Character Selector",
+    "icon": "boshy.webp"
+  },
+  "22": {
+    "world": "World 7 \u00b7 First Half",
+    "name": "Random World \u00b7 Milon's Secret Castle",
+    "icon": "random_world.png"
+  },
+  "23": {
+    "world": "World 7 \u00b7 Second Half",
+    "name": "Random World \u00b7 Metal Gear",
+    "icon": "random_world.png"
+  },
+  "24": {
+    "world": "World 7 \u00b7 Boss",
+    "name": "Mega Man",
+    "icon": "megaman.png"
+  },
+  "25": {
+    "world": "World 8",
+    "name": "Mega Man",
+    "icon": "megaman_stage.png"
+  },
+  "26": {
+    "world": "World 8 \u00b7 Boss",
+    "name": "Shang Tsung",
+    "icon": "shang_tsung.png"
+  },
+  "27": {
+    "world": "World 9",
+    "name": "Kid Icarus",
+    "icon": "kid_icarus.png"
+  },
+  "31": {
+    "world": "World 10",
+    "name": "Ninja Gaiden",
+    "icon": "ninja_gaiden.png"
+  },
+  "32": {
+    "world": "World 10 \u00b7 Boss",
+    "name": "Missingno",
+    "icon": "missingno.png"
+  },
+  "35": {
+    "world": "World 11",
+    "name": "Mario Desert",
+    "icon": "mario_desert.png"
+  },
+  "36": {
+    "name": "Tutorial",
+    "icon": "prehistorik.png"
+  },
+  "37": {
+    "world": "Secret World 2",
+    "name": "Justin.tv",
+    "icon": "boshy.webp"
+  },
+  "38": {
+    "world": "World 12",
+    "name": "Final Path",
+    "icon": "solgryn_end.png"
+  },
+  "39": {
+    "world": "World 6 \u00b7 Miniboss",
+    "name": "Gradius",
+    "icon": "castlevania.png"
+  },
+  "40": {
+    "name": "White Frame 2",
+    "icon": "missingno.png"
+  },
+  "41": {
+    "name": "Scrolling Blocks",
+    "icon": "random_world.png"
+  },
+  "42": {
+    "name": "Fake BSOD",
+    "icon": "missingno.png"
+  },
+  "43": {
+    "name": "Winner Is You!",
+    "icon": "boshy.webp"
+  },
+  "44": {
+    "name": "Random Boss 1",
+    "icon": "random_world.png"
+  },
+  "45": {
+    "name": "Random Boss 2",
+    "icon": "random_world.png"
+  },
+  "46": {
+    "world": "World 12 \u00b7 Final Boss",
+    "name": "Solgryn",
+    "icon": "solgryn_end.png"
+  },
+  "47": {
+    "world": "World 12 \u00b7 Complete",
+    "name": "Solgryn Defeated",
+    "icon": "solgryn_end.png"
+  },
+  "48": {
+    "name": "Credits",
+    "icon": "boshy.webp"
+  },
+  "49": {
+    "name": "Prize Room",
+    "icon": "boshy.webp"
+  },
+  "50": {
+    "world": "Secret World 3",
+    "name": "Pok\u00e9mon",
+    "icon": "kirbys_adventure.png"
+  },
+  "51": {
+    "world": "World 11 \u00b7 Final Tower",
+    "name": "Mario Desert Tower",
+    "icon": "mario_desert.png"
+  },
+  "52": {
+    "world": "World 6",
+    "name": "Castlevania \u00b7 Alternate Frame",
+    "icon": "castlevania.png"
+  },
+  "53": {
+    "world": "Secret World 4",
+    "name": "World of Warcraft",
+    "icon": "random_world.png"
+  },
+  "54": {
+    "world": "Secret World 4 \u00b7 Boss",
+    "name": "The Cheetahmen",
+    "icon": "cheetahmen.png"
+  },
+  "55": {
+    "name": "Frozen Frame \u00b7 World 1 Music",
+    "icon": "prehistorik.png"
+  },
+  "56": {
+    "name": "Level Editor",
+    "icon": "boshy.webp"
+  },
+  "57": {
+    "name": "White Frame 3",
+    "icon": "missingno.png"
+  },
+  "58": {
+    "name": "Character Creator",
+    "icon": "boshy.webp"
+  },
+  "59": {
+    "world": "World 9 \u00b7 Boss",
+    "name": "Ganon",
+    "icon": "ganon.png"
+  },
+  "60": {
+    "name": "Old Sonic",
+    "icon": "sonic.png"
+  },
+  "61": {
+    "name": "Weird Dancing Frame",
+    "icon": "boshy.webp"
+  }
+}

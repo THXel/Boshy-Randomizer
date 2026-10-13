@@ -1,0 +1,5 @@
+customtkinter==5.2.2
+Pillow==11.3.0
+numpy==2.4.6
+python-xlib==0.33
+psutil==5.9.8

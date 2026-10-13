@@ -1,263 +1,64 @@
-<p align="right">
-  <strong>Language:</strong><br>
-  <a href="README.md" title="English"><strong>🇬🇧 English</strong></a> ·
-  <a href="README/README_DE.md" title="Deutsch">🇩🇪 Deutsch</a> ·
-  <a href="README/README_RU.md" title="Русский">🇷🇺 Русский</a> ·
-  <a href="README/README_ES.md" title="Español">🇪🇸 Español</a> ·
-  <a href="README/README_JP.md" title="日本語">🇯🇵 日本語</a>
-</p>
+# Boshy Randomizer
 
-<div align="center">
+[Linux download — 2026.10.13 RC1](https://github.com/THXel/Boshy-Randomizer/releases/tag/v2026.10.13-rc1) · [DEB](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.13-rc1/boshy-randomizer_2026.10.13-1_amd64.deb)
 
-  <img src="Custom/boshy_randomizer.png?raw=true" alt="Boshy Randomizer" width="420">
+[Deutsch](README/README_DE.md) · [Русский](README/README_RU.md) · [Español](README/README_ES.md) · [日本語](README/README_JP.md)
 
-  <p><strong>Created by THXel & the I Wanna Be The Boshy Speedrun Community</strong><br>
-  © 2025 THXel</p>
+![Boshy Randomizer](Custom/boshy_randomizer.png)
 
-</div>
+A fan-made randomizer for **I Wanna Be The Boshy**, created by **THXel and the Boshy speedrunning community**. Original game by Solgryn / Grynsoft.
 
----
+## Linux package
 
-<p align="center">
-  <b>Modern Randomizer for <i>I Wanna Be The Boshy</i></b><br>
-  Random Routes • Seed Codes • ER/EB Masks • Live Tracker • Clean GUI
-</p>
+The current version integrates run setup into the **original animated game menu**. The Debian package targets **Linux Mint 22.x / Ubuntu 24.04, amd64, X11**. **The updated Windows version will follow.** The Windows executables in the repository root belong to the legacy version.
 
-<p align="center">
-  <a href="#-features">Features</a> •
-  <a href="#-installation">Installation</a> •
-  <a href="#-gameplay--modes">Gameplay & Modes</a> •
-  <a href="#-seed-system">Seed System</a> •
-  <a href="#-technical">Technical</a> •
-  <a href="#-support">Support</a>
-</p>
+Install the downloaded package using your graphical package manager, or:
 
----
-
-## 🟦 Features
-
-- 🎲 **Random Routes** – deterministic, seed‑based level & boss routing  
-- 🧩 **Item Randomizer (Safe Stats Mode)** – *collected characters get randomized*, but in‑game items stay unchanged (avoids game crashes)  
-- 🧍 **Character Randomizer** – random on run start or per stage, fully deterministic  
-- 🎯 **Target Collect Mode** – hidden route, seed‑based targets  
-- 📊 **Live Tracker** – tracks items, bosses, achievements, characters, and target items  
-- 🔁 **Deterministic Seeds** – share & replay identical runs  
-- 🧱 **ER/EB Masks** – optional stages and bosses stored inside the seed  
-- 🔒 **Seed‑Lock GUI** – entering a seed locks the GUI and shows the settings  
-- ⚙️ **Auto‑Setup** – installs Python, modules, fonts, and imports IWBTB automatically  
-
----
-
-## 🎮 Gameplay Preview
-
-<div align="center">
-  <img src="Custom/gameplay.gif?raw=true" width="300">
-  <img src="Custom/gameplay2.gif?raw=true" width="300">
-</div>
-
----
-
-## 🟧 Installation
-
-<div align="center">
-
-<a href="https://github.com/THXel/Boshy-Randomizer/raw/refs/heads/Boshy-Randomizer/Boshy%20Randomizer%20installer.exe">
-  <img src="https://img.shields.io/badge/⬇️%20DOWNLOAD%20BOSHY%20RANDOMIZER%20INSTALLER-2f8cff?style=for-the-badge&logo=files&logoColor=white" width="550">
-</a>
-
-</div>
-
----
-
-### ▶ Step 1 — Run the Installer
-
-**`Boshy Randomizer Installer.exe`**
-
-⚠️ **SmartScreen Notice:**  
-Windows may display:
-
-“Windows protected your PC” / “Unrecognized app”.
-
-This is normal — the installer is **not digitally signed**.
-
-Click:
-
-1. **More information**  
-2. **Run anyway**
-
-The installer will automatically:
-
-- copy all Randomizer files  
-- install Python 3 (if missing)  
-- install all required modules  
-- ask for your **IWBTB ZIP**  
-- extract the game into `/IWBTB`  
-- create Start Menu shortcuts  
-
----
-
-### ▶ Step 2 — Start the Randomizer
-
-Launch via:
-
-**Start Menu → Boshy Randomizer**
-
-The launcher verifies:
-
-- IWBTB imported correctly  
-- Python & modules installed  
-- all files present  
-
-If something is missing, a debug message is shown.
-
----
-
-# 🟪 Gameplay & Modes
-
-<div style="display: flex; gap: 20px; align-items: flex-start;">
-  <img src="Custom/GUI1.PNG?raw=true" width="300">
-  <img src="Custom/GUI2.PNG?raw=true" width="300">
-</div>
-
-## ▶ Run Start
-
-• Every run begins in the **Tutorial**.  
-• After that, depending on GUI settings:  
-  – **Random Route Mode**  
-  – **Target Collect Mode**
-
-## ▶ System Behavior
-
-• Only **SaveFile1** is used.  
-• **Do NOT delete SaveFile1.**  
-• SaveFile2 and SaveFile3 are overwritten on every run.  
-• Achievements & unlockables persist through the entire run.  
-• **Awesomesauce** is always available at the start to guarantee unlocking **Gastly**.  
-• The Teleport Room works normally, but:  
-  To progress, you **must play the stage given by the Randomizer** — skipping is not possible.
-
----
-
-## 🧍 Character Randomizer
-
-- Default: Dark Boshy  
-- Optional:  
-  - random on run start  
-  - random per stage  
-- While active:  
-  **F3 Character Menu is disabled** → deterministic seeds  
-
----
-
-## 🧩 Item Randomizer – Details
-
-The game crashes if items are replaced **in‑game**.  
-So the Item Randomizer works like this:
-
-- ✔ **Collected characters are randomized**  
-- ✖ **Items are NOT replaced in‑game** (crash protection)  
-- ✔ Items appear randomized **in the Stats screen only**  
-- ✔ No gameplay risk  
-- ✔ Stable & 100% routing‑safe  
-
----
-
-## 🎯 Target Collect Mode
-
-- Route hidden  
-- Targets determined by seed  
-- When all targets are collected → **Solgryn appears automatically**
-
-Optional areas you may disable:
-
-- Boberman  
-- “?”  
-- Ridley  
-
-All others must remain enabled.
-
----
-
-# 📊 Live Tracker
-
-<div align="left">
-  <img src="Custom/livetracker.gif?raw=true" width="300">
-</div>
-
-Tracks:
-
-- Items  
-- Achievements  
-- Bosses  
-- Characters  
-- Live progression  
-- **In Target Collect Mode:** the required **Target Items**
-
-Fully automatic — no input required.
-
----
-
-# 🎲 Seed System
-
-<div align="left">
-  <img src="Custom/route_overlay.gif?raw=true" width="300">
-</div>
-
-A seed code like:
-
-```
-R14-B4-T0-C2-P1-D1-S152722-ER5-EB34C
+```sh
+sudo apt install ./boshy-randomizer_2026.10.13-1_amd64.deb
 ```
 
-means:
+APT installs Wine, Lutris and the required desktop/Python libraries. Launch **Boshy Randomizer** from the applications menu. At first launch:
 
-- **R** – rooms  
-- **B** – bosses  
-- **T** – target mode (0 = off, 1 = Target Collect)  
-- **C** – character randomizer  
-  - 0 = off  
-  - 1 = random on run start  
-  - 2 = random per stage  
-- **P** – item randomizer (0 = off, 1 = on – characters randomized, items stay in-game)  
-- **D** – difficulty  
-  - 0 = Ez  
-  - 1 = Average  
-  - 3 = Rage  
-- **S** – seed  
-- **ER** – optional rooms enable mask  
-- **EB** – optional bosses enable mask  
+1. Select your Boshy game **folder or ZIP**. The original game is **not included or downloaded**.
+2. Setup verifies the supported executable and copies it into a separate randomizer installation. Original saves, profiles and settings are not imported or changed.
+3. Setup automatically downloads the pinned **Wine Staging 11.2 WoW64** runner (about 72 MiB), verifies its SHA-256 and prepares a private Wine prefix. An identical existing Lutris runner is reused. Internet access is required for dependencies and the initial Wine download.
+4. Choose one of three save slots and configure your run in the game menu.
 
-Anyone using this code will get the **exact same route, difficulty, and character RNG**.
+Boshy runs with DXVK, Esync and Fsync disabled, matching the working reference setup. Lutris does not need to remain open. Runtime files and saves live in `~/.local/share/boshy-randomizer/`; the runner lives under `~/.local/share/lutris/runners/wine/`. Removing the Debian package preserves these user files. This package does not automatically migrate a previous development installation.
 
----
+## Screenshots
 
-# 🔧 Technical
+Actual captures from the Linux Mint test VM (German UI). Its limited VM resources are not representative of gameplay performance.
 
-- Python 3.11  
-- Uses:
-  - pillow  
-  - numpy  
-  - pyautogui  
-  - pygetwindow  
-  - tkinter  
+![First-run game import](docs/media/linux-first-run.png)
+![Native menu and save setup](docs/media/linux-native-menu.gif)
+![Game with separate live tracker](docs/media/linux-run-tracker.png)
 
-Log file:
+## Features
 
+- Three independent saves, per-run character profiles, save summaries and deletion with a backup.
+- **Randomizer:** engine-state level/boss transitions, advanced route pools and mixed item/character rewards.
+- **Target Select:** random item goals with configurable count and optional boss goals; original item placements, randomized positions and a final Solgryn fight.
+- Portable **BR2 seeds** include run settings and can be copied or pasted from the game menu and tracker.
+- Optional character randomization and projectile/effect randomization on transitions, deaths or configurable random time intervals.
+- Advanced comfort/training options, original game options, end-of-run results and a separate compact live tracker.
+- Optional **Ctrl+Alt+D debug window** with live state, test actions and exportable recordings.
+- Automatic English, German, Russian, Spanish and Japanese UI; unsupported languages fall back to English. **Update logs always stay English.**
+
+Original game text/artwork, item/character names and canonical difficulty names remain unchanged. Language does not affect seeds or rules. The external PinguLexa/OBS integration is maintained separately and is not installed by this package.
+
+## Development
+
+Current source: [`native-linux/`](native-linux/). Build and test instructions, dependency provenance and verification status: [Linux packaging](docs/LINUX_PACKAGE.md) and [release preparation](docs/RELEASE_PREPARATION.md).
+
+```sh
+python3 -m unittest discover -s native-linux/tests -v
+python3 -m compileall -q native-linux
 ```
-INI/randomizer_debug.log
-```
 
----
+See also [localization](docs/LOCALIZATION.md), [changelog](CHANGELOG.md) and [legacy Windows documentation](docs/LEGACY_WINDOWS_README.md).
 
-# 🟨 Support
+## Game and assets
 
-**Twitch:** https://twitch.tv/THXel  
-**Discord:** https://discord.gg/ZXgTFjGw  
-
----
-
-# ⚫ Disclaimer
-
-Unofficial project, not affiliated with **Solgryn (Grynsoft)**.  
-Use at your own risk.  
-**Have fun — it’s Boshy Time!**
+The importer accepts the supported executable with SHA-256 `dc6a1a551254f1d1003d14c0bf58f639a7ea94f99f74b5c635ddaf9bc4ec0806`. Other versions are rejected before installation. Supply your own compatible game copy. Preserve the existing attribution in [Custom/License.txt](Custom/License.txt); this project does not add a license grant for the original game or third-party art.

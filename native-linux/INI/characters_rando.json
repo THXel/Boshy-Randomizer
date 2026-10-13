@@ -1,0 +1,38 @@
+{
+  "characters": [
+    { "name": "Boshy", "id": 12, "status": "unlocked" },
+    { "name": "Dig Dug", "id": 56, "status": "unlocked" },
+    { "name": "The Kid", "id": 16, "status": "unlocked" },
+    { "name": "Blob", "id": 24, "status": "unlocked" },
+    { "name": "Pedobear", "id": 28, "status": "unlocked" },
+    { "name": "Ice Climbers", "id": 108, "status": "unlocked" },
+    { "name": "Nyan Cat", "id": 116, "status": "unlocked" },
+    { "name": "Bubblun", "id": 44, "status": "unlocked" },
+    { "name": "Link", "id": 48, "status": "unlocked" },
+    { "name": "Logi Bear", "id": 128, "status": "unlocked" },
+    { "name": "Quadrick", "id": 100, "status": "unlocked" },
+    { "name": "Meat Boy", "id": 96, "status": "unlocked" },
+    { "name": "Excite Bike", "id": 92, "status": "unlocked" },
+    { "name": "Black Mage", "id": 52, "status": "unlocked" },
+    { "name": "Megaman", "id": 68, "status": "unlocked" },
+    { "name": "Yoshi", "id": 132, "status": "unlocked" },
+    { "name": "Ness", "id": 60, "status": "unlocked" },
+
+    { "name": "Simon Belmont", "id": 112, "status": "locked" },
+    { "name": "Kirby", "id": 20, "status": "locked" },
+    { "name": "Mr Game And Watch", "id": 124, "status": "locked" },
+    { "name": "Quote", "id": 140, "status": "locked" },
+    { "name": "Ryu", "id": 136, "status": "locked" },
+    { "name": "Solgryn", "id": 80, "status": "locked" },
+    { "name": "Mario", "id": 32, "status": "locked" },
+    { "name": "Luigi", "id": 76, "status": "locked" },
+    { "name": "Spike", "id": 40, "status": "locked" },
+    { "name": "Ash Ketchum", "id": 36, "status": "locked" },
+    { "name": "Sagat", "id": 148, "status": "locked" },
+    { "name": "Sonic", "id": 88, "status": "locked" },
+    { "name": "Orc", "id": 144, "status": "locked" },
+    { "name": "Kappa", "id": 64, "status": "locked" },
+    { "name": "Pit", "id": 72, "status": "locked" },
+    { "name": "Arthur", "id": 152, "status": "locked" }
+  ]
+}

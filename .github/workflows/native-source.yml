@@ -1,0 +1,22 @@
+name: Native source checks
+on:
+  push:
+    paths: ['native-linux/**', '.github/workflows/native-source.yml']
+  pull_request:
+    paths: ['native-linux/**', '.github/workflows/native-source.yml']
+permissions:
+  contents: read
+jobs:
+  source:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Python runtime dependencies
+        run: python -m pip install pillow numpy psutil python-xlib
+      - name: Compile Python source
+        run: python -m compileall -q native-linux
+      - name: Check language catalogs and fallback
+        run: python -m unittest discover -s native-linux/tests -v

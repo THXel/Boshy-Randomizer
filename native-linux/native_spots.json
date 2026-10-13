@@ -1,0 +1,30 @@
+{
+  "prehistorik_checkpoint": {
+    "frame": 3,
+    "x": 200,
+    "y": 226,
+    "category": "rooms",
+    "label": "Prehistorik \u00b7 erster Checkpoint"
+  },
+  "prehistorik_climb": {
+    "frame": 3,
+    "x": 1384,
+    "y": 370,
+    "category": "rooms",
+    "label": "Prehistorik \u00b7 Kletterpassage"
+  },
+  "prehistorik_lower": {
+    "frame": 3,
+    "x": 792,
+    "y": 1250,
+    "category": "rooms",
+    "label": "Prehistorik \u00b7 untere Passage"
+  },
+  "boss_solgryn.ini": {
+    "frame": 46,
+    "x": 100,
+    "y": 100,
+    "category": "bosses",
+    "label": "Solgryn"
+  }
+}

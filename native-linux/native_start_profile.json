@@ -1,0 +1,16 @@
+{
+  "scope": "native laboratory runs only",
+  "save_slot": "SaveFile1",
+  "content": [
+    "[Check]",
+    "SaveVersion=1",
+    "[Stats]",
+    "Deaths=0",
+    "Difficulty=1",
+    "TimeSeconds=0",
+    "[Collectables]",
+    "Awesomesauce=0",
+    "[Positions]"
+  ],
+  "rule": "Awesome Sauce must be collected; never inherited from profile achievements."
+}

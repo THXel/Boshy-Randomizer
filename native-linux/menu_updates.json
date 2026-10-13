@@ -1,0 +1,67 @@
+{
+  "entries": [
+    {
+      "date": "2026-10-13",
+      "title": "Five UI languages",
+      "lines": [
+        "Automatic language detection.",
+        "English, German, Russian, Spanish and Japanese.",
+        "Shared seeds keep the same rules."
+      ]
+    },
+    {
+      "date": "2026-10-13",
+      "title": "Your rules, your pace",
+      "lines": [
+        "Choose shot timers in minutes and seconds.",
+        "Standard, Chaos and Training presets.",
+        "Active extras in the live tracker."
+      ]
+    },
+    {
+      "date": "2026-10-13",
+      "title": "Runs you can inspect",
+      "lines": [
+        "Rule snapshots protect existing runs.",
+        "Run results and seed replay.",
+        "Debug reports explain transitions."
+      ]
+    },
+    {
+      "date": "2026-10-13",
+      "title": "Shot styles and comfort",
+      "lines": [
+        "Random shot changes by time, death or spot.",
+        "Optional shorter chest animations.",
+        "Pop-ups and mouse ghost disabled by default."
+      ]
+    },
+    {
+      "date": "2026-10-13",
+      "title": "Native randomizer",
+      "lines": [
+        "Legacy pixel randomizer retired.",
+        "Shared seeds include every extra.",
+        "Existing runs keep their own rules."
+      ]
+    },
+    {
+      "date": "2026-10-13",
+      "title": "Clearer menus",
+      "lines": [
+        "Save details next to the slot numbers.",
+        "Updates in the original message window.",
+        "Online entry removed from the menu."
+      ]
+    },
+    {
+      "date": "2026-10-13",
+      "title": "Minibosses and transitions",
+      "lines": [
+        "Kracko, Ryu passage and Gravitron added.",
+        "Position checks without screen pixels.",
+        "Ridley and Questionmark intro protection."
+      ]
+    }
+  ]
+}
