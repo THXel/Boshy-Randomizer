@@ -2,17 +2,24 @@ import sys
 """Controller-owned diagnostics and explicit, run-bound test commands."""
 from pathlib import Path
 import os,time,json,uuid,struct,subprocess
-from debug_data import read_json,write_json
+from debug_data import read_json,write_json,Recorder
 
 class DebugRuntime:
  def __init__(self,store,start_window=True):
   self.store=store;self.token=uuid.uuid4().hex;self.folder=store.base/'.debug-runtime'/self.token;self.folder.mkdir(parents=True)
+  self.recorder=Recorder(store.base);self.last_error_report=None
   self.last=0.;self.sequence=0;self.events=[];self.player_key=None;self.player_ptr=None;self.player_oi=None;self.closed=False;self.window=None
   if start_window:
    self.window=subprocess.Popen([sys.executable,str(store.base/'debug_window.py'),'--host',str(os.getpid()),'--session',str(self.folder)],cwd=store.base,stdout=subprocess.DEVNULL,stderr=open(self.folder/'window-errors.log','a'),start_new_session=True)
  def event(self,event,**fields):
   self.events.append(dict(time=time.time(),event=event,**fields));self.events=self.events[-80:]
- def error(self,error):self.event('Fehler',message=str(error))
+ def error(self,error):
+  self.event('Fehler',message=str(error))
+  try:
+   state={**getattr(self,'state',{}),'sequence':self.sequence+1,'time':time.time(),'phase':'error','events':list(self.events),'exception_type':type(error).__name__}
+   self.last_error_report=str(self.recorder.finish(str(error),state))
+   write_json(self.store.base/'debug-reports/latest-error.json',dict(path=self.last_error_report,time=time.time(),error=str(error)))
+  except Exception as export_error:self.event('Bericht fehlgeschlagen',message=str(export_error))
  def demands(self):return read_json(self.folder/'watch.json',{}).get('observe',False)
  def commands(self,player=None):
   for p in sorted(self.folder.glob('request-*.json'))[:8]:
@@ -145,13 +152,14 @@ class DebugRuntime:
    data['trigger_explanation']=explain(player)
    if getattr(player,'insights',None):data['run_highlights']=player.insights.highlights()
    if getattr(player,'shots',None):data['shot_cycle']=dict(player.shots.data)
-   from run_settings import encode
-   data['share_seed']=encode(player.m['seed'],player.m['options'])
+   from seed_share import encode
+   data['share_seed']=encode(player.m['seed'],player.m['options'],getattr(getattr(player,'rules',None),'base',self.store.base))
    if self.demands():
     try:
      snap=player.bridge.snapshot();data['engine']={k:snap[k] for k in ('scene','next','frame_count','viewport')};data['player_position']=self.position(player,snap)
     except Exception as e:data['observation_error']=str(e)
-  self.state=data;write_json(self.folder/'state.json',data)
+  data['last_error_report']=self.last_error_report
+  self.state=data;self.recorder.observe(json.loads(json.dumps(data)));write_json(self.folder/'state.json',data)
  def close(self):
   if self.closed:return
   self.closed=True

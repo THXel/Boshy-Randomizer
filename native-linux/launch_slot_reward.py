@@ -16,6 +16,8 @@ def launch(store,manifest):
         blob,offset=rules.module('extras_runtime').run_blob(asset_base,manifest)
         atomic(payload,attach(BASE,rules.icons(blob,offset),context_offset=offset,extras=True,asset_base=asset_base))
     else:atomic(payload,attach(BASE,rules.icons(run_blob(asset_base,manifest),offset),context_offset=offset,asset_base=asset_base))
+    rules.module('music_randomizer').prepare(BASE,manifest)
+    rules.module('spider_randomizer').prepare(BASE,manifest)
     logpath=store.root/manifest['run_id']/'launch.log'
     with logpath.open('w') as log:
         p=subprocess.Popen(command('slot_reward_launcher.exe',payload.relative_to(BASE)),cwd=BASE,env=environment(),stdout=log,stderr=log,start_new_session=True)

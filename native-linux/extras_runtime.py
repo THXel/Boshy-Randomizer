@@ -2,7 +2,7 @@
 import json,struct
 from mixed_rewards import CONTEXT_SIZE,context,validate
 from run_extras import flags
-ASSETS=('run_extras.py','extras_runtime.py','native_extras.dll','slot_reward_extras.bin','slot_reward_extras_symbols.json','death_character.py','shot_cycle.py')
+ASSETS=('run_extras.py','extras_runtime.py','native_extras.dll','slot_reward_extras.bin','slot_reward_extras_symbols.json','death_character.py','shot_cycle.py','music_randomizer.py','spider_randomizer.py')
 def run_blob(base,m):
  plan=json.loads((base/'slot_reward_plan.json').read_text());validate(m['rewards'],m['seed'],plan,enabled=m['options']['items'])
  raw=bytearray((base/'slot_reward_extras.bin').read_bytes());offset=json.loads((base/'slot_reward_extras_symbols.json').read_text())['context_offset']

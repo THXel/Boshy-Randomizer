@@ -22,7 +22,9 @@ def for_selection(store,slot,action,settings=None):
    if planned and options['levels']:
     pool=catalogue(json.loads((store.base/'INI/positions.json').read_text()));pool.update(json.loads((store.base/'native_spots.json').read_text()))
     from beta_catalogue import EXTRA_POINTS
-    pool.update(EXTRA_POINTS);frame=pool[planned[0]]['frame']
+    pool.update(EXTRA_POINTS)
+    from minibosses import prepare_pool
+    pool=prepare_pool(pool,options);frame=pool[planned[0]]['frame']
  elif action=='resume':
   data=ini(store,store.base/'IWBTB'/f'SaveFile{slot}.ini')
   frame=int(data.get('positions',{}).get('frame',2))

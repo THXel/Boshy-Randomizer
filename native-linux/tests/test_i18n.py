@@ -24,5 +24,5 @@ class Languages(unittest.TestCase):
   for value in ('BR2-a1B2c3-12345','Dark Boshy','Awesomesauce','seed_1','save23.ini'):
    self.assertEqual(ui.display(value),value)
  def test_changelog_is_english(self):
-  entries=json.loads((ROOT/'menu_updates.json').read_text())['entries'];self.assertEqual(entries[0]['title'],'Five UI languages')
+  entries=json.loads((ROOT/'menu_updates.json').read_text())['entries'];self.assertEqual(entries[0]['title'],'Recent improvements')
 if __name__=='__main__':unittest.main()

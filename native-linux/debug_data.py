@@ -2,6 +2,7 @@
 from pathlib import Path
 from collections import deque
 import json,time,uuid,zipfile,hashlib
+from ui_i18n import tr
 
 MAX_JSON=2*1024*1024
 
@@ -42,7 +43,7 @@ class Recorder:
   name=self.active.stem if self.active else time.strftime('%Y%m%d-%H%M%S')+'-'+uuid.uuid4().hex[:8]
   path=self.folder/(name+'.zip');last=state or (self.ring[-1] if self.ring else {})
   versions={}
-  for n in ('native_player.py','native_progress.py','native_triggers.py','beta_bosses.py','minibosses.py','intro_guard.py','native_intro_guard.dll','beta_catalogue.py','run_settings.py','slot_reward_hook.bin','native_menu.dll','debug_runtime.py','debug_window.py','run_extras.py','shot_cycle.py','runtime_versions.py','run_insights.py','trigger_explanation.py','bridge.exe'):
+  for n in ('transition_guard.py','native_menu_polished.dll','old_sonic.py','trigger_audit.py','native_player.py','native_progress.py','native_triggers.py','beta_bosses.py','minibosses.py','intro_guard.py','native_intro_guard.dll','beta_catalogue.py','run_settings.py','slot_reward_hook.bin','native_menu.dll','debug_runtime.py','debug_window.py','run_extras.py','shot_cycle.py','runtime_versions.py','run_insights.py','trigger_explanation.py','bridge.exe'):
    p=self.base/n
    if p.is_file():versions[n]=hashlib.sha256(p.read_bytes()).hexdigest()
   metadata={'schema':1,'created_at':time.time(),'description':note[:12000],'versions':versions,'last_state':last,'sample_period_seconds':.5,'prehistory_limit_samples':240,'recording_file':self.active.name if self.active else None}
@@ -51,6 +52,7 @@ class Recorder:
    z.writestr('LESEN.txt','Boshy Randomizer – Debug-Aufzeichnung\n\n'+note[:12000]+'\n\nzeitverlauf.jsonl enthält beobachtete Zustände; Testaktionen sind als solche markiert. Fehlende Beobachtungen beweisen keinen fehlenden Trigger. Originale Spielstände und das Charakterprofil sind nicht Teil dieses Exports.\n')
    explanation=last.get('trigger_explanation',{})
    z.writestr('trigger.txt','Erwartet: '+explanation.get('expected','Keine aktive Route')+'\nStatus: '+explanation.get('reason','Keine Beobachtung')+'\nRegelsatz: '+explanation.get('rules_version','–')+'\n\nLetzte Übergänge:\n'+'\n'.join(json.dumps(r,ensure_ascii=False) for r in last.get('progress',{}).get('transition_trace',[])))
+   z.writestr('trigger-evidence.json',json.dumps(explanation,ensure_ascii=False,indent=2))
    if self.active:z.write(self.active,'zeitverlauf.jsonl')
    else:z.writestr('zeitverlauf.jsonl',''.join(json.dumps(r,ensure_ascii=False)+'\n' for r in self.ring))
   self.active=None;self.last_export=path;return path

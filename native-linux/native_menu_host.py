@@ -22,6 +22,8 @@ def run():
  subprocess.Popen([str(BASE/'start-live-tracker.sh')],cwd=BASE,env={**os.environ,'BOSHY_TRACKER_HOST':str(os.getpid())},stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,start_new_session=True)
  with s.lock():
   s._stopped();finish(s)
+  from intro_cast import prepare as prepare_intro
+  prepare_intro(BASE)
   from runtime_versions import recover_all
   recover_all(s);model=Menu(s);renderer.draw(model);debug=DebugRuntime(s)
   try:
@@ -34,6 +36,8 @@ def run():
     while s.game_running() and model.action is None:
      tracker.menu();model.pump();debug.commands();debug.tick('menu',model=model)
      for event in game.events():model.event(*event)
+     if model.requested_slot is not None:
+      selected=model.requested_slot;model.requested_slot=None;game.select_slot(selected);model.select(selected);model.focus=0;model.dirty=True
      if model.dirty:renderer.draw(model);game.write(60,1 if model.page=='slots' else 2);game.refresh()
      time.sleep(.035)
     if not s.game_running():game.bridge.close();game=None;return
@@ -58,7 +62,7 @@ def run():
        while s.game_running():
         model.pump()
         try:
-         if player.bridge.snapshot()['scene']<=1:back=True;break
+         if player.bridge.snapshot()['scene']<=1 and not (player.folder/'summary.json').exists():back=True;break
          # Tab belongs to the separate tracker; gameplay is never covered or paused.
          view=MenuGame.__new__(MenuGame);view.bridge=player.bridge;view.address=player.metadata['menu']
          view.events()
@@ -81,6 +85,7 @@ def run():
          if transient_read_error(e) and time.monotonic()-last_read<5:time.sleep(.1);continue
          raise
         time.sleep(.08)
+       if not back and not (player.folder/'summary.json').exists():debug.error(RuntimeError('Spiel während eines aktiven Laufs geschlossen; Ursache unbekannt.'))
        if back:cover=LoadingScreen(BASE,0,'Zurück zum Hauptmenü …',destination=for_frame(BASE,2))
        tracker.menu(loading=True);player.close(close_game=True);player=None;finish(s)
        if not back:return
@@ -101,6 +106,9 @@ def run():
      finish(s);model.message='Angehalten: '+str(error)
     if not locals().get('keep_draft',False):model.page='slots'
     keep_draft=False;model.reload();renderer.draw(model)
+  except Exception as error:
+   debug.error(error)
+   raise
   finally:
    debug.close();model.close();tracker.pause()
    if player:player.close(close_game=True)

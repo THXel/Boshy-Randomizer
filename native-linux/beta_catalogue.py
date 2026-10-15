@@ -6,7 +6,9 @@ V3_BOSSES={**legacy.BOSSES,**BETA}
 EXTRA_BOSSES={'gradius':('Gradius',39,'boss10.ini'),'bomberman':('Bomberman',28,'boss15.ini'),'oldsonic':('Old Sonic',60,'boss23.ini'),'cheetahman':('Cheetahman',54,'boss21.ini')}
 V4_BOSSES={**V3_BOSSES,**EXTRA_BOSSES}
 MINIBOSSES={'kracko':('Kracko',5,'boss2.ini'),'gravitron':('Gravitron',11,'boss7.ini'),'ninja_ryu':('Ryu (Ausweichen)',31,'boss16.ini')}
-BOSSES={**V4_BOSSES,**MINIBOSSES}
+V5_BOSSES={**V4_BOSSES,**MINIBOSSES}
+MINIBOSSES={**MINIBOSSES,'kid_icarus':('Kid Icarus',27,'boss_kid_icarus')}
+BOSSES={**V5_BOSSES,'kid_icarus':MINIBOSSES['kid_icarus']}
 ROOMS=legacy.ROOMS
 is_target=legacy.is_target
 confirmed=legacy.confirmed
@@ -16,7 +18,7 @@ EXTRA_POINTS={'tutorial':dict(frame=36,x=3263,y=313,category='rooms')}
 
 def catalogue(options):
  version=options.get('route_version',1)
- return BOSSES if version>=5 else V4_BOSSES if version>=4 else V3_BOSSES if version>=3 else legacy.BOSSES
+ return BOSSES if version>=6 else V5_BOSSES if version>=5 else V4_BOSSES if version>=4 else V3_BOSSES if version>=3 else legacy.BOSSES
 
 def stage_achievements(options,progress,achievements):
  result=dict(achievements)

@@ -1614,8 +1614,10 @@ class NativeLiveTrackerUI(LiveTrackerUI):
         self.animation_ms=tk.IntVar(root,value=prefs.get('animation_ms',1540))
         self.show_extras=tk.BooleanVar(root,value=prefs.get('show_extras',True))
         self.show_countdown=tk.BooleanVar(root,value=prefs.get('show_countdown',False))
+        self.show_music=tk.BooleanVar(root,value=prefs.get('show_music',True))
         self.view_menu=tk.Menu(root,tearoff=0)
         self.view_menu.add_checkbutton(label=tr('Aktive Extras anzeigen'),variable=self.show_extras,command=self._save_view)
+        self.view_menu.add_checkbutton(label=tr('Aktuelle Musik anzeigen'),variable=self.show_music,command=self._save_view)
         self.view_menu.add_checkbutton(label=tr('Schusswechsel-Countdown'),variable=self.show_countdown,command=self._save_view)
         self.view_menu.add_checkbutton(label=tr('Fundanimationen'),variable=self.animate_rewards,command=self._save_view)
         for label,ms in [(tr('Kurze Animation'),840),(tr('Normale Animation'),1540),(tr('Lange Animation'),2800)]:
@@ -1644,7 +1646,7 @@ class NativeLiveTrackerUI(LiveTrackerUI):
     def _save_view(self):
         from pathlib import Path
         from native_session import write_json
-        write_json(Path(INI)/'tracker-view.json',dict(animate=self.animate_rewards.get(),animation_ms=self.animation_ms.get(),show_extras=self.show_extras.get(),show_countdown=self.show_countdown.get()))
+        write_json(Path(INI)/'tracker-view.json',dict(animate=self.animate_rewards.get(),animation_ms=self.animation_ms.get(),show_extras=self.show_extras.get(),show_countdown=self.show_countdown.get(),show_music=self.show_music.get()))
     def _next_award(self):
         if self.animating or not self.reward_queue:return
         if not self.animate_rewards.get():self.reward_queue=[];return
@@ -1706,7 +1708,12 @@ class NativeLiveTrackerUI(LiveTrackerUI):
             self._close_tracker();return
         d=self.source.read();self.presentation=d
         show=not hasattr(self,'show_extras') or self.show_extras.get()
-        self.extras_strip.update_rows(d.get('active_extras',[]) if show else [],bool(hasattr(self,'show_countdown') and self.show_countdown.get()))
+        rows=list(d.get('active_extras',[])) if show else []
+        music=d.get('music')
+        if music and getattr(self,'show_music',None) and self.show_music.get():
+            rows=[r for r in rows if r.get('key')!='music']
+            rows.append(dict(key='current_music',icon='♪',label=tr('Musik: {0}',music['track']),hint=tr('Original: {0}',music['original'])))
+        self.extras_strip.update_rows(rows,bool(hasattr(self,'show_countdown') and self.show_countdown.get()))
         if time.time()-getattr(self,'_placed_at',0)>2:self._keep_off_game();self._placed_at=time.time()
         mode=d.get('mode');identity=(mode,d.get('run_id'),d.get('slot'))
         self.lbl_title.config(text={'target':'Target Select','randomizer':'Randomizer','menu':tr('Spielstand wählen'),'speedrun':'Boshy Speedrun'}.get(mode,tr('Randomizer wird gestartet')))

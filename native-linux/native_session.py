@@ -83,7 +83,7 @@ class SessionStore:
         if path.is_symlink():raise ValueError('Verknüpfte Spielstände werden nicht verändert.')
         from native_level_route import catalogue
         pool=catalogue(json.loads((self.base/'INI/positions.json').read_text()));pool.update(json.loads((self.base/'native_spots.json').read_text()));names=SAFE_SPOTS if options.get('mode')!='target' else tuple(dict.fromkeys((*SAFE_SPOTS,*ROOMS,*(BOSSES[k][2] for k in goals(self.base,seed,options)['bosses']))))
-        if options.get("route_version") in (2,3,4,5) or options.get("mode")=="target":names=pool_names(options)
+        if options.get("route_version") in (2,3,4,5,6,7) or options.get("mode")=="target":names=pool_names(options)
         pool.update(EXTRA_POINTS)
         from minibosses import prepare_pool
         pool=prepare_pool(pool,options)

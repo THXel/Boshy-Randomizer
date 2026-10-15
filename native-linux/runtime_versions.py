@@ -63,11 +63,14 @@ class Rules:
   if (self.base/'IWBTB').resolve()!=(store.base/'IWBTB').resolve():raise ValueError('Falscher Spielordner für Laufversion.')
   self.view=View(store,self.base)
  def module(self,name):
-  if not self.frozen or name not in MODULES:return __import__(name)
+  if not self.frozen or (name not in MODULES and not (name in ('music_randomizer','spider_randomizer') and name+'.py' in self.meta['hashes'])):return __import__(name)
   if name in self.modules:return self.modules[name]
   module=types.ModuleType(name);module.__file__=str(self.base/(name+'.py'));module.__package__=''
   module.__dict__['__builtins__']={**vars(builtins),'__import__':self._import};self.modules[name]=module
-  try:exec(compile(Path(module.__file__).read_bytes(),module.__file__,'exec'),module.__dict__)
+  try:
+   exec(compile(Path(module.__file__).read_bytes(),module.__file__,'exec'),module.__dict__)
+   correct_known_exits(name,module)
+   apply_room_exit_timing(name,module)
   except Exception:self.modules.pop(name,None);raise
   return module
  def _import(self,name,globals=None,locals=None,fromlist=(),level=0):
@@ -98,3 +101,45 @@ def recover_all(store):
  for slot in (1,2,3):
   m=store.current(slot)
   if m and m['status']=='ready':reconcile(store,m)
+
+
+def correct_known_exits(name,module):
+ """Correct a confirmed engine exit without rewriting a saved rules bundle.
+
+ Old Sonic's native victory action advances frame 60 to 61. Older bundles
+ incorrectly copied normal Sonic's exit (15). Keep every other frozen rule,
+ seed, route and reward intact; persisted bundle hashes still validate first.
+ """
+ if name!='native_triggers' or getattr(module,'BOSS_EXITS',{}).get(60) not in ((15,),(61,)):return
+ module.BOSS_EXITS={**module.BOSS_EXITS,60:(61,)}
+ if getattr(module,'OLD_SONIC_EXIT_VERSION',0)>=1:return
+ from native_triggers import old_sonic_exit
+ original=module.CompletionGate.observe
+ def observe(gate,spot,point,frame,ach,disk,*args,**kwargs):
+  confirmed=old_sonic_exit(gate,spot,point,frame,ach,disk)
+  result=original(gate,spot,point,frame,ach,disk,*args,**kwargs)
+  if confirmed:return 'Boss-Ausgang'
+  return None if spot=='boss23.ini' and point.get('frame')==60 else result
+ module.CompletionGate.observe=observe
+ module.OLD_SONIC_EXIT_VERSION=1
+
+
+def apply_room_exit_timing(name,module):
+ """Remove only the delay from validated room exits in known saved rules.
+
+ Keep the saved destination table and all route/seed choices. The original
+ gate must first establish the origin, exact exit, death/tick checks and
+ Tower position. Miniboss and Old Sonic animation gates are separate.
+ """
+ if name!='native_triggers' or getattr(module,'RULE_VERSION',None)!=3 or getattr(module,'ROOM_EXIT_TIMING_VERSION',0)>=1:return
+ original=module.CompletionGate.observe
+ def observe(gate,spot,point,frame,ach,disk,stats,tick=None,restart_pressed=False,position=None):
+  if restart_pressed:gate.reset()
+  result=original(gate,spot,point,frame,ach,disk,stats,tick,restart_pressed,position=position)
+  if result is not None or (spot=='boss23.ini' and point.get('frame')==60):return result
+  if (gate.seen_origin and gate.candidate in ('Level-Ausgang','Boss-Ausgang')
+      and gate.candidate_frame==frame and frame in module.exits_for(spot,point)):
+   return gate.candidate
+  return None
+ module.CompletionGate.observe=observe
+ module.ROOM_EXIT_TIMING_VERSION=1

@@ -75,7 +75,15 @@ int main(void){
    unsigned addr;char hex[1025];unsigned char data[512];int ok=1;
    if(sscanf(line+10,"%x %1024s",&addr,hex)!=2||strlen(hex)!=1024||u32(addr)!=0x424d4e31||u32(addr+4)!=1||u32(addr+1648)!=u32(addr+1652))ok=0;
    for(unsigned j=0;ok&&j<512;j++){unsigned x;if(sscanf(hex+j*2,"%2x",&x)!=1)ok=0;else data[j]=x;}
-   if(ok)ok=wr(addr+1652,data+4,508)&&wr(addr+1648,data,4);
+   if(ok)ok=wr(addr+1652,data+4,472)&&wr(addr+1648,data,4);
+   printf("{\"written\":%s}\n",ok?"true":"false");
+  }else if(!strncmp(line,"exit ",5)){
+   unsigned addr,expected,op,lo,hi;int ok=0;
+   if(sscanf(line+5,"%x %u %u %u %u",&addr,&expected,&op,&lo,&hi)==5&&u32(addr)==0x424d4e31&&u32(addr+4)==1&&u32(addr+2144)==0x42584531&&scene()==expected&&expected>1&&expected<64&&op<=3){
+    uint32_t status=u32(addr+2156),masks[2]={lo,hi};
+    if(op==1&&status<256&&u32(addr+60)==1&&u16(r+0x30)==0){uint32_t off=0;ok=wr(addr+2156,&off,4)&&wr(addr+2148,masks,8)&&run()==r&&scene()==expected&&wr(addr+2156,&op,4);}
+    else if(op!=1)ok=wr(addr+2156,&op,4);
+   }
    printf("{\"written\":%s}\n",ok?"true":"false");
   }else if(!strncmp(line,"menu ",5)){
    unsigned addr,off,val;

@@ -2,12 +2,13 @@
 """Create a game-free Debian package from the reviewed native source tree."""
 from pathlib import Path
 import json,hashlib,shutil,subprocess,os,sys
-ROOT=Path(__file__).resolve().parents[1];SOURCE=ROOT/'native-linux';VERSION='2026.10.13-2'
+ROOT=Path(__file__).resolve().parents[1];SOURCE=ROOT/'native-linux';VERSION='2026.10.15-1'
 # Fail before creating a package if the runtime export is incomplete.
 sys.path.insert(0,str(SOURCE))
 from native_session import ASSETS
 from extras_runtime import ASSETS as EXTRA_ASSETS
-required=set(ASSETS+EXTRA_ASSETS)|{'bridge.exe','launch_slot_reward.py','gastly_route_lab.py','loading-icons/index.json','loading-icons/boshy.webp','INI/characters.json','wine-runner-manifest.json'}
+from trigger_audit import FILES as AUDIT_ASSETS
+required=set(ASSETS+EXTRA_ASSETS+AUDIT_ASSETS)|{'bridge.exe','launch_slot_reward.py','gastly_route_lab.py','loading-icons/index.json','loading-icons/boshy.webp','INI/characters.json','wine-runner-manifest.json'}
 missing=sorted(name for name in required if not (SOURCE/name).is_file())
 if missing:raise SystemExit('Missing runtime resources: '+', '.join(missing))
 OUTPUT=Path(sys.argv[1]).resolve() if len(sys.argv)>1 else ROOT/'dist'
@@ -20,6 +21,7 @@ for p in SOURCE.iterdir():
  if p.is_file() and (p.suffix in ('.py','.dll','.exe','.bin','.json','.sh')) and not p.name.startswith('build_') and p.name not in exclude:files.append(p)
 for folder,exts in [('PY',{'.py'}),('locales',{'.json'}),('INI',{'.json'}),('Custom',{'.png','.bmp','.ttf','.wav','.txt'}),('menu-character-icons',{'.png'}),('native-icons',{'.bmp'}),('loading-icons',{'.png','.webp','.json'})]:
  files.extend(p for p in (SOURCE/folder).rglob('*') if p.is_file() and not p.is_symlink() and p.suffix in exts and '__pycache__' not in p.parts)
+files.extend(SOURCE/name for name in AUDIT_ASSETS if SOURCE/name not in files)
 for p in files:
  rel=p.relative_to(SOURCE);dest=PAYLOAD/rel;dest.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(p,dest);dest.chmod(0o755 if p.suffix=='.sh' else 0o644)
 hashes={str(p.relative_to(PAYLOAD)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(PAYLOAD.rglob('*')) if p.is_file()}

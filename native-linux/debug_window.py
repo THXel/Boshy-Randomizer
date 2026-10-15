@@ -1,9 +1,9 @@
 """Optional independent diagnostics window; Ctrl+Alt+D, scoped to this randomizer."""
 from ui_i18n import tr, display as localize, font_path, font_family, configure_tk, LANGUAGE, Localized
-import argparse,os,time,uuid,json,subprocess
+import argparse,os,time,uuid,json,subprocess,shutil
 from pathlib import Path
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk,filedialog
 import psutil
 from Xlib import display,XK
 from debug_data import Recorder,Chord,read_json,write_json,report_text
@@ -19,7 +19,15 @@ class Window:
   ttk.Label(self.root,textvariable=self.status,padding=(10,0),wraplength=850).pack(fill='x')
   tabs=ttk.Notebook(self.root);tabs.pack(fill='both',expand=True,padx=10,pady=10)
   overview=ttk.Frame(tabs,padding=8);actions=ttk.Frame(tabs,padding=12);record=ttk.Frame(tabs,padding=12)
-  tabs.add(overview,text=tr('Live-Übersicht'));tabs.add(actions,text=tr('Testaktionen'));tabs.add(record,text=tr('Aufzeichnung & Bericht'))
+  audit=ttk.Frame(tabs,padding=8)
+  tabs.add(audit,text=tr('Trigger-Prüfung'))
+  ttk.Label(audit,text=tr('Logiktest = simuliert. Spieltest = kontrollierter Eingriff. Regulärer Ausgang = durchgespielt.'),wraplength=800).pack(anchor='w')
+  self.audit=ttk.Treeview(audit,columns=('start','exit','reset','hacks','natural'),height=20)
+  self.audit.heading('#0',text=tr('Randomizer-Punkt'));self.audit.column('#0',width=230)
+  for key,label in [('start','Start'),('exit','Ausgang'),('reset','Reset'),('hacks','Hacks'),('natural','Regulärer Ausgang')]:self.audit.heading(key,text=tr(label));self.audit.column(key,width=110)
+  scrollbar=ttk.Scrollbar(audit,command=self.audit.yview);self.audit.configure(yscrollcommand=scrollbar.set);scrollbar.pack(side='right',fill='y');self.audit.pack(fill='both',expand=True)
+  ttk.Button(audit,text=tr('Prüfstand aktualisieren'),command=self.refresh_audit).pack(anchor='w');self.refresh_audit()
+  tabs.add(overview,text=tr('Live-Übersicht'));tabs.add(actions,text=tr('Testaktionen'));tabs.add(record,text=tr('Aufzeichnung & Bericht'));tabs.select(overview)
   self.details=tk.Text(overview,wrap='word',font=(font_family(),10),state='disabled');scroll=ttk.Scrollbar(overview,command=self.details.yview);self.details.configure(yscrollcommand=scroll.set);scroll.pack(side='right',fill='y');self.details.pack(fill='both',expand=True)
   ttk.Label(actions,text=tr('Diese Aktionen verändern den aktuellen Lauf. Vor jedem Eingriff wird eine Sicherung angelegt.\nDer Lauf bleibt danach als Testlauf gekennzeichnet.'),wraplength=800).pack(anchor='w',pady=(0,12))
   ttk.Checkbutton(actions,text=tr('Testaktionen für diesen Lauf freigeben'),variable=self.enabled).pack(anchor='w')
@@ -31,6 +39,7 @@ class Window:
   ttk.Label(actions,text=tr('Es gelten weiterhin die Regeln des Seeds, die Gastly-Voraussetzung und die Ziel-Liste. Während des Ladens oder einer Belohnungsanimation sind Testaktionen gesperrt.'),wraplength=800).pack(anchor='w',pady=8)
   ttk.Label(record,text=tr('Bei einem Problem: Aufzeichnung starten, den Ablauf spielen und hier beschreiben, was du erwartet hast. Bis zu zwei Minuten Vorlauf werden automatisch mitgenommen.'),wraplength=800).pack(anchor='w')
   row=ttk.Frame(record);row.pack(fill='x',pady=12);self.record_button=ttk.Button(row,text=tr('Aufzeichnung starten'),command=self.start_record);self.record_button.pack(side='left');ttk.Button(row,text=tr('Bericht / Aufzeichnung speichern'),command=self.save_record).pack(side='left',padx=8)
+  ttk.Button(record,text=tr('Letzten Fehlerbericht exportieren'),command=self.export_error).pack(anchor='w',pady=4)
   ttk.Label(record,textvariable=self.record_status).pack(anchor='w')
   ttk.Label(record,text=tr('Was sollte passieren? Was ist stattdessen passiert?'),padding=(0,12,0,5)).pack(anchor='w')
   self.note=tk.Text(record,height=8,wrap='word');self.note.pack(fill='both',expand=True)
@@ -38,6 +47,19 @@ class Window:
   ttk.Label(record,text=tr('Die ZIP-Datei kannst du zusammen mit deiner Beschreibung an Codex geben. Sie enthält Zustände, Übergänge, Fehler und Testeingriffe. Spielstände und das globale Charakterprofil werden nicht mitgeschickt.'),wraplength=800).pack(anchor='w')
   ttk.Label(self.root,textvariable=self.notice,padding=10,wraplength=850).pack(fill='x')
   self.root.protocol('WM_DELETE_WINDOW',self.hide);self.watch();self.root.after(40,self.pump)
+ def refresh_audit(self):
+  from trigger_audit import rows
+  for item in self.audit.get_children():self.audit.delete(item)
+  for row in rows(self.base):self.audit.insert('', 'end',text=row['name'],values=[tr(row[k]) for k in ('start','exit','reset','hacks','natural')])
+ def export_error(self):
+  try:
+   data=read_json(self.base/'debug-reports/latest-error.json',{});source=Path(data.get('path',''))
+   if source.parent.resolve()!=(self.base/'debug-reports').resolve() or not source.is_file():self.notice.set(tr('Noch kein automatischer Fehlerbericht vorhanden.'));return
+   dest=filedialog.asksaveasfilename(parent=self.root,title=tr('Letzten Fehlerbericht exportieren'),initialfile=source.name,defaultextension='.zip',filetypes=[('ZIP','*.zip')])
+   if dest:
+    if Path(dest).resolve()!=source.resolve():shutil.copy2(source,dest)
+    self.notice.set(tr('Gespeichert: ')+str(dest))
+  except OSError as e:self.notice.set(str(e))
  def copy(self,text):
   if text:self.root.clipboard_clear();self.root.clipboard_append(text);self.notice.set(tr('In die Zwischenablage kopiert.'))
  def open_folder(self):
@@ -99,7 +121,9 @@ class Window:
   else:reason=tr('Warte auf einen bestätigten Levelabschluss, regulären Ausgang oder Boss-Sieg.')
   if s.get('phase')!='running':reason=tr('Trigger werden erst im geladenen Randomizer-Lauf ausgewertet.')
   explanation=s.get('trigger_explanation',{})
-  if explanation:reason=str(localize(explanation['reason']))+tr('\nErwartet: ')+str(localize(explanation['expected']))+tr('\nRegelsatz: ')+explanation['rules_version'][:20]
+  if explanation:reason=str(tr(explanation['reason_key'],*explanation.get('reason_args',[]))) if explanation.get('reason_key') else str(localize(explanation['reason']))
+  if explanation:reason+=tr('\nExpected: {0}',explanation['expected'])+tr('\nRules: {0}',explanation['rules_version'][:20])
+  if explanation:reason+=tr('\nObserved room: {0} · Expected rooms: {1}',str(explanation.get('evidence',{}).get('frame','–')),', '.join(map(str,explanation.get('evidence',{}).get('expected_frames',[]))) or '–')
   lines=[tr('Aktualisiert: {0}', str(time.strftime('%H:%M:%S', time.localtime(s.get('time', time.time()))))),tr('Spielkopie: {0}', str(s.get('game_root', '–'))),f"Seed: {s.get('seed','–')}",'', tr('WARUM GEHT ES GERADE WEITER – ODER NICHT?'),reason,'',tr('Aktiver Punkt: {0}', str(spot or '–')),tr('Boshy-Position: {0}', str(s.get('player_position', '–'))),tr('Gespeicherter Kontrollpunkt: {0}', str(obs.get('checkpoint', '–'))),tr('Route: Schritt {0} von {1}', str(p.get('index', '–')), str(p.get('limit', '–'))),tr('Ausgangsraum beobachtet: {0}', tr('Ja' if gate.get('seen_origin') else 'Nein')),tr('Szene stabil: {0}  /  R gedrückt: {1}', str(obs.get('settled', '–')), str(obs.get('restart_down', '–'))),tr('Gastly-Ablauf: {0}', str(last.get('route', {}).get('phase', '–'))),tr('Nativer Patch: {0}  /  Fehler: {1}', str(last.get('hook', {}).get('status', '–')), str(last.get('hook', {}).get('errors', '–'))),'',tr('BEOBACHTETE ABSCHLUSSMERKMALE')]
   for name,value in (gate.get('previous') or {}).items():
    lines.append(tr('{0}: Spiel {1} / gespeichert {2} / bestätigt {3}', str(name), str(obs.get('live_achievements', {}).get(name, '–')), str(obs.get('disk_achievements', {}).get(name, '–')), str(value)))

@@ -1,0 +1,564 @@
+{
+  "schema": 1,
+  "date": "2026-10-15",
+  "fingerprint": "3fa6cb996d84a2fff8f7055a4c6cadeb62b0f2ed7c47d10895877617c4747b6d",
+  "method": "Actual game starts/resets, native C simulations, and actual combat victories for Questionmark, Ridley, Old Sonic and Solgryn; other natural complete exits remain open.",
+  "logic": {
+    "spots": 45,
+    "hack_combinations": 16,
+    "modes": 2,
+    "assertions": 99108
+  },
+  "native_exit_pairs": 45,
+  "spots": {
+    "save1.ini": {
+      "start": "Spieltest bestanden",
+      "reset": "Spieltest bestanden",
+      "exit": "Logiktest bestanden",
+      "hacks": "Logiktest bestanden",
+      "natural": "Offen",
+      "evidence": {
+        "load_reset": "live-final.json",
+        "native_exit": "All configured scene pairs exercised through native C interception harness; not a natural full playthrough.",
+        "hack_scope": "All 16 combinations in offline gate checks; combined hacks in live spawn/reset checks."
+      }
+    },
+    "save2.ini": {
+      "start": "Spieltest bestanden",
+      "reset": "Spieltest bestanden",
+      "exit": "Logiktest bestanden",
+      "hacks": "Logiktest bestanden",
+      "natural": "Offen",
+      "evidence": {
+        "load_reset": "live-final.json",
+        "native_exit": "All configured scene pairs exercised through native C interception harness; not a natural full playthrough.",
+        "hack_scope": "All 16 combinations in offline gate checks; combined hacks in live spawn/reset checks."
+      }
+    },
+    "save3.ini": {
+      "start": "Spieltest bestanden",
+      "reset": "Spieltest bestanden",
+      "exit": "Logiktest bestanden",
+      "hacks": "Logiktest bestanden",
+      "natural": "Offen",
+      "evidence": {
+        "load_reset": "live-final.json",
+        "native_exit": "All configured scene pairs exercised through native C interception harness; not a natural full playthrough.",
+        "hack_scope": "All 16 combinations in offline gate checks; combined hacks in live spawn/reset checks."
+      }
+    },
+    "save4.ini": {
+      "start": "Spieltest bestanden",
+      "reset": "Spieltest bestanden",
+      "exit": "Logiktest bestanden",
+      "hacks": "Logiktest bestanden",
+      "natural": "Offen",
+      "evidence": {
+        "load_reset": "live-final.json",
+        "native_exit": "All configured scene pairs exercised through native C interception harness; not a natural full playthrough.",
+        "hack_scope": "All 16 combinations in offline gate checks; combined hacks in live spawn/reset checks."
+      }
+    },
+    "save6.ini": {
+      "start": "Spieltest bestanden",
+      "reset": "Spieltest bestanden",
+      "exit": "Logiktest bestanden",
+      "hacks": "Logiktest bestanden",
+      "natural": "Offen",
+      "evidence": {
+        "load_reset": "live-final.json",
+        "native_exit": "All configured scene pairs exercised through native C interception harness; not a natural full playthrough.",
+        "hack_scope": "All 16 combinations in offline gate checks; combined hacks in live spawn/reset checks."
+      }
+    },
+    "save7.ini": {
+      "start": "Spieltest bestanden",
+      "reset": "Spieltest bestanden",
+      "exit": "Logiktest bestanden",
+      "hacks": "Logiktest bestanden",
+      "natural": "Offen",
+      "evidence": {
+        "load_reset": "live-final.json",
+        "native_exit": "All configured scene pairs exercised through native C interception harness; not a natural full playthrough.",
+        "hack_scope": "All 16 combinations in offline gate checks; combined hacks in live spawn/reset checks."
+      }
+    },
+    "save9.ini": {
+      "start": "Spieltest bestanden",
+      "reset": "Spieltest bestanden",
+      "exit": "Logiktest bestanden",
+      "hacks": "Logiktest bestanden",
+      "natural": "Offen",
+      "evidence": {
+        "load_reset": "live-final.json",
+        "native_exit": "All configured scene pairs exercised through native C interception harness; not a natural full playthrough.",
+        "hack_scope": "All 16 combinations in offline gate checks; combined hacks in live spawn/reset checks."
+      }
+    },
+    "save10.ini": {
+      "start": "Spieltest bestanden",
+      "reset": "Spieltest bestanden",
+      "exit": "Logiktest bestanden",
+      "hacks": "Logiktest bestanden",
+      "natural": "Offen",
+      "evidence": {
+        "load_reset": "live-final.json",
+        "native_exit": "All configured scene pairs exercised through native C interception harness; not a natural full playthrough.",
+        "hack_scope": "All 16 combinations in offline gate checks; combined hacks in live spawn/reset checks."
+      }
+    },
+    "save11.ini": {
+      "start": "Spieltest bestanden",
+      "reset": "Spieltest bestanden",
+      "exit": "Logiktest bestanden",
+      "hacks": "Logiktest bestanden",
+      "natural": "Offen",
+      "evidence": {
+        "load_reset": "live-final.json",
+        "native_exit": "All configured scene pairs exercised through native C interception harness; not a natural full playthrough.",
+        "hack_scope": "All 16 combinations in offline gate checks; combined hacks in live spawn/reset checks."
+      }
+    },
+    "save12.ini": {
+      "start": "Spieltest bestanden",
+      "reset": "Spieltest bestanden",
+      "exit": "Logiktest bestanden",
+      "hacks": "Logiktest bestanden",
+      "natural": "Offen",
+      "evidence": {
+        "load_reset": "live-final.json",
+        "native_exit": "All configured scene pairs exercised through native C interception harness; not a natural full playthrough.",
+        "hack_scope": "All 16 combinations in offline gate checks; combined hacks in live spawn/reset checks."
+      }
+    },
+    "save13.ini": {
+      "start": "Spieltest bestanden",
+      "reset": "Spieltest bestanden",
+      "exit": "Logiktest bestanden",
+      "hacks": "Logiktest bestanden",
+      "natural": "Offen",
+      "evidence": {
+        "load_reset": "live-final.json",
+        "native_exit": "All configured scene pairs exercised through native C interception harness; not a natural full playthrough.",
+        "hack_scope": "All 16 combinations in offline gate checks; combined hacks in live spawn/reset checks."
+      }
+    },
+    "save14.ini": {
+      "start": "Spieltest bestanden",
+      "reset": "Spieltest bestanden",
+      "exit": "Logiktest bestanden",
+      "hacks": "Logiktest bestanden",
+      "natural": "Offen",
+      "evidence": {
+        "load_reset": "live-final.json",
+        "native_exit": "All configured scene pairs exercised through native C interception harness; not a natural full playthrough.",
+        "hack_scope": "All 16 combinations in offline gate checks; combined hacks in live spawn/reset checks."
+      }
+    },
+    "save15.ini": {
+      "start": "Spieltest bestanden",
+      "reset": "Spieltest bestanden",
+      "exit": "Logiktest bestanden",
+      "hacks": "Logiktest bestanden",
+      "natural": "Offen",
+      "evidence": {
+        "load_reset": "live-final.json",
+        "native_exit": "All configured scene pairs exercised through native C interception harness; not a natural full playthrough.",
+        "hack_scope": "All 16 combinations in offline gate checks; combined hacks in live spawn/reset checks."
+      }
+    },
+    "save17.ini": {
+      "start": "Spieltest bestanden",
+      "reset": "Spieltest bestanden",
+      "exit": "Logiktest bestanden",
+      "hacks": "Logiktest bestanden",
+      "natural": "Offen",
+      "evidence": {
+        "load_reset": "live-final.json",
+        "native_exit": "All configured scene pairs exercised through native C interception harness; not a natural full playthrough.",
+        "hack_scope": "All 16 combinations in offline gate checks; combined hacks in live spawn/reset checks."
+      }
+    },
+    "save18.ini": {
+      "start": "Spieltest bestanden",
+      "reset": "Spieltest bestanden",
+      "exit": "Logiktest bestanden",
+      "hacks": "Logiktest bestanden",
+      "natural": "Offen",
+      "evidence": {
+        "load_reset": "live-final.json",
+        "native_exit": "All configured scene pairs exercised through native C interception harness; not a natural full playthrough.",
+        "hack_scope": "All 16 combinations in offline gate checks; combined hacks in live spawn/reset checks."
+      }
+    },
+    "save19.ini": {
+      "start": "Spieltest bestanden",
+      "reset": "Spieltest bestanden",
+      "exit": "Logiktest bestanden",
+      "hacks": "Logiktest bestanden",
+      "natural": "Offen",
+      "evidence": {
+        "load_reset": "live-final.json",
+        "native_exit": "All configured scene pairs exercised through native C interception harness; not a natural full playthrough.",
+        "hack_scope": "All 16 combinations in offline gate checks; combined hacks in live spawn/reset checks."
+      }
+    },
+    "save20.ini": {
+      "start": "Spieltest bestanden",
+      "reset": "Spieltest bestanden",
+      "exit": "Logiktest bestanden",
+      "hacks": "Logiktest bestanden",
+      "natural": "Offen",
+      "evidence": {
+        "load_reset": "live-final.json",
+        "native_exit": "All configured scene pairs exercised through native C interception harness; not a natural full playthrough.",
+        "hack_scope": "All 16 combinations in offline gate checks; combined hacks in live spawn/reset checks."
+      }
+    },
+    "save21.ini": {
+      "start": "Spieltest bestanden",
+      "reset": "Spieltest bestanden",
+      "exit": "Logiktest bestanden",
+      "hacks": "Logiktest bestanden",
+      "natural": "Offen",
+      "evidence": {
+        "load_reset": "live-final.json",
+        "native_exit": "All configured scene pairs exercised through native C interception harness; not a natural full playthrough.",
+        "hack_scope": "All 16 combinations in offline gate checks; combined hacks in live spawn/reset checks."
+      }
+    },
+    "save22.ini": {
+      "start": "Spieltest bestanden",
+      "reset": "Spieltest bestanden",
+      "exit": "Logiktest bestanden",
+      "hacks": "Logiktest bestanden",
+      "natural": "Offen",
+      "evidence": {
+        "load_reset": "live-final.json",
+        "native_exit": "All configured scene pairs exercised through native C interception harness; not a natural full playthrough.",
+        "hack_scope": "All 16 combinations in offline gate checks; combined hacks in live spawn/reset checks."
+      }
+    },
+    "save23.ini": {
+      "start": "Spieltest bestanden",
+      "reset": "Spieltest bestanden",
+      "exit": "Logiktest bestanden",
+      "hacks": "Logiktest bestanden",
+      "natural": "Offen",
+      "evidence": {
+        "load_reset": "live-final.json",
+        "native_exit": "All configured scene pairs exercised through native C interception harness; not a natural full playthrough.",
+        "hack_scope": "All 16 combinations in offline gate checks; combined hacks in live spawn/reset checks."
+      }
+    },
+    "boss1.ini": {
+      "start": "Spieltest bestanden",
+      "reset": "Spieltest bestanden",
+      "exit": "Logiktest bestanden",
+      "hacks": "Logiktest bestanden",
+      "natural": "Offen",
+      "evidence": {
+        "load_reset": "live-final.json",
+        "native_exit": "All configured scene pairs exercised through native C interception harness; not a natural full playthrough.",
+        "hack_scope": "All 16 combinations in offline gate checks; combined hacks in live spawn/reset checks."
+      }
+    },
+    "boss2.ini": {
+      "start": "Spieltest bestanden",
+      "reset": "Spieltest bestanden",
+      "exit": "Logiktest bestanden",
+      "hacks": "Logiktest bestanden",
+      "natural": "Offen",
+      "evidence": {
+        "load_reset": "live-final.json",
+        "native_exit": "All configured scene pairs exercised through native C interception harness; not a natural full playthrough.",
+        "hack_scope": "All 16 combinations in offline gate checks; combined hacks in live spawn/reset checks."
+      }
+    },
+    "boss3.ini": {
+      "start": "Spieltest bestanden",
+      "reset": "Spieltest bestanden",
+      "exit": "Logiktest bestanden",
+      "hacks": "Logiktest bestanden",
+      "natural": "Offen",
+      "evidence": {
+        "load_reset": "live-final.json",
+        "native_exit": "All configured scene pairs exercised through native C interception harness; not a natural full playthrough.",
+        "hack_scope": "All 16 combinations in offline gate checks; combined hacks in live spawn/reset checks."
+      }
+    },
+    "boss4.ini": {
+      "start": "Spieltest bestanden",
+      "reset": "Spieltest bestanden",
+      "exit": "Logiktest bestanden",
+      "hacks": "Logiktest bestanden",
+      "natural": "Offen",
+      "evidence": {
+        "load_reset": "live-final.json",
+        "native_exit": "All configured scene pairs exercised through native C interception harness; not a natural full playthrough.",
+        "hack_scope": "All 16 combinations in offline gate checks; combined hacks in live spawn/reset checks."
+      }
+    },
+    "boss6.ini": {
+      "start": "Spieltest bestanden",
+      "reset": "Spieltest bestanden",
+      "exit": "Logiktest bestanden",
+      "hacks": "Logiktest bestanden",
+      "natural": "Offen",
+      "evidence": {
+        "load_reset": "live-final.json",
+        "native_exit": "All configured scene pairs exercised through native C interception harness; not a natural full playthrough.",
+        "hack_scope": "All 16 combinations in offline gate checks; combined hacks in live spawn/reset checks."
+      }
+    },
+    "boss7.ini": {
+      "start": "Spieltest bestanden",
+      "reset": "Spieltest bestanden",
+      "exit": "Logiktest bestanden",
+      "hacks": "Logiktest bestanden",
+      "natural": "Offen",
+      "evidence": {
+        "load_reset": "live-final.json",
+        "native_exit": "All configured scene pairs exercised through native C interception harness; not a natural full playthrough.",
+        "hack_scope": "All 16 combinations in offline gate checks; combined hacks in live spawn/reset checks."
+      }
+    },
+    "boss8.ini": {
+      "start": "Spieltest bestanden",
+      "reset": "Spieltest bestanden",
+      "exit": "Logiktest bestanden",
+      "hacks": "Logiktest bestanden",
+      "natural": "Offen",
+      "evidence": {
+        "load_reset": "live-final.json",
+        "native_exit": "All configured scene pairs exercised through native C interception harness; not a natural full playthrough.",
+        "hack_scope": "All 16 combinations in offline gate checks; combined hacks in live spawn/reset checks."
+      }
+    },
+    "boss9.ini": {
+      "start": "Spieltest bestanden",
+      "reset": "Spieltest bestanden",
+      "exit": "Logiktest bestanden",
+      "hacks": "Logiktest bestanden",
+      "natural": "Offen",
+      "evidence": {
+        "load_reset": "live-final.json",
+        "native_exit": "All configured scene pairs exercised through native C interception harness; not a natural full playthrough.",
+        "hack_scope": "All 16 combinations in offline gate checks; combined hacks in live spawn/reset checks."
+      }
+    },
+    "boss10.ini": {
+      "start": "Spieltest bestanden",
+      "reset": "Spieltest bestanden",
+      "exit": "Logiktest bestanden",
+      "hacks": "Logiktest bestanden",
+      "natural": "Offen",
+      "evidence": {
+        "load_reset": "live-final.json",
+        "native_exit": "All configured scene pairs exercised through native C interception harness; not a natural full playthrough.",
+        "hack_scope": "All 16 combinations in offline gate checks; combined hacks in live spawn/reset checks."
+      }
+    },
+    "boss11.ini": {
+      "start": "Spieltest bestanden",
+      "reset": "Spieltest bestanden",
+      "exit": "Logiktest bestanden",
+      "hacks": "Logiktest bestanden",
+      "natural": "Offen",
+      "evidence": {
+        "load_reset": "live-final.json",
+        "native_exit": "All configured scene pairs exercised through native C interception harness; not a natural full playthrough.",
+        "hack_scope": "All 16 combinations in offline gate checks; combined hacks in live spawn/reset checks."
+      }
+    },
+    "boss12.ini": {
+      "start": "Spieltest bestanden",
+      "reset": "Spieltest bestanden",
+      "exit": "Logiktest bestanden",
+      "hacks": "Logiktest bestanden",
+      "natural": "Offen",
+      "evidence": {
+        "load_reset": "live-final.json",
+        "native_exit": "All configured scene pairs exercised through native C interception harness; not a natural full playthrough.",
+        "hack_scope": "All 16 combinations in offline gate checks; combined hacks in live spawn/reset checks."
+      }
+    },
+    "boss13.ini": {
+      "start": "Spieltest bestanden",
+      "reset": "Spieltest bestanden",
+      "exit": "Logiktest bestanden",
+      "hacks": "Logiktest bestanden",
+      "natural": "Offen",
+      "evidence": {
+        "load_reset": "live-final.json",
+        "native_exit": "All configured scene pairs exercised through native C interception harness; not a natural full playthrough.",
+        "hack_scope": "All 16 combinations in offline gate checks; combined hacks in live spawn/reset checks."
+      }
+    },
+    "boss15.ini": {
+      "start": "Spieltest bestanden",
+      "reset": "Spieltest bestanden",
+      "exit": "Logiktest bestanden",
+      "hacks": "Logiktest bestanden",
+      "natural": "Offen",
+      "evidence": {
+        "load_reset": "live-final.json",
+        "native_exit": "All configured scene pairs exercised through native C interception harness; not a natural full playthrough.",
+        "hack_scope": "All 16 combinations in offline gate checks; combined hacks in live spawn/reset checks."
+      }
+    },
+    "boss16.ini": {
+      "start": "Spieltest bestanden",
+      "reset": "Spieltest bestanden",
+      "exit": "Logiktest bestanden",
+      "hacks": "Logiktest bestanden",
+      "natural": "Offen",
+      "evidence": {
+        "load_reset": "live-final.json",
+        "native_exit": "All configured scene pairs exercised through native C interception harness; not a natural full playthrough.",
+        "hack_scope": "All 16 combinations in offline gate checks; combined hacks in live spawn/reset checks."
+      }
+    },
+    "boss17.ini": {
+      "start": "Spieltest bestanden",
+      "reset": "Spieltest bestanden",
+      "exit": "Logiktest bestanden",
+      "hacks": "Logiktest bestanden",
+      "natural": "Offen",
+      "evidence": {
+        "load_reset": "live-final.json",
+        "native_exit": "All configured scene pairs exercised through native C interception harness; not a natural full playthrough.",
+        "hack_scope": "All 16 combinations in offline gate checks; combined hacks in live spawn/reset checks."
+      }
+    },
+    "boss19.ini": {
+      "start": "Spieltest bestanden",
+      "reset": "Spieltest bestanden",
+      "exit": "Spieltest bestanden",
+      "hacks": "Logiktest bestanden",
+      "natural": "Spieltest bestanden",
+      "evidence": {
+        "load_reset": "live-final.json",
+        "native_exit": "All configured scene pairs exercised through native C interception harness; not a natural full playthrough.",
+        "hack_scope": "All 16 combinations in offline gate checks; combined hacks in live spawn/reset checks.",
+        "combat": "Questionmark: actual shooting victory with intro skip on and off; HP protection before manual S verified. Tested with God Mode, one-HP bosses and autofire; no HP/victory injection.",
+        "combat_report": "docs/RELEASE_PREPARATION.md#actual-game-tests"
+      }
+    },
+    "boss20.ini": {
+      "start": "Spieltest bestanden",
+      "reset": "Spieltest bestanden",
+      "exit": "Spieltest bestanden",
+      "hacks": "Logiktest bestanden",
+      "natural": "Spieltest bestanden",
+      "evidence": {
+        "load_reset": "live-final.json",
+        "native_exit": "All configured scene pairs exercised through native C interception harness; not a natural full playthrough.",
+        "hack_scope": "All 16 combinations in offline gate checks; combined hacks in live spawn/reset checks.",
+        "combat": "Ridley: actual shooting victory with intro skip on and off; HP protection before manual S verified. Tested with God Mode, one-HP bosses and autofire; no HP/victory injection.",
+        "combat_report": "docs/RELEASE_PREPARATION.md#actual-game-tests"
+      }
+    },
+    "boss21.ini": {
+      "start": "Spieltest bestanden",
+      "reset": "Spieltest bestanden",
+      "exit": "Logiktest bestanden",
+      "hacks": "Logiktest bestanden",
+      "natural": "Offen",
+      "evidence": {
+        "load_reset": "live-final.json",
+        "native_exit": "All configured scene pairs exercised through native C interception harness; not a natural full playthrough.",
+        "hack_scope": "All 16 combinations in offline gate checks; combined hacks in live spawn/reset checks."
+      }
+    },
+    "boss22.ini": {
+      "start": "Spieltest bestanden",
+      "reset": "Spieltest bestanden",
+      "exit": "Logiktest bestanden",
+      "hacks": "Logiktest bestanden",
+      "natural": "Offen",
+      "evidence": {
+        "load_reset": "live-final.json",
+        "native_exit": "All configured scene pairs exercised through native C interception harness; not a natural full playthrough.",
+        "hack_scope": "All 16 combinations in offline gate checks; combined hacks in live spawn/reset checks."
+      }
+    },
+    "boss23.ini": {
+      "start": "Spieltest bestanden",
+      "reset": "Spieltest bestanden",
+      "exit": "Spieltest bestanden",
+      "hacks": "Logiktest bestanden",
+      "natural": "Spieltest bestanden",
+      "evidence": {
+        "load_reset": "live-final.json",
+        "native_exit": "All configured scene pairs exercised through native C interception harness; not a natural full playthrough.",
+        "hack_scope": "All 16 combinations in offline gate checks; combined hacks in live spawn/reset checks.",
+        "combat": "Old Sonic: moved to center, actual shot reduced HP 1 to 0; observed 3-second death cooldown before transition. Tested with God Mode, one-HP bosses and autofire; no HP/victory injection.",
+        "combat_report": "docs/RELEASE_PREPARATION.md#actual-game-tests"
+      }
+    },
+    "boss_solgryn.ini": {
+      "start": "Spieltest bestanden",
+      "reset": "Spieltest bestanden",
+      "exit": "Spieltest bestanden",
+      "hacks": "Logiktest bestanden",
+      "natural": "Spieltest bestanden",
+      "evidence": {
+        "load_reset": "live-final.json",
+        "native_exit": "All configured scene pairs exercised through native C interception harness; not a natural full playthrough.",
+        "hack_scope": "All 16 combinations in offline gate checks; combined hacks in live spawn/reset checks.",
+        "combat": "Solgryn: actual multi-phase combat victory after 117 seconds; completed result reopened without game restart. Tested with God Mode, one-HP bosses and autofire; no HP/victory injection.",
+        "combat_report": "docs/RELEASE_PREPARATION.md#actual-game-tests"
+      }
+    },
+    "gastly_grass": {
+      "start": "Spieltest bestanden",
+      "reset": "Spieltest bestanden",
+      "exit": "Logiktest bestanden",
+      "hacks": "Logiktest bestanden",
+      "natural": "Offen",
+      "evidence": {
+        "load_reset": "live-final.json",
+        "native_exit": "All configured scene pairs exercised through native C interception harness; not a natural full playthrough.",
+        "hack_scope": "All 16 combinations in offline gate checks; combined hacks in live spawn/reset checks."
+      }
+    },
+    "tutorial": {
+      "start": "Spieltest bestanden",
+      "reset": "Spieltest bestanden",
+      "exit": "Logiktest bestanden",
+      "hacks": "Logiktest bestanden",
+      "natural": "Offen",
+      "evidence": {
+        "load_reset": "live-final.json",
+        "native_exit": "All configured scene pairs exercised through native C interception harness; not a natural full playthrough.",
+        "hack_scope": "All 16 combinations in offline gate checks; combined hacks in live spawn/reset checks."
+      }
+    },
+    "boss_kid_icarus": {
+      "start": "Spieltest bestanden",
+      "reset": "Spieltest bestanden",
+      "exit": "Logiktest bestanden",
+      "hacks": "Logiktest bestanden",
+      "natural": "Offen",
+      "evidence": {
+        "load_reset": "live-final.json",
+        "native_exit": "All configured scene pairs exercised through native C interception harness; not a natural full playthrough.",
+        "hack_scope": "All 16 combinations in offline gate checks; combined hacks in live spawn/reset checks."
+      }
+    },
+    "kid_icarus_after": {
+      "start": "Spieltest bestanden",
+      "reset": "Spieltest bestanden",
+      "exit": "Logiktest bestanden",
+      "hacks": "Logiktest bestanden",
+      "natural": "Offen",
+      "evidence": {
+        "load_reset": "live-final.json",
+        "native_exit": "All configured scene pairs exercised through native C interception harness; not a natural full playthrough.",
+        "hack_scope": "All 16 combinations in offline gate checks; combined hacks in live spawn/reset checks."
+      }
+    }
+  },
+  "packaging_equivalence": "Native executable/data bytes match the live-tested build after removing PE timestamps/checksum. Only the matching exact DLL hash changed in intro_guard.py; runtime hash validation remains enabled."
+}

@@ -18,18 +18,20 @@ class CompactSeeds(unittest.TestCase):
   self.assertEqual(r.route(seed,normal),r.route(*decoded))
   return code
  def test_frozen_standard_example(self):
-  code=self.roundtrip('1234ABCD',options());self.assertEqual(code,'BR3-ARI0q80AZSwBuA');self.assertEqual(len(code),18);self.assertEqual(len(old_code('1234ABCD',options())),603)
+  o=options();o['extras']=r._br3_defaults()['extras'];o.update(r.defaults(5));code=self.roundtrip('1234ABCD',o);self.assertEqual(code,'BR3-ARI0q80AZSwBuA');self.assertEqual(len(code),18);self.assertEqual(len(old_code('1234ABCD',o)),603)
+ def test_new_standard_is_still_short(self):
+  o=options();o.update(r.defaults(6));code=self.roundtrip('1234ABCD',o);self.assertEqual(code,'BR7-ARI0q80AUnkEzA');self.assertEqual(len(code),18)
  def test_seed_text_preserves_case_spaces_and_length(self):
   for seed in ('00000000','ffffffff','abcdEF12',' Seed with spaces ','x'*128,'A!z-_./?'):
    with self.subTest(seed=seed):self.roundtrip(seed,options())
  def test_legacy_option_shapes_and_versions(self):
   core=dict(difficulty=1,levels=False,items=True,characters=False)
-  for version in (None,2,3,4,5):
+  for version in (None,2,3,4,5,6,7):
    for extras in (None,1,2,3):
     o=copy.deepcopy(core)
     if version:o.update(r.defaults(version))
     if extras:
-     e=extras_defaults();e['version']=extras
+     e=r._br3_defaults()['extras'];e['version']=extras
      if extras<3:e.pop('shot_interval_seconds')
      if extras<2:
       for k in ('shot_mode','skip_intro','fast_chests'):e.pop(k)
@@ -42,7 +44,7 @@ class CompactSeeds(unittest.TestCase):
  def test_random_settings(self):
   rng=random.Random(20261013)
   for i in range(1000):
-   o=options();v=rng.choice((2,3,4,5));o.update(r.defaults(v));o['difficulty']=rng.randrange(4)
+   o=options();v=rng.choice((2,3,4,5,6,7));o.update(r.defaults(v));o['difficulty']=rng.randrange(4)
    o.update({k:bool(rng.randrange(2)) for k in ('levels','items','characters')})
    for pool,count in (('level_pool','level_count'),('boss_pool','route_boss_count')):
     o[pool]=rng.sample(o[pool],rng.randrange(len(o[pool])+1));o[count]=rng.randrange(len(o[pool])+1)

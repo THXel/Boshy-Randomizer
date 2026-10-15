@@ -52,7 +52,7 @@ def screenshot(name):
  if active is None or active.pid!=w.pid:w.activate()
  time.sleep(.3);x,y,width,height=gw.window_rect(w)
  ImageGrab.grab(bbox=(x,y,x+width,y+height)).save(BASE/'evidence'/name)
-def objects(b):
+def objects(b,*,strict=False):
  s=b.snapshot();n=s['objects']
  if not 0<n<=20000:raise RuntimeError('Unexpected object capacity')
  table=bytearray()
@@ -65,47 +65,105 @@ def objects(b):
   try:
    raw=b.read(p,160)
    result.append({'slot':i,'ptr':p,'handle':struct.unpack_from('<h',raw,0)[0],'type':struct.unpack_from('<h',raw,24)[0],'oi':struct.unpack_from('<H',raw,18)[0],'x':struct.unpack_from('<i',raw,76)[0],'y':struct.unpack_from('<i',raw,84)[0],'w':struct.unpack_from('<i',raw,96)[0],'h':struct.unpack_from('<i',raw,100)[0],'raw':raw.hex()})
-  except RuntimeError:pass
+  except RuntimeError:
+   if strict:raise
  return result
 if __name__=='__main__':
  b=Bridge();print(b.ready);print(b.snapshot());screenshot('initial.png');b.close()
 
+class IniReadInProgress(RuntimeError):
+ """The game rebuilt an INI tree during a non-atomic memory observation."""
+
+def _ini_observation(fn):
+ def read(b,*args,**kwargs):
+  before=b.snapshot()
+  try:
+   result=fn(b,*args,**kwargs)
+   confirmed=fn(b,*args,**kwargs)
+   if result!=confirmed:raise IniReadInProgress('INI contents changed during observation')
+   after=b.snapshot()
+   if (after['scene'],after['run'],after['object_list'])!=(before['scene'],before['run'],before['object_list']) or after['frame_count']<before['frame_count']:
+    raise IniReadInProgress('INI read interrupted by scene reset')
+   return result
+  except (IniReadInProgress,KeyError,StopIteration,RuntimeError):
+   b._ini_cache=None
+   raise
+ return read
+
+def ini_integer_fields(values,fields,*,required=False):
+ """Reject partial save updates before a value reaches routing or counters."""
+ result={}
+ for name in fields:
+  if name not in values:
+   if required:raise IniReadInProgress('INI numeric field not ready: '+name)
+   continue
+  value=values[name]
+  if not isinstance(value,str) or not value or len(value)>12 or not value.isascii() or not value.lstrip('+-').isdigit():
+   raise IniReadInProgress('INI numeric field changed during observation: '+name)
+  try:result[name]=int(value)
+  except ValueError as error:raise IniReadInProgress('INI numeric field changed during observation: '+name) from error
+ return result
+
+def _ini_string(b,raw,off,limit):
+ ptr,length,cap=struct.unpack_from('<III',raw,off)
+ if length>=limit or length>cap or (length and ptr<0x10000):
+  raise IniReadInProgress('INI string changed during observation')
+ return b.read(ptr,length).decode('latin1') if length else ''
+
+def _ini_nodes(b,head,limit):
+ if head<0x10000:raise IniReadInProgress('INI tree not ready')
+ root=struct.unpack('<I',b.read(head+4,4))[0];pending=[root];seen={head}
+ while pending:
+  p=pending.pop()
+  if p in seen:continue
+  if p<0x10000 or len(seen)>limit:raise IniReadInProgress('INI tree changed during observation')
+  seen.add(p);raw=b.read(p,64);left,parent,right=struct.unpack_from('<III',raw)
+  if left==parent==right==0:continue
+  yield p,raw
+  pending.extend((right,left))
+
+@_ini_observation
 def ini_groups(b,oi=109):
  known=ini_objects(b)
  obj=next((o for o in known.values() if o['oi']==oi),None)
  if obj is None:obj=next(o for o in objects(b) if o['oi']==oi)
  state=struct.unpack('<I',b.read(obj['ptr']+0x168,4))[0]
- head=struct.unpack('<I',b.read(state+0x14,4))[0]
- root=struct.unpack('<I',b.read(head+4,4))[0]
- result={};seen={head}
- def walk(p):
-  if p in seen:return
-  if len(seen)>512:raise RuntimeError('Group tree limit')
-  seen.add(p);raw=b.read(p,64)
-  left,parent,right=struct.unpack_from('<III',raw)
-  if left==parent==right==0:return
-  ptr,length,cap=struct.unpack_from('<III',raw,16)
-  assert length<200 and length<=cap
-  key=b.read(ptr,length).decode('latin1')
-  result[key]={'node':p,'raw':raw.hex()}
-  walk(left);walk(right)
- walk(root)
+ if state<0x10000:raise IniReadInProgress('INI state not ready')
+ head=struct.unpack('<I',b.read(state+0x14,4))[0];result={}
+ for p,raw in _ini_nodes(b,head,512):
+  key=_ini_string(b,raw,16,200);result[key]={'node':p,'raw':raw.hex()}
  return result
 
+def _ini_group(b,oi,name):
+ # Binary lookup of one group. ini_items still reads and compares the complete
+ # result twice, with scene/reset checks around both observations.
+ known=ini_objects(b)
+ obj=next((o for o in known.values() if o['oi']==oi),None)
+ if obj is None:obj=next(o for o in objects(b) if o['oi']==oi)
+ state=struct.unpack('<I',b.read(obj['ptr']+0x168,4))[0]
+ if state<0x10000:raise IniReadInProgress('INI state not ready')
+ head=struct.unpack('<I',b.read(state+0x14,4))[0]
+ if head<0x10000:raise IniReadInProgress('INI tree not ready')
+ node=struct.unpack('<I',b.read(head+4,4))[0];seen=set()
+ while node!=head:
+  if node<0x10000 or node in seen or len(seen)>=128:raise IniReadInProgress('INI tree changed during observation')
+  seen.add(node);raw=b.read(node,64)
+  if struct.unpack_from('<III',raw)==(0,0,0):raise KeyError(name)
+  key=_ini_string(b,raw,16,200)
+  if key==name:return raw
+  node=struct.unpack_from('<I',raw,0 if name<key else 8)[0]
+ raise KeyError(name)
+
+@_ini_observation
 def ini_items(b,group,oi=109):
- g=ini_groups(b,oi)[group];head=struct.unpack_from('<I',bytes.fromhex(g['raw']),32)[0]
- root=struct.unpack('<I',b.read(head+4,4))[0];result={};seen={head}
- def walk(p):
-  if p in seen:return
-  if len(seen)>2048:raise RuntimeError('Item tree limit')
-  seen.add(p);raw=b.read(p,64);left,parent,right=struct.unpack_from('<III',raw)
-  if left==parent==right==0:return
-  def string(off):
-   ptr,length,cap=struct.unpack_from('<III',raw,off);assert length<8192 and length<=cap
-   return b.read(ptr,length).decode('latin1')
-  key=string(16);result[key]={'value':string(48),'node':p,'raw':raw.hex()}
-  walk(left);walk(right)
- walk(root);return result
+ raw=_ini_group(b,oi,group);head=struct.unpack_from('<I',raw,32)[0];result={}
+ for p,raw in _ini_nodes(b,head,2048):
+  key=_ini_string(b,raw,16,8192);result[key]={'value':_ini_string(b,raw,48,8192),'node':p,'raw':raw.hex()}
+ values={k:v['value'] for k,v in result.items()}
+ if group=='positions':ini_integer_fields(values,('frame','xpos','ypos'),required=True)
+ elif group=='stats':ini_integer_fields(values,('difficulty','deaths','timeseconds'))
+ elif group in ('achievements','collectables'):ini_integer_fields(values,values)
+ return result
 
 def ini_objects(b):
  # Cache only object locations, never their INI contents. Validate every use.

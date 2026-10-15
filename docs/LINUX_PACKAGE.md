@@ -2,7 +2,7 @@
 
 ## Target and install
 
-Linux Mint 22.x / Ubuntu 24.04, amd64, Python 3.12, X11. Install with `sudo apt install ./boshy-randomizer_2026.10.13-2_amd64.deb` so APT resolves dependencies, including Wine and Lutris. Installing a `.deb` with `dpkg -i` alone does not fetch missing dependencies.
+Linux Mint 22.x / Ubuntu 24.04, amd64, Python 3.12, X11. Install with `sudo apt install ./boshy-randomizer_2026.10.15-1_amd64.deb` so APT resolves dependencies, including Wine and Lutris. Installing a `.deb` with `dpkg -i` alone does not fetch missing dependencies.
 
 The package ships the randomizer and its native helper binaries, **not the original game, player saves, credentials or a Wine prefix**. The first-run wizard accepts a game folder or ZIP, verifies the supported EXE hash and creates a separate copy. Unsafe archives, ambiguous game copies and unsupported executables are rejected. Existing destinations are not overwritten.
 
@@ -46,4 +46,8 @@ python3 packaging/build_deb.py dist
 
 Automated importer tests cover folder/ZIP import, original-save preservation, version rejection, path traversal, duplicate names, symlinks, size limits and existing destination protection. Wine tests cover modified-runner rejection and verified reuse without a download. Localization and loading cleanup tests remain included. These tests do not replace full gameplay runs in both modes.
 
-The fresh Mint 22.3 VM installation, ZIP import, folder import, pinned runner download a new managed run and resuming that same run after an application restart were checked. The screenshots and GIF are actual VM captures. See [release verification](RELEASE_PREPARATION.md) for scope and remaining checks. **Windows support follows in a later release.**
+The fresh Mint 22.3 VM installation, ZIP import, folder import, pinned runner download a new managed run and resuming that same run after an application restart were checked. The first-run screenshot is retained from that VM test. The 2026-10-15 menu screenshots and GIFs are new captures from the current native menu on the host. See [release verification](RELEASE_PREPARATION.md) for scope and remaining checks. **Windows support follows in a later release.**
+
+## Game and assets
+
+Supply your own copy of I Wanna Be The Boshy. The supported executable has SHA-256 `dc6a1a551254f1d1003d14c0bf58f639a7ea94f99f74b5c635ddaf9bc4ec0806`; other versions are rejected before installation. Original game by Solgryn / Grynsoft. Existing attribution in [Custom/License.txt](../Custom/License.txt) remains applicable. The randomizer does not grant rights to original game or third-party artwork. Music, intro scenery and spider assets are extracted from the verified local game during setup and are not bundled as game files.

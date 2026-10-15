@@ -32,7 +32,24 @@ class MenuGame:
    self.close();raise
  def header(self):return struct.unpack('<16I',self.bridge.read(self.address,64))
  def write(self,off,value):self.bridge.cmd(f'menu {self.address:x} {off} {int(value)}')
+ def select_slot(self,slot):
+  if slot not in (1,2,3):raise ValueError('Ungültiger Speicherplatz.')
+  from lab import key
+  for _ in range(3):
+   h=self.header()
+   if h[7]!=0 or h[15]!=1:raise RuntimeError('Speicherplatzauswahl ist nicht geöffnet.')
+   if h[9]==slot:return
+   key('Right' if (slot-h[9])%3==1 else 'Left')
+   end=time.monotonic()+.7
+   while time.monotonic()<end:
+    h=self.header()
+    if h[7]!=0:raise RuntimeError('Speicherplatzauswahl hat sich geändert.')
+    if h[9]==slot:return
+    time.sleep(.025)
+  raise RuntimeError('Gewählter Speicherplatz wurde nicht bestätigt.')
  def events(self):
+  from menu_navigation import dismiss_startup_notice
+  if dismiss_startup_notice():return []
   try:h=self.header()
   except RuntimeError as e:
    if e.args and isinstance(e.args[0],dict) and e.args[0].get('error')=='state unavailable':return []

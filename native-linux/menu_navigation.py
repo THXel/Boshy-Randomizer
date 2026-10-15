@@ -1,6 +1,18 @@
 """Load exactly the selected original slot, waiting for native menu acknowledgements."""
-import time,struct
-from lab import key
+import time,struct,subprocess
+from lab import key,game_window
+
+def dismiss_startup_notice():
+ """Close only Boshy's obsolete informational character notice, never other apps."""
+ from PY.platform_windows import getAllWindows
+ try:game=game_window()
+ except RuntimeError:return False
+ closed=False
+ for window in getAllWindows():
+  if window.pid==game.pid and window.title=='Playable characters' and window.isVisible:
+   subprocess.run(['wmctrl','-ic',hex(window._hWnd)],check=True,timeout=2)
+   closed=True
+ return closed
 
 def header(bridge,address):
  h=struct.unpack('<16I',bridge.read(address,64))
@@ -15,6 +27,7 @@ def load_slot(bridge,address,slot,cancel=None):
   while time.monotonic()<end:
    if cancel and cancel.is_set():raise RuntimeError('Start abgebrochen.')
    try:
+    if dismiss_startup_notice():time.sleep(.05);continue
     snap=bridge.snapshot();h=header(bridge,address);last=(snap.get('scene'),h[7],h[9])
     if predicate(snap,h):return snap,h
     if retry and time.monotonic()>=next_key:

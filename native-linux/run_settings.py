@@ -6,13 +6,16 @@ from native_targets import BOSSES as LEGACY_BOSSES
 LEGACY_LEVELS = dict(zip(ROOMS, ('Prehistorik','Green Greens','Cheetahmen II','VVVVVV','Wario','Castlevania','Milons Secret Castle','Metal Gear','Megaman','Kid Icarus','Ninja Gaiden','Desert')))
 V4_LEVELS={**LEGACY_LEVELS,'tutorial':'Tutorial','save14.ini':'Secret Mario','save17.ini':'Justin.tv','save19.ini':'Pokémon','save20.ini':'Tower','save21.ini':'World of Warcraft','save18.ini':'Final Path (Terranigma)'}
 NEW_LEVELS={'save23.ini':'Green Greens · nach Kracko','save22.ini':'Ninja Gaiden · nach Ryu'}
-LEVELS={**V4_LEVELS,**NEW_LEVELS}
-def level_catalogue(version):return LEVELS if version>=5 else V4_LEVELS if version>=4 else LEGACY_LEVELS
+V5_LEVELS={**V4_LEVELS,**NEW_LEVELS}
+NEW_LEVELS={**NEW_LEVELS,'kid_icarus_after':'Kid Icarus · nach Miniboss'}
+V6_LEVELS={**V5_LEVELS,'save12.ini':'Kid Icarus · vor Miniboss','kid_icarus_after':NEW_LEVELS['kid_icarus_after']}
+LEVELS={**V6_LEVELS,'save9.ini':'Random World · Teil 1','save10.ini':'Random World · Teil 2'}
+def level_catalogue(version):return LEVELS if version>=7 else V6_LEVELS if version>=6 else V5_LEVELS if version>=5 else V4_LEVELS if version>=4 else LEGACY_LEVELS
 ADVANCED_PAGE_SIZE=13
 ADVANCED_PAGES=(max(len(LEVELS),len(BOSSES))+ADVANCED_PAGE_SIZE-1)//ADVANCED_PAGE_SIZE
 ADVANCED = {'route_version','level_pool','boss_pool','level_count','route_boss_count','start_character'}
 
-def defaults(version=5):
+def defaults(version=7):
     return dict(route_version=version, level_pool=list(level_catalogue(version)), boss_pool=list(catalogue({"route_version":version})), level_count=7, route_boss_count=7, start_character='Auto')
 
 def normalize(options):
@@ -26,7 +29,7 @@ def normalize(options):
     d=normalize_core(raw,extra.get('route_version',1))
     if hacks is not None:d['extras']=hacks
     if not extra:return d  # Existing manifests retain their exact binding.
-    if set(extra)!=ADVANCED or extra['route_version'] not in (2,3,4,5):raise ValueError('Unbekannte Routen-Version.')
+    if set(extra)!=ADVANCED or extra['route_version'] not in (2,3,4,5,6,7):raise ValueError('Unbekannte Routen-Version.')
     for key,valid in [('level_pool',level_catalogue(extra['route_version'])),('boss_pool',catalogue(extra))]:
         values=extra[key]
         if not isinstance(values,list) or any(type(v) is not str or v not in valid for v in values) or len(values)!=len(set(values)):raise ValueError('Ungültige Level-/Boss-Auswahl.')
@@ -39,7 +42,7 @@ def normalize(options):
     return {**d,**extra}
 
 def route(seed, options):
-    if options.get('route_version') not in (2,3,4,5) or options.get('mode')=='target':return []
+    if options.get('route_version') not in (2,3,4,5,6,7) or options.get('mode')=='target':return []
     def pick(values,n,kind):
         return sorted(values,key=lambda v:hashlib.sha256(f'{seed}\0route-v{options["route_version"]}\0{kind}\0{v}'.encode()).digest())[:n]
     levels=pick(options['level_pool'],options['level_count'],'level')
@@ -98,6 +101,19 @@ def _br3_defaults():
                 route_version=5,level_pool=list(_BR3_LEVELS),boss_pool=list(_BR3_BOSSES),level_count=7,route_boss_count=7,start_character='Auto',
                 extras=dict(version=3,shot_mode='off',shot_interval_seconds=300,**{k:i<2 for i,k in enumerate(_BR3_EXTRAS)}))
 
+def _compact_tables(version):
+    if version==3:return _BR3_LEVELS,_BR3_BOSSES
+    return (*_BR3_LEVELS,'kid_icarus_after'),(*_BR3_BOSSES,'kid_icarus')
+
+def _compact_defaults(version):
+    result=_br3_defaults()
+    if version in (4,6,7):
+        levels,bosses=_compact_tables(version)
+        result.update(route_version=6,level_pool=sorted(levels),boss_pool=sorted(bosses))
+    if version>=6:result['extras'].update(version=4,music=False)
+    if version==7:result['extras'].update(version=5,spider=True)
+    return result
+
 def _seed_text(seed):
     seed=str(seed)
     if not seed or len(seed)>128 or any(ord(c)<32 or ord(c)>126 for c in seed):raise ValueError('Seed: 1–128 druckbare Zeichen verwenden.')
@@ -133,11 +149,12 @@ def _seed_mask(values,table):
 
 def _seed_pool(mask,table):
     if mask>>len(table):raise ValueError('Unknown seed catalogue bit')
-    return [v for i,v in enumerate(table) if mask&(1<<i)]
+    return sorted(v for i,v in enumerate(table) if mask&(1<<i))
 
-def encode(seed,options):
+def _encode_compact(seed,options,version):
     """Lossless offline share code. Only differences from frozen defaults travel."""
-    seed=_seed_text(seed);settings=normalize(options);baseline=_br3_defaults()
+    seed=_seed_text(seed);settings=normalize(options);baseline=_compact_defaults(version)
+    levels,bosses=_compact_tables(version)
     present=sum(1<<i for i,k in enumerate(_BR3_KEYS) if k in settings)
     changed=sum(1<<i for i,k in enumerate(_BR3_KEYS) if k in settings and settings[k]!=baseline[k])
     hex_seed=len(seed)==8 and all(c in '0123456789ABCDEF' for c in seed)
@@ -151,31 +168,35 @@ def encode(seed,options):
         value=settings[k]
         if k in ('levels','items','characters'):continue # Changed boolean is its inverse.
         if k=='mode':payload.append(int(value=='target'))
-        elif k in ('level_pool','boss_pool'):payload.extend(_varuint(_seed_mask(value,_BR3_LEVELS if k=='level_pool' else _BR3_BOSSES)))
+        elif k in ('level_pool','boss_pool'):payload.extend(_varuint(_seed_mask(value,levels if k=='level_pool' else bosses)))
         elif k=='start_character':payload.extend(_seed_string(value))
         elif k=='extras':
-            version=value['version'];payload.append(version)
-            rows=_BR3_EXTRAS[:7] if version==1 else _BR3_EXTRAS
+            extra_version=value['version'];payload.append(extra_version)
+            rows=_BR3_EXTRAS[:7] if extra_version==1 else (*_BR3_EXTRAS,'music','spider') if extra_version>=5 else (*_BR3_EXTRAS,'music') if extra_version>=4 else _BR3_EXTRAS
             payload.extend(_varuint(sum(1<<j for j,key in enumerate(rows) if value[key])))
-            if version>=2:payload.append(_BR3_SHOTS.index(value['shot_mode']))
-            if version>=3:payload.extend(_varuint(0 if value['shot_interval_seconds']==300 else value['shot_interval_seconds']))
+            if extra_version>=2:payload.append(_BR3_SHOTS.index(value['shot_mode']))
+            if extra_version>=3:payload.extend(_varuint(0 if value['shot_interval_seconds']==300 else value['shot_interval_seconds']))
         else:payload.extend(_varuint(value))
-    payload.extend(hashlib.sha256(b'BR3\0'+payload).digest()[:4])
-    return 'BR3-'+base64.urlsafe_b64encode(payload).decode().rstrip('=')
+    payload.extend(hashlib.sha256(f'BR{version}\0'.encode()+payload).digest()[:4])
+    return f'BR{version}-'+base64.urlsafe_b64encode(payload).decode().rstrip('=')
+
+def encode(seed,options):
+    return _encode_compact(seed,options,7 if options.get('extras',{}).get('version',0)>=5 else 6 if options.get('extras',{}).get('version',0)>=4 else 4 if options.get('route_version',1)>=6 else 3)
 
 def _decode_compact(code):
+    version=int(code[2]);levels,bosses=_compact_tables(version)
     try:
         if len(code)>1024:raise ValueError()
         body=code[4:];packet=base64.b64decode(body+'='*(-len(body)%4),altchars=b'-_',validate=True)
         if len(packet)<6:raise ValueError()
         payload,checksum=packet[:-4],packet[-4:]
-        if hashlib.sha256(b'BR3\0'+payload).digest()[:4]!=checksum:raise ValueError()
+        if hashlib.sha256(f'BR{version}\0'.encode()+payload).digest()[:4]!=checksum:raise ValueError()
         r=_SeedReader(payload);flags=r.take(1)[0]
         if flags&~3:raise ValueError()
         seed=r.take(4).hex().upper() if flags&1 else r.text();_seed_text(seed)
         full=(1<<len(_BR3_KEYS))-1;present=r.number() if flags&2 else full;changed=r.number()
         if present&~full or changed&~present:raise ValueError()
-        baseline=_br3_defaults();settings={k:baseline[k] for i,k in enumerate(_BR3_KEYS) if present&(1<<i)}
+        baseline=_compact_defaults(version);settings={k:baseline[k] for i,k in enumerate(_BR3_KEYS) if present&(1<<i)}
         for i,k in enumerate(_BR3_KEYS):
             if not changed&(1<<i):continue
             if k in ('levels','items','characters'):value=not baseline[k]
@@ -183,16 +204,16 @@ def _decode_compact(code):
                 mode=r.take(1)[0]
                 if mode not in (0,1):raise ValueError()
                 value=('randomizer','target')[mode]
-            elif k in ('level_pool','boss_pool'):value=_seed_pool(r.number(),_BR3_LEVELS if k=='level_pool' else _BR3_BOSSES)
+            elif k in ('level_pool','boss_pool'):value=_seed_pool(r.number(),levels if k=='level_pool' else bosses)
             elif k=='start_character':value=r.text()
             elif k=='extras':
-                version=r.take(1)[0]
-                if version not in (1,2,3):raise ValueError()
-                rows=_BR3_EXTRAS[:7] if version==1 else _BR3_EXTRAS;mask=r.number()
+                extra_version=r.take(1)[0]
+                if extra_version not in ((1,2,3,4,5) if version==7 else (1,2,3,4) if version==6 else (1,2,3)):raise ValueError()
+                rows=_BR3_EXTRAS[:7] if extra_version==1 else (*_BR3_EXTRAS,'music','spider') if extra_version>=5 else (*_BR3_EXTRAS,'music') if extra_version>=4 else _BR3_EXTRAS;mask=r.number()
                 if mask>>len(rows):raise ValueError()
-                value=dict(version=version,**{key:bool(mask&(1<<j)) for j,key in enumerate(rows)})
-                if version>=2:value['shot_mode']=_BR3_SHOTS[r.take(1)[0]]
-                if version>=3:value['shot_interval_seconds']=r.number() or 300
+                value=dict(version=extra_version,**{key:bool(mask&(1<<j)) for j,key in enumerate(rows)})
+                if extra_version>=2:value['shot_mode']=_BR3_SHOTS[r.take(1)[0]]
+                if extra_version>=3:value['shot_interval_seconds']=r.number() or 300
             else:value=r.number()
             settings[k]=value
         if r.at!=len(payload):raise ValueError()
@@ -204,4 +225,7 @@ def _decode_compact(code):
 
 def decode(value,options=None):
     value=str(value).strip()
-    return _decode_compact(value) if value.startswith('BR3-') else _decode_legacy(value,options)
+    if value.startswith('BR5-'):
+        from seed_share import unpack
+        value,_=unpack(value)
+    return _decode_compact(value) if value.startswith(('BR3-','BR4-','BR6-','BR7-')) else _decode_legacy(value,options)

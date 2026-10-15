@@ -1,6 +1,78 @@
 {
   "entries": [
     {
+      "date": "2026-10-15",
+      "title": "Recent improvements",
+      "lines": [
+        "Rare spider surprise: optional, enabled for new runs.",
+        "Random attacks every 5\u201330 gameplay minutes, including bosses.",
+        "Music information in the tracker and faster state reads."
+      ]
+    },
+    {
+      "date": "2026-10-15",
+      "title": "Music shuffle and direct exits",
+      "lines": [
+        "Optional shared music pool: 45 level and boss tracks.",
+        "Music choices travel with the seed; default is OFF.",
+        "Direct room exits keep arrival and reset protection."
+      ]
+    },
+    {
+      "date": "2026-10-15",
+      "title": "Recent improvements",
+      "lines": [
+        "Animated intro scenery and clearer menu text.",
+        "Mouse and keyboard menus in five languages.",
+        "Safer settings, resets, stage splits and debug reports."
+      ]
+    },
+    {
+      "date": "2026-10-15",
+      "title": "Randomized native intro",
+      "lines": [
+        "Gentle clouds, stars and desert dust behind the menu.",
+        "Theme-aware shading keeps text readable and steady.",
+        "Original platform shapes, timing and seeds stay intact."
+      ]
+    },
+    {
+      "date": "2026-10-15",
+      "title": "Menu navigation and shot-style controls",
+      "lines": [
+        "Hover highlights choices; arrows move without changing settings.",
+        "Confirm with Enter or click. Tab, Shift+Tab and page keys navigate.",
+        "Choose timed, spot, death or combined shot-style changes directly."
+      ]
+    },
+    {
+      "date": "2026-10-15",
+      "title": "Stability and diagnostic reports",
+      "lines": [
+        "Protected transitions with automatic pause release.",
+        "Automatic error reports and per-spot test evidence.",
+        "Completed saves open their run results directly."
+      ]
+    },
+    {
+      "date": "2026-10-14",
+      "title": "Random World in two parts",
+      "lines": [
+        "Choose both sections separately in Advanced.",
+        "Crossing into part 2 now completes part 1.",
+        "Arrival and reset protection; existing seeds keep their rules."
+      ]
+    },
+    {
+      "date": "2026-10-14",
+      "title": "Kid Icarus and safer resets",
+      "lines": [
+        "Kid Icarus: approach, miniboss and final section.",
+        "Boss completion waits for every fragment and the open exit.",
+        "Reset-time memory reads retry safely; existing runs keep their rules."
+      ]
+    },
+    {
       "date": "2026-10-13",
       "title": "Five UI languages",
       "lines": [

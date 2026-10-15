@@ -1,64 +1,70 @@
-# Boshy Randomizer
+# Boshy, reborn.
 
-[Linux download — 2026.10.13 RC1](https://github.com/THXel/Boshy-Randomizer/releases/tag/v2026.10.13-rc1) · [DEB](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.13-rc1/boshy-randomizer_2026.10.13-2_amd64.deb)
+[English](README/README_EN.md) · [Deutsch](README/README_DE.md) · [Русский](README/README_RU.md) · [Español](README/README_ES.md) · [日本語](README/README_JP.md)
 
-[Deutsch](README/README_DE.md) · [Русский](README/README_RU.md) · [Español](README/README_ES.md) · [日本語](README/README_JP.md)
+**Rediscover Boshy. A new adventure with every seed.**
 
-![Boshy Randomizer](Custom/boshy_randomizer.png)
+Dust off *I Wanna Be The Boshy* and take a different path through its worlds, bosses and secrets. Build a shuffled adventure, chase a random checklist, share your seed with friends—or let a few optional surprises turn a familiar game upside down.
 
-A fan-made randomizer for **I Wanna Be The Boshy**, created by **THXel and the Boshy speedrunning community**. Original game by Solgryn / Grynsoft.
+[Download Linux DEB](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.15/boshy-randomizer_2026.10.15-1_amd64.deb) · [Release & checksums](https://github.com/THXel/Boshy-Randomizer/releases/tag/v2026.10.15)
 
-## Linux package
+**Linux Mint 22.x / Ubuntu 24.04 · amd64 · X11**
+**The updated Windows version is coming later.** Old Windows downloads are the legacy randomizer, not this release.
 
-The current version integrates run setup into the **original animated game menu**. The Debian package targets **Linux Mint 22.x / Ubuntu 24.04, amd64, X11**. **The updated Windows version will follow.** The Windows executables in the repository root belong to the legacy version.
+![The original animated menu, reimagined](docs/media/rediscover-intro.gif)
 
-Install the downloaded package using your graphical package manager, or:
+## Choose your adventure
 
-```sh
-sudo apt install ./boshy-randomizer_2026.10.13-2_amd64.deb
-```
+| Mode | Your run |
+| --- | --- |
+| **Randomizer** | Shuffle level and boss destinations. Mix items and characters across chests. Choose your route pools in Advanced; the recommended setup uses seven levels and seven bosses. |
+| **Target Select** | Chase a randomly chosen item list with an adjustable size and optional boss goals. Positions change; items stay at their original locations. Reach Solgryn after completing your goals. |
 
-APT installs Wine, Lutris and the required desktop/Python libraries. Launch **Boshy Randomizer** from the applications menu. At first launch:
+Three independent save slots keep each run's progress and character unlocks separate. Configure a new run inside the original game menu; resume an occupied slot where you left off. Compact **share codes** carry the seed and run settings, with an import preview and validation.
 
-1. Select your Boshy game **folder or ZIP**. The original game is **not included or downloaded**.
-2. Setup verifies the supported executable and copies it into a separate randomizer installation. Original saves, profiles and settings are not imported or changed.
-3. Setup automatically downloads the pinned **Wine Staging 11.2 WoW64** runner (about 72 MiB), verifies its SHA-256 and prepares a private Wine prefix. An identical existing Lutris runner is reused. Internet access is required for dependencies and the initial Wine download.
-4. Choose one of three save slots and configure your run in the game menu.
+## Familiar game. New possibilities.
 
-Boshy runs with DXVK, Esync and Fsync disabled, matching the working reference setup. Lutris does not need to remain open. Runtime files and saves live in `~/.local/share/boshy-randomizer/`; the runner lives under `~/.local/share/lutris/runners/wine/`. Removing the Debian package preserves these user files. This package does not automatically migrate a previous development installation.
+- **45 selectable route points**, including split stages, minibosses and beta encounters such as Ridley, Questionmark and Old Sonic. Transitions use game state instead of pixel matching.
+- Optional character changes and randomized **projectiles plus firing effects**: per spot, per death, both, or a random interval with an editable time limit.
+- Optional **music shuffle** across a combined pool of 45 level and boss tracks.
+- Randomized intro characters, scenery and subtle effects on a new launch. Cosmetic changes do not change your seed.
+- Advanced hacks: suppress disruptive item pop-ups, disable the mouse ghost, skip boss intros, shorten chest animations, autofire, one-HP bosses and God Mode.
+- A rare **spider surprise**, enabled for new runs, can strike without warning after 5–30 active gameplay minutes—even in boss rooms. Turn it off under **Advanced → Hacks** and apply: that preference is remembered for future runs. Existing saves retain their settings; imported seeds carry their own choices.
+- A separate compact live tracker, copy-seed button, collectible icons and run results after Solgryn. **Ctrl+Alt+D** opens optional diagnostics and exportable recordings.
 
-## Screenshots
+![Tour of run settings, Advanced, shot styles, hacks and seeds](docs/media/rediscover-menu-tour.gif)
 
-Actual captures from the Linux Mint test VM (German UI). Its limited VM resources are not representative of gameplay performance.
+## Install & play
 
-![First-run game import](docs/media/linux-first-run.png)
-![Native menu and save setup](docs/media/linux-native-menu.gif)
-![Game with separate live tracker](docs/media/linux-run-tracker.png)
-
-## Features
-
-- Three independent saves, per-run character profiles, save summaries and deletion with a backup.
-- **Randomizer:** engine-state level/boss transitions, advanced route pools and mixed item/character rewards.
-- **Target Select:** random item goals with configurable count and optional boss goals; original item placements, randomized positions and a final Solgryn fight.
-- Portable **BR3 seeds** (BR2 import supported) include run settings and can be copied or pasted from the game menu and tracker.
-- Optional character randomization and projectile/effect randomization on transitions, deaths or configurable random time intervals.
-- Advanced comfort/training options, original game options, end-of-run results and a separate compact live tracker.
-- Optional **Ctrl+Alt+D debug window** with live state, test actions and exportable recordings.
-- Automatic English, German, Russian, Spanish and Japanese UI; unsupported languages fall back to English. **Update logs always stay English.**
-
-Original game text/artwork, item/character names and canonical difficulty names remain unchanged. Language does not affect seeds or rules. The external PinguLexa/OBS integration is maintained separately and is not installed by this package.
-
-## Development
-
-Current source: [`native-linux/`](native-linux/). Build and test instructions, dependency provenance and verification status: [Linux packaging](docs/LINUX_PACKAGE.md) and [release preparation](docs/RELEASE_PREPARATION.md).
+1. Download the DEB above. Close the randomizer before updating.
+2. Open it with your package manager, or run:
 
 ```sh
-python3 -m unittest discover -s native-linux/tests -v
-python3 -m compileall -q native-linux
+sudo apt install ./boshy-randomizer_2026.10.15-1_amd64.deb
 ```
 
-See also [localization](docs/LOCALIZATION.md), [changelog](CHANGELOG.md) and [legacy Windows documentation](docs/LEGACY_WINDOWS_README.md).
+3. Launch **Boshy Randomizer** from your applications menu.
+4. On first launch, select your own supported Boshy **folder or ZIP**. Setup copies the game into a private installation; it does not import or alter your original saves.
+5. Choose a slot, configure your run and play.
 
-## Game and assets
+**The original game is not included.** APT installs Wine, Lutris and the required libraries. First launch downloads and verifies the pinned Wine Staging 11.2 WoW64 runner, or reuses an identical installed runner. Internet is needed for dependencies and initial setup; Lutris does not need to remain open.
 
-The importer accepts the supported executable with SHA-256 `dc6a1a551254f1d1003d14c0bf58f639a7ea94f99f74b5c635ddaf9bc4ec0806`. Other versions are rejected before installation. Supply your own compatible game copy. Preserve the existing attribution in [Custom/License.txt](Custom/License.txt); this project does not add a license grant for the original game or third-party art.
+Data lives in `~/.local/share/boshy-randomizer/`. Package updates and removal preserve user saves. Development installations are not automatically migrated. See [installation details](docs/LINUX_PACKAGE.md).
+
+## Your language, your run
+
+The interface detects **English, German, Russian, Spanish or Japanese** from the system, with English fallback. Update logs stay in English; original game dialogue, artwork and character names retain their original language.
+
+![Current English run setup](docs/media/setup-en.png)
+
+## Tested—and clear about the limits
+
+180 automated tests pass. All 45 points were loaded and reset in-game; natural combat exits were additionally checked for Questionmark, Ridley, Old Sonic and Solgryn with training hacks enabled. Spider timing, save/resume and the completed-run screen were checked in the real game. This does **not** mean every complete route or hack combination has been played through. [Verification details](docs/RELEASE_PREPARATION.md).
+
+## Community & development
+
+A fan project by **THXel and the Boshy speedrunning community**. Original game by **Solgryn / Grynsoft**. Thank you for keeping Boshy alive.
+
+[Changelog](CHANGELOG.md) · [Build instructions](docs/LINUX_PACKAGE.md#building) · [Localization](docs/LOCALIZATION.md) · [Report an issue](https://github.com/THXel/Boshy-Randomizer/issues)
+
+The current source is in `native-linux/`. PinguLexa/OBS integration is maintained separately and is not installed by this package. Supply your own compatible game copy; see [supported executable and asset credits](docs/LINUX_PACKAGE.md#game-and-assets). Existing [asset attribution](Custom/License.txt) remains in effect.

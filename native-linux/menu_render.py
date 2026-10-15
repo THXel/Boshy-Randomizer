@@ -54,16 +54,21 @@ class Renderer:
    if m.page=='new':self.new(m)
    elif m.page=='advanced':self.advanced(m)
    elif m.page=='extras':self.extras(m)
+   elif m.page=='choice':self.choice_dialog(m)
+   elif m.page=='shots':self.shots_dialog(m)
    elif m.page=='interval':self.interval_dialog(m)
    elif m.page=='presets':self.presets(m)
    elif m.page=='result':self.result(m)
    elif m.page=='seed':self.seed_dialog(m)
+   elif m.page=='seed_preview':self.seed_preview(m)
+   elif m.page=='discard':self.discard_dialog(m)
    elif m.page=='characters':self.characters(m)
    elif m.page=='delete':
     self.text(258,284,tr('Speicherplatz {0} löschen?', str(m.slot)),22);self.wrap(258,348,tr('Nur dieser Spielstand wird gelöscht. Eine Sicherung bleibt erhalten.'),568,16)
     self.box((255,530,525,578),m.focus==0);self.text(312,543,tr('Abbrechen'),17);self.box((550,530,850,578),m.focus==1);self.text(606,543,tr('Löschen'),17)
    elif m.page=='targets':self.targets(m)
    else:self.text(263,306,tr('Lauf wird geladen …'),22)
+  self.context_help(m)
   tmp=self.base/'menu-runtime/frame-next.bmp';self.im.save(tmp);os.replace(tmp,self.base/'menu-runtime/frame.bmp');m.dirty=False
  def updates(self,width=251):
   self.d.rectangle((0,266,285,660),fill='#111b25')
@@ -83,7 +88,9 @@ class Renderer:
   self.d.line((17,632,268,632),fill='#3c5362');self.text(17,643,'Randomizer changelog.',10,'#91a7b7')
  def overview(self,m):
   s=m.saves[m.slot];self.box((322,268,870,364))
-  self.text(335,277,f"{m.slot}  ·  "+self.fit(s['location'] if s['exists'] else tr('Neuer Spielstand'),480,19),19)
+  self.text(335,277,f"{m.slot}  ·  "+self.fit(s['location'] if s['exists'] else tr('Neuer Spielstand'),370,19),19)
+  for i in range(3):
+   x=742+i*40;self.box((x,274,x+36,299),m.focus==i+3);self.text(x+13,279,str(i+1),13,'#92ee92' if m.slot==i+1 else 'white')
   if s['exists']:
    mode='Target Select' if s.get('settings',{}).get('mode')=='target' else 'Randomizer' if s.get('managed') else tr('Originaler Spielstand')
    self.text(335,305,self.fit(mode+'  ·  '+s['difficulty_name']+'  ·  '+s['character'],521,12),12,'#c3d2dc')
@@ -127,25 +134,50 @@ class Renderer:
    y=299+i*25;self.box((245,y,856,y+23),m.focus==i);self.text(255,y+4,self.fit(label,221,12),12);self.text(486,y+4,self.fit(value,358,12),12,'#92ee92')
   self.text(252,378,tr('LEVEL IM SEED-POOL'),12);self.text(556,378,tr('BOSSE'),12)
   self.text(666,378,f'{m.advanced_page+1} / {ADVANCED_PAGES}',12)
-  self.box((751,374,791,395),False);self.text(764,377,'<',12)
-  self.box((799,374,845,395),False);self.text(815,377,'>',12)
+  self.box((751,374,791,395),m.focus==len(LEVELS)+len(ROUTE_BOSSES)+5);self.text(764,377,'<',12)
+  self.box((799,374,845,395),m.focus==len(LEVELS)+len(ROUTE_BOSSES)+6);self.text(815,377,'>',12)
   entries=[(k,n,'level_pool') for k,n in LEVELS.items()]+[(k,v[0],'boss_pool') for k,v in ROUTE_BOSSES.items()]
   for i,(key,name,pool) in enumerate(entries):
    col=0 if i<len(LEVELS) else 1;row=i if col==0 else i-len(LEVELS)
    if row//ADVANCED_PAGE_SIZE!=m.advanced_page:continue
    row%=ADVANCED_PAGE_SIZE;x=249+col*304;y=399+row*15
-   if m.focus==i+3:self.d.rectangle((x,y,x+292,y+14),fill='#183f1c')
+   if m.focus==i+3:self.d.rectangle((x,y,x+292,y+14),fill='#244342',outline='#8cddc6')
    self.text(x+3,y+1,self.fit(('✓ ' if key in o[pool] else '– ')+str(display(name)),284,11),11,'#92ee92' if key in o[pool] else '#929292')
+  self.text(252,595,self.fit(m.message or tr('Pfeile: bewegen · Enter/Klick: ändern · Bild ↑/↓: Seite · Esc: zurück'),595,10),10,'#ffcf75' if m.message else '#b3c3ce')
   self.box((245,608,548,642),m.focus==len(entries)+3);self.text(260,618,tr('Fertig · Auswahl übernehmen'),12)
   self.box((558,608,856,642),m.focus==len(entries)+4);self.text(573,618,tr('Hacks · Pop-ups, Mausgeist & mehr'),12)
  def extras(self,m):
   self.text(252,265,tr('Advanced · Hacks für diesen Lauf'),20)
   for i,(key,label,hint,default) in enumerate(EXTRAS):
-   y=293+i*33;active=m.options.get('extras',{}).get(key,False)
-   self.box((245,y,856,y+31),m.focus==i);self.text(257,y+2,label,12)
+   y=293+i*28;active=m.options.get('extras',{}).get(key,False)
+   self.box((245,y,856,y+27),m.focus==i);self.text(257,y+2,label,12)
    self.text(794,y+2,tr('AN') if active else tr('AUS'),13,'#92e4cd' if active else '#a8bdc9')
-   self.text(257,y+17,self.fit(hint,584,10),10,'#b3c3ce')
-  self.box((245,608,856,642),m.focus==len(EXTRAS));self.text(260,618,tr('Zurück · Alle Extras werden im geteilten Seed gespeichert.'),12)
+   self.text(257,y+15,self.fit(hint,584,10),10,'#b3c3ce')
+  self.box((245,608,856,642),m.focus==len(EXTRAS));self.text(260,618,tr('Fertig · Auswahl übernehmen') if m.extras_parent=='new' else tr('Zurück · Alle Extras werden im geteilten Seed gespeichert.'),12)
+ def choice_dialog(self,m):
+  from menu_controls import controls
+  self.text(252,265,tr(m.choice_title),20)
+  self.text(253,291,tr('Pfeile/Tab: Auswahl · Enter/Klick: übernehmen · Esc: abbrechen'),11,'#b3c3ce')
+  for i,rect in controls(m):
+   self.box(rect,m.focus==i)
+   if i==len(m.choice_values):self.text(rect[0]+18,rect[1]+10,tr('Abbrechen'),14);continue
+   value,label=m.choice_values[i];selected=value==m.options[m.choice_name]
+   label=('✓ ' if selected else '')+str(display(label))
+   self.text(rect[0]+12,rect[1]+11,self.fit(Localized(label),rect[2]-rect[0]-22,14),14,'#92ee92' if selected else 'white')
+ def shots_dialog(self,m):
+  from menu_controls import controls
+  self.text(252,265,tr('Schussstil · Projektil & Schusseffekt'),20)
+  mode=m.options.get('extras',{}).get('shot_mode','off');seconds=m.options.get('extras',{}).get('shot_interval_seconds',300)
+  labels=['AUS','Zufällige Wartezeit','Nach jedem Spot','Nach jedem Tod','Nach Tod & Spot']
+  for i,rect in controls(m):
+   self.box(rect,m.focus==i)
+   if i<5:
+    chosen=SHOT_MODES[i]==mode;label=('✓ ' if chosen else '')+str(tr(labels[i]));color='#92ee92' if chosen else 'white'
+   elif i==5:label=tr('Zeitgrenze einstellen · {0}:{1}',str(seconds//60),f'{seconds%60:02d}');color='white'
+   else:label=tr('Zurück');color='white'
+   self.text(rect[0]+16,rect[1]+10,Localized(label),14,color)
+  self.text(253,574,tr('Spot = jeder Randomizer-Übergang. Zeitgrenze gilt nur im Zeitmodus.'),11,'#b3c3ce')
+  self.text(253,590,tr('Pfeile/Tab: Auswahl · Enter/Klick: aktivieren · Esc: zurück'),10,'#b3c3ce')
  def seed_dialog(self,m):
   valid=False
   self.text(252,265,tr('Seed · teilen und einfügen'),20)
@@ -156,7 +188,7 @@ class Renderer:
    self.text(253,296,self.fit(mode+' · '+DIFFICULTIES[o['difficulty']]+' · '+details,596,11),11,'#92ee92')
    self.text(253,313,self.fit(tr('Start: ')+o['start_character']+tr(' / Charakterwechsel: ')+(tr('AN') if o['characters'] else tr('AUS'))+tr(' / Items: ')+(tr('AN') if o['items'] else tr('AUS')),596,10),10)
    valid=True
-  except ValueError:self.text(253,299,tr('Vollständigen BR3-/BR2-Seed einfügen oder neu generieren.'),12)
+  except ValueError:self.text(253,299,tr('Vollständigen geteilten Seed einfügen oder neu generieren.'),12)
   field,buttons=seed_layout(m.seed_text);compact=len(m.seed_text)<=180
   if compact:
    self.text(253,334,tr('Teilbarer Seed-Code'),12,'#b3c3ce')
@@ -178,9 +210,13 @@ class Renderer:
    self.text(x,y,Localized(line),size);y+=size+4
   for i,(left,right,label) in enumerate(((251,443,tr('Neu generieren')),(455,647,tr('Kopieren')),(659,851,tr('Einfügen'))),1):
    self.box((left,buttons[0],right,buttons[1]),m.focus==i);self.text(left+13,buttons[0]+10,label,13)
-  if compact:self.wrap(253,505,tr('Dieser Code enthält den Seed und alle Laufeinstellungen.') if valid else tr('Code unvollständig oder ungültig.'),595,12,'#92ee92' if valid else '#ffcf75')
+  if compact:
+   from seed_share import compatibility,version_text
+   info=compatibility(m.seed_text,self.base) if valid else {}
+   label=tr('Export version: {0} · Current: {1}',version_text(info.get('release')),version_text(info.get('current'))) if valid else tr('Code unvollständig oder ungültig.')
+   self.wrap(253,505,label,595,12,'#92ee92' if valid else '#ffcf75')
   self.wrap(253,544,m.message or tr('Strg+A: Text markieren · Strg+V: Einfügen · Strg+C: Kopieren. Übernehmen lädt Seed und Einstellungen; Esc verwirft den Entwurf.'),595,11,'#ffcf75' if m.message else '#dddddd')
-  self.box((251,604,546,640),m.focus==4);self.text(327,615,tr('Übernehmen'),14)
+  self.box((251,604,546,640),m.focus==4);self.text(327,615,tr('Preview'),14)
   self.box((558,604,851,640),m.focus==5);self.text(646,615,tr('Abbrechen'),14)
  def characters(self,m):
   self.text(252,265,tr('Startcharakter auswählen'),20)
@@ -191,10 +227,10 @@ class Renderer:
    elif name=='Auto':self.text(x+32,y+2,'?',19,'#92ee92')
    else:self.text(x+26,y+5,''.join(v[0] for v in name.split())[:3],14,'#92ee92')
    self.text(x+4,y+30,self.fit('Auto' if name=='Auto' else name,75,10),10)
-  name=m.character_names[m.focus]
+  name=m.character_names[m.focus] if m.focus<len(m.character_names) else m.options['start_character']
   self.text(253,557,tr('Automatisch') if name=='Auto' else name,16,'#92ee92')
   self.wrap(253,580,tr('Auto: Dark Boshy, bei aktivem Charakter-Randomizer zufälliger Start.') if name=='Auto' else tr('Auswahl gilt für den Start. Enter übernimmt diesen Charakter.'),595,11)
-  self.box((249,608,852,640));self.text(487,618,tr('Zurück'),13)
+  self.box((249,608,852,640),m.focus==len(m.character_names));self.text(487,618,tr('Zurück'),13)
  def targets(self,m):
   s=m.saves[m.slot];self.text(252,265,tr('Speicherplatz {0} · Ziele & Details', str(m.slot)),20)
   if not s['exists']:
@@ -219,7 +255,7 @@ class Renderer:
   for i,(x,label) in enumerate(((260,tr('Minuten')),(555,tr('Sekunden')))):
    self.box((x,354,x+275,414),m.focus==i);self.text(x+14,362,label,11,'#a8bdc9');self.text(x+14,382,m.interval_fields[i] or '0',22,'#92e4cd')
   self.wrap(253,450,tr('Standard: 5 Minuten. Menüs und geschlossene Spiele verbrauchen keine Wechselzeit. Die Obergrenze wird mit deinem Seed geteilt.'),590,13)
-  self.wrap(253,535,m.message or tr('Ziffern: Eingabe · Pfeile links/rechts: ±1 · Tab: nächstes Feld'),590,12,'#ffcf75' if m.message else '#a8bdc9')
+  self.wrap(253,535,m.message or tr('Digits: edit · Arrows/Tab: move · Enter: confirm'),590,12,'#ffcf75' if m.message else '#a8bdc9')
   self.box((251,604,546,640),m.focus==2);self.text(327,615,tr('Übernehmen'),14)
   self.box((558,604,851,640),m.focus==3);self.text(646,615,tr('Abbrechen'),14)
  def presets(self,m):
@@ -244,3 +280,36 @@ class Renderer:
   self.text(253,580,self.fit(m.message or (tr('Auswertung ab diesem Update; ältere Abschnitte fehlen.') if h.get('partial',True) else tr('Seed und vollständige Auswertung im Debugbericht verfügbar.')),594,11),11,'#ffcf75' if m.message else '#a8bdc9')
   self.box((251,604,546,640),m.focus==0);self.text(277,615,tr('Diesen Seed erneut spielen'),14)
   self.box((558,604,851,640),m.focus==1);self.text(623,615,tr('Zum Hauptmenü'),14)
+
+ def context_help(self,m):
+  from menu_help import help_for
+  info=help_for(m)
+  if not info:return
+  self.box((8,266,229,650));self.text(18,281,tr('Help'),14,'#92ee92')
+  y=self.wrap(18,313,tr(info[0]),194,13)+18
+  self.wrap(18,y,tr(info[1]),194,12)
+  self.d.line((18,551,216,551),fill='#435767')
+  self.wrap(18,564,tr('Arrows: move. Enter or click: confirm. Escape: back.'),194,11,'#b3c3ce')
+ def discard_dialog(self,m):
+  from menu_controls import controls
+  self.text(252,273,tr('Unsaved changes'),20)
+  self.wrap(253,325,tr('Apply your Advanced changes, discard them, or keep editing?'),590,15)
+  labels=['Apply changes','Discard changes','Keep editing']
+  for i,rect in controls(m):
+   self.box(rect,m.focus==i);self.text(rect[0]+18,rect[1]+15,tr(labels[i]),14)
+ def seed_preview(self,m):
+  from menu_controls import controls
+  from seed_share import version_text
+  info=m.preview_version
+  self.text(252,265,tr('Seed preview'),20)
+  self.text(580,273,f'{m.preview_page+1} / {m.preview_pages}',12)
+  self.text(253,303,tr('Export version: {0} · Current: {1}',version_text(info['release']),version_text(info['current'])),11,'#b3c3ce')
+  warnings={'unknown':'Older seed: rule version unknown. Identical gameplay cannot be verified.','different':'Different game rules detected. Results may differ on this installation.','matching':'Game rule fingerprint matches this installation.'}
+  self.wrap(253,325,tr(warnings[info['status']]),590,12,'#92ee92' if info['status']=='matching' else '#ffcf75')
+  self.text(253,365,tr('Changes below; otherwise all settings are shown. Page Up/Down: browse.'),10,'#b3c3ce')
+  for i,(label,a,b,changed) in enumerate(m.preview_rows[m.preview_page*6:(m.preview_page+1)*6]):
+   y=385+i*34;self.text(253,y,self.fit(label,237,11),11)
+   text=f'{a} → {b}' if changed else b
+   self.text(496,y,self.fit(text,348,11),11,'#ffcf75' if changed else '#92ee92')
+  for i,rect in controls(m):
+   self.box(rect,m.focus==i);self.text(rect[0]+14,rect[1]+10,tr(['<','>','Apply seed','Back'][i]),13)
