@@ -16,7 +16,11 @@ jobs:
           python-version: '3.12'
       - name: Install Python runtime dependencies
         run: python -m pip install pillow numpy psutil python-xlib
+      - name: Install native build dependencies
+        run: sudo apt-get update && sudo apt-get install -y gcc-multilib binutils gcc-mingw-w64-x86-64
+      - name: Build native payloads
+        run: python native-linux/build_runtime.py
       - name: Compile Python source
         run: python -m compileall -q native-linux
-      - name: Check language catalogs and fallback
+      - name: Test native runtime, routes, seeds and localization
         run: python -m unittest discover -s native-linux/tests -v
