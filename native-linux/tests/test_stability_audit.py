@@ -47,7 +47,7 @@ class StabilityAudit(unittest.TestCase):
    runtime.recorder.observe(runtime.state);runtime.error(KeyError('Ini++'))
    path=Path(json.loads((base/'debug-reports/latest-error.json').read_text())['path']);self.assertTrue(path.exists())
    with zipfile.ZipFile(path) as z:
-    self.assertEqual(set(z.namelist()),{'bericht.json','LESEN.txt','trigger.txt','trigger-evidence.json','zeitverlauf.jsonl'})
+    self.assertEqual(set(z.namelist()),{'bericht.json','LESEN.txt','trigger.txt','trigger-evidence.json','zeitverlauf.jsonl','transition-timings.json','graphics.json'})
     report=json.loads(z.read('bericht.json'));self.assertEqual(report['last_state']['run_id'],'original');self.assertEqual(report['last_state']['exception_type'],'KeyError');self.assertIn('Ini++',report['description']);self.assertNotIn('private',z.read('zeitverlauf.jsonl').decode())
  def test_report_failure_does_not_replace_original_failure(self):
   with tempfile.TemporaryDirectory() as d:

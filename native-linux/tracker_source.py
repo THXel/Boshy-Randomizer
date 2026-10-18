@@ -7,7 +7,7 @@ def host_alive(pid):
  try:
   import psutil
   p=psutil.Process(int(pid))
-  return p.is_running() and p.status()!=psutil.STATUS_ZOMBIE and Path(p.cwd()).resolve()==BASE and any(Path(x).name=='native_menu_host.py' for x in p.cmdline())
+  return p.is_running() and p.status()!=psutil.STATUS_ZOMBIE and Path(p.cwd()).resolve()==BASE and (any(Path(x).name in ('native_menu_host.py','windows_entry.py') for x in p.cmdline()) or os.name=='nt' and Path(p.exe()).name.casefold()=='boshyrandomizer.exe' and p.environ().get('BOSHY_DATA_HOME')==str(BASE))
  except Exception:return False
 
 class Source:
@@ -17,9 +17,9 @@ class Source:
   self.thread=threading.Thread(target=self.loop,daemon=True);self.thread.start()
  def loop(self):
   while not self.stop.is_set():
-   state={}
+   state=None
    try:
-    native=json.loads((BASE/'INI/native-live.json').read_text())
+    native=json.loads((BASE/'INI/native-live.json').read_text(encoding='utf-8'))
     if not self.host and host_alive(native.get('host_pid')):self.host=int(native['host_pid'])
     if self.host and host_alive(self.host):
      if native.get('host_pid')==self.host and native.get('schema')==1 and native.get('mode') in ('menu','target','randomizer'):
@@ -27,7 +27,8 @@ class Source:
     elif self.host or time.monotonic()-self.started>3:self.finished=True
    except (OSError,ValueError,TypeError):
     if (self.host and not host_alive(self.host)) or (not self.host and time.monotonic()-self.started>3):self.finished=True
-   with self.lock:self.state=state
+   if state is not None:
+    with self.lock:self.state=state
    if self.finished:return
    self.stop.wait(.25)
  def read(self):

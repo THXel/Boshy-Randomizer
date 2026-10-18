@@ -71,6 +71,14 @@ int main(void){
    unsigned long long addr;unsigned n;
    if(sscanf(line+5,"%llx %u",&addr,&n)!=2||n>65536){puts("{\"error\":\"bad read\"}");}
    else {unsigned char *buf=malloc(n?n:1);if(rd(addr,buf,n)){printf("{\"hex\":\"");for(unsigned i=0;i<n;i++)printf("%02x",buf[i]);puts("\"}");}else puts("{\"error\":\"read failed\"}");free(buf);}
+  }else if(!strncmp(line,"shots ",6)){
+   unsigned addr,style,sequence;int ok=0;
+   if(sscanf(line+6,"%x %u %u",&addr,&style,&sequence)==3&&style<=35&&u32(addr)==0x424d4e31&&u32(addr+4)==1&&(u32(addr+32)&2048)&&u32(addr+1648)==u32(addr+1652)){
+    /* Separate cosmetics from character actions and the adjacent exit guards. */
+    uint32_t off=0,pair[2]={style,sequence},magic=0x42534531;
+    ok=wr(addr+2124,&off,4)&&wr(addr+2128,pair,8)&&wr(addr+2124,&magic,4);
+   }
+   printf("{\"written\":%s}\n",ok?"true":"false");
   }else if(!strncmp(line,"character ",10)){
    unsigned addr;char hex[1025];unsigned char data[512];int ok=1;
    if(sscanf(line+10,"%x %1024s",&addr,hex)!=2||strlen(hex)!=1024||u32(addr)!=0x424d4e31||u32(addr+4)!=1||u32(addr+1648)!=u32(addr+1652))ok=0;

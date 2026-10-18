@@ -6,7 +6,7 @@ from native_targets import BOSSES
 
 def for_frame(base,frame):
  frame=int(frame);folder=Path(base)/'loading-icons'
- catalog=json.loads((folder/'index.json').read_text());entry=catalog.get(str(frame),{})
+ catalog=json.loads((folder/'index.json').read_text(encoding='utf-8'));entry=catalog.get(str(frame),{})
  name=location(frame) if frame in FRAME_NAMES else entry.get('name',location(frame))
  kind='Boss' if frame in {v[1] for v in BOSSES.values()}|{46,54} else 'Level'
  if frame<=2:kind='Menü';name='Hauptmenü'
@@ -20,7 +20,7 @@ def for_selection(store,slot,action,settings=None):
    from native_level_route import catalogue
    seed,options=decode(settings['seed'],settings['options']);planned=route(seed,options)
    if planned and options['levels']:
-    pool=catalogue(json.loads((store.base/'INI/positions.json').read_text()));pool.update(json.loads((store.base/'native_spots.json').read_text()))
+    pool=catalogue(json.loads((store.base/'INI/positions.json').read_text(encoding='utf-8')));pool.update(json.loads((store.base/'native_spots.json').read_text(encoding='utf-8')))
     from beta_catalogue import EXTRA_POINTS
     pool.update(EXTRA_POINTS)
     from minibosses import prepare_pool

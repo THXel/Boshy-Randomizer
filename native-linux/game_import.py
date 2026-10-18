@@ -55,10 +55,10 @@ def import_game(source,base):
   if hashlib.sha256((staged/EXE).read_bytes()).hexdigest()!=EXPECTED:raise ValueError('This game version is not supported. Your original files were not changed.')
   # Fresh independent settings and global profile; never copy a player's progress.
   from PY.rc4_utils import rc4_crypt
-  chars=json.loads((base/'INI/characters.json').read_text())
+  chars=json.loads((base/'INI/characters.json').read_text(encoding='utf-8'))
   from character_cycle import initial
   dark=initial(base,'',False)['id']
-  profile=f'[License]\nCharacter={dark}\nCharacterName=Dark Boshy\n[Unlockables]\n'+''.join(str(k)+'=0\n' for k in chars)+'[Achievements]\n'
+  profile=f'[License]\nName=Player\nCharacter={dark}\nCharacterName=Dark Boshy\n[Unlockables]\n'+''.join(str(k)+'=0\n' for k in chars)+'[Achievements]\n'
   (staged/'onlineLicense.ini').write_bytes(rc4_crypt(b'BLOB',profile.encode('latin-1')))
   options='[Options]\nScreenSize=880\nFrameRate=50\nOnlineLicenseCharacter=1\n'
   (staged/'options.ini').write_bytes(rc4_crypt(b'BLOB',options.encode('ascii')))

@@ -2,6 +2,68 @@
 
 All update logs remain in English, regardless of the UI language.
 
+## 2026.10.18 — Windows installer preview and display options
+
+- Add a five-language per-user setup wizard, Start-menu and optional desktop shortcuts, upgrade support and an uninstaller that preserves separate game/save data. Shortcuts launch directly without a CMD window.
+- Add a Windows backend for native saves, loading audio, focus, tracker and debug windows, without Wine or Lutris.
+- Package the preview with signed CPython runtime files and visible application sources. Keep Defender enabled; the quarantined PyInstaller prototype is not a release artifact.
+- Extend the original Screen size option with monitor-fitting 4:3 presets up to a 2160-pixel content height. Preserve the final stretched fullscreen option and keep resized windows inside the current work area.
+- Add display-size guidance in all five languages. Physical 4K and mixed-DPI verification remain open.
+
+## Unreleased — Playtest fixes
+
+- Confirm native checkpoint settling within eight pixels only when the actual player is equally close in the requested frame. This handles the VVVVVV entrance save changing Y=140 to Y=143; final wrong-warp validation and the single target reset remain intact.
+
+- Retry transient active-save reads for up to 200 ms during checkpoint writes, requiring complete successful validation and retaining strict rejection of foreign saves and integrity errors.
+
+- Fixed native object-index relocation in mixed chest rewards and Kracko/Kid Icarus validation when whole background sets are shuffled; existing saved assignments remain unchanged.
+
+- Fix a freeze when complete backgrounds and fast chest animations are enabled together: tolerate MMF's relocated object-list cache index while still validating object IDs, opcodes and parameters before any patch. Apply the ABI-compatible fix to both known older native builds without changing saved run rules.
+
+- Add independent temporary graphics switches to diagnostics. Changes apply at the next level resource load and reset when loading a save; seeded rules remain unchanged. Problem reports include a game-window-only screenshot when available, the active background and bounded graphics history. All five UI languages are supported.
+- Draw imported scenery behind retained original decoration and collision tiles, fixing a missing lower background detail in World 3.
+
+- Restore World 3 cloud perspective by preserving the native colour-key mask instead of alpha transparency. Compare every native scanline with the original, including resets and save switches; repair the texture output of existing saved runs without changing their seeded mappings.
+
+- Shuffle nine reviewed world backgrounds as complete sets, including their clouds and native parallax animation. Preserve collision geometry and restrict incompatible scroll combinations. Rebind animated objects after reset and refresh Parallaxer's texture when switching runs without restarting. Keep background dimming and all five UI languages.
+
+- Create, delete, load and switch compatible native saves without restarting Boshy. A game-thread menu transaction reloads the selected save/profile and resets per-run reward, hack, music, shot, spider, graphics and trigger state. Incompatible archived native patches retain the cold-start fallback.
+- F2 dismisses the victory presentation and returns to the menu without reopening the old result over the intro. Saved victory summaries remain available on demand.
+- Extend Kracko's confirmed zero-HP animation window to four seconds; verified in a real isolated fight.
+- Add Boss Rush and Level Rush with configurable pools/counts, seven by default, followed by Solgryn. Exclude Tutorial from new routes and encode the new modes in BR12 share codes.
+- Group and highlight Target Select goals, and show Rush routes in the internal and OBS trackers. Preserve ordinary speedrun categories.
+
+- Menu: corrected direct slot 1/3 selection, recoverable selection feedback, automatic layout for smaller windows, and locally saved text size through Aa.
+- Normal mode: optional seeded character rotation between levels and boss rooms, persistent across saves, with new unlocks included and F3 locked while enabled.
+- Add Normal mode with original progression and chest rewards, optional starting character and hacks, localized menu controls, portable settings and save-local tracking. Teleport Room restrictions and randomized routes stay disabled in this mode.
+
+- Reject unlisted Teleport Room shortcuts and return to the last confirmed save, without advancing the route or rerolling characters. Keep registered hub exits available and show a brief native, non-interactive top-left notice.
+
+- Reload each routed destination once before confirming arrival to prevent collision-related wrong warps. Verify the actual Player position in coordinate-based stages, preserve fixed boss starts, and keep reset recovery inside the pending transition.
+
+- Add a hidden-window Ctrl+Alt+M problem marker with up to two minutes of bounded diagnostic history, seed, active hacks and positions. Background report exports leave ongoing recordings and game focus intact.
+- Add separate trigger-to-request, loading and total transition measurements to diagnostics and exported reports, localized in all five supported UI languages.
+
+- Extend Old Sonic’s zero-HP death-animation delay from three to six seconds before advancing to the next randomizer spot.
+
+- Reduce transition latency by removing the focus delay, retaining validated object references for absent optional save groups, and counting observation work toward the polling interval. Existing trigger positions and death-animation guards remain unchanged.
+
+- Replace nested legacy seed formats with a single compact BR9 code containing every current setting, rule identity and checksum. Old share codes are intentionally no longer supported.
+
+- Add the ten missing original-game boss icons to the desktop and OBS trackers, including beta bosses and miniboss stages.
+
+- Keep Kappa’s reward screen in his boss stage. Randomize only at the Teleport Room exit, including saved runs.
+
+- Refined the victory screen with the Randomizer logo, translucent statistics, and a hoverable full-seed copy button. It appears five seconds later while the ending animation and credits continue.
+
+- Split Justin.tv and Kappa into separate selectable stages. Start Kappa on the confirmed Speak button, require an active encounter and the native death animation, and reject death/reset false positives.
+- Refine Kid Icarus and Cheetahman starts using player-confirmed positions. Keep Mario Desert at the bottom-left save hole, including return visits in Target Select.
+- Keep randomized background music looping and reserve its native channel against automatic sound effects. Explicit stop, pause and volume controls remain native.
+- Deliver and acknowledge timed, death and stage shot-style changes through a dedicated control command; repair the same transport for existing saved runs.
+- Reload the spider image when the scene image bank changes. Preserve its saved timer and gameplay rules.
+- Generate a fresh seed after preparing a new run while preserving chosen options. Include Kappa in shared seeds and all five UI languages.
+- Discard captured exits from an earlier generation when a transition reloads the same room.
+
 ## 2026-10-15 — Boshy, Reborn · Linux release
 
 - Close the original informational “Playable characters” notice only when it belongs to the active Boshy process, preventing blocked startup/loading focus. Include trigger-audit fingerprint resources in the Debian package.

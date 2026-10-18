@@ -6,7 +6,7 @@ def build(target=None):
  target=Path(target or B).resolve()
  from build_icon_formats import build as build_icons
  build_icons(B)
- plan=json.loads((B/'slot_reward_plan.json').read_text())
+ plan=json.loads((B/'slot_reward_plan.json').read_text(encoding='utf-8'))
  mapping={s['key']:dict(name=s['source'],kind=s['source_kind']) for s in plan['locations']}
  import struct
  path=lambda s:s.encode().ljust(260,b'\0')

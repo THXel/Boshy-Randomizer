@@ -45,7 +45,7 @@ class KidIcarus(unittest.TestCase):
  def test_all_new_destinations_work_with_shared_seed_and_loading(self):
   from loading_destination import for_selection
   for spot in ('boss_kid_icarus','kid_icarus_after'):
-   o=options();o.update(level_count=int(spot=='kid_icarus_after'),route_boss_count=int(spot=='boss_kid_icarus'),level_pool=['kid_icarus_after'],boss_pool=['kid_icarus'])
+   o=options(9);o.update(level_count=int(spot=='kid_icarus_after'),route_boss_count=int(spot=='boss_kid_icarus'),level_pool=['kid_icarus_after'],boss_pool=['kid_icarus'])
    seed,decoded=r.decode(r.encode('1234ABCD',o));self.assertEqual(r.route(seed,decoded)[0],spot)
    with patch('loading_destination.for_frame',side_effect=lambda base,frame:frame):self.assertEqual(for_selection(SimpleNamespace(base=ROOT),2,'new',dict(seed=seed,options=o)),27)
  def test_target_receipt_and_checkpoint_do_not_skip_new_segments(self):

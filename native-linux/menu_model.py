@@ -22,7 +22,7 @@ def summary(store,slot):
  if d['managed']:
   path=store.root/m['run_id']/'progress.json'
   if path.exists():
-   progress=json.loads(path.read_text())
+   progress=json.loads(path.read_text(encoding='utf-8'))
    if progress.get('run_id')==m['run_id'] and progress.get('binding')==m['session_binding']:
     d['recovery']=progress.get('pending')
     point=m.get('pool',{}).get(progress.get('spot'),{})
@@ -38,7 +38,16 @@ def seed_layout(value):
 
 class Menu:
  def __init__(self,store,slot=1):
+  from menu_layout import load
+  self.font_size=load(store.base);self.display_size=(1760,1320);self.presentation=None
   self.requested_slot=None;self.advanced_page=0;self.clipboard=None;self.seed_text='';self.seed_selected=False;self.character_names=[];self.store=store;self.slot=slot;self.page='slots';self.focus=0;self.seed=secrets.token_hex(4).upper();self.options=dict(difficulty=1,levels=True,items=True,characters=False,mode='randomizer',target_count=5,boss_count=0);self.options.update(defaults());self.options['extras']=self.extra_defaults();self.message='';self.dirty=True;self.action=None;self.reload()
+ def consume_seed(self):
+  # A prepared run owns its seed. Keep the chosen settings for the next draft.
+  previous=self.seed
+  self.seed=secrets.token_hex(4).upper()
+  while self.seed==previous:self.seed=secrets.token_hex(4).upper()
+  self.seed_origin=None;self.seed_text='';self.seed_selected=False
+
  def reload(self):
   self.saves={i:summary(self.store,i) for i in (1,2,3)};self.dirty=True
   if self.page=='slots':self.focus=0
@@ -59,7 +68,9 @@ class Menu:
     order=[0,1] if self.saves[self.slot]['exists'] else [2,0,1]
     self.focus=order[(order.index(self.focus) + (-1 if key==38 else 1))%len(order)]
    elif key==13:
-    if self.focus>=3:self.requested_slot=self.focus-2
+    if self.focus==7:self.open_music()
+    elif self.focus==6:self.open_appearance()
+    elif self.focus>=3:self.requested_slot=self.focus-2
     elif self.focus==2:
      if self.saves[self.slot]['exists']:self.key(46)
      else:self.open_advanced()
@@ -77,22 +88,36 @@ class Menu:
     self.focus=order[(order.index(self.focus)+(-1 if key==38 else 1))%len(order)]
    elif self.focus==0 and key==13:self.open_seed()
    elif key==13 and 1<=self.focus<=5:
-    if self.focus==1:self.open_choice('Modus',[('randomizer','Randomizer'),('target','Target Select')],'mode')
+    if self.focus==1:self.open_choice('Modus',[('randomizer','Randomizer'),('target','Target Select'),('normal','Normal'),('boss_rush','Boss Rush'),('level_rush','Level Rush')],'mode')
     elif self.focus==2:self.open_choice('Schwierigkeit',list(DIFFICULTIES.items()),'difficulty')
-    elif self.focus==5:self.options['characters']=not self.options['characters']
+    elif self.focus==5:
+     if self.options['mode']=='normal':self.open_characters()
+     else:self.options['characters']=not self.options['characters']
+    elif self.options['mode']=='normal' and self.focus==3:self.options['characters']=not self.options['characters']
     elif self.options['mode']=='target':
      name,limit=('target_count',19) if self.focus==3 else ('boss_count',len(catalogue(self.options)))
      self.open_choice('Ziel-Items' if self.focus==3 else 'Ziel-Bosse',[(n,str(n)) for n in range(1 if self.focus==3 else 0,limit+1)],name)
-    else:
+    elif self.options['mode'] in ('boss_rush','level_rush') and self.focus==3:
+     name,pool=('route_boss_count','boss_pool') if self.options['mode']=='boss_rush' else ('level_count','level_pool')
+     self.open_choice('Boss-Anzahl' if name=='route_boss_count' else 'Level-Anzahl',[(n,str(n)) for n in range(1,len(self.options[pool])+1)],name)
+    elif self.options['mode']!='normal':
      name='levels' if self.focus==3 else 'items';self.options[name]=not self.options[name]
    elif self.focus==6 and key==13:
     try:
      seed,options=decode(self.seed,self.options);self.action=('new',self.slot,dict(seed=seed,options=options));self.message=''
     except ValueError as e:self.message=str(display(str(e)));self.focus=0
+   elif self.focus==10 and key==13:self.open_appearance()
    elif self.focus==9 and key==13:self.page='presets';self.focus=0;self.message=''
    elif self.focus==8 and key==13:self.open_shots()
-   elif self.focus==7 and key==13:self.open_advanced()
+   elif self.focus==7 and key==13:
+    if self.options['mode']=='normal':self.open_extras()
+    else:self.open_advanced()
 
+  elif self.page=='appearance':
+   if key==27 or (key==13 and self.focus==3):self.page,self.focus=self.appearance_parent;self.message=''
+   elif key==13 and self.focus in (0,1,2):
+    from menu_layout import SIZES,save
+    self.font_size=SIZES[self.focus];save(self.store.base,self.font_size)
   elif self.page=='seed_preview':self.preview_key(key)
   elif self.page=='discard':self.discard_key(key)
   elif self.page=='choice':self.choice_key(key)
@@ -104,6 +129,8 @@ class Menu:
   elif self.page=='characters':self.character_key(key)
   elif self.page=='advanced':self.advanced_key(key)
   elif self.page=='extras':self.extras_key(key)
+  elif self.page=='graphics':self.graphics_key(key)
+  elif self.page=='music':self.music_key(key)
   elif self.page=='targets':
    if key in (27,13,9):self.page='slots'
   elif self.page=='delete':
@@ -133,13 +160,35 @@ class Menu:
   if self.page=='seed' and focus==0:return
   if self.page=='interval' and focus<2:self.interval_selected=True;return
   self.key(13)
+ def open_appearance(self):
+  from menu_layout import SIZES
+  self.appearance_parent=(self.page,self.focus);self.page='appearance';self.focus=SIZES.index(self.font_size);self.message='';self.dirty=True
  def open_choice(self,title,values,name):
   self.choice_parent=(self.page,self.focus);self.choice_title=title;self.choice_values=values;self.choice_name=name
   self.page='choice';self.focus=next((i for i,(value,_) in enumerate(values) if value==self.options[name]),0)
  def choice_key(self,key):
   if key==27 or (key==13 and self.focus==len(self.choice_values)):self.page,self.focus=self.choice_parent;return
   if key==13:
-   self.options[self.choice_name]=self.choice_values[self.focus][0];self.page,self.focus=self.choice_parent
+   value=self.choice_values[self.focus][0]
+   if self.choice_name=='mode':self.change_mode(value)
+   else:self.options[self.choice_name]=value
+   self.page,self.focus=self.choice_parent
+ def change_mode(self,value):
+  old=self.options['mode']
+  if value==old:return
+  drafts=getattr(self,'mode_drafts',{});drafts[old]=deepcopy(self.options)
+  if value in drafts:self.options=deepcopy(drafts[value])
+  else:
+   self.options['mode']=value
+   if value in ('boss_rush','level_rush') or old in ('boss_rush','level_rush'):
+    self.options.update(defaults());self.options['levels']=True
+   if value=='normal':
+    # Normal starts clean; hacks are explicit opt-ins in this mode.
+    self.options['extras']=extra_defaults()
+    for name,_,_,_ in EXTRAS:self.options['extras'][name]=False
+    self.options.update(levels=False,items=False,characters=False,start_character='Auto')
+   self.options=normalize(self.options)
+  self.mode_drafts=drafts
  def open_shots(self):
   self.page='shots';self.focus=SHOT_MODES.index(self.options.get('extras',{}).get('shot_mode','off'));self.message=''
  def shots_key(self,key):
@@ -150,7 +199,8 @@ class Menu:
  def open_advanced(self):
   self.advanced_before=deepcopy(self.options)
   if self.options['mode']=='target':self.open_extras();return
-  self.page='advanced';self.focus=0;self.advanced_page=0
+  if self.options['mode']=='normal':self.page='new';self.focus=5;return
+  self.page='advanced';self.focus=1 if self.options['mode']=='boss_rush' else 0;self.advanced_page=0
  def open_extras(self):
   if self.page!='advanced':self.advanced_before=deepcopy(self.options)
   self.extras_parent='advanced' if self.page=='advanced' else 'new'
@@ -159,7 +209,7 @@ class Menu:
  def extra_defaults(self):
   value=extra_defaults()
   try:
-   saved=json.loads((self.store.base/'INI/menu-preferences.json').read_text())
+   saved=json.loads((self.store.base/'INI/menu-preferences.json').read_text(encoding='utf-8'))
    if isinstance(saved,dict) and type(saved.get('spider')) is bool:value['spider']=saved['spider']
   except (OSError,ValueError):pass
   return value
@@ -171,7 +221,34 @@ class Menu:
   if key in (38,40,9):self.focus=(self.focus+(-1 if key==38 else 1))%(len(EXTRAS)+1)
   elif key==13 and self.focus<len(EXTRAS):
    upgrade(self.options)
-   name=EXTRAS[self.focus][0];self.options['extras'][name]=not self.options['extras'][name]
+   name=EXTRAS[self.focus][0]
+   if name=='sprite_scenery':self.page='graphics';self.focus=0;return
+   if name=='music':self.open_music();return
+   self.options['extras'][name]=not self.options['extras'][name]
+ def open_music(self):
+  from soundpacks import available,selected
+  self.music_parent=(self.page,self.focus);self.music_before=self.options['extras']['music'];self.music_pack=selected(self.store.base);self.music_packs=available(self.store.base)
+  self.page='music';self.focus=0;self.message=''
+ def music_key(self,key):
+  from soundpacks import select
+  count=len(self.music_packs)
+  if key==27 or key==13 and self.focus==count+2:
+   self.options['extras']['music']=self.music_before;self.page,self.focus=self.music_parent;self.message='';return
+  if key!=13:return
+  if self.focus==0:
+   if self.music_parent[0]!='slots':self.options['extras']['music']=not self.options['extras']['music']
+  elif 1<=self.focus<=count:self.music_pack=self.music_packs[self.focus-1]['id']
+  elif self.focus==count+1:
+   try:select(self.store.base,self.music_pack)
+   except (OSError,ValueError,KeyError,RuntimeError) as error:self.message=tr('Soundpack konnte nicht geladen werden.');return
+   self.page,self.focus=self.music_parent;self.message=''
+ def graphics_key(self,key):
+  from run_extras import GRAPHICS_ROWS
+  if key==27 or key==13 and self.focus==len(GRAPHICS_ROWS):self.page='extras';self.focus=len(EXTRAS)-1;return
+  if key!=13 or not 0<=self.focus<len(GRAPHICS_ROWS):return
+  value=upgrade(self.options);name=GRAPHICS_ROWS[self.focus][0]
+  if name=='sprite_dim':value[name]=(0,20,40,60)[((0,20,40,60).index(value[name])+1)%4]
+  else:value[name]=not value[name]
  def finish_advanced(self,apply):
   before=getattr(self,'advanced_before',deepcopy(self.options))
   if not apply and before!=self.options:
@@ -183,7 +260,7 @@ class Menu:
    if type(value) is bool and value!=before.get('extras',{}).get('spider'):
     from native_session import write_json
     path=self.store.base/'INI/menu-preferences.json'
-    try:prefs=json.loads(path.read_text())
+    try:prefs=json.loads(path.read_text(encoding='utf-8'))
     except (OSError,ValueError):prefs={}
     if not isinstance(prefs,dict):prefs={}
     prefs['spider']=value;write_json(path,prefs)
@@ -225,10 +302,9 @@ class Menu:
   except ValueError as e:self.message=str(display(str(e)));return
   self.page='seed';self.focus=0;self.seed_selected=False;self.message='';self.dirty=True
  def seed_value(self,value):
-  if not isinstance(value,str) or not value.strip().startswith(('BR2-','BR3-','BR4-','BR5-','BR6-','BR7-')):
-   raise ValueError(tr('Bitte einen vollständigen geteilten Seed (BR5-, BR4-, BR3- oder BR2-) einfügen.'))
+  if not isinstance(value,str) or not value.strip().startswith('BR12-'):
+   raise ValueError(tr('Bitte einen gültigen BR12-Seed einfügen. Alte Seed-Formate werden nicht mehr unterstützt.'))
   seed,options=decode(value)
-  if options.get('route_version') not in (2,3,4,5,6,7):raise ValueError(tr('Dieser ältere Seed enthält keine Advanced-Route. Bestehenden Lauf über Fortsetzen laden.'))
   character(self.store.base,seed,options)
   return seed,options
  def paste_seed(self):
@@ -273,18 +349,19 @@ class Menu:
   except Exception as e:self.message=tr('Nicht kopiert: ')+str(display(str(e)))
  def open_characters(self):
   from character_cycle import roster
+  self.character_parent=(self.page,self.focus) if self.page=='advanced' else ('new',5)
   self.character_names=['Auto']+[c['name'] for c in roster(self.store.base)]
   self.focus=self.character_names.index(self.options['start_character']);self.page='characters';self.message=''
  def character_key(self,key):
-  if key==27 or (key==13 and self.focus==len(self.character_names)):self.page='advanced';self.focus=2;return
+  if key==27 or (key==13 and self.focus==len(self.character_names)):self.page,self.focus=getattr(self,'character_parent',('advanced',2));return
   if key in (37,39,9):self.focus=(self.focus+(-1 if key==37 else 1))%len(self.character_names)
   elif key in (38,40):self.focus=(self.focus+(-7 if key==38 else 7))%len(self.character_names)
-  elif key==13:self.options['start_character']=self.character_names[self.focus];self.page='advanced';self.focus=2
+  elif key==13:self.options['start_character']=self.character_names[self.focus];self.page,self.focus=getattr(self,'character_parent',('advanced',2))
  def flip_advanced(self,delta):
   old=self.focus;count=3+len(LEVELS)+len(ROUTE_BOSSES)
   self.advanced_page=(self.advanced_page+delta)%ADVANCED_PAGES
   if old in (count+2,count+3):return
-  offset=3+len(LEVELS) if 3+len(LEVELS)<=old<count else 3
+  offset=3+len(LEVELS) if self.options['mode']=='boss_rush' or (self.options['mode']!='level_rush' and 3+len(LEVELS)<=old<count) else 3
   size=len(ROUTE_BOSSES) if offset>3 else len(LEVELS)
   row=max(0,old-offset)%ADVANCED_PAGE_SIZE
   self.focus=offset+min(self.advanced_page*ADVANCED_PAGE_SIZE+row,size-1)
@@ -294,7 +371,7 @@ class Menu:
   if key==13 and self.focus in (count+2,count+3):self.flip_advanced(-1 if self.focus==count+2 else 1);return
   if key==13 and self.focus<2:
    name,pool=('level_count','level_pool') if self.focus==0 else ('route_boss_count','boss_pool')
-   self.open_choice('Level-Anzahl' if self.focus==0 else 'Boss-Anzahl',[(n,str(n)) for n in range(len(self.options[pool])+1)],name);return
+   self.open_choice('Level-Anzahl' if self.focus==0 else 'Boss-Anzahl',[(n,str(n)) for n in range(1 if self.options['mode'] in ('boss_rush','level_rush') else 0,len(self.options[pool])+1)],name);return
   if key in (40,9,38):
    self.focus=(self.focus+(-1 if key==38 else 1))%(count+2)
    if 3<=self.focus<count:
@@ -306,7 +383,8 @@ class Menu:
   if self.focus==2:self.open_characters()
   else:
    i=self.focus-3;pool='level_pool' if i<len(LEVELS) else 'boss_pool';values=list(LEVELS) if pool=='level_pool' else list(ROUTE_BOSSES);name=values[i if pool=='level_pool' else i-len(LEVELS)]
-   if name in ('save9.ini','save10.ini'):self.options['route_version']=max(7,self.options['route_version'])
+   if name=='kappa':self.options['route_version']=max(8,self.options['route_version'])
+   elif name in ('save9.ini','save10.ini'):self.options['route_version']=max(7,self.options['route_version'])
    elif name in ('kid_icarus_after','kid_icarus'):self.options['route_version']=max(6,self.options['route_version'])
    elif (pool=='level_pool' and name in NEW_LEVELS) or (pool=='boss_pool' and name in MINIBOSSES):self.options['route_version']=max(5,self.options['route_version'])
    elif (pool=='level_pool' and name not in LEGACY_LEVELS) or (pool=='boss_pool' and name in EXTRA_BOSSES):self.options['route_version']=max(4,self.options['route_version'])
@@ -317,6 +395,16 @@ class Menu:
    number='level_count' if pool=='level_pool' else 'route_boss_count';self.options[number]=min(self.options[number],len(selected))
   self.message=''
  def event(self,kind,a,b):
+  if kind==8:
+   self.resolution_recommended=(a,b);self.dirty=True;return
+  if kind==7:
+   if 320<=a<=16384 and 240<=b<=16384 and self.display_size!=(a,b):self.display_size=(a,b);self.dirty=True
+   return
+  if kind in (3,5):
+   from menu_layout import inverse
+   point=inverse((a,b),self.presentation)
+   if point is None:return
+   a,b=point
   if kind==4:
    if self.page!='slots':return
    self.select(a)
@@ -350,16 +438,30 @@ class Menu:
   elif key==13:
    keep={k:self.options[k] for k in ('mode','target_count','boss_count')}
    self.options=dict(difficulty=1,levels=True,items=True,characters=False,**keep,**defaults(),extras=self.extra_defaults())
+   if self.options['mode']=='normal':
+    for name,_,_,_ in EXTRAS:self.options['extras'][name]=False
    if self.focus==1:self.options['characters']=True;self.options['extras'].update(shot_mode='death_and_spot',death_character=True)
    if self.focus==2:self.options['extras'].update(god_mode=True,one_hp=True,autofire=True,skip_intro=True,fast_chests=True)
+   if self.options['mode']=='normal':
+    if self.focus==0:
+     for name,_,_,_ in EXTRAS:self.options['extras'][name]=False
+    self.options=normalize(self.options)
+   self.options=normalize(self.options)
    self.message=(tr('Standard'),tr('Chaos'),tr('Training'))[self.focus]+tr(' übernommen. Alles bleibt einzeln einstellbar.');self.page='new';self.focus=9
  def open_result(self,manifest):
   path=self.store.root/manifest['run_id']/'summary.json'
   if not path.exists():return False
-  self.result=json.loads(path.read_text());self.result_manifest=manifest;self.page='result';self.focus=0;self.message='';self.dirty=True;return True
+  self.result=json.loads(path.read_text(encoding='utf-8'));self.result_manifest=manifest;self.page='result';self.focus=0;self.message='';self.dirty=True;return True
  def result_key(self,key):
-  if key in (37,39,9,38,40):self.focus=1-self.focus
-  elif key==27 or (key==13 and self.focus==1):self.page='slots';self.focus=0;self.action=('result_back',self.slot,None)
+  if key==4099 or (key==13 and self.focus==2):
+   try:
+    from seed_share import encode as share
+    from runtime_versions import Rules
+    from seed_share import encode_saved
+    m=self.result_manifest;rules=Rules(self.store,m);code=encode_saved(m['seed'],m['options'],rules.base,rules)
+    self.clipboard_access().put(code);self.message=tr('Seed mit allen Einstellungen kopiert.')
+   except Exception as e:self.message=tr('Nicht kopiert: ')+str(display(str(e)))
+  elif key in (27,113) or (key==13 and self.focus==1):self.page='slots';self.focus=0;self.action=('result_back',self.slot,None)
   elif key==13:
    self.reload();free=next((i for i in (1,2,3) if not self.saves[i]['exists']),None)
    if free is None:self.message=tr('Kein freier Slot. Zurück gehen und zuerst einen Spielstand löschen.');return

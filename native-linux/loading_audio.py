@@ -43,3 +43,6 @@ class AudioGate:
      except subprocess.SubprocessError:pass
   finally:
    pulse('unload-module',self.module);self.module=None
+
+if os.name=='nt':
+ from windows_audio import AudioGate

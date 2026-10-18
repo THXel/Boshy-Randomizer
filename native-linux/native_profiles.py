@@ -1,4 +1,4 @@
-"""Per-run onlineLicense snapshots; switch only with the game fully stopped."""
+"""Per-run onlineLicense snapshots; switch while stopped or in a verified native menu transaction."""
 import json,time,uuid
 from native_session import atomic,write_json,digest,section
 from PY.ini_utils import parse_ini
@@ -9,16 +9,20 @@ def make_profile(store,m):
  from run_settings import character
  chosen=character(store.base,m['seed'],m['options'])
  fields=dict(d.get('license',{}));fields.update(Character=str(chosen['id']),CharacterName=chosen['name'])
+ # The offline F3 picker only requires a nonempty local profile name.
+ # Fresh imports have no online account; preserve existing names verbatim.
+ name_key=next((k for k in fields if k.casefold()=='name'),'Name')
+ if not fields.get(name_key,'').strip():fields[name_key]='Player'
  text=section(original,'License',fields)
  # A starting appearance is not a collected unlock (same as default Dark Boshy).
- text=section(text,'Unlockables',{k:'0' for k in json.loads((store.base/'INI/characters.json').read_text())})
+ text=section(text,'Unlockables',{k:'0' for k in json.loads((store.base/'INI/characters.json').read_text(encoding='utf-8'))})
  # Achievements in a global profile must never pre-complete a new run.
  text=section(text,'Achievements',{})
  text=section(text,'RandoProfile',dict(RunId=m['run_id'],Binding=m['session_binding'],Slot=m['slot']))
  atomic(profile_path(store,m),store.encode_save(text))
 def lease(store):
  p=store.root/'profile-lease.json'
- return json.loads(p.read_text()) if p.exists() else None
+ return json.loads(p.read_text(encoding='utf-8')) if p.exists() else None
 
 def validate_profile(store,path):
  d=parse_ini(store.read_save(path))

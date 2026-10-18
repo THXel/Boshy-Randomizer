@@ -6,12 +6,29 @@ from unittest.mock import patch
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 from menu_model import Menu
 from menu_controls import controls
-from run_settings import LEVELS,BOSSES,encode,decode
+from run_settings import LEVELS,BOSSES,encode,decode,normalize
 from run_extras import SHOT_MODES,EXTRAS
 
 class MenuControls(unittest.TestCase):
  def menu(self):
   with patch('menu_model.summary',return_value={'exists':False,'completed':False}):return Menu(SimpleNamespace(base=ROOT))
+ def test_prepared_run_consumes_seed_but_preserves_settings(self):
+  m=self.menu();m.seed='PREVIOUS';m.seed_origin=('shared','PREVIOUS',deepcopy(m.options));m.seed_text='shared';before=deepcopy(m.options)
+  with patch('menu_model.secrets.token_hex',side_effect=['previous','aabbccdd']):m.consume_seed()
+  self.assertEqual(m.seed,'AABBCCDD');self.assertEqual(m.options,before);self.assertIsNone(m.seed_origin);self.assertEqual(m.seed_text,'')
+  m.page='new';m.key(27);m.key(13);self.assertEqual(m.seed,'AABBCCDD')
+
+ def test_result_copy_hover_does_not_act_and_copies_complete_saved_seed(self):
+  from run_settings import decode
+  m=self.menu();m.page='result';m.result_manifest={'seed':'FINISHED','options':deepcopy(m.options)};m.clipboard=SimpleNamespace(put=__import__('unittest.mock').mock.Mock())
+  rect=dict(controls(m))[2];x=(rect[0]+rect[2])/2;y=(rect[1]+rect[3])/2
+  m.hover(x,y);self.assertEqual(m.focus,2);m.clipboard.put.assert_not_called();self.assertIsNone(m.action)
+  with patch('runtime_versions.Rules',return_value=SimpleNamespace(base=ROOT)):
+   m.click(x,y);code=m.clipboard.put.call_args.args[0];seed,options=decode(code)
+   self.assertEqual(seed,'FINISHED');self.assertEqual(options,normalize(m.result_manifest['options']));self.assertEqual(m.page,'result');self.assertIsNone(m.action)
+   m.focus=0;m.key(4099);self.assertEqual(m.clipboard.put.call_count,2)
+  m.focus=2;m.key(9);self.assertEqual(m.focus,0);m.key(9);self.assertEqual(m.focus,1);m.key(9);self.assertEqual(m.focus,2)
+
  def test_advanced_horizontal_navigation_does_not_toggle_pool(self):
   m=self.menu();m.open_advanced();m.focus=3;before=deepcopy(m.options)
   m.key(39);self.assertEqual(m.focus,3+len(LEVELS));self.assertEqual(m.options,before)
@@ -68,14 +85,24 @@ class ShotModes(unittest.TestCase):
   from shot_cycle import ShotCycle
   class Bridge:
    payload=bytes(512)
-   def read(self,*args):return self.payload
-   def cmd(self,line):self.payload=bytes.fromhex(line.split()[-1]);return {'written':True}
+   def read(self,address,size):return self.payload[476:488] if size==12 else self.payload
+   def cmd(self,line):
+    import struct
+    command,address,style,sequence=line.split();assert command=='shots';raw=bytearray(self.payload);raw[476:488]=struct.pack('<III',0x42534531,int(style),int(sequence));self.payload=bytes(raw);return {'written':True}
   for mode,expected in [('death',[0,1,1,2]),('spot',[0,0,1,2]),('death_and_spot',[0,1,2,3])]:
    with tempfile.TemporaryDirectory() as d,patch('shot_cycle.initial',return_value={'name':'A','frame':0}),patch('shot_cycle.selection',side_effect=lambda b,s,i,p:{'name':str(i),'frame':i%3}):
     base=Path(d);(base/'run').mkdir();m={'run_id':'run','seed':'seed','session_binding':'binding','options':{'extras':{'shot_mode':mode}}};cycle=ShotCycle(SimpleNamespace(base=ROOT,root=base),m,clock=lambda:0);bridge=Bridge()
     for (deaths,spot),sequence in zip(((0,0),(1,0),(1,1),(2,2)),expected):
      cycle.observe({'deaths':deaths},spot,bridge,100);self.assertEqual(cycle.data['sequence'],sequence,mode)
      cycle.observe({'deaths':deaths},spot,bridge,100);self.assertEqual(cycle.data['sequence'],sequence)
+ def test_frozen_run_keeps_its_random_functions_with_new_transport(self):
+  import types,shot_cycle
+  from runtime_versions import repair_shot_transport
+  frozen=types.ModuleType('frozen_shot');frozen.__dict__.update(shot_cycle.__dict__);frozen.TRANSPORT_VERSION=0
+  frozen.ShotCycle=type('OldShot',(),{});old_interval=lambda *args:123;frozen.interval=old_interval
+  repair_shot_transport('shot_cycle',frozen)
+  self.assertIs(frozen.ShotCycle.observe.__globals__['interval'],old_interval)
+  self.assertEqual(frozen.TRANSPORT_VERSION,1);self.assertIsNot(frozen.ShotCycle.observe,shot_cycle.ShotCycle.observe)
  def test_random_time_bounds(self):
   from shot_cycle import interval,ShotCycle
   for maximum in (1,75,300,86400):

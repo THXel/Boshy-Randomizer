@@ -9,7 +9,7 @@ def explain(player):
  expected=', '.join(str(tr('{0} (Raum {1})',display(location(f)),f)) for f in exits)
  segment=point.get('segment');special={'before_kid_icarus':'Enter the Kid Icarus fight screen.','kid_icarus':'Defeat Kid Icarus completely and reach the open exit.','before_kracko':'Enter the Kracko fight screen.','kracko':'Confirm victory over Kracko.','before_ninja_ryu':'Enter the Ryu survival screen.','ninja_ryu':'Reach the confirmed screen after Ryu.'}
  if segment in special:expected=str(tr(special[segment]))
- if spot=='boss23.ini':expected=str(tr('Old Sonic: zero HP, then three seconds of death animation.'))
+ if spot=='boss23.ini':expected=str(tr('Old Sonic: zero HP, then six seconds of death animation.'))
  if spot=='gastly_grass':expected=str(tr('Catch Gastly with Awesomesauce, then reset or wait for the automatic return.'))
  if point.get('frame') in (44,45):expected=str(tr('Confirmed boss death after the intro.'))
  if spot=='boss_solgryn.ini':expected=str(tr('Solgryn victory confirmed in memory and in the save.'))

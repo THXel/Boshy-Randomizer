@@ -35,6 +35,9 @@ def detect_language(environ=None, system_locale=None):
         if env.get(key):
             language = _code(env[key])
             return language if language in SUPPORTED else 'en'
+    if system_locale is None and os.name=='nt':
+        import ctypes,locale
+        system_locale=locale.windows_locale.get(ctypes.windll.kernel32.GetUserDefaultUILanguage(),'en')
     if system_locale is None:
         for path in ('/etc/default/locale', '/etc/locale.conf'):
             try:
@@ -135,6 +138,12 @@ def _display_patterns():
 
 @lru_cache(maxsize=1)
 def font_path():
+    if os.name=='nt':
+        names=['meiryo.ttc','YuGothR.ttc'] if LANGUAGE=='ja' else ['segoeui.ttf','arial.ttf']
+        for name in names:
+            path=Path(os.environ.get('WINDIR','C:/Windows'))/'Fonts'/name
+            if path.is_file():return str(path)
+        raise RuntimeError('Required Windows font unavailable')
     candidates = ([
         '/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc',
         '/usr/share/fonts/truetype/droid/DroidSansFallbackFull.ttf',
@@ -148,6 +157,7 @@ def font_path():
 
 
 def font_family():
+    if os.name=='nt':return 'Meiryo' if LANGUAGE=='ja' else 'Segoe UI'
     return 'Noto Sans CJK JP' if LANGUAGE == 'ja' else 'DejaVu Sans'
 
 

@@ -19,8 +19,8 @@ class SeedPolish(unittest.TestCase):
    for i,mode in enumerate(SHOT_MODES):
     o=deepcopy(m.options);o['extras'].update({row[0]:bool(mask&(1<<k)) for k,row in enumerate(EXTRAS)});o['extras'].update(shot_mode=mode,shot_interval_seconds=(1,59,60,300,86400)[i]);code=share.encode('1234ABCD',o,ROOT)
     self.assertEqual(r.decode(code),('1234ABCD',r.normalize(o)));self.assertEqual(share.compatibility(code,ROOT)['status'],'matching');self.assertLess(len(code),80)
- def test_legacy_and_unknown_rules_are_not_relabelled(self):
-  m=self.menu();code=r.encode('LEGACY',m.options);m.import_seed(code);m.open_seed();self.assertEqual(m.seed_text,code);self.assertEqual(share.compatibility(code,ROOT)['status'],'unknown')
+ def test_imported_identity_and_unknown_rules_are_not_relabelled(self):
+  m=self.menu();code=share.encode('SHARED',m.options,ROOT);m.import_seed(code);m.open_seed();self.assertEqual(m.seed_text,code);self.assertEqual(share.compatibility(code,ROOT)['status'],'matching')
   with tempfile.TemporaryDirectory() as d:self.assertEqual(share.compatibility(share.encode('X',m.options,Path(d)),ROOT)['status'],'unknown')
  def test_rule_mismatch_and_corruption(self):
   m=self.menu();code=share.encode('X',m.options,ROOT)

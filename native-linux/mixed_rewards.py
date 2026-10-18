@@ -77,7 +77,7 @@ def context(plan,mapping,session_id):
  return out
 
 def run_blob(base,m):
- base=Path(base);plan=json.loads((base/'slot_reward_plan.json').read_text());validate(m['rewards'],m['seed'],plan,enabled=m['options']['items'])
- blob=bytearray((base/'slot_reward_hook.bin').read_bytes());offset=json.loads((base/'slot_reward_symbols.json').read_text())['context_offset']
+ base=Path(base);plan=json.loads((base/'slot_reward_plan.json').read_text(encoding='utf-8'));validate(m['rewards'],m['seed'],plan,enabled=m['options']['items'])
+ blob=bytearray((base/'slot_reward_hook.bin').read_bytes());offset=json.loads((base/'slot_reward_symbols.json').read_text(encoding='utf-8'))['context_offset']
  assert len(blob)-offset==CONTEXT_SIZE+2160,(len(blob),offset,CONTEXT_SIZE)
  blob[offset:offset+CONTEXT_SIZE]=context(plan,m['rewards'],m['run_id']);struct.pack_into('<I',blob,offset+CONTEXT_SIZE+32,(int(m['options']['characters'])|(2 if m['options'].get('mode')=='target' else 0)));return bytes(blob)

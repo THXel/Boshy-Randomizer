@@ -45,9 +45,9 @@ class RandomWorldSplit(unittest.TestCase):
     self.assertEqual(self.observe(g,spot,exit_frame,.01),'Level-Ausgang')
  def test_seed_and_loading_support_each_section(self):
   from loading_destination import for_selection
-  self.assertEqual(r.defaults()['route_version'],7)
+  self.assertEqual(r.defaults()['route_version'],9)
   for spot,frame in [('save9.ini',22),('save10.ini',23)]:
-   o=options(7);o.update(level_pool=[spot],level_count=1,boss_pool=[],route_boss_count=0)
+   o=options(9);o.update(level_pool=[spot],level_count=1,boss_pool=[],route_boss_count=0)
    code=r.encode('1234ABCD',o);seed,decoded=r.decode(code);self.assertEqual(decoded,r.normalize(o));self.assertEqual(r.route(seed,decoded),[spot,'boss_solgryn.ini'])
    with patch('loading_destination.for_frame',side_effect=lambda base,frame:frame):
     self.assertEqual(for_selection(SimpleNamespace(base=ROOT),2,'new',dict(seed=code,options=o)),frame)

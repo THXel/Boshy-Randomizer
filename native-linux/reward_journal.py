@@ -16,7 +16,7 @@ class ForeignSaveError(RewardStorageError):pass
 def parsed(text):
  return {g:{k.casefold():v for k,v in values.items()} for g,values in parse_ini(text).items()}
 def folder(store,m):return store.root/m['run_id']/'rewards'
-def rows(store):return json.loads((store.base/'slot_reward_plan.json').read_text())['locations']
+def rows(store):return json.loads((store.base/'slot_reward_plan.json').read_text(encoding='utf-8'))['locations']
 def fnv(data):
  h=2166136261
  for byte in data:h=((h^byte)*16777619)&0xffffffff
@@ -35,7 +35,7 @@ def claims(store,m):
 def load_checkpoint(store,m):
  p=folder(store,m)/'checkpoint.json'
  try:
-  envelope=json.loads(p.read_text());data=envelope['data']
+  envelope=json.loads(p.read_text(encoding='utf-8'));data=envelope['data']
   if envelope['sha256']!=digest(json.dumps(data,sort_keys=True).encode()):raise ValueError('checksum')
   if (data['version'],data['run_id'],data['binding'],data['slot'])!=(1,m['run_id'],m['session_binding'],m['slot']):raise ValueError('identity')
   validate_save(store,m,data['save']);validate_profile(data['profile'])

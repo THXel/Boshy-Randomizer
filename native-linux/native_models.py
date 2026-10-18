@@ -56,14 +56,14 @@ def slot_summary(store,slot):
  profile=folder/'profile.ini' if managed and (folder/'profile.ini').exists() else store.base/'IWBTB/onlineLicense.ini'
  license=ini(store,profile);pos=d.get('positions',{});stats=d.get('stats',{});frame=int(pos.get('frame',0));live={}
  if managed and (folder/'status.json').exists():
-  try:live=json.loads((folder/'status.json').read_text())
+  try:live=json.loads((folder/'status.json').read_text(encoding='utf-8'))
   except (ValueError,OSError):pass
  if managed and store.game_running():
   from native_profiles import lease
   active=lease(store)
   if active and active['run_id']==m['run_id'] and live:
    frame=live.get('frame',frame);stats={**stats,**live.get('stats',{})}
- checks=d.get('randochecks',{});plan=json.loads((store.base/'slot_reward_plan.json').read_text())
+ checks=d.get('randochecks',{});plan=json.loads((store.base/'slot_reward_plan.json').read_text(encoding='utf-8'))
  chars_in_run=[reward['name'] for key,reward in (m['rewards'].items() if managed else ()) if reward['kind']=='character' and checks.get(key.casefold())=='1']
  completed=bool(managed and (folder/'summary.json').exists())
  return dict(slot=slot,exists=True,managed=managed,run_id=m['run_id'] if managed else None,

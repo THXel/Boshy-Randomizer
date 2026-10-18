@@ -1,3 +1,4 @@
+from host_platform import close_window,press
 """Load exactly the selected original slot, waiting for native menu acknowledgements."""
 import time,struct,subprocess
 from lab import key,game_window
@@ -10,7 +11,7 @@ def dismiss_startup_notice():
  closed=False
  for window in getAllWindows():
   if window.pid==game.pid and window.title=='Playable characters' and window.isVisible:
-   subprocess.run(['wmctrl','-ic',hex(window._hWnd)],check=True,timeout=2)
+   close_window(window)
    closed=True
  return closed
 
@@ -49,6 +50,6 @@ def load_slot(bridge,address,slot,cancel=None):
  # Every arrow is acknowledged in the game's own selection state before the next.
  for _ in range(3):
   if h[9]==slot:break
-  before=h[9];send('Right');snap,h=wait(lambda s,h:s['scene']==1 and h[7]==0 and h[9]!=before,retry='Right')
+  before=h[9];arrow='Right' if slot>before else 'Left';send(arrow);snap,h=wait(lambda s,h:s['scene']==1 and h[7]==0 and h[9]!=before,retry=arrow)
  if h[9]!=slot:raise RuntimeError('Gewählter Speicherplatz wurde nicht bestätigt.')
  send('Return');return wait(lambda s,h:s['scene']>1,retry='Return')[0]

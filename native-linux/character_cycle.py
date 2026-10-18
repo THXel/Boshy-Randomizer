@@ -5,7 +5,7 @@ from native_models import ini
 from mixed_rewards import action,string_param
 
 def roster(base):
- data=json.loads((base/'INI/characters_rando.json').read_text())['characters']
+ data=json.loads((base/'INI/characters_rando.json').read_text(encoding='utf-8'))['characters']
  # Dark Boshy is a native unlockable omitted from the old JSON roster.
  if not any(c['name']=='Dark Boshy' for c in data):data.append(dict(name='Dark Boshy',id=84,status='locked'))
  return data
@@ -20,8 +20,27 @@ def initial(base,seed,enabled):return choose(seed,0,available(base,{})) if enabl
 class CharacterCycle:
  def __init__(self,store,m):
   self.store=store;self.m=m;self.path=store.root/m['run_id']/'characters.json'
-  self.data=json.loads(self.path.read_text()) if self.path.exists() else {'run_id':m['run_id'],'choices':{'0':initial(store.base,m['seed'],True)}}
+  self.data=json.loads(self.path.read_text(encoding='utf-8')) if self.path.exists() else {'run_id':m['run_id'],'choices':{'0':initial(store.base,m['seed'],True)}}
   if self.data['run_id']!=m['run_id']:raise ValueError('Charakterverlauf gehört zu anderem Lauf.')
+ def observe_normal(self,frame,stats,bridge,menu_address,*,settled=True):
+  # Engine frames are whole levels/boss rooms, not individual scrolling screens.
+  # Menus, the teleport hub and ending scenes never consume a character choice.
+  playable={3,4,5,6,7,8,9,10,11,12,13,14,15,17,22,23,24,25,26,27,28,31,32,33,35,36,37,38,39,44,45,46,50,51,52,53,54,59,60}
+  if not settled or frame not in playable:return
+  deaths=int(stats.get('deaths',0))
+  state=self.data.setdefault('normal',dict(frame=None,deaths=deaths,sequence=0))
+  if not getattr(self,'normal_observing',False):
+   state.update(frame=frame,deaths=deaths);self.normal_observing=True;write_json(self.path,self.data);return
+  previous=state['frame'];old_deaths=state['deaths']
+  if previous==frame:
+   if old_deaths!=deaths:state['deaths']=deaths;write_json(self.path,self.data)
+   return
+  if deaths!=old_deaths:
+   state.update(frame=frame,deaths=deaths);write_json(self.path,self.data);return
+  sequence=state['sequence']+1
+  picked=self.prepare(sequence,bridge,menu_address)
+  state.update(frame=frame,deaths=deaths,sequence=sequence);write_json(self.path,self.data)
+  return picked
  def prepare(self,index,bridge,menu_address):
   from lab import ini_object_ids,ini_items
   from native_profiles import snapshot
@@ -29,7 +48,7 @@ class CharacterCycle:
   if k not in self.data['choices']:
    previous=self.data['choices'].get(str(index-1),{}).get('name')
    self.data['choices'][k]=choose(self.m['seed'],index,available(self.store.base,unlocks),previous);write_json(self.path,self.data)
-  picked=self.data['choices'][k];snap=bridge.snapshot();plan=json.loads((self.store.base/'slot_reward_plan.json').read_text());loc=next((l for l in plan['locations'] if l['scene']==snap['scene']),None)
+  picked=self.data['choices'][k];snap=bridge.snapshot();plan=json.loads((self.store.base/'slot_reward_plan.json').read_text(encoding='utf-8'));loc=next((l for l in plan['locations'] if l['scene']==snap['scene']),None)
   if loc:ref=bytes.fromhex(loc['license_ref'])
   else:
    # Read the exact current frame's Ini++ reference from an existing getter.

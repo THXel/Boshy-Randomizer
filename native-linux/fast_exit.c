@@ -1,5 +1,7 @@
 /* Shared tail: magic, allowed scene bitmasks, status (0 idle, 1 armed,
  * 2 cancel, 3 committed, 256+destination latched). Fail open on timeout. */
+static U hubNoticeStarted,hubNoticeActive,hubNoticeSerial,hubLastScene=~0U;
+static void hub_notice_start(void){hubNoticeStarted=GetTickCount();hubNoticeActive=1;hubNoticeSerial++;}
 static U exitRun,exitScene,exitData,exitCommand,exitSince,exitWaiting,exitArmed,exitTick;
 U ExitState[6]={0x42584531,0,0,0,0,0}; /* magic, catches, fallbacks, from, to, waiting */
 static void(*exitOriginal)(U);
@@ -7,8 +9,13 @@ static volatile U*exit_control(void){return (volatile U*)((char*)q+2144);}
 static void exit_tick(U run,U scene){
  volatile U*c=exit_control();
  if(c[0]!=0x42584531){c[0]=0x42584531;c[1]=c[2]=c[3]=0;}
+ /* Bit 63 marks a denied hub, never a route destination. Also cover a
+  * portal that loaded before the observer could intercept its action. */
+ if(scene==28&&hubLastScene!=28&&(c[2]&0x80000000))hub_notice_start();
+ hubLastScene=scene;
+ if(scene<=1)hubNoticeActive=0;
  if(exitWaiting){
-  I same=run==exitRun&&scene==exitScene;
+  I same=run==exitRun&&scene==exitScene&&*(U*)(run+0xd0)>=exitTick;
   I expire=(U)(GetTickCount()-exitSince)>=1500;
   if(!same||c[3]<256||expire){
    /* A completed destination request wins; never restore an obsolete exit. */
@@ -42,9 +49,10 @@ static void exit_action(U action){
   U app=*(U*)0x459a94,table=*(U*)(app+0xcc),count=*(unsigned short*)(app+0xc8);
   if(table>=0x10000&&data<count){dest=*(unsigned short*)(table+2*data);if(dest==0xffff)dest=exitScene+1;}
  }
- if(dest>=64||!(c[1+dest/32]&(1U<<(dest%32)))||dest==exitScene)return;
+ if(dest>=63||!(c[1+dest/32]&(1U<<(dest%32)))||dest==exitScene)return;
  if((oldAsync(82)&0x8000)||(oldAsync(81)&0x8000))return;
- exitData=data;exitCommand=command;exitSince=GetTickCount();exitWaiting=1;exitArmed=0;
+ if(dest==28&&(c[2]&0x80000000))hub_notice_start();
+ exitTick=*(U*)(run+0xd0);exitData=data;exitCommand=command;exitSince=GetTickCount();exitWaiting=1;exitArmed=0;
  *(unsigned short*)(run+0x30)=0;
  guardRun=run;guardScene=exitScene;guardPause=*(U*)(run+0x178);guardSince=exitSince;guardOn=1;
  *(U*)(run+0x178)=1;q->enabled=3;

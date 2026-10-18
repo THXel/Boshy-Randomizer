@@ -9,7 +9,7 @@ def initialize(store,m):
 class Insights:
  def __init__(self,store,m,clock=time.monotonic):
   self.store=store;self.m=m;self.clock=clock;self.path=store.root/m['run_id']/'insights.json';self.last=None;self.saved=clock()
-  self.data=json.loads(self.path.read_text()) if self.path.exists() else dict(version=1,run_id=m['run_id'],binding=m['session_binding'],partial=True,segments=[],finds=[],seen=None,last_deaths=None,finished=False)
+  self.data=json.loads(self.path.read_text(encoding='utf-8')) if self.path.exists() else dict(version=1,run_id=m['run_id'],binding=m['session_binding'],partial=True,segments=[],finds=[],seen=None,last_deaths=None,finished=False)
   if self.data['run_id']!=m['run_id'] or self.data['binding']!=m['session_binding']:raise ValueError('Auswertung gehört zu anderem Lauf.')
  def save(self):write_json(self.path,self.data);self.saved=self.clock()
  def pause(self):self.last=None;self.save()
@@ -44,4 +44,4 @@ class Insights:
  def decorate(self):
   path=self.path.with_name('summary.json')
   if path.exists():
-   summary=json.loads(path.read_text());summary['highlights']=self.highlights();write_json(path,summary)
+   summary=json.loads(path.read_text(encoding='utf-8'));summary['highlights']=self.highlights();write_json(path,summary)

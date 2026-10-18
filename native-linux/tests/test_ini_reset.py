@@ -24,6 +24,21 @@ class IniReset(unittest.TestCase):
    @lab._ini_observation
    def observation(bridge):bridge.snap[field]+=1;return {}
    with self.subTest(field=field),self.assertRaises(lab.IniReadInProgress):observation(b)
+ def test_absent_optional_group_keeps_validated_pointer_cache(self):
+  b=Bridge();cache=b._ini_cache
+  @lab._ini_observation
+  def observation(bridge):raise KeyError('achievements')
+  with self.assertRaises(KeyError):observation(b)
+  self.assertIs(b._ini_cache,cache)
+ def test_absent_group_during_reset_still_invalidates_cache(self):
+  for field in ('run','scene','object_list','frame_count'):
+   b=Bridge()
+   @lab._ini_observation
+   def observation(bridge):
+    bridge.snap[field]+=(-99 if field=='frame_count' else 1)
+    raise KeyError('achievements')
+   with self.subTest(field=field),self.assertRaises(lab.IniReadInProgress):observation(b)
+   self.assertIsNone(b._ini_cache)
  def test_torn_string_is_retryable_without_reading_invalid_address(self):
   b=Bridge();raw=bytearray(64);struct.pack_into('<III',raw,16,0x12345678,4294967295,16)
   with self.assertRaises(lab.IniReadInProgress) as e:lab._ini_string(b,raw,16,8192)

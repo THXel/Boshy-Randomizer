@@ -36,10 +36,10 @@ class FastExits(unittest.TestCase):
      args={'death':1} if kind=='death' else {'restart':True} if kind=='reset' else {}
      self.assertIsNone(self.call(g,p,14 if kind=='wrong' else 24,**args))
      self.assertIsNone(self.call(g,p,24,death=1 if kind=='death' else 0))
- def test_tower_coordinate_requirement_still_applies(self):
+ def test_tower_door_edge_is_independent_of_arrival_coordinates(self):
   p={'frame':51,'category':'rooms'}
   for mod in self.modules():
-   for position,expected in [((100,100),None),((7871,553),'Level-Ausgang')]:
+   for position,expected in [((535,200),'Level-Ausgang'),((7871,553),'Level-Ausgang'),((7871,559),'Level-Ausgang'),(None,'Level-Ausgang')]:
     g=mod.CompletionGate();self.call(g,p,51,spot='save20.ini')
     self.assertEqual(self.call(g,p,35,spot='save20.ini',pos=position),expected)
  def test_resume_does_not_invent_a_room_transition(self):
@@ -55,7 +55,7 @@ class FastExits(unittest.TestCase):
  def test_old_sonic_and_miniboss_delays_remain_separate(self):
   from old_sonic import Gate
   from test_old_sonic_hp import sample
-  g=Gate();self.assertFalse(g.observe('boss23.ini',0,sample(1,100),0,0));self.assertFalse(g.observe('boss23.ini',0,sample(0,101),0,.1));self.assertFalse(g.observe('boss23.ini',0,sample(0,102),0,3.09));self.assertTrue(g.observe('boss23.ini',0,sample(0,103),0,3.1))
+  g=Gate();self.assertFalse(g.observe('boss23.ini',0,sample(1,100),0,0));self.assertFalse(g.observe('boss23.ini',0,sample(0,101),0,.1));self.assertFalse(g.observe('boss23.ini',0,sample(0,102),0,6.09));self.assertTrue(g.observe('boss23.ini',0,sample(0,103),0,6.1))
   from test_kid_icarus import pool
   for mod in self.modules():self.assertEqual(mod.exits_for('boss_kid_icarus',pool()['boss_kid_icarus']),())
 

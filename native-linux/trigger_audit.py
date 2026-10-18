@@ -6,11 +6,11 @@ from beta_catalogue import EXTRA_POINTS
 from minibosses import prepare_pool
 from run_settings import defaults
 
-FILES=('intro_guard.py','run_extras.py','native_extras.c','native_extras.dll','native_triggers.py','native_player.py','native_progress.py','native_level_route.py','runtime_versions.py','run_settings.py','beta_catalogue.py','minibosses.py','beta_bosses.py','old_sonic.py','transition_guard.py','native_menu_polished.dll','native_spots.json','INI/positions.json')
+FILES=('spawn_guard.py','gastly_route_lab.py','lab.py','native_menu_host.py','fast_exit.py','fast_exit.c','intro_guard.py','run_extras.py','native_extras.c','native_extras.dll','native_triggers.py','native_player.py','native_progress.py','native_level_route.py','runtime_versions.py','run_settings.py','beta_catalogue.py','minibosses.py','beta_bosses.py','old_sonic.py','transition_guard.py','native_menu_polished.dll','native_spots.json','INI/positions.json')
 def fingerprint(base):
  def content(name):
   path=Path(base)/name
-  if path.suffix=='.json':return json.dumps(json.loads(path.read_text()),sort_keys=True,separators=(',',':')).encode()
+  if path.suffix=='.json':return json.dumps(json.loads(path.read_text(encoding='utf-8')),sort_keys=True,separators=(',',':')).encode()
   raw=bytearray(path.read_bytes())
   # Reproducible packaging zeroes PE timestamps and its derived checksum.
   # Compare executable/data bytes unchanged; launch integrity checks stay strict.
@@ -27,7 +27,7 @@ def fingerprint(base):
   return raw
  return hashlib.sha256(''.join(hashlib.sha256(content(n)).hexdigest() for n in FILES).encode()).hexdigest()
 def points(base):
- base=Path(base);p=catalogue(json.loads((base/'INI/positions.json').read_text()));p.update(json.loads((base/'native_spots.json').read_text()));p.update(EXTRA_POINTS)
+ base=Path(base);p=catalogue(json.loads((base/'INI/positions.json').read_text(encoding='utf-8')));p.update(json.loads((base/'native_spots.json').read_text(encoding='utf-8')));p.update(EXTRA_POINTS)
  from run_settings import pool_names
  opts=defaults();opts['mode']='target';names=pool_names(opts)
  return {k:v for k,v in prepare_pool(p,opts).items() if k in names}

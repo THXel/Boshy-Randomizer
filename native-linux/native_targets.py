@@ -11,7 +11,7 @@ ROOMS=('save1.ini','save2.ini','save3.ini','save4.ini','save6.ini','save7.ini','
 def is_target(m):return m.get('options',{}).get('mode')=='target'
 def goals(base,seed,options):
  if options.get('mode')!='target':return dict(items=[],bosses=[])
- plan=json.loads((base/'slot_reward_plan.json').read_text())
+ plan=json.loads((base/'slot_reward_plan.json').read_text(encoding='utf-8'))
  items=sorted({l['source'] for l in plan['locations'] if l['source_kind']=='item'})
  def take(values,n,kind):return sorted(sorted(values,key=lambda v:hashlib.sha256(f'{seed}\0target-v1\0{kind}\0{v}'.encode()).digest())[:n])
  return dict(items=take(items,options['target_count'],'items'),bosses=take(BOSSES,options['boss_count'],'bosses'))
@@ -21,8 +21,10 @@ def normalize(options):
  if set(d)-core-extra or not core<=set(d):raise ValueError('Ungültige Laufoptionen.')
  if type(d['difficulty']) is not int or d['difficulty'] not in range(4) or any(type(d[k]) is not bool for k in ('levels','items','characters')):raise ValueError('Ungültige Laufoptionen.')
  if set(d)&extra:
-  if not extra<=set(d) or d['mode'] not in ('randomizer','target') or type(d['target_count']) is not int or not 1<=d['target_count']<=19 or type(d['boss_count']) is not int or not 0<=d['boss_count']<=len(BOSSES):raise ValueError('Ungültige Zielauswahl.')
+  if not extra<=set(d) or d['mode'] not in ('randomizer','target','normal','boss_rush','level_rush') or type(d['target_count']) is not int or not 1<=d['target_count']<=19 or type(d['boss_count']) is not int or not 0<=d['boss_count']<=len(BOSSES):raise ValueError('Ungültige Zielauswahl.')
   if d['mode']=='target':d.update(levels=True,items=False)
+  elif d['mode']=='normal':d.update(levels=False,items=False)
+  elif d['mode'] in ('boss_rush','level_rush'):d['levels']=True
  return d
 
 def confirmed(goals,items,disk_items,bosses,disk_bosses):

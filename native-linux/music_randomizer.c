@@ -26,6 +26,7 @@ static void music_load(void){
  musicCount=count;MusicState[1]=1;MusicState[2]=count;
 }
 static void music_action(U action){
+ pack_observe(action);if(pack_action(action))return;
  if(q&&(q->a&4096)&&q->scene>1&&musicCount){
   unsigned short size=*(unsigned short*)action,code=*(unsigned short*)(action+4);
   if((code==11&&size==108)||(code==12&&size==128)){
@@ -34,8 +35,14 @@ static void music_action(U action){
       &&(code==11||(*(U*)(action+108)==0x001b0014&&*(U*)(action+112)==0xffff0000&&*(U*)(action+116)==0x000a0000&&*(U*)(action+120)==0&&*(U*)(action+124)==0))){
     for(U i=0;i<musicCount;i++)if(music_equal((S)(action+22),musicRows[i].name,66)){
      void(*play)(S,U,I,I)=(void*)0x41f9a0;
+     /* External samples have no embedded handle. MMF otherwise mistakes
+      * channel 2 for a free automatic-SFX channel. Reserve it via the native
+      * Lock Channel action; explicit music, stop, pause and volume still work. */
+     void(*reserve)(I,I)=(void*)0x41fe30;reserve(2,1);
      /* Retain the original sample priority / uninterruptible flag. */
-     U flags=(code==12?0x10010:0x10000)|((*(unsigned char*)(action+20)&1)?2:0);
+     /* A shorter replacement must not fall silent when an original boss song
+      * used the one-shot action. Catalogued background music always loops. */
+     U flags=0x10010|((*(unsigned char*)(action+20)&1)?2:0);
      play(musicRows[i].path,flags,0,2);MusicState[3]++;MusicState[5]=i;return;
     }
    }
@@ -44,6 +51,6 @@ static void music_action(U action){
  musicOriginal(action);
 }
 static I music_init(void){
- if(*(U*)0x457054!=0x415120)return 0;
+ if(*(U*)0x457054!=0x415120||*(U*)0x41fe30!=0x0824448b)return 0;
  musicOriginal=(void*)0x415120;return hook(0x457054,music_action);
 }

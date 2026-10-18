@@ -5,7 +5,7 @@ from native_session import write_json
 class DeathCycle(CharacterCycle):
  def __init__(self,store,m):
   self.store=store;self.m=m;self.path=store.root/m['run_id']/'death-characters.json'
-  self.data=json.loads(self.path.read_text()) if self.path.exists() else dict(run_id=m['run_id'],binding=m['session_binding'],observed=None,sequence=0,choices={})
+  self.data=json.loads(self.path.read_text(encoding='utf-8')) if self.path.exists() else dict(run_id=m['run_id'],binding=m['session_binding'],observed=None,sequence=0,choices={})
   if self.data['run_id']!=m['run_id'] or self.data['binding']!=m['session_binding']:raise ValueError('Falscher Charakterverlauf.')
  def observe(self,stats,bridge,menu):
   from lab import ini_object_ids,ini_items

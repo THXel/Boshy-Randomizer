@@ -14,9 +14,12 @@ class FastExitTest(unittest.TestCase):
  def test_only_observed_origin_can_arm(self):
   p,f=self.player();self.assertEqual(f.allowed(3),(4,33));self.assertEqual(f.allowed(4),());p.progress.gate.seen_origin=False;self.assertEqual(f.allowed(3),())
  def test_special_gates_and_resets_are_not_shortened(self):
-  for spot,frame in [('boss23.ini',60),('save23.ini',51),('boss_solgryn.ini',46)]:
+  for spot,frame in [('boss23.ini',60),('boss_solgryn.ini',46)]:
    p,f=self.player(spot,frame);self.assertEqual(f.allowed(frame),())
   p,f=self.player();p.watch.down=True;self.assertEqual(f.allowed(3),());p.watch.down=False;p.watch.pressed.set();self.assertEqual(f.allowed(3),())
+ def test_tower_top_door_can_arm_only_in_observed_tower(self):
+  p,f=self.player('save20.ini',51);self.assertEqual(f.allowed(51),(35,))
+  self.assertEqual(f.allowed(35),());p.progress.gate.seen_origin=False;self.assertEqual(f.allowed(51),())
  def test_stale_capture_does_not_finish_new_stage_or_death(self):
   p,f=self.player();f.control=lambda:(0x42584531,8,0,259);calls=[];f.command=lambda *a:calls.append(a)
   f.armed=(0,'save1.ini',3,2,(4,33));self.assertEqual(f.captured(3,{'deaths':2}),4)

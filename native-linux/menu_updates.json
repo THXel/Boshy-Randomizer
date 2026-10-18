@@ -1,11 +1,124 @@
 {
   "entries": [
     {
+      "date": "2026-10-18",
+      "title": "Graphics tools & stability",
+      "lines": [
+        "Ctrl+Alt+D: independent graphics test switches.",
+        "Reports include a game screenshot and graphics.",
+        "Safer backgrounds, rewards and save transitions."
+      ]
+    },
+    {
+      "date": "2026-10-18",
+      "title": "Complete background sets",
+      "lines": [
+        "Nine reviewed worlds now swap matching skies, clouds and parallax layers together.",
+        "World 3 clouds retain their original perspective, with no visible trapezoid edges.",
+        "Collision geometry stays original; incompatible scrolling combinations are excluded.",
+        "Background sets reload when switching saves or returning to the menu."
+      ]
+    },
+    {
+      "date": "2026-10-18",
+      "title": "Seamless saves and ending fixes",
+      "lines": [
+        "Create, delete and switch compatible saves without restarting the game.",
+        "Each run reloads its own character profile, rewards and hack settings.",
+        "F2 closes the victory screen without reopening it over the next intro.",
+        "Kracko now gets four seconds for his defeat animation."
+      ]
+    },
+    {
+      "date": "2026-10-18",
+      "title": "Rush modes and clearer goals",
+      "lines": [
+        "Boss Rush and Level Rush: choose your pool and count; Solgryn is the finale.",
+        "Tutorial removed from new randomizer routes.",
+        "Target Select goals are grouped and highlighted in the tracker.",
+        "Fixed a tracker connection error when reloading the same save.",
+        "Kracko now keeps four seconds for his death animation, including existing runs."
+      ]
+    },
+    {
+      "date": "2026-10-17",
+      "title": "Sprite chaos: materials and colors",
+      "lines": [
+        "Separate background, decoration, floor and enemy color options. Original silhouettes, collision geometry, action points and animation timing are preserved.",
+        "Additional scenery and optional background dimming. Enemy colors are a reviewed beta subset, not full character replacements.",
+        "BR11 share codes include every visual option. Existing saved runs retain their original rules."
+      ]
+    },
+    {
+      "date": "2026-10-17",
+      "title": "Scenery shuffle beta",
+      "lines": [
+        "Optional seeded scenery shuffle in Advanced > Hacks. Reviewed backgrounds and decoration change; enemies, hazards and collision geometry stay original.",
+        "Scenery stays consistent after death and reload. New BR10 share codes include the scenery option."
+      ]
+    },
+    {
+      "date": "2026-10-17",
+      "title": "Spider surprise",
+      "lines": [
+        "Attacks enter from random positions along all four screen edges.",
+        "The spider turns its feet toward Boshy and flies 25% faster.",
+        "The existing attack interval and your on/off preference stay unchanged."
+      ]
+    },
+    {
+      "date": "2026-10-16",
+      "title": "Menu comfort and stability",
+      "lines": [
+        "Fixed direct save-slot selection without closing the game.",
+        "Menus adapt to smaller windows; choose your text size with Aa."
+      ]
+    },
+    {
+      "date": "2026-10-16",
+      "title": "Normal mode",
+      "lines": [
+        "Play the original progression with original chest rewards.",
+        "Choose a starting character and optional hacks.",
+        "Separate saves, shared settings and the run tracker remain available.",
+        "Normal mode now supports optional character changes between levels and boss rooms."
+      ]
+    },
+    {
+      "date": "2026-10-15",
+      "title": "Kappa reward room",
+      "lines": [
+        "Defeat Kappa, then collect his reward.",
+        "His stage ends at the Teleport Room portal.",
+        "The correction also applies to saved runs."
+      ]
+    },
+    {
+      "date": "2026-10-15",
+      "title": "A better finish",
+      "lines": [
+        "New victory screen with the Randomizer logo.",
+        "Translucent stats; the ending and credits keep playing.",
+        "Appears five seconds later.",
+        "Copy your full seed with one click."
+      ]
+    },
+    {
+      "date": "2026-10-15",
+      "title": "Recent improvements",
+      "lines": [
+        "Kappa is now a separate boss after Justin.tv.",
+        "Refined Cheetahman, Kid Icarus and Desert starts.",
+        "Reliable shot changes, music loops and spider sprites.",
+        "Fresh seeds for new runs and safer same-room transitions."
+      ]
+    },
+    {
       "date": "2026-10-15",
       "title": "Recent improvements",
       "lines": [
         "Rare spider surprise: optional, enabled for new runs.",
-        "Random attacks every 5\u201330 gameplay minutes, including bosses.",
+        "Random attacks every 5–30 gameplay minutes, including bosses.",
         "Music information in the tracker and faster state reads."
       ]
     },

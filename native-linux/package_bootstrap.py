@@ -7,7 +7,7 @@ def data_root():
  return Path(os.environ.get('BOSHY_DATA_HOME') or Path(os.environ.get('XDG_DATA_HOME',Path.home()/'.local/share'))/'boshy-randomizer').expanduser().resolve()
 
 def install_runtime(base):
- manifest=json.loads((PACKAGE/'package-files.json').read_text())
+ manifest=json.loads((PACKAGE/'package-files.json').read_text(encoding='utf-8'))
  base.mkdir(parents=True,exist_ok=True)
  if any(p.is_symlink() for p in (base/'IWBTB',base/'wineprefix')):raise RuntimeError('The game and Wine prefix must belong to this randomizer.')
  # Old processes must not see a half-updated runtime.
@@ -17,7 +17,7 @@ def install_runtime(base):
   try:
    if Path(p.cwd()) in (base,base/'IWBTB'):raise RuntimeError('Close the running randomizer before updating.')
   except (psutil.Error,FileNotFoundError):pass
- marker=base/'installed-runtime.json';current=json.loads(marker.read_text()) if marker.exists() else {}
+ marker=base/'installed-runtime.json';current=json.loads(marker.read_text(encoding='utf-8')) if marker.exists() else {}
  if current.get('release')==manifest['release']:return
  for name,want in manifest['files'].items():
   path=PACKAGE/name
@@ -28,14 +28,14 @@ def install_runtime(base):
   temp=target.with_name(target.name+'.package-new');shutil.copy2(PACKAGE/name,temp);os.replace(temp,target)
  from mixed_rewards import CONTEXT_SIZE
  for blob_name,symbol_name in [('slot_reward_hook.bin','slot_reward_symbols.json'),('slot_reward_extras.bin','slot_reward_extras_symbols.json')]:
-  path=base/blob_name;raw=bytearray(path.read_bytes());off=json.loads((base/symbol_name).read_text())['context_offset']+CONTEXT_SIZE
+  path=base/blob_name;raw=bytearray(path.read_bytes());off=json.loads((base/symbol_name).read_text(encoding='utf-8'))['context_offset']+CONTEXT_SIZE
   for field,name in ((64,'menu-runtime/frame.bmp'),(1356,'native_menu.dll')):
    value=('Z:'+str(base/name).replace('/','\\')).encode('ascii')
    if len(value)>=260:raise RuntimeError('The runtime folder path is too long.')
    raw[off+field:off+field+260]=value.ljust(260,b'\0')
   path.write_bytes(raw)
  for directory in ('menu-runtime','evidence','native-runs'):(base/directory).mkdir(exist_ok=True)
- marker.write_text(json.dumps({'release':manifest['release'],'version':manifest['version']},indent=2)+'\n')
+ marker.write_text(json.dumps({'release':manifest['release'],'version':manifest['version']},indent=2)+'\n', encoding='utf-8')
 
 
 def main():

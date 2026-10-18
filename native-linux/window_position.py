@@ -13,6 +13,12 @@ class WindowPosition:
   x,y,_,_=window_rect(window)
   return cls(x,y)
  def restore(self,window=None):
+  import os
+  if os.name=='nt':
+   from windows_api import user
+   window=window or game_window()
+   if not user.SetWindowPos(window._hWnd,None,self.x,self.y,0,0,0x15):raise RuntimeError('Window position failed')
+   return window
   from PY.platform_windows import _property
   window=window or game_window()
   for _ in range(12):

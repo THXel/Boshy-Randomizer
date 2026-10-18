@@ -124,7 +124,7 @@ def prepare(base,*,rng=None):
  from native_session import atomic
  root=Path(base)/'menu-runtime';root.mkdir(parents=True,exist_ok=True);plan=root/'intro.bin'
  try:
-  try:previous=json.loads((root/'intro-last.json').read_text()).get('cast')
+  try:previous=json.loads((root/'intro-last.json').read_text(encoding='utf-8')).get('cast')
   except (OSError,ValueError,AttributeError):previous=None
   from intro_themes import IMAGE_IDS,prepare as prepare_theme
   chosen=choose(previous,rng);objects,images=read_game(Path(base)/'IWBTB/I Wanna Be The Boshy.exe',EXPECTED,extra_images=IMAGE_IDS)

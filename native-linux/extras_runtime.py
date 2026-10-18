@@ -2,10 +2,10 @@
 import json,struct
 from mixed_rewards import CONTEXT_SIZE,context,validate
 from run_extras import flags
-ASSETS=('run_extras.py','extras_runtime.py','native_extras.dll','slot_reward_extras.bin','slot_reward_extras_symbols.json','death_character.py','shot_cycle.py','music_randomizer.py','spider_randomizer.py')
+ASSETS=('run_extras.py','extras_runtime.py','native_extras.dll','slot_reward_extras.bin','slot_reward_extras_symbols.json','death_character.py','shot_cycle.py','music_randomizer.py','spider_randomizer.py','sprite_scenery.py','sprite_scenery_catalogue.json','sprite_chaos.py','sprite_chaos_catalogue.json','background_sets.py','background_sets_catalogue.json')
 def run_blob(base,m):
- plan=json.loads((base/'slot_reward_plan.json').read_text());validate(m['rewards'],m['seed'],plan,enabled=m['options']['items'])
- raw=bytearray((base/'slot_reward_extras.bin').read_bytes());offset=json.loads((base/'slot_reward_extras_symbols.json').read_text())['context_offset']
+ plan=json.loads((base/'slot_reward_plan.json').read_text(encoding='utf-8'));validate(m['rewards'],m['seed'],plan,enabled=m['options']['items'])
+ raw=bytearray((base/'slot_reward_extras.bin').read_bytes());offset=json.loads((base/'slot_reward_extras_symbols.json').read_text(encoding='utf-8'))['context_offset']
  if len(raw)-offset!=CONTEXT_SIZE+2160:raise ValueError('Ungültiger Extras-Patch.')
  if m['options']['extras'].get('fast_chests',False):
   import copy

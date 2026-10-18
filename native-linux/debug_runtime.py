@@ -10,16 +10,24 @@ class DebugRuntime:
   self.recorder=Recorder(store.base);self.last_error_report=None
   self.last=0.;self.sequence=0;self.events=[];self.player_key=None;self.player_ptr=None;self.player_oi=None;self.closed=False;self.window=None
   if start_window:
-   self.window=subprocess.Popen([sys.executable,str(store.base/'debug_window.py'),'--host',str(os.getpid()),'--session',str(self.folder)],cwd=store.base,stdout=subprocess.DEVNULL,stderr=open(self.folder/'window-errors.log','a'),start_new_session=True)
+   self.window=subprocess.Popen(__import__('host_platform').python_command('debug_window.py','--host',str(os.getpid()),'--session',str(self.folder)),cwd=store.base,stdout=subprocess.DEVNULL,stderr=open(self.folder/'window-errors.log','a'),start_new_session=True,**__import__('host_platform').child_options())
  def event(self,event,**fields):
   self.events.append(dict(time=time.time(),event=event,**fields));self.events=self.events[-80:]
  def error(self,error):
   self.event('Fehler',message=str(error))
   try:
    state={**getattr(self,'state',{}),'sequence':self.sequence+1,'time':time.time(),'phase':'error','events':list(self.events),'exception_type':type(error).__name__}
+   if getattr(self,'timings',None):state['transition_timings']=self.timings.snapshot()
+   if getattr(getattr(self,'spawn_bridge',None),'last_spawn_check',None):state['spawn_guard']=dict(self.spawn_bridge.last_spawn_check)
    self.last_error_report=str(self.recorder.finish(str(error),state))
    write_json(self.store.base/'debug-reports/latest-error.json',dict(path=self.last_error_report,time=time.time(),error=str(error)))
   except Exception as export_error:self.event('Bericht fehlgeschlagen',message=str(export_error))
+ def graphics_state(self,player):
+  identity=(player.m['run_id'],id(player),id(player.bridge))
+  if getattr(self,'graphics_run',None)!=identity:
+   from graphics_debug import Telemetry
+   self.graphics_run=identity;self.graphics=Telemetry(player)
+  return self.graphics.read()
  def demands(self):return read_json(self.folder/'watch.json',{}).get('observe',False)
  def commands(self,player=None):
   for p in sorted(self.folder.glob('request-*.json'))[:8]:
@@ -32,7 +40,7 @@ class DebugRuntime:
     if not 0<=time.time()-float(req.get('created_at',0))<=10:raise ValueError('Testaktion ist abgelaufen; bitte erneut auslösen.')
     if player is None or not player.progress or not player.last:raise ValueError('Testaktionen sind nur im geladenen Randomizer-Lauf verfügbar.')
     if req.get('run_id')!=player.m['run_id'] or req.get('binding')!=player.m['session_binding']:raise ValueError('Der aktive Spielstand hat sich geändert.')
-    if not req.get('enabled'):raise ValueError('Testaktionen zuerst freigeben.')
+    if req.get('action')!='graphics_mask' and not req.get('enabled'):raise ValueError('Testaktionen zuerst freigeben.')
     response.update(ok=True,message=self.execute(player,req))
    except Exception as e:response.update(ok=False,message=str(e));self.event('Testaktion abgewiesen',message=str(e))
    write_json(self.folder/(p.stem.replace('request-','response-')+'.json'),response)
@@ -50,6 +58,9 @@ class DebugRuntime:
   self.event('Testeingriff',action=req['action'],value=req['value']);return backup
  def execute(self,player,req):
   action=req.get('action');value=req.get('value')
+  if action=='graphics_mask':
+   from graphics_debug import request
+   message=request(player,value);self.event('Grafikdiagnose',value=value);return message
   choices=self.choices(player)
   if action not in ('teleport','grant_item','grant_character'):raise ValueError('Unbekannte Testaktion.')
   allowed=choices['spots'] if action=='teleport' else choices['items' if action=='grant_item' else 'characters']
@@ -80,7 +91,7 @@ class DebugRuntime:
   from lab import ini_items
   from mixed_rewards import action,string_param
   obj='Ini++ 3' if is_character else 'Ini++';group='Unlockables' if is_character else 'Collectables';snap=player.bridge.snapshot()
-  plan=json.loads((self.store.base/'slot_reward_plan.json').read_text());loc=next((r for r in plan['locations'] if r['scene']==snap['scene']),None)
+  plan=json.loads((self.store.base/'slot_reward_plan.json').read_text(encoding='utf-8'));loc=next((r for r in plan['locations'] if r['scene']==snap['scene']),None)
   ref=bytes.fromhex(loc['license_ref' if is_character else 'save_ref']) if loc else None
   if ref is None:
    bank=struct.unpack('<I',player.bridge.read(snap['run']+0x88,4))[0];off=0
@@ -122,28 +133,37 @@ class DebugRuntime:
   collect=ini(self.store,self.store.base/'IWBTB'/player.save_name).get('collectables',{})
   available=eligible(player.m['pool'],collect)
   if player.m['options'].get('mode')=='target' and player.progress.data.get('targets_obtained')!=player.progress.goals:available={k:v for k,v in available.items() if k!='boss_solgryn.ini'}
-  plan=json.loads((self.store.base/'slot_reward_plan.json').read_text())
+  plan=json.loads((self.store.base/'slot_reward_plan.json').read_text(encoding='utf-8'))
   return {'spots':[{'key':k,'label':p.get('label',location(p['frame']))+' · '+k} for k,p in available.items()],
           'items':[{'key':n,'label':n} for n in sorted({r['source'] for r in plan['locations'] if r['source_kind']=='item'}|{'Gastly'})],
           'characters':[{'key':n,'label':n} for n in sorted({r['source'] for r in plan['locations'] if r['source_kind']=='character'})]}
- def position(self,player,snap):
+ def position(self,player,snap,retry=True):
   from lab import objects
-  key=(player.m['run_id'],snap['run'],snap['scene'])
-  if key!=self.player_key or not self.player_ptr:
+  key=(player.m['run_id'],snap['run'],snap['scene'],snap['object_list'])
+  reset=snap['frame_count']<getattr(self,'player_tick',0)
+  self.player_tick=snap['frame_count']
+  if key!=self.player_key or not self.player_ptr or reset:
    self.player_key=key;self.player_ptr=None
    for obj in objects(player.bridge):
     if obj['type']!=2:continue
     meta=struct.unpack_from('<I',bytes.fromhex(obj['raw']),28)[0]
     if player.bridge.read(meta+90,24).split(b'\0')[0]==b'Player':
-     self.player_ptr=obj['ptr'];self.player_oi=obj['oi'];break
+     self.player_ptr=obj['ptr'];self.player_oi=obj['oi'];self.player_handle=obj['handle'];self.player_slot=obj['slot'];break
   if self.player_ptr:
-   raw=player.bridge.read(self.player_ptr,100)
-   if struct.unpack_from('<H',raw,18)[0]==self.player_oi and struct.unpack_from('<h',raw,24)[0]==2:return [struct.unpack_from('<i',raw,76)[0],struct.unpack_from('<i',raw,84)[0]]
+   pointer=struct.unpack('<I',player.bridge.read(snap['object_list']+self.player_slot*8,4))[0]
+   raw=player.bridge.read(self.player_ptr,100) if pointer==self.player_ptr else bytes(100)
+   valid=pointer==self.player_ptr and struct.unpack_from('<H',raw,18)[0]==self.player_oi and struct.unpack_from('<h',raw,24)[0]==2 and struct.unpack_from('<h',raw,0)[0]==self.player_handle
+   if valid:
+    after=player.bridge.snapshot()
+    if (after['scene'],after['run'],after['object_list'])!=(snap['scene'],snap['run'],snap['object_list']) or after['frame_count']<snap['frame_count']:raise RuntimeError('Scene changed during observation')
+    return [struct.unpack_from('<i',raw,76)[0],struct.unpack_from('<i',raw,84)[0]]
    self.player_ptr=None
+   if retry:return self.position(player,player.bridge.snapshot(),retry=False)
+
  def tick(self,phase,player=None,model=None,force=False):
   now=time.monotonic()
   if not force and now-self.last<.5:return
-  self.last=now;self.sequence+=1
+  self.last=now;self.sequence+=1;self.timings=None;self.spawn_bridge=None
   data=dict(schema=1,sequence=self.sequence,time=time.time(),host_pid=os.getpid(),phase=phase,game_root=str(self.store.base/'IWBTB'),game_exe=str(self.store.base/'IWBTB/I Wanna Be The Boshy.exe'),events=self.events,run_id=None,choices={})
   if model:data.update(menu_page=model.page,selected_slot=model.slot,message=model.message)
   if player and player.last:
@@ -151,10 +171,16 @@ class DebugRuntime:
    from trigger_explanation import explain
    data['trigger_explanation']=explain(player)
    if getattr(player,'insights',None):data['run_highlights']=player.insights.highlights()
+   data['graphics']=self.graphics_state(player)
    if getattr(player,'shots',None):data['shot_cycle']=dict(player.shots.data)
-   from seed_share import encode
-   data['share_seed']=encode(player.m['seed'],player.m['options'],getattr(getattr(player,'rules',None),'base',self.store.base))
-   if self.demands():
+   from seed_share import encode_saved
+   data['share_seed']=encode_saved(player.m['seed'],player.m['options'],getattr(getattr(player,'rules',None),'base',self.store.base),getattr(player,'rules',None))
+   self.timings=getattr(player,'transition_timings',None)
+   if self.timings:data['transition_timings']=self.timings.snapshot()
+   self.spawn_bridge=player.bridge
+   if getattr(player.bridge,'last_spawn_check',None):data['spawn_guard']=dict(player.bridge.last_spawn_check)
+   # Keep position history available for the hidden-window problem marker.
+   if not getattr(player,'ending_started',False):
     try:
      snap=player.bridge.snapshot();data['engine']={k:snap[k] for k in ('scene','next','frame_count','viewport')};data['player_position']=self.position(player,snap)
     except Exception as e:data['observation_error']=str(e)

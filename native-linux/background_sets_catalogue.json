@@ -1,0 +1,725 @@
+{
+  "version": 1,
+  "objects": [
+    {
+      "oi": 224,
+      "type": 1,
+      "size": 18,
+      "sha256": "d842f4757bd2119e8cc5e4e7496d401a9636e6522791751e92d4250ec3238748",
+      "offset": 16,
+      "image": 2292,
+      "width": 854,
+      "height": 480,
+      "hx": 0,
+      "hy": 0,
+      "ax": 0,
+      "ay": 0,
+      "cloud": false,
+      "speed": 0
+    },
+    {
+      "oi": 220,
+      "type": 2,
+      "size": 244,
+      "sha256": "acba6f91aee25ae0a67ec6ecf747a81b9f7331c288c9e53a49b63751d8081830",
+      "offset": 242,
+      "image": 3621,
+      "width": 540,
+      "height": 150,
+      "hx": 58,
+      "hy": 22,
+      "ax": -99,
+      "ay": -7,
+      "cloud": true,
+      "speed": -3
+    },
+    {
+      "oi": 221,
+      "type": 2,
+      "size": 244,
+      "sha256": "352fc73a4f08b429618edb846438ef757fcbd4544846e0e9d51b27cb52fad678",
+      "offset": 242,
+      "image": 3787,
+      "width": 640,
+      "height": 150,
+      "hx": 1,
+      "hy": 0,
+      "ax": -126,
+      "ay": -1,
+      "cloud": true,
+      "speed": -1
+    },
+    {
+      "oi": 222,
+      "type": 2,
+      "size": 244,
+      "sha256": "302b78b0ee4044790bf28100e233e042cfc6794c765c9ec33738e3d38e36ae42",
+      "offset": 242,
+      "image": 3786,
+      "width": 640,
+      "height": 150,
+      "hx": 1,
+      "hy": 0,
+      "ax": -126,
+      "ay": -1,
+      "cloud": true,
+      "speed": -2
+    },
+    {
+      "oi": 223,
+      "type": 2,
+      "size": 226,
+      "sha256": "e0c71e5c326474e5ab2b08fe369c0743bc843608fe35b986bff998bf2fab8e6a",
+      "offset": 224,
+      "image": 513,
+      "width": 853,
+      "height": 479,
+      "hx": 0,
+      "hy": 0,
+      "ax": 0,
+      "ay": 0,
+      "cloud": false,
+      "speed": 0
+    },
+    {
+      "oi": 368,
+      "type": 1,
+      "size": 18,
+      "sha256": "a796fce4853a8e591eff8a2de85ee7022f0049ef1ce52cd93d088066dd9c518e",
+      "offset": 16,
+      "image": 4017,
+      "width": 831,
+      "height": 562,
+      "hx": 0,
+      "hy": 0,
+      "ax": 0,
+      "ay": 0,
+      "cloud": false,
+      "speed": 0
+    },
+    {
+      "oi": 455,
+      "type": 2,
+      "size": 244,
+      "sha256": "a58dbeaeeee753bf0b861b70a07d6455dc2039e1594a6f383accdebb7b7374e7",
+      "offset": 242,
+      "image": 693,
+      "width": 740,
+      "height": 150,
+      "hx": 58,
+      "hy": 22,
+      "ax": -99,
+      "ay": -7,
+      "cloud": true,
+      "speed": -3
+    },
+    {
+      "oi": 456,
+      "type": 2,
+      "size": 244,
+      "sha256": "8fd63283b263e341dd7aa2a485410b1ff69c076a9e11dbbf652d02b5b225cbd3",
+      "offset": 242,
+      "image": 694,
+      "width": 591,
+      "height": 80,
+      "hx": 1,
+      "hy": 0,
+      "ax": -126,
+      "ay": -1,
+      "cloud": true,
+      "speed": -1
+    },
+    {
+      "oi": 457,
+      "type": 2,
+      "size": 244,
+      "sha256": "743497dc5e9f9c3e6ea79d95dc18e3d26383d922e045dc0564cf261f1905f280",
+      "offset": 242,
+      "image": 695,
+      "width": 591,
+      "height": 80,
+      "hx": 1,
+      "hy": 0,
+      "ax": -126,
+      "ay": -1,
+      "cloud": true,
+      "speed": -2
+    },
+    {
+      "oi": 617,
+      "type": 1,
+      "size": 18,
+      "sha256": "ba9d7bae3c69ceb845375388e97bfacd60c48fc3193f33ece1ff54426df0382f",
+      "offset": 16,
+      "image": 2926,
+      "width": 640,
+      "height": 480,
+      "hx": 0,
+      "hy": 0,
+      "ax": 0,
+      "ay": 0,
+      "cloud": false,
+      "speed": 0
+    },
+    {
+      "oi": 681,
+      "type": 48,
+      "size": 174,
+      "sha256": "8d79d1c75943f45e8bb8a48f499b38281e2e15400ed0e752ba06404766253a27",
+      "offset": 170,
+      "image": 2936,
+      "width": 583,
+      "height": 296,
+      "hx": 0,
+      "hy": 0,
+      "ax": 0,
+      "ay": 0,
+      "cloud": false,
+      "speed": 0
+    },
+    {
+      "oi": 907,
+      "type": 1,
+      "size": 18,
+      "sha256": "cbfcb174751fde546877491d79a17e602bc302d4df8e878573f17b44cf92fd54",
+      "offset": 16,
+      "image": 3205,
+      "width": 639,
+      "height": 743,
+      "hx": 0,
+      "hy": 0,
+      "ax": 0,
+      "ay": 0,
+      "cloud": false,
+      "speed": 0
+    },
+    {
+      "oi": 1022,
+      "type": 1,
+      "size": 18,
+      "sha256": "5622823021d7dbfe65350588d5872f1be70a12a470119d86ac61e1f2274ac2b9",
+      "offset": 16,
+      "image": 2296,
+      "width": 639,
+      "height": 743,
+      "hx": 0,
+      "hy": 0,
+      "ax": 0,
+      "ay": 0,
+      "cloud": false,
+      "speed": 0
+    },
+    {
+      "oi": 1508,
+      "type": 1,
+      "size": 18,
+      "sha256": "978f2ab6ce5af3ded2fb37d0985b77f285e8de086d60a3cdcc67094d504d4be7",
+      "offset": 16,
+      "image": 3792,
+      "width": 640,
+      "height": 614,
+      "hx": 0,
+      "hy": 0,
+      "ax": 0,
+      "ay": 0,
+      "cloud": false,
+      "speed": 0
+    },
+    {
+      "oi": 1509,
+      "type": 1,
+      "size": 18,
+      "sha256": "3275b171526634eae589920a9e71f398760f343dff2f0b2ed06901616feefa0f",
+      "offset": 16,
+      "image": 4014,
+      "width": 640,
+      "height": 614,
+      "hx": 0,
+      "hy": 0,
+      "ax": 0,
+      "ay": 0,
+      "cloud": false,
+      "speed": 0
+    },
+    {
+      "oi": 1548,
+      "type": 1,
+      "size": 18,
+      "sha256": "6e32b8f84f823d9052953498bf82d84ef65b519256c52a7a1cf4130a92955fb0",
+      "offset": 16,
+      "image": 1272,
+      "width": 640,
+      "height": 480,
+      "hx": 0,
+      "hy": 0,
+      "ax": 0,
+      "ay": 0,
+      "cloud": false,
+      "speed": 0
+    },
+    {
+      "oi": 1789,
+      "type": 1,
+      "size": 18,
+      "sha256": "7f2415736427434f10d90f28db63980bd90ab985ebacde1020d1dc96d501618c",
+      "offset": 16,
+      "image": 3877,
+      "width": 645,
+      "height": 483,
+      "hx": 0,
+      "hy": 0,
+      "ax": 0,
+      "ay": 0,
+      "cloud": false,
+      "speed": 0
+    },
+    {
+      "oi": 1790,
+      "type": 2,
+      "size": 244,
+      "sha256": "d4dfc90b7e37e70953c623ab61220a63213bc65b186cb26af5d124517ab9c651",
+      "offset": 242,
+      "image": 3922,
+      "width": 640,
+      "height": 480,
+      "hx": 44,
+      "hy": 16,
+      "ax": -75,
+      "ay": -5,
+      "cloud": true,
+      "speed": -3
+    },
+    {
+      "oi": 1791,
+      "type": 2,
+      "size": 244,
+      "sha256": "b105ca37a7abaaf8785ee4c39acb0e20541bc5e514ba5df0fcc462ad3728160d",
+      "offset": 242,
+      "image": 3921,
+      "width": 640,
+      "height": 110,
+      "hx": 0,
+      "hy": -370,
+      "ax": -105,
+      "ay": -370,
+      "cloud": true,
+      "speed": -2
+    },
+    {
+      "oi": 1792,
+      "type": 2,
+      "size": 244,
+      "sha256": "63dd12a32b300d539a5fec8f4713d58ae574f7240b602510e047c1301241bf5f",
+      "offset": 242,
+      "image": 3864,
+      "width": 640,
+      "height": 480,
+      "hx": 44,
+      "hy": 463,
+      "ax": -75,
+      "ay": 484,
+      "cloud": true,
+      "speed": -3
+    },
+    {
+      "oi": 1912,
+      "type": 1,
+      "size": 18,
+      "sha256": "26cce509fc5f22697e0e345441ec169fe10271bb855b06cf9ad46f3a92fd097a",
+      "offset": 16,
+      "image": 3800,
+      "width": 639,
+      "height": 603,
+      "hx": 0,
+      "hy": 0,
+      "ax": 0,
+      "ay": 0,
+      "cloud": false,
+      "speed": 0
+    },
+    {
+      "oi": 1913,
+      "type": 2,
+      "size": 244,
+      "sha256": "0082543086c8bb753ab07159676d90344b2815739a84c246308eb0d910d57acc",
+      "offset": 242,
+      "image": 3812,
+      "width": 640,
+      "height": 250,
+      "hx": 92,
+      "hy": 97,
+      "ax": -119,
+      "ay": -34,
+      "cloud": true,
+      "speed": -3
+    },
+    {
+      "oi": 1914,
+      "type": 2,
+      "size": 244,
+      "sha256": "429faa4d51de07b569c1d45c795bd6a7b7f1aea31bd32c2dce8299bf6dd02f36",
+      "offset": 242,
+      "image": 3810,
+      "width": 640,
+      "height": 250,
+      "hx": 0,
+      "hy": 140,
+      "ax": -126,
+      "ay": -1,
+      "cloud": true,
+      "speed": -1
+    },
+    {
+      "oi": 1915,
+      "type": 2,
+      "size": 244,
+      "sha256": "a37719afc699cb07962a51c89f68a2a61d575d4bdcd146830dbc480feb21bb3a",
+      "offset": 242,
+      "image": 3808,
+      "width": 640,
+      "height": 250,
+      "hx": 0,
+      "hy": 81,
+      "ax": -126,
+      "ay": -1,
+      "cloud": true,
+      "speed": -2
+    },
+    {
+      "oi": 2116,
+      "type": 1,
+      "size": 18,
+      "sha256": "e45fb7c3192aaa2af4f1a5e399eab062880c22ac5b1b86e2f05f85527e599d8e",
+      "offset": 16,
+      "image": 998,
+      "width": 640,
+      "height": 480,
+      "hx": 0,
+      "hy": 0,
+      "ax": 0,
+      "ay": 0,
+      "cloud": false,
+      "speed": 0
+    }
+  ],
+  "sets": [
+    {
+      "scene": 2,
+      "name": "First World - Prehistorik",
+      "count": 2002,
+      "width": 9000,
+      "coefficient": 0.05000000074505806,
+      "locked": false,
+      "instances": [
+        {
+          "object": 0,
+          "x": 0,
+          "y": 0,
+          "handle": 1566
+        },
+        {
+          "object": 2,
+          "x": 2,
+          "y": 130,
+          "handle": 1560
+        },
+        {
+          "object": 2,
+          "x": 578,
+          "y": 144,
+          "handle": 1561
+        },
+        {
+          "object": 3,
+          "x": -22,
+          "y": 61,
+          "handle": 1562
+        },
+        {
+          "object": 3,
+          "x": 594,
+          "y": 74,
+          "handle": 1563
+        },
+        {
+          "object": 4,
+          "x": 0,
+          "y": 0,
+          "handle": 1564
+        },
+        {
+          "object": 1,
+          "x": 708,
+          "y": 16,
+          "handle": 699
+        },
+        {
+          "object": 1,
+          "x": 68,
+          "y": 14,
+          "handle": 698
+        }
+      ]
+    },
+    {
+      "scene": 4,
+      "name": "Second World - Green greens",
+      "count": 7146,
+      "width": 9000,
+      "coefficient": 0.02500000037252903,
+      "locked": false,
+      "instances": [
+        {
+          "object": 5,
+          "x": 0,
+          "y": -48,
+          "handle": 25
+        },
+        {
+          "object": 6,
+          "x": 49,
+          "y": 17,
+          "handle": 3386
+        },
+        {
+          "object": 7,
+          "x": 1,
+          "y": 120,
+          "handle": 3387
+        },
+        {
+          "object": 8,
+          "x": 1,
+          "y": 71,
+          "handle": 3520
+        },
+        {
+          "object": 6,
+          "x": 714,
+          "y": 22,
+          "handle": 3334
+        },
+        {
+          "object": 8,
+          "x": 593,
+          "y": 80,
+          "handle": 3506
+        },
+        {
+          "object": 7,
+          "x": 577,
+          "y": 127,
+          "handle": 4324
+        }
+      ]
+    },
+    {
+      "scene": 7,
+      "name": "Third World - Cheetahmen II",
+      "count": 5173,
+      "width": 6500,
+      "coefficient": 0.0,
+      "locked": true,
+      "instances": [
+        {
+          "object": 9,
+          "x": 0,
+          "y": 0,
+          "handle": 25
+        },
+        {
+          "object": 10,
+          "x": 0,
+          "y": 0,
+          "handle": 3502
+        }
+      ]
+    },
+    {
+      "scene": 12,
+      "name": "Fifth World - Wario",
+      "count": 5264,
+      "width": 3900,
+      "coefficient": 0.10000000149011612,
+      "locked": false,
+      "instances": [
+        {
+          "object": 11,
+          "x": 0,
+          "y": -256,
+          "handle": 25
+        },
+        {
+          "object": 12,
+          "x": 639,
+          "y": -256,
+          "handle": 1709
+        }
+      ]
+    },
+    {
+      "scene": 21,
+      "name": "Seventh World - Milons Secret Castle",
+      "count": 2244,
+      "width": 10000,
+      "coefficient": 0.029999999329447746,
+      "locked": false,
+      "instances": [
+        {
+          "object": 13,
+          "x": 0,
+          "y": -134,
+          "handle": 2066
+        },
+        {
+          "object": 14,
+          "x": 640,
+          "y": -134,
+          "handle": 1060
+        }
+      ]
+    },
+    {
+      "scene": 22,
+      "name": "Seventh World 7.5 - Metal Gear!",
+      "count": 3553,
+      "width": 9000,
+      "coefficient": 0.0,
+      "locked": false,
+      "instances": [
+        {
+          "object": 15,
+          "x": 0,
+          "y": 0,
+          "handle": 1208
+        }
+      ]
+    },
+    {
+      "scene": 26,
+      "name": "Ninth World - Kid Icarus",
+      "count": 3485,
+      "width": 5000,
+      "coefficient": 0.0,
+      "locked": false,
+      "instances": [
+        {
+          "object": 16,
+          "x": 0,
+          "y": 0,
+          "handle": 558
+        },
+        {
+          "object": 17,
+          "x": 44,
+          "y": 16,
+          "handle": 561
+        },
+        {
+          "object": 18,
+          "x": 160,
+          "y": -2,
+          "handle": 3263
+        },
+        {
+          "object": 17,
+          "x": 556,
+          "y": 16,
+          "handle": 3264
+        },
+        {
+          "object": 18,
+          "x": 864,
+          "y": -2,
+          "handle": 3352
+        },
+        {
+          "object": 19,
+          "x": 956,
+          "y": 463,
+          "handle": 3353
+        },
+        {
+          "object": 19,
+          "x": 460,
+          "y": 463,
+          "handle": 372
+        },
+        {
+          "object": 19,
+          "x": 45,
+          "y": 463,
+          "handle": 373
+        }
+      ]
+    },
+    {
+      "scene": 30,
+      "name": "Tenth World - Ninja Gaiden",
+      "count": 3755,
+      "width": 15000,
+      "coefficient": 0.0,
+      "locked": false,
+      "instances": [
+        {
+          "object": 20,
+          "x": 0,
+          "y": -59,
+          "handle": 43
+        },
+        {
+          "object": 21,
+          "x": 106,
+          "y": 51,
+          "handle": 44
+        },
+        {
+          "object": 22,
+          "x": 17,
+          "y": 192,
+          "handle": 67
+        },
+        {
+          "object": 23,
+          "x": 17,
+          "y": 112,
+          "handle": 70
+        },
+        {
+          "object": 21,
+          "x": 746,
+          "y": 38,
+          "handle": 71
+        },
+        {
+          "object": 23,
+          "x": 644,
+          "y": 109,
+          "handle": 72
+        },
+        {
+          "object": 22,
+          "x": 656,
+          "y": 197,
+          "handle": 73
+        }
+      ]
+    },
+    {
+      "scene": 34,
+      "name": "Eleventh World - Desert",
+      "count": 7298,
+      "width": 9000,
+      "coefficient": 0.0,
+      "locked": true,
+      "instances": [
+        {
+          "object": 24,
+          "x": 0,
+          "y": 0,
+          "handle": 89
+        }
+      ]
+    }
+  ]
+}

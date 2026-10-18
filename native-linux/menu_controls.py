@@ -4,10 +4,12 @@ from run_extras import EXTRAS,SHOT_MODES
 
 def controls(m):
  p=m.page
- if p=='slots':return [(3+i,(742+i*40,274,778+i*40,299)) for i in range(3)]+[(2,(614,570,860,593)),(0,(614,600,860,624)),(1,(614,630,860,649))]
+ if p=='slots':return [(7,(640,274,682,299)),(6,(690,274,732,299))]+[(3+i,(742+i*40,274,778+i*40,299)) for i in range(3)]+[(2,(614,570,860,593)),(0,(614,600,860,624)),(1,(614,630,860,649))]
+ if p=='appearance':return [(i,(251,350+i*58,851,399+i*58)) for i in range(3)]+[(3,(251,604,851,640))]
  if p=='discard':return [(i,(251,410+i*62,851,460+i*62)) for i in range(3)]
  if p=='seed_preview':return [(0,(710,265,774,296)),(1,(783,265,847,296)),(2,(251,604,546,640)),(3,(558,604,851,640))]
- if p=='new':return [(9,(635,263,854,291))]+[(i,(245,295+r*35,856,327+r*35)) for r,i in enumerate((1,2,3,4,5,8))]+[(7,(245,508,856,539)),(0,(245,546,856,580)),(6,(245,603,856,642))]
+ if p=='new' and m.options.get('mode')=='normal':return [(10,(583,263,625,291)),(9,(635,263,854,291))]+[(i,(245,295+r*35,856,327+r*35)) for r,i in enumerate((1,2,5,3,8))]+[(7,(245,508,856,539)),(0,(245,546,856,580)),(6,(245,603,856,642))]
+ if p=='new':return [(10,(583,263,625,291)),(9,(635,263,854,291))]+[(i,(245,295+r*35,856,327+r*35)) for r,i in enumerate((1,2,3,4,5,8))]+[(7,(245,508,856,539)),(0,(245,546,856,580)),(6,(245,603,856,642))]
  if p=='advanced':
   count=3+len(LEVELS)+len(BOSSES)
   rows=[(i,(245,299+i*25,856,322+i*25)) for i in range(3)]
@@ -16,8 +18,15 @@ def controls(m):
    for col,n,offset in ((0,len(LEVELS),3),(1,len(BOSSES),3+len(LEVELS))):
     if row<n:
      x=249+col*304;y=399+(row%ADVANCED_PAGE_SIZE)*15;rows.append((offset+row,(x,y,x+292,y+14)))
+  mode=m.options.get('mode')
+  if mode=='boss_rush':rows=[(i,r) for i,r in rows if i!=0 and not 3<=i<3+len(LEVELS)]
+  elif mode=='level_rush':rows=[(i,r) for i,r in rows if i!=1 and not 3+len(LEVELS)<=i<count]
+  if mode in ('boss_rush','level_rush'):
+   rows=[(i,(249,r[1],845,r[3]) if 3<=i<count else r) for i,r in rows]
   return rows+[(count,(245,608,548,642)),(count+1,(558,608,856,642))]
- if p=='extras':return [(i,(245,293+i*28,856,320+i*28)) for i in range(len(EXTRAS))]+[(len(EXTRAS),(245,608,856,642))]
+ if p=='extras':return [(i,(245,293+i*26,856,318+i*26)) for i in range(len(EXTRAS))]+[(len(EXTRAS),(245,608,856,642))]
+ if p=='music':return [(0,(251,302,851,341))]+[(i+1,(251,380+i*50,851,423+i*50)) for i in range(len(m.music_packs))]+[(len(m.music_packs)+1,(251,604,546,640)),(len(m.music_packs)+2,(558,604,851,640))]
+ if p=='graphics':return [(i,(251,305+i*44,851,344+i*44)) for i in range(6)]+[(6,(251,604,851,640))]
  if p=='characters':return [(i,(249+i%7*87,303+i//7*49,331+i%7*87,348+i//7*49)) for i in range(len(m.character_names))]+[(len(m.character_names),(249,608,852,640))]
  if p=='choice':
   count=len(m.choice_values);cols=6 if count>6 else 1;wide=600/cols
@@ -29,7 +38,7 @@ def controls(m):
   from menu_model import seed_layout
   field,buttons=seed_layout(m.seed_text)
   return [(0,field)]+[(i,(left,buttons[0],right,buttons[1])) for i,(left,right) in enumerate(((251,443),(455,647),(659,851)),1)]+[(4,(251,604,546,640)),(5,(558,604,851,640))]
- if p=='result':return [(0,(251,604,546,640)),(1,(558,604,851,640))]
+ if p=='result':return [(2,(698,548,851,574)),(0,(251,604,546,640)),(1,(558,604,851,640))]
  if p=='delete':return [(0,(255,530,525,578)),(1,(550,530,850,578))]
  if p=='targets':return [(0,(251,613,851,644))]
  return []

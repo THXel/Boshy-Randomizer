@@ -1596,17 +1596,20 @@ class NativeLiveTrackerUI(LiveTrackerUI):
         self.targets_tab_text=tr('Ziele')
 
         self.font_name=font_family();configure_tk(self.root)
-        self.lbl_title.config(font=(self.font_name,14,'bold'))
+        self.lbl_title.config(font=(self.font_name,11,'bold'))
         self.timer_lbl_main.config(font=('DejaVu Sans Mono',26,'bold'))
         self.timer_lbl_ms.config(font=('DejaVu Sans Mono',12))
         self.deaths_lbl.config(font=(self.font_name,10),fg='#d5dce5')
         self.progress_label.config(font=(self.font_name,10),justify='left',anchor='w',wraplength=350)
-        self.root.bind('<Configure>',lambda e:self.progress_label.configure(wraplength=max(260,self.root.winfo_width()-28)))
+        self.root.bind('<Configure>',self._resize_labels)
         style=ttk.Style();style.configure('Boshy.Treeview',font=(self.font_name,10),rowheight=30)
         style.configure('TNotebook.Tab',font=(self.font_name,10),padding=(7,6))
         self.root.bind('<Control-c>',self._copy_seed)
         self.copy_button=tk.Button(self.lbl_title.master,text=tr('Copy Seed'),command=self._copy_seed,bg='#263d49',fg='white',relief='flat',font=(self.font_name,9),padx=6)
         self.copy_button.pack(side='right')
+        self.copy_button.configure(activebackground='#36718a',activeforeground='white',cursor='hand2',takefocus=True)
+        self.copy_button.bind('<Enter>',lambda e:self.copy_button.configure(bg='#36718a'))
+        self.copy_button.bind('<Leave>',lambda e:self.copy_button.configure(bg='#263d49'))
         try:
             with open(os.path.join(INI,'tracker-view.json')) as f:prefs=json.load(f)
         except (OSError,ValueError):prefs={}
@@ -1631,18 +1634,40 @@ class NativeLiveTrackerUI(LiveTrackerUI):
     def _update_targets_tab_visibility(self,visible):pass
     def _focus_section_tab(self,section_name):
         if self.notebook:self.notebook.select(self.section_frames['collectables'])
+    def _build(self):
+        self.font_name=font_family()
+        self.THEME={'bg':'#0E0E10','panel':'#14161A','fg':'#EDEEF0','muted':'#9AA0A6','accent':'#13C3FF'}
+        r=self.root;r.configure(bg=self.THEME['bg']);r.geometry('450x640+60+60');r.minsize(300,420)
+        r.attributes('-topmost',True)
+        logo=tk.Frame(r,bg=self.THEME['bg']);logo.pack(fill='x',padx=10,pady=(6,2))
+        self._safe_logo(logo,max_w=270,max_h=44)
+        top=tk.Frame(r,bg=self.THEME['bg']);top.pack(fill='x',padx=12,pady=(0,3))
+        self.lbl_title=tk.Label(top,bg=self.THEME['bg'],fg=self.THEME['fg'],anchor='w');self.lbl_title.pack(side='left',fill='x',expand=True)
+        timer=tk.Frame(r,bg=self.THEME['bg']);timer.pack(anchor='w',padx=12)
+        self.timer_lbl_main=tk.Label(timer,bg=self.THEME['bg'],fg=self.THEME['accent']);self.timer_lbl_main.pack(side='left')
+        self.timer_lbl_ms=tk.Label(timer,bg=self.THEME['bg'],fg=self.THEME['accent']);self.timer_lbl_ms.pack(side='left',pady=(14,0))
+        def label(color,size=10,bold=False):
+            v=tk.Label(r,bg=self.THEME['bg'],fg=color,anchor='w',justify='left',font=(self.font_name,size,'bold' if bold else 'normal'))
+            v.pack(fill='x',padx=12);return v
+        self.deaths_lbl=label('#d5dce5')
+        self.context_label=label('#9aabba',9)
+        self.location_label=label('#f1f5f9',12,True)
+        self.progress_label=label('#b4c5d3',9)
+        style=ttk.Style();style.theme_use('alt')
+        style.configure('Boshy.Horizontal.TProgressbar',troughcolor='#202b35',background='#13C3FF',borderwidth=0,thickness=5)
+        self.pb=ttk.Progressbar(r,maximum=100,style='Boshy.Horizontal.TProgressbar');self.pb.pack(fill='x',padx=12,pady=(5,7))
+        self._build_tabs()
+    def _resize_labels(self,event):
+        if event.widget!=self.root:return
+        width=max(260,self.root.winfo_width()-24)
+        for label in (self.context_label,self.location_label,self.progress_label,self.deaths_lbl):label.configure(wraplength=width)
     def _build_tabs(self):
-        super()._build_tabs()
         from tracker_grid import IconGrid
-        for section,frame in self.section_frames.items():
-            if section!='collectables' and str(frame) in self.notebook.tabs():self.notebook.forget(frame)
-        frame=self.section_frames['collectables']
-        for child in frame.winfo_children():child.pack_forget()
         from tracker_extras import ExtraStrip
-        self.extras_strip=ExtraStrip(frame,os.path.dirname(INI));self.extras_strip.pack(fill='x',pady=(0,3))
+        frame=tk.Frame(self.root,bg=self.THEME['panel']);frame.pack(fill='both',expand=True,padx=10,pady=(0,10))
+        self.extras_strip=ExtraStrip(frame,os.path.dirname(INI));self.extras_strip.pack(fill='x',pady=(0,4))
         self.overview=IconGrid(frame,os.path.dirname(INI));self.overview.pack(fill='both',expand=True)
         self.grids={'overview':self.overview}
-        self.notebook.tab(frame,text=tr('Übersicht'))
     def _save_view(self):
         from pathlib import Path
         from native_session import write_json
@@ -1698,8 +1723,8 @@ class NativeLiveTrackerUI(LiveTrackerUI):
         finally:self.root.destroy()
     def _poll_pixel_start(self):pass
     def _tick(self):
-        d=self.presentation;age=time.time()-float(d.get('updated_at',0));cur=float(d.get('elapsed',0))
-        if d.get('timer_running') and 0<=age<=8:cur+=age
+        from tracker_presenter import elapsed
+        cur=elapsed(self.presentation,time.time())
         text=fmt_time_hhmmss_ms(cur);main,_,ms=text.partition('.')
         self.timer_lbl_main.config(text=main);self.timer_lbl_ms.config(text='.'+ms if ms else '')
         self.root.after(40,self._tick)
@@ -1715,23 +1740,27 @@ class NativeLiveTrackerUI(LiveTrackerUI):
             rows.append(dict(key='current_music',icon='♪',label=tr('Musik: {0}',music['track']),hint=tr('Original: {0}',music['original'])))
         self.extras_strip.update_rows(rows,bool(hasattr(self,'show_countdown') and self.show_countdown.get()))
         if time.time()-getattr(self,'_placed_at',0)>2:self._keep_off_game();self._placed_at=time.time()
-        mode=d.get('mode');identity=(mode,d.get('run_id'),d.get('slot'))
-        self.lbl_title.config(text={'target':'Target Select','randomizer':'Randomizer','menu':tr('Spielstand wählen'),'speedrun':'Boshy Speedrun'}.get(mode,tr('Randomizer wird gestartet')))
+        mode=d.get('play_mode',d.get('mode'));identity=(mode,d.get('run_id'),d.get('slot'))
+        self.lbl_title.config(text={'normal':tr('Normal'),'target':'Target Select','randomizer':'Randomizer','boss_rush':tr('Boss Rush'),'level_rush':tr('Level Rush'),'menu':tr('Spielstand wählen'),'speedrun':'Boshy Speedrun'}.get(mode,tr('Randomizer wird gestartet')))
         self.deaths_lbl.config(text=tr('Deaths: {0} · {1}', str(int(d.get('deaths', 0))), str(d.get('character', ''))))
         goals=d.get('goals',[]);done=sum(bool(g.get('done')) for g in goals);total=len(goals)
-        self.progress_label.config(text=(tr('{0}\nSlot {1} · Seed {2}\n', display(d.get('location', '')), str(d.get('slot', '–')), str(d.get('seed', '–')))+(tr('◆ Ziele: {0} von {1}', str(done), str(total)) if mode=='target' else tr('Fundorte: {0} / {1} · Wechsel: {2}', str(d.get('checks_done', 0)), str(d.get('checks_total', 0)), str(d.get('route_index', 0))))) if mode in ('target','randomizer') else (tr('Spielstand wird geladen …') if d.get('phase')=='loading' else tr('Wähle deinen Spielstand im Spiel.')))
+        from tracker_presenter import progress,DIFFICULTIES
+        active=mode in ('target','randomizer','normal','boss_rush','level_rush')
+        label,value=progress(d)
+        self.location_label.config(text=display(d.get('location','')) if active else '')
+        self.context_label.config(text=(tr('Slot {0} · {1}',d.get('slot','–'),DIFFICULTIES.get(d.get('difficulty'),'–'))+'\n'+tr('Seed: {0}',d.get('seed','–'))) if active else '')
+        self.progress_label.config(text=label if active else (tr('Spielstand wird geladen …') if d.get('phase')=='loading' else tr('Wähle deinen Spielstand im Spiel.')))
         if d.get('phase')=='finished':self.lbl_title.config(text=tr('Solgryn besiegt!'))
-        self.pb['value']=100*done/max(1,total) if mode=='target' else 100*int(d.get('checks_done',0))/max(1,int(d.get('checks_total',0)))
-        signature=json.dumps({k:d.get(k) for k in ('mode','run_id','goals','items','characters','bosses','route','location','splits','current_index')},sort_keys=True)
+        if d and time.time()-float(d.get('updated_at',0))>8:self.progress_label.config(text=tr('Warte auf Spieldaten …'))
+        self.pb['value']=max(0,min(100,value)) if active else 0
+        if hasattr(self,'copy_button'):self.copy_button.configure(state='normal' if d.get('share_seed') or d.get('seed') else 'disabled')
+        signature=json.dumps({k:d.get(k) for k in ('mode','play_mode','run_id','goals','items','characters','bosses','route','route_stages','location','splits','current_index')},sort_keys=True)
         if signature!=self.signature:
             self.signature=signature;self._update_targets_tab_visibility(mode in ('target','speedrun'))
             rows={'targets':goals,'collectables':d.get('items',[]),'characters':d.get('characters',[]),'bosses':d.get('bosses',[]),'achievements':[dict(name=x.get('reason','Spot')+' → '+x.get('target','')) for x in d.get('route',[])],'worlds':[dict(name=d.get('location',tr('Kein aktiver Lauf')))]}
             if mode=='speedrun':rows['targets']=[dict(name=f"{x.get('name','')}  ·  {fmt_time_hhmmss_ms(x.get('actual') or x.get('pb') or 0)}",done=i<int(d.get('current_index',0))) for i,x in enumerate(d.get('splits',[]))]
-            goal_keys={(r.get('kind'),r['name']) for r in goals}
-            combined=[]
-            for key,title in [('collectables',tr('Items')),('characters',tr('Charaktere')),('bosses',tr('Bosse'))]:
-                combined.extend({**r,'group':title,'goal':(r.get('kind'),r['name']) in goal_keys} for r in rows[key])
-            self.overview.set_rows(combined)
+            from tracker_presenter import overview
+            self.overview.set_rows(overview(d))
             if identity!=self.run_key:
                 self.animation_generation+=1;self.reward_queue=[];self.animating=False
                 for grid in self.grids.values():grid.cancel()

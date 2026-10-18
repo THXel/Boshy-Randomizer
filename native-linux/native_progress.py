@@ -7,13 +7,14 @@ from beta_catalogue import is_target,goals,confirmed,BOSSES
 class Progress:
  def __init__(self,store,m):
   self.store=store;self.m=m;self.folder=store.root/m['run_id'];self.path=self.folder/'progress.json'
-  self.data=json.loads(self.path.read_text()) if self.path.exists() else dict(run_id=m['run_id'],binding=m['session_binding'],index=0,limit=10,spot='save1.ini',pending=None,baseline=None,history=[],solgryn_armed=False)
+  self.data=json.loads(self.path.read_text(encoding='utf-8')) if self.path.exists() else dict(run_id=m['run_id'],binding=m['session_binding'],index=0,limit=10,spot='save1.ini',pending=None,baseline=None,history=[],solgryn_armed=False)
   if self.data['run_id']!=m['run_id'] or self.data['binding']!=m['session_binding']:raise ValueError('Route gehört zu einem anderen Lauf.')
   self.goals=goals(store.base,m['seed'],m.get('options',{}))
   from run_settings import route
   from native_triggers import CompletionGate
   self.plan=route(m['seed'],m.get('options',{}));self.gate=CompletionGate();self.gate.restore(self.data.get('completion_gate'))
   if self.plan and not self.path.exists():self.data.update(spot=self.plan[0],limit=len(self.plan))
+  if m['options'].get('mode')=='normal':self.data['limit']=0
   from beta_bosses import Gate
   self.beta_gate=Gate(allow_fast=m.get('options',{}).get('extras',{}).get('one_hp',False))
   from minibosses import Gate as MiniGate
@@ -141,7 +142,7 @@ class Progress:
   if target not in eligible(self.m['pool'],collectables):raise ValueError('Dieses Ziel ist noch gesperrt.')
   point=dict(self.m['pool'][target])
   checkpoint=d.get('checkpoints',{}).get(str(point['frame']))
-  if is_target(self.m) and not explicit and reason!='Gastly gefangen' and point['category']=='rooms' and target!='gastly_grass' and not point.get('segment') and checkpoint:point.update(x=checkpoint[0],y=checkpoint[1])
+  if is_target(self.m) and not explicit and reason!='Gastly gefangen' and point['category']=='rooms' and target!='gastly_grass' and not point.get('segment') and not point.get('fixed_start') and checkpoint:point.update(x=checkpoint[0],y=checkpoint[1])
   d['pending_point']=point
   d['pending']=target;d['pending_event']=dict(from_spot=d['spot'],target=target,reason=reason,seconds=int(stats.get('timeseconds',0)),deaths=int(stats.get('deaths',0)))
   self.trace('transition-requested',frame=frame,target=target,point=point,reason=reason)

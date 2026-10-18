@@ -9,7 +9,11 @@ Dust off *I Wanna Be The Boshy* and take a different path through its worlds, bo
 [Download Linux DEB](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.15/boshy-randomizer_2026.10.15-1_amd64.deb) · [Release & checksums](https://github.com/THXel/Boshy-Randomizer/releases/tag/v2026.10.15)
 
 **Linux Mint 22.x / Ubuntu 24.04 · amd64 · X11**
-**The updated Windows version is coming later.** Old Windows downloads are the legacy randomizer, not this release.
+[Download Windows Setup (preview)](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.18-windows-preview/BoshyRandomizer-2026.10.18-Windows-Setup-x64.exe)
+
+**Windows x64 preview:** install with the setup wizard, then launch **Boshy Randomizer** from the Start menu or optional desktop shortcut. No CMD, Python, Wine or Lutris installation is needed. On first launch, choose your own Boshy folder or ZIP; the game is not included. Updates and uninstall preserve saves. Defender stayed enabled during Windows 10 testing. The installer is unsigned; Windows 11 and non-ASCII account paths are not yet verified.
+
+[Windows setup details](docs/WINDOWS_PACKAGE.md)
 
 ![The original animated menu, reimagined](docs/media/rediscover-intro.gif)
 
@@ -19,11 +23,13 @@ Dust off *I Wanna Be The Boshy* and take a different path through its worlds, bo
 | --- | --- |
 | **Randomizer** | Shuffle level and boss destinations. Mix items and characters across chests. Choose your route pools in Advanced; the recommended setup uses seven levels and seven bosses. |
 | **Target Select** | Chase a randomly chosen item list with an adjustable size and optional boss goals. Positions change; items stay at their original locations. Reach Solgryn after completing your goals. |
+| **Normal** | Original progression and chest rewards, with optional starting character, character rotation and hacks. Rotation and hacks initially stay off; F3 is locked only while character rotation is enabled. |
 
 Three independent save slots keep each run's progress and character unlocks separate. Configure a new run inside the original game menu; resume an occupied slot where you left off. Compact **share codes** carry the seed and run settings, with an import preview and validation.
 
 ## Familiar game. New possibilities.
 
+- Menus adapt automatically to smaller game windows. Use **Aa** in the save selection or new-run menu for small, standard or large text. Text size is saved locally and does not change the seed or game resolution.
 - **45 selectable route points**, including split stages, minibosses and beta encounters such as Ridley, Questionmark and Old Sonic. Transitions use game state instead of pixel matching.
 - Optional character changes and randomized **projectiles plus firing effects**: per spot, per death, both, or a random interval with an editable time limit.
 - Optional **music shuffle** across a combined pool of 45 level and boss tracks.
@@ -31,6 +37,8 @@ Three independent save slots keep each run's progress and character unlocks sepa
 - Advanced hacks: suppress disruptive item pop-ups, disable the mouse ghost, skip boss intros, shorten chest animations, autofire, one-HP bosses and God Mode.
 - A rare **spider surprise**, enabled for new runs, can strike without warning after 5–30 active gameplay minutes—even in boss rooms. Turn it off under **Advanced → Hacks** and apply: that preference is remembered for future runs. Existing saves retain their settings; imported seeds carry their own choices.
 - A separate compact live tracker, copy-seed button, collectible icons and run results after Solgryn. **Ctrl+Alt+D** opens optional diagnostics and exportable recordings.
+- **Ctrl+Alt+M** marks a problem without opening the debug window and saves up to two minutes of recent diagnostics in `debug-reports`. The diagnostics window also separates trigger-to-request, loading and total transition times.
+- Graphics diagnostics can temporarily disable backgrounds, decoration, floors and enemy colors separately. Apply at the next level load; loading a save restores its settings. Problem reports include a game-only screenshot when available and recent graphics changes.
 
 ![Tour of run settings, Advanced, shot styles, hacks and seeds](docs/media/rediscover-menu-tour.gif)
 

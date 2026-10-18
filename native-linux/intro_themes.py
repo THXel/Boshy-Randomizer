@@ -48,7 +48,7 @@ def prepare(base,images,*,rng=None):
  from native_session import atomic
  root=Path(base)/'menu-runtime';plan=root/'theme.bin'
  try:
-  try:previous=json.loads((root/'theme-last.json').read_text()).get('theme')
+  try:previous=json.loads((root/'theme-last.json').read_text(encoding='utf-8')).get('theme')
   except (OSError,ValueError,AttributeError):previous=None
   theme=choose(previous,rng);payload=make_plan(root/'theme',images,theme);atomic(plan,payload)
   atomic(root/'theme-last.json',json.dumps({'version':1,'theme':theme,'name':THEMES[theme][0]}).encode())

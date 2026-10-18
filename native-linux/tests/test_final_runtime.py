@@ -8,7 +8,7 @@ from test_ini_reset import Bridge
 class FinalRuntime(unittest.TestCase):
  def test_spider_is_default_but_old_runs_do_not_acquire_it(self):
   self.assertTrue(run_extras.defaults()['spider'])
-  old={'extras':run_settings._compact_defaults(6)['extras']}
+  old={'extras':{k:v for k,v in run_extras.defaults().items() if k!='spider'}};old['extras']['version']=4
   run_extras.upgrade(old);self.assertFalse(old['extras']['spider'])
  def test_spider_seed_is_independent_and_roundtrips_both_states(self):
   o=options();route=run_settings.route('test',o)

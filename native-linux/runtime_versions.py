@@ -6,7 +6,7 @@ content-addressed snapshot. No fallback to new rules if a snapshot is damaged.
 import builtins,hashlib,json,shutil,types,uuid,os
 from pathlib import Path
 from native_session import digest,write_json
-MODULES=('run_settings','run_extras','shot_cycle','death_character','character_cycle',
+MODULES=('seed_codec','seed_share','run_settings','run_extras','shot_cycle','death_character','character_cycle',
  'mixed_rewards','extras_runtime','native_targets','beta_catalogue','native_level_route',
  'native_triggers','minibosses','beta_bosses','native_progress','seed_audit','reward_journal')
 SUPPORT=('INI/positions.json','slot_reward_symbols.json','native_intro_guard.dll')
@@ -34,7 +34,10 @@ def pin(store,m):
    for source,dest in icons.items():
     p=temp/dest;p.parent.mkdir(exist_ok=True);shutil.copyfile(temp/source,p)
    write_json(temp/'bundle.json',dict(version=1,identity=identity,hashes=hashes,icons=icons))
-   (temp/'IWBTB').symlink_to(store.base/'IWBTB',target_is_directory=True)
+   if os.name=='nt':
+    import _winapi
+    _winapi.CreateJunction(str(store.base/'IWBTB'),str(temp/'IWBTB'))
+   else:(temp/'IWBTB').symlink_to(store.base/'IWBTB',target_is_directory=True)
    os.rename(temp,target)
   finally:
    if temp.exists():shutil.rmtree(temp)
@@ -49,11 +52,11 @@ class Rules:
  def __init__(self,store,m):
   self.store=store;self.m=m;self.modules={};p=reference(store,m);self.frozen=p.exists()
   if not self.frozen:self.base=store.base;self.meta=None;self.view=store;return
-  r=json.loads(p.read_text());identity=r.get('bundle','')
+  r=json.loads(p.read_text(encoding='utf-8'));identity=r.get('bundle','')
   if r.get('version')!=1 or r.get('run_id')!=m['run_id'] or r.get('binding')!=m['session_binding'] or len(identity)!=64 or any(c not in '0123456789abcdef' for c in identity):raise ValueError('Ungültige Laufversion.')
   self.base=store.base/'rule-versions'/identity[:20]
   if self.base.is_symlink():raise ValueError('Ungültige Versionsablage.')
-  self.meta=json.loads((self.base/'bundle.json').read_text())
+  self.meta=json.loads((self.base/'bundle.json').read_text(encoding='utf-8'))
   if self.meta['identity']!=identity or digest(json.dumps(self.meta['hashes'],sort_keys=True).encode())!=identity:raise ValueError('Laufversion beschädigt.')
   expected=set(m['assets'])|set(SUPPORT)|{n+'.py' for n in MODULES}
   if set(self.meta['hashes'])!=expected:raise ValueError('Unvollständige Laufversion.')
@@ -63,7 +66,7 @@ class Rules:
   if (self.base/'IWBTB').resolve()!=(store.base/'IWBTB').resolve():raise ValueError('Falscher Spielordner für Laufversion.')
   self.view=View(store,self.base)
  def module(self,name):
-  if not self.frozen or (name not in MODULES and not (name in ('music_randomizer','spider_randomizer') and name+'.py' in self.meta['hashes'])):return __import__(name)
+  if not self.frozen or (name not in MODULES and not (name in ('music_randomizer','spider_randomizer','sprite_scenery','sprite_chaos','background_sets') and name+'.py' in self.meta['hashes'])):return __import__(name)
   if name in self.modules:return self.modules[name]
   module=types.ModuleType(name);module.__file__=str(self.base/(name+'.py'));module.__package__=''
   module.__dict__['__builtins__']={**vars(builtins),'__import__':self._import};self.modules[name]=module
@@ -71,14 +74,20 @@ class Rules:
    exec(compile(Path(module.__file__).read_bytes(),module.__file__,'exec'),module.__dict__)
    correct_known_exits(name,module)
    apply_room_exit_timing(name,module)
+   repair_shot_transport(name,module)
+   repair_kappa_exit(name,module)
+   repair_kracko_animation(name,module)
+   repair_tower_exit(name,module)
+   repair_spider_visuals(name,module)
+   repair_parallax_visuals(name,module)
   except Exception:self.modules.pop(name,None);raise
   return module
  def _import(self,name,globals=None,locals=None,fromlist=(),level=0):
-  if not level and name in MODULES:return self.module(name)
+  if not level and (name in MODULES or self.frozen and name in ('music_randomizer','spider_randomizer','sprite_scenery','sprite_chaos','background_sets') and name+'.py' in self.meta['hashes']):return self.module(name)
   return builtins.__import__(name,globals,locals,fromlist,level)
  def icons(self,blob,offset):
   if not self.frozen:return blob
-  raw=bytearray(blob);plan=json.loads((self.base/'slot_reward_plan.json').read_text());mod=self.module('mixed_rewards')
+  raw=bytearray(blob);plan=json.loads((self.base/'slot_reward_plan.json').read_text(encoding='utf-8'));mod=self.module('mixed_rewards')
   start=offset+124+mod.MAX_SOURCES*mod.LOCATION_SIZE
   for i,loc in enumerate(plan['locations']):
    name=self.m['rewards'][loc['key']]['name'];source=('native-icons/'+name+'.bmp') if name in ('Simon Belmont','Spike') else ('Custom/trophies/'+name+'.png')
@@ -128,8 +137,8 @@ def apply_room_exit_timing(name,module):
  """Remove only the delay from validated room exits in known saved rules.
 
  Keep the saved destination table and all route/seed choices. The original
- gate must first establish the origin, exact exit, death/tick checks and
- Tower position. Miniboss and Old Sonic animation gates are separate.
+ gate must first establish the origin, exact exit and death/tick checks.
+ Miniboss and Old Sonic animation gates are separate.
  """
  if name!='native_triggers' or getattr(module,'RULE_VERSION',None)!=3 or getattr(module,'ROOM_EXIT_TIMING_VERSION',0)>=1:return
  original=module.CompletionGate.observe
@@ -143,3 +152,101 @@ def apply_room_exit_timing(name,module):
   return None
  module.CompletionGate.observe=observe
  module.ROOM_EXIT_TIMING_VERSION=1
+
+
+def repair_shot_transport(name,module):
+ """Repair delivery for saved runs without changing their seeded style choices.
+
+ The old character command deliberately preserves trailing control bytes.
+ Keep the frozen advance/selection/interval algorithms; only replace the
+ observation method's transport with the scoped, acknowledged shot command.
+ """
+ if name!='shot_cycle' or getattr(module,'TRANSPORT_VERSION',0)>=1:return
+ import shot_cycle,types
+ original=shot_cycle.ShotCycle.observe
+ # Use the frozen module globals (not current seed-selection functions).
+ module.ShotCycle.observe=types.FunctionType(original.__code__,module.__dict__,original.__name__,original.__defaults__,original.__closure__)
+ module.TRANSPORT_VERSION=1
+
+
+def repair_kappa_exit(name,module):
+ """Apply the confirmed reward-room exit to saved Kappa stages as well.
+
+ Preserve the run's route and rewards; never finish Kappa on HP/death alone.
+ Only the exact Kappa stage adopts its original Teleport Room exit.
+ """
+ if getattr(module,'KAPPA_EXIT_VERSION',0)>=1:return
+ if name=='native_triggers':
+  original=module.exits_for
+  def exits_for(spot,point):
+   if spot=='boss_kappa' and point.get('frame')==37 and point.get('segment')=='kappa':return (29,)
+   return original(spot,point)
+  module.exits_for=exits_for
+ elif name=='minibosses':
+  original=module.Gate.observe
+  def observe(gate,spot,index,point,sample,deaths,now=None):
+   if spot=='boss_kappa' and point.get('frame')==37 and point.get('segment')=='kappa':gate.reset();return None
+   return original(gate,spot,index,point,sample,deaths,now)
+  module.Gate.observe=observe
+ else:return
+ module.KAPPA_EXIT_VERSION=1
+
+
+def repair_tower_exit(name,module):
+ """Use the verified top-door edge in saved Tower runs without changing routes."""
+ if name!='native_triggers' or getattr(module,'RULE_VERSION',0)!=3 or getattr(module,'TOWER_EXIT_VERSION',0)>=1:return
+ import native_triggers
+ original=module.CompletionGate.observe
+ # Only Tower adopts the corrected observation; retain the frozen exit table,
+ # reset/death guards and every other stage's existing behaviour.
+ tower=types.FunctionType(native_triggers.CompletionGate.observe.__code__,module.__dict__,argdefs=native_triggers.CompletionGate.observe.__defaults__)
+ def observe(gate,spot,point,*args,**kwargs):
+  return (tower if point.get('frame')==51 else original)(gate,spot,point,*args,**kwargs)
+ module.CompletionGate.observe=observe
+ module.TOWER_EXIT_VERSION=1
+
+
+def repair_spider_visuals(name,module):
+ """Supply rotated sprites for older saved runs without changing their options."""
+ if name!='spider_randomizer' or getattr(module,'SPRITE_VERSION',0)>=2:return
+ from spider_randomizer import prepare_orientations
+ original=module.prepare
+ def prepare(base,manifest):
+  result=original(base,manifest)
+  if manifest['options'].get('extras',{}).get('spider',False):prepare_orientations(base)
+  return result
+ module.prepare=prepare
+ module.SPRITE_VERSION=2
+
+
+def repair_kracko_animation(name,module):
+ """Keep Kracko's death animation visible in saved runs without changing routes."""
+ if name!='minibosses' or getattr(module,'KRACKO_ANIMATION_VERSION',0)>=1:return
+ original=module.Gate.observe
+ def observe(gate,spot,index,point,sample,deaths,now=None):
+  now=module.time.monotonic() if now is None else now
+  result=original(gate,spot,index,point,sample,deaths,now)
+  if result is not None and point.get('segment')=='kracko' and gate.since is not None and now-gate.since<4.0:return None
+  return result
+ module.Gate.observe=observe
+ module.KRACKO_ANIMATION_VERSION=1
+
+
+def repair_parallax_visuals(name,module):
+ """Repair frozen cloud imports, retaining their seed choices and checked assets."""
+ if name!='background_sets' or getattr(module,'PARALLAX_MASK_VERSION',0)>=1:return
+ from background_sets import repair_parallax_assets,MAGIC
+ original=module.prepare
+ def prepare(base,manifest):
+  result=original(base,manifest)
+  if result:
+   try:repair_parallax_assets(base)
+   except Exception:
+    import logging
+    from native_session import atomic
+    atomic(Path(base)/'menu-runtime/background-sets.bin',MAGIC+bytes(76))
+    logging.exception('Parallax mask unavailable; keeping existing scenery')
+    return False
+  return result
+ module.prepare=prepare
+ module.PARALLAX_MASK_VERSION=1

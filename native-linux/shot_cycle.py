@@ -12,11 +12,13 @@ def selection(base,seed,index,previous=None):
 def interval(seed,index,maximum=300):
  return 1+int.from_bytes(hashlib.sha256(f'{seed}\0shot-interval-v1\0{index}'.encode()).digest()[:8],'little')%maximum
 def initial(base,m):return selection(base,m['seed'],0)
+TRANSPORT_VERSION=1
+
 class ShotCycle:
  def __init__(self,store,m,clock=time.monotonic):
   self.store=store;self.m=m;self.clock=clock;self.path=store.root/m['run_id']/'shot-style.json';self.mode=m['options']['extras']['shot_mode']
   self.maximum=m['options']['extras'].get('shot_interval_seconds',300)
-  self.data=json.loads(self.path.read_text()) if self.path.exists() else dict(run_id=m['run_id'],binding=m['session_binding'],sequence=0,style=initial(store.base,m),remaining=float(interval(m['seed'],0,self.maximum)),deaths=None,spot=None)
+  self.data=json.loads(self.path.read_text(encoding='utf-8')) if self.path.exists() else dict(run_id=m['run_id'],binding=m['session_binding'],sequence=0,style=initial(store.base,m),remaining=float(interval(m['seed'],0,self.maximum)),deaths=None,spot=None)
   if self.data['run_id']!=m['run_id'] or self.data['binding']!=m['session_binding']:raise ValueError('Schussstil-Verlauf gehört zu anderem Lauf.')
   self.last=None;self.saved=self.clock()
  def save(self):write_json(self.path,self.data);self.saved=self.clock()
@@ -43,8 +45,8 @@ class ShotCycle:
   if request!=done:return
   control=struct.pack('<III',0x42534531,self.data['style']['frame'],self.data['sequence'])
   if payload[476:488]!=control:
-   payload[476:488]=control
-   if not bridge.cmd(f'character {menu:x} {payload.hex()}').get('written'):raise RuntimeError('Nativer Schussstil konnte nicht gesetzt werden.')
+   if not bridge.cmd(f"shots {menu:x} {self.data['style']['frame']} {self.data['sequence']}").get('written'):raise RuntimeError('Nativer Schussstil konnte nicht gesetzt werden.')
+   if bridge.read(menu+2124,12)!=control:raise RuntimeError('Nativer Schussstil wurde nicht bestätigt.')
  def advance(self):
   self.data['sequence']+=1
   self.data['style']=selection(self.store.base,self.m['seed'],self.data['sequence'],self.data['style']['frame'])

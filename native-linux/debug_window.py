@@ -2,20 +2,23 @@
 from ui_i18n import tr, display as localize, font_path, font_family, configure_tk, LANGUAGE, Localized
 import argparse,os,time,uuid,json,subprocess,shutil
 from pathlib import Path
+from concurrent.futures import ThreadPoolExecutor
 import tkinter as tk
 from tkinter import ttk,filedialog
 import psutil
-from Xlib import display,XK
+if os.name!='nt':from Xlib import display,XK
 from debug_data import Recorder,Chord,read_json,write_json,report_text
 
 class Window:
  def __init__(self,host,folder):
   self.base=Path(__file__).resolve().parent;self.folder=Path(folder);self.host=psutil.Process(host);self.birth=self.host.create_time()
   self.root=tk.Tk();configure_tk(self.root);self.root.withdraw();self.root.title('Boshy Randomizer – Debug');self.root.geometry('900x720');self.root.minsize(650,500)
-  self.visible=False;self.state={};self.run=None;self.pending={};self.recorder=Recorder(self.base);self.chord=Chord();self.x=display.Display();self.closing=False
-  self.keys={n:self.x.keysym_to_keycode(XK.string_to_keysym(n)) for n in ('Control_L','Control_R','Alt_L','Alt_R','d')}
+  self.visible=False;self.state={};self.run=None;self.pending={};self.recorder=Recorder(self.base);self.chord=Chord();self.x=display.Display() if os.name!='nt' else None;self.closing=False
+  self.marker_chord=Chord();self.marker_future=None;self.marker_last=-float('inf');self.exporter=ThreadPoolExecutor(max_workers=1,thread_name_prefix='debug-export')
+  self.keys={n:self.x.keysym_to_keycode(XK.string_to_keysym(n)) for n in ('Control_L','Control_R','Alt_L','Alt_R','d','m')} if self.x else {}
   self.status=tk.StringVar(value=tr('Warte auf den Randomizer …'));self.notice=tk.StringVar(value=tr('Strg+Alt+D öffnet oder versteckt dieses Fenster.'));self.record_status=tk.StringVar();self.enabled=tk.BooleanVar(value=False)
   bar=ttk.Frame(self.root,padding=10);bar.pack(fill='x');ttk.Label(bar,text=tr('Randomizer-Diagnose'),font=('',16,'bold')).pack(side='left');ttk.Button(bar,text=tr('Seed kopieren'),command=lambda:self.copy(self.state.get('share_seed',''))).pack(side='right')
+  self.marker_button=ttk.Button(bar,text=tr('Problem markieren · Strg+Alt+M'),command=self.mark_problem);self.marker_button.pack(side='right',padx=8)
   ttk.Label(self.root,textvariable=self.status,padding=(10,0),wraplength=850).pack(fill='x')
   tabs=ttk.Notebook(self.root);tabs.pack(fill='both',expand=True,padx=10,pady=10)
   overview=ttk.Frame(tabs,padding=8);actions=ttk.Frame(tabs,padding=12);record=ttk.Frame(tabs,padding=12)
@@ -28,6 +31,21 @@ class Window:
   scrollbar=ttk.Scrollbar(audit,command=self.audit.yview);self.audit.configure(yscrollcommand=scrollbar.set);scrollbar.pack(side='right',fill='y');self.audit.pack(fill='both',expand=True)
   ttk.Button(audit,text=tr('Prüfstand aktualisieren'),command=self.refresh_audit).pack(anchor='w');self.refresh_audit()
   tabs.add(overview,text=tr('Live-Übersicht'));tabs.add(actions,text=tr('Testaktionen'));tabs.add(record,text=tr('Aufzeichnung & Bericht'));tabs.select(overview)
+  graphics=ttk.Frame(tabs,padding=12);tabs.add(graphics,text=tr('Grafikdiagnose'))
+  ttk.Label(graphics,text=tr('Angehakte Kategorien vorübergehend abschalten. Wirksam beim nächsten Levelwechsel. R allein lädt nicht alle Bilder neu. Beim Laden eines Spielstands gelten wieder dessen Seed-Einstellungen.'),wraplength=800).pack(anchor='w',pady=8)
+  from graphics_debug import CATEGORIES
+  self.graphics_vars={};self.graphics_dirty=False
+  for bit,title in CATEGORIES:
+   value=tk.BooleanVar(value=False);self.graphics_vars[bit]=value
+   ttk.Checkbutton(graphics,text=tr(title),variable=value,command=lambda:setattr(self,'graphics_dirty',True)).pack(anchor='w',pady=5)
+  self.graphics_apply=ttk.Button(graphics,text=tr('Auswahl vormerken'),command=self.graphics_command);self.graphics_apply.pack(anchor='w',pady=10)
+  self.graphics_info=tk.StringVar();ttk.Label(graphics,textvariable=self.graphics_info,wraplength=800).pack(anchor='w',pady=10)
+  timings=ttk.Frame(tabs,padding=8);tabs.add(timings,text=tr('Übergangszeiten'))
+  ttk.Label(timings,text=tr('Gemessen ab Trigger-Erkennung. Warten umfasst Vorbereitung und Dialoge; Laden endet bei bestätigtem Ziel und Spawn. Bis zu 32 Übergänge dieses Laufs.'),wraplength=800).pack(anchor='w',pady=(0,8))
+  self.timings=ttk.Treeview(timings,columns=('source','target','wait','load','total','status'),show='headings',height=18)
+  for key,label,width in [('source','Von',190),('target','Nach',190),('wait','Warten (ms)',95),('load','Laden (ms)',95),('total','Gesamt (ms)',95),('status','Status',150)]:
+   self.timings.heading(key,text=tr(label));self.timings.column(key,width=width,minwidth=60)
+  tscroll=ttk.Scrollbar(timings,command=self.timings.yview);tscroll.pack(side='right',fill='y');self.timings.configure(yscrollcommand=tscroll.set);self.timings.pack(fill='both',expand=True)
   self.details=tk.Text(overview,wrap='word',font=(font_family(),10),state='disabled');scroll=ttk.Scrollbar(overview,command=self.details.yview);self.details.configure(yscrollcommand=scroll.set);scroll.pack(side='right',fill='y');self.details.pack(fill='both',expand=True)
   ttk.Label(actions,text=tr('Diese Aktionen verändern den aktuellen Lauf. Vor jedem Eingriff wird eine Sicherung angelegt.\nDer Lauf bleibt danach als Testlauf gekennzeichnet.'),wraplength=800).pack(anchor='w',pady=(0,12))
   ttk.Checkbutton(actions,text=tr('Testaktionen für diesen Lauf freigeben'),variable=self.enabled).pack(anchor='w')
@@ -37,14 +55,14 @@ class Window:
    c=ttk.Combobox(box,state='readonly',width=55);c.pack(side='left',fill='x',expand=True);self.combos[kind]=c
    b=ttk.Button(box,text=tr('Ausführen'),command=lambda k=kind,a=action:self.command(k,a));b.pack(side='right',padx=(10,0));self.buttons.append(b)
   ttk.Label(actions,text=tr('Es gelten weiterhin die Regeln des Seeds, die Gastly-Voraussetzung und die Ziel-Liste. Während des Ladens oder einer Belohnungsanimation sind Testaktionen gesperrt.'),wraplength=800).pack(anchor='w',pady=8)
-  ttk.Label(record,text=tr('Bei einem Problem: Aufzeichnung starten, den Ablauf spielen und hier beschreiben, was du erwartet hast. Bis zu zwei Minuten Vorlauf werden automatisch mitgenommen.'),wraplength=800).pack(anchor='w')
+  ttk.Label(record,text=tr('Strg+Alt+M speichert sofort einen Problembericht mit bis zu zwei Minuten Vorlauf, auch bei geschlossenem Debugfenster. Für längere Abläufe kannst du eine Aufzeichnung starten. Beschreibe hier optional, was du erwartet hast.'),wraplength=800).pack(anchor='w')
   row=ttk.Frame(record);row.pack(fill='x',pady=12);self.record_button=ttk.Button(row,text=tr('Aufzeichnung starten'),command=self.start_record);self.record_button.pack(side='left');ttk.Button(row,text=tr('Bericht / Aufzeichnung speichern'),command=self.save_record).pack(side='left',padx=8)
   ttk.Button(record,text=tr('Letzten Fehlerbericht exportieren'),command=self.export_error).pack(anchor='w',pady=4)
   ttk.Label(record,textvariable=self.record_status).pack(anchor='w')
   ttk.Label(record,text=tr('Was sollte passieren? Was ist stattdessen passiert?'),padding=(0,12,0,5)).pack(anchor='w')
   self.note=tk.Text(record,height=8,wrap='word');self.note.pack(fill='both',expand=True)
   row=ttk.Frame(record);row.pack(fill='x',pady=12);ttk.Button(row,text=tr('Bericht kopieren'),command=lambda:self.copy(report_text(self.state,self.note.get('1.0','end-1c')))).pack(side='left');ttk.Button(row,text=tr('Berichtordner öffnen'),command=self.open_folder).pack(side='left',padx=8);ttk.Button(row,text=tr('Dateipfad kopieren'),command=lambda:self.copy(str(self.recorder.last_export or ''))).pack(side='left')
-  ttk.Label(record,text=tr('Die ZIP-Datei kannst du zusammen mit deiner Beschreibung an Codex geben. Sie enthält Zustände, Übergänge, Fehler und Testeingriffe. Spielstände und das globale Charakterprofil werden nicht mitgeschickt.'),wraplength=800).pack(anchor='w')
+  ttk.Label(record,text=tr('Der Bericht enthält Zustände, Grafikwechsel und einen Screenshot nur des Spielfensters, falls verfügbar. Spielstände und das Charakterprofil werden nicht mitgeschickt.'),wraplength=800).pack(anchor='w')
   ttk.Label(self.root,textvariable=self.notice,padding=10,wraplength=850).pack(fill='x')
   self.root.protocol('WM_DELETE_WINDOW',self.hide);self.watch();self.root.after(40,self.pump)
  def refresh_audit(self):
@@ -63,13 +81,20 @@ class Window:
  def copy(self,text):
   if text:self.root.clipboard_clear();self.root.clipboard_append(text);self.notice.set(tr('In die Zwischenablage kopiert.'))
  def open_folder(self):
-  self.recorder.folder.mkdir(exist_ok=True);subprocess.Popen(['xdg-open',str(self.recorder.folder)],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+  self.recorder.folder.mkdir(exist_ok=True)
+  if os.name=='nt':os.startfile(self.recorder.folder);return
+  subprocess.Popen(['xdg-open',str(self.recorder.folder)],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
  def watch(self):write_json(self.folder/'watch.json',{'observe':self.visible or bool(self.recorder.stream),'window_pid':os.getpid(),'visible':self.visible,'recording':bool(self.recorder.stream)})
  def show(self):self.visible=True;self.root.deiconify();self.root.lift();self.root.focus_force();self.watch()
  def hide(self):self.visible=False;self.root.withdraw();self.watch()
  def allowed_focus(self):
   try:
    if self.visible and self.root.focus_displayof() is not None:return True
+   if os.name=='nt':
+    from windows_api import user,pid
+    from host_platform import owned_process
+    current=pid(user.GetForegroundWindow())
+    return current in (os.getpid(),self.host.pid) or owned_process(psutil.Process(current),self.base)
    root=self.x.screen().root;p=root.get_full_property(self.x.intern_atom('_NET_ACTIVE_WINDOW'),0)
    if p is None or not p.value[0]:return False
    w=self.x.create_resource_object('window',int(p.value[0]));prop=w.get_full_property(self.x.intern_atom('_NET_WM_PID'),0)
@@ -81,10 +106,29 @@ class Window:
    return proc.environ().get('BOSHY_TRACKER_HOST')==str(self.host.pid)
   except Exception:return False
  def hotkey(self):
-  keys=self.x.query_keymap()
-  def down(name):code=self.keys[name];return bool(keys[code//8]&(1<<(code%8)))
-  held=(down('Control_L') or down('Control_R')) and (down('Alt_L') or down('Alt_R')) and down('d')
-  if self.chord.update(held,self.allowed_focus() if held else False):self.hide() if self.visible else self.show()
+  if os.name=='nt':
+   from windows_api import key_down as down
+  else:
+   keys=self.x.query_keymap()
+   def down(name):code=self.keys[name];return bool(keys[code//8]&(1<<(code%8)))
+  modifiers=(down('Control_L') or down('Control_R')) and (down('Alt_L') or down('Alt_R'))
+  held=modifiers and down('d');marked=modifiers and down('m');eligible=self.allowed_focus() if held or marked else False
+  if self.chord.update(held,eligible):self.hide() if self.visible else self.show()
+  if self.marker_chord.update(marked,eligible):self.mark_problem()
+ def mark_problem(self):
+  if self.closing or self.marker_future is not None or time.monotonic()-self.marker_last<3:return
+  if not self.state:self.notice.set(tr('Noch keine Diagnosedaten vorhanden.'));return
+  frozen,state,note=self.recorder.marker_snapshot(self.state,self.note.get('1.0','end-1c'))
+  self.marker_future=self.exporter.submit(frozen.export_marker,state,note);self.marker_last=time.monotonic()
+  self.marker_button.configure(state='disabled');self.notice.set(tr('Problembericht wird gespeichert …'))
+ def marker_result(self):
+  if self.marker_future is None or not self.marker_future.done():return
+  try:
+   path=self.marker_future.result();self.recorder.last_export=path;self.notice.set(tr('Gespeichert: ')+str(path))
+   if not self.visible and shutil.which('notify-send'):
+    subprocess.Popen(['notify-send','--app-name=Boshy Randomizer','--expire-time=4000',str(tr('Problembericht gespeichert')),path.name],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
+  except Exception as e:self.notice.set(tr('Bericht konnte nicht gespeichert werden: ')+str(e))
+  finally:self.marker_future=None;self.marker_button.configure(state='normal')
  def start_record(self):
   try:self.recorder.start();self.notice.set(tr('Aufzeichnung läuft, auch wenn du das Debugfenster versteckst.'));self.watch()
   except OSError as e:self.notice.set(tr('Aufzeichnung konnte nicht starten: ')+str(e))
@@ -100,8 +144,30 @@ class Window:
   if time.time()-self.state.get('time',0)>3:self.notice.set(tr('Live-Daten sind veraltet; bitte warten.'));return
   request=dict(session=self.folder.name,created_at=time.time(),run_id=self.state.get('run_id'),binding=self.state.get('binding'),frame=self.state.get('last',{}).get('frame'),enabled=True,action=action,value=rows[index]['key'])
   identity=uuid.uuid4().hex;write_json(self.folder/('request-'+identity+'.json'),request);self.pending[identity]=time.time();self.notice.set(tr('Testaktion wird geprüft …'))
+ def graphics_command(self):
+  if self.pending or self.state.get('phase')!='running' or time.time()-self.state.get('time',0)>3:return
+  mask=sum(k for k,v in self.graphics_vars.items() if v.get())
+  identity=uuid.uuid4().hex
+  request=dict(session=self.folder.name,created_at=time.time(),run_id=self.state.get('run_id'),binding=self.state.get('binding'),enabled=False,action='graphics_mask',value=mask)
+  write_json(self.folder/('request-'+identity+'.json'),request);self.pending[identity]=time.time();self.graphics_dirty=False
+  self.notice.set(tr('Grafikauswahl wird geprüft …'))
  def render(self):
-  s=self.state;last=s.get('last',{});p=s.get('progress',{});obs=s.get('observed',{})
+  names={r['key']:localize(r['label'].rsplit(' · ',1)[0]) for r in self.state.get('choices',{}).get('spots',[])}
+  for item in self.timings.get_children():self.timings.delete(item)
+  statuses={'pending':'Wartet','loading':'Lädt','arrived':'Angekommen','confirmed':'Bestätigt','already_at_target':'Bereits am Ziel','interrupted':'Unterbrochen'}
+  for row in reversed(self.state.get('transition_timings',[])):
+   values=[names.get(row.get(k),row.get(k) or '–') for k in ('source','target')]
+   values += ['–' if row.get(k) is None else str(round(row[k],1)) for k in ('detection_to_request_ms','request_to_arrival_ms','total_ms')]
+   status=str(tr(statuses.get(row['status'],row['status'])))
+   if row.get('elapsed_ms') is not None:status+=' · '+str(round(row['elapsed_ms']/1000,1))+' s'
+   self.timings.insert('','end',values=values+[status])
+  s=self.state
+  graphic=s.get('graphics',{});wanted=graphic.get('requested_disabled',0);applied=graphic.get('applied_disabled',0)
+  if not self.graphics_dirty and not self.pending:
+   for bit,value in self.graphics_vars.items():value.set(bool(wanted&bit))
+  self.graphics_info.set(tr('Aktiver Hintergrund: {0}\nSpeicher: {1} MiB\nStatus: {2}',str(graphic.get('background_set','–')),str(graphic.get('memory_rss_mib','–')),str(tr('Wirksam') if wanted==applied else tr('Wartet auf Levelwechsel'))))
+  self.graphics_apply.configure(state='normal' if s.get('phase')=='running' and not self.pending else 'disabled')
+  last=s.get('last',{});p=s.get('progress',{});obs=s.get('observed',{})
   from native_models import location
   phase={'menu':tr('Hauptmenü'),'loading':tr('Wird geladen'),'running':tr('Lauf aktiv'),'ordinary':tr('Normaler Spielstand'),'stopped':tr('Beendet')}.get(s.get('phase'),s.get('phase',tr('Warte …')))
   self.status.set(tr('{0} · Speicherplatz {1} · {2}', str(phase), str(s.get('slot', s.get('selected_slot', '–'))), localize(location(last.get('frame'))) if last else '–')+(tr(' · TESTLAUF') if s.get('debug_modified') else ''))
@@ -127,6 +193,8 @@ class Window:
   lines=[tr('Aktualisiert: {0}', str(time.strftime('%H:%M:%S', time.localtime(s.get('time', time.time()))))),tr('Spielkopie: {0}', str(s.get('game_root', '–'))),f"Seed: {s.get('seed','–')}",'', tr('WARUM GEHT ES GERADE WEITER – ODER NICHT?'),reason,'',tr('Aktiver Punkt: {0}', str(spot or '–')),tr('Boshy-Position: {0}', str(s.get('player_position', '–'))),tr('Gespeicherter Kontrollpunkt: {0}', str(obs.get('checkpoint', '–'))),tr('Route: Schritt {0} von {1}', str(p.get('index', '–')), str(p.get('limit', '–'))),tr('Ausgangsraum beobachtet: {0}', tr('Ja' if gate.get('seen_origin') else 'Nein')),tr('Szene stabil: {0}  /  R gedrückt: {1}', str(obs.get('settled', '–')), str(obs.get('restart_down', '–'))),tr('Gastly-Ablauf: {0}', str(last.get('route', {}).get('phase', '–'))),tr('Nativer Patch: {0}  /  Fehler: {1}', str(last.get('hook', {}).get('status', '–')), str(last.get('hook', {}).get('errors', '–'))),'',tr('BEOBACHTETE ABSCHLUSSMERKMALE')]
   for name,value in (gate.get('previous') or {}).items():
    lines.append(tr('{0}: Spiel {1} / gespeichert {2} / bestätigt {3}', str(name), str(obs.get('live_achievements', {}).get(name, '–')), str(obs.get('disk_achievements', {}).get(name, '–')), str(value)))
+  spawn=s.get('spawn_guard')
+  if spawn:lines+=['',tr('Zielreset: {0} · Soll: {1} · Boshy: {2}',tr('Bestätigt') if spawn['status']=='confirmed' else tr('Nicht bestätigt'),str(spawn['expected']) if spawn.get('coordinates_checked') else tr('Nativer Boss-Start'),str(spawn.get('position')))]
   lines+=['',tr('LETZTE ÜBERGÄNGE')]
   for row in p.get('transition_trace',[])[-10:]:
    when=time.strftime('%H:%M:%S',time.localtime(row.get('time',0)));details=row.get('reason') or row.get('target') or row.get('spot','')
@@ -148,15 +216,18 @@ class Window:
   if self.closing:return
   self.closing=True
   if self.recorder.stream:self.save_record()
-  self.x.close();self.root.destroy()
+  self.exporter.shutdown(wait=False)
+  if self.x:self.x.close()
+  self.root.destroy()
  def pump(self):
   try:
    if not self.host.is_running() or self.host.create_time()!=self.birth or self.host.status()==psutil.STATUS_ZOMBIE:self.stop();return
-   self.hotkey();state=read_json(self.folder/'state.json',{})
+   state=read_json(self.folder/'state.json',{})
    if state:
     self.state=state;self.recorder.note=self.note.get('1.0','end-1c');self.recorder.observe(state)
     if state.get('phase')=='stopped':self.stop();return
-    if self.run!=state.get('run_id'):self.run=state.get('run_id');self.enabled.set(False)
+    if self.run!=state.get('run_id'):self.run=state.get('run_id');self.enabled.set(False);self.graphics_dirty=False
+   self.hotkey();self.marker_result()
    for identity,started in list(self.pending.items()):
     response=read_json(self.folder/('response-'+identity+'.json'))
     if response:self.notice.set((tr('Erfolgreich: ') if response.get('ok') else tr('Abgewiesen: '))+response.get('message',''));del self.pending[identity]

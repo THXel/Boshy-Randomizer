@@ -76,12 +76,19 @@ int RewardCommit(const char*session,const char*key){return load_original()?origi
 int W DllMain(void*h,U reason,void*unused){(void)h;(void)reason;(void)unused;return 1;}
 
 #include "extras_plan.h"
-static int matches(const B*a,const B*b,const B*mask,U n){for(U i=0;i<n;i++)if((a[i]&mask[i])!=(b[i]&mask[i]))return 0;return 1;}
+static int matches(const B*a,const B*b,const B*mask,U n,int objectCache){
+ /* MMF rebases the cached OI-list index after adding cosmetic objects. The
+  * object ID, opcode, length, parameters and all other masked bytes stay exact. */
+ if(objectCache&&h(a+8)>=20000)return 0;
+ for(U i=0;i<n;i++){if(objectCache&&(i==8||i==9))continue;if((a[i]&mask[i])!=(b[i]&mask[i]))return 0;}return 1;
+}
 /* Validate every selected operation before writing anything to this frame. */
 int ExtrasPatch(B*bank,U scene,U flags){
  for(U i=0;i<sizeof(patches)/sizeof(*patches);i++){
   const struct ExtraPatch*p=&patches[i];if(p->scene!=scene||!(flags&p->flag))continue;
-  B*a=bank+p->offset;if(!matches(a,p->old,p->mask,p->len)&&!matches(a,p->replacement,p->mask,p->len))return 0;
+  B*a=bank+p->offset;
+  int objectCache=p->flag==1024&&p->len==46&&h(p->old)==46&&h(p->old+2)==2&&(short)h(p->old+4)==-27&&h(p->old+6)<32768&&h(p->old+8)==h(p->replacement+8);
+  if(!matches(a,p->old,p->mask,p->len,objectCache)&&!matches(a,p->replacement,p->mask,p->len,objectCache))return 0;
  }
  for(U i=0;i<sizeof(patches)/sizeof(*patches);i++){
   const struct ExtraPatch*p=&patches[i];if(p->scene!=scene||!(flags&p->flag))continue;

@@ -1,7 +1,15 @@
 """Small window API shared by Windows and Linux/X11. No global monkeypatches."""
 import os
 if os.name == 'nt':
-    from pygetwindow import getWindowsWithTitle, getAllTitles, getAllWindows
+    from pygetwindow import Win32Window
+    import pygetwindow
+    from windows_api import user,pid
+    class Window(Win32Window):
+        pid=property(lambda self:pid(self._hWnd))
+        isVisible=property(lambda self:bool(user.IsWindowVisible(self._hWnd)))
+    def getAllWindows():return [Window(w._hWnd) for w in pygetwindow.getAllWindows()]
+    def getWindowsWithTitle(title):return [w for w in getAllWindows() if title.casefold() in w.title.casefold()]
+    def getAllTitles():return [w.title for w in getAllWindows()]
 else:
     import threading
     from Xlib import display, X
@@ -108,7 +116,7 @@ def grab_frame(w, rect=None):
 def get_window(hwnd):
     if os.name == 'nt':
         from pygetwindow import Win32Window
-        return Win32Window(hwnd)
+        return Window(hwnd)
     return Window(hwnd)
 
 

@@ -1,0 +1,18 @@
+Boshy, reborn. A new adventure with every seed.
+
+This Windows preview installs Boshy Randomizer for your Windows account.
+Start it from the Start menu after installation. A desktop shortcut is optional.
+No command window, Python installation, Wine or Lutris is needed.
+
+The original game is NOT included. On first launch, select your own supported
+Boshy folder or ZIP. The randomizer creates a private copy and separate saves.
+
+Your game and saved runs are stored in %LOCALAPPDATA%\BoshyRandomizer.
+Updating or uninstalling the application preserves that data.
+Close Boshy Randomizer before updating or uninstalling it.
+
+Keep Microsoft Defender enabled. This preview has been tested on Windows 10
+x64. Windows 11, non-ASCII account paths, physical 4K and mixed DPI still need
+compatibility testing. The installer is not code-signed; Windows may show an
+unknown-publisher/reputation notice. A malware detection is a separate issue;
+do not disable protection or add exclusions to run the randomizer.

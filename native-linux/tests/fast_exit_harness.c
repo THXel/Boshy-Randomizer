@@ -30,5 +30,16 @@ int main(void){
  arm();command=2;exit_action(0);assert(!exitWaiting);command=3;dest=0x8007;exit_action(0);assert(!exitWaiting);
  arm();U app=r+512,table=r+1024;*(U*)0x459a94=app;*(U*)(uintptr_t)(app+0xcc)=table;*(unsigned short*)(uintptr_t)(app+0xc8)=10;*(unsigned short*)(uintptr_t)(table+14)=4;
  command=3;dest=7;exit_action(0);assert(c[3]==260&&exitWaiting);c[3]=2;exit_tick(r,3);assert(!exitWaiting);
+ /* A restart into the same room can reuse RunHeader. Never replay its old exit. */
+ *(unsigned short*)(uintptr_t)(r+0x30)=0;arm();command=1;exit_action(0);assert(exitWaiting);
+ *(U*)(uintptr_t)(r+0xd0)=2;exit_tick(r,3);assert(!exitWaiting&&*(unsigned short*)(uintptr_t)(r+0x30)==0&&c[3]==0);
+ /* An illegal hub is intercepted and carries a nonmodal notice marker. */
+ arm();c[1]=1U<<28;c[2]=0x80000000;c[3]=1;exit_tick(r,3);
+ command=3;dest=0x801c;now=2000;exit_action(0);
+ assert(exitWaiting&&c[3]==284&&hubNoticeActive&&hubNoticeStarted==2000);
+ c[3]=3;exit_tick(r,3);assert(!exitWaiting&&*(unsigned short*)(uintptr_t)(r+0x30)==0);
+ hubNoticeActive=0;arm();c[1]=1U<<28;c[2]=0;exit_tick(r,3);exit_action(0);
+ assert(exitWaiting&&c[3]==284&&!hubNoticeActive);c[3]=3;exit_tick(r,3);
+ c[2]=0x80000000;exit_tick(r,28);assert(hubNoticeActive);exit_tick(r,1);assert(!hubNoticeActive);
  puts("Native exit: capture, jump, timeout, commit, reset, wrong room and R checks passed");
 }

@@ -1,14 +1,15 @@
 from pathlib import Path
 import os,json,subprocess,select,time,struct,hashlib,sys
 from runtime_paths import BASE,RUNNER,EXPECTED,environment,command
+from host_platform import owned_process,LineReader,press
 class Bridge:
  def __init__(self):
   assert hashlib.sha256((BASE/'IWBTB/I Wanna Be The Boshy.exe').read_bytes()).hexdigest()==EXPECTED
-  self.p=subprocess.Popen(command('bridge.exe'),stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=open(BASE/'evidence/bridge.log','a'),text=True,bufsize=1,env=environment())
+  self.p=subprocess.Popen(command('bridge.exe'),stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=open(BASE/'evidence/bridge.log','a'),text=True,bufsize=1,env=environment(),**__import__('host_platform').child_options())
+  self.lines=LineReader(self.p.stdout)
   self.ready=self.response()
  def response(self):
-  if not select.select([self.p.stdout],[],[],8)[0]:raise TimeoutError('Bridge response timeout')
-  line=self.p.stdout.readline()
+  line=self.lines.readline()
   if not line:raise RuntimeError('Bridge exited')
   data=json.loads(line)
   if 'error' in data:raise RuntimeError(data)
@@ -35,15 +36,13 @@ def game_window():
  for w in gw.getWindowsWithTitle('I Wanna Be The Boshy'):
   try:
    p=psutil.Process(w.pid)
-   if Path(p.cwd())==BASE/'IWBTB' and p.environ().get('WINEPREFIX')==str(BASE/'wineprefix'):candidates.append(w)
+   if owned_process(p,BASE):candidates.append(w)
   except (psutil.Error,AttributeError):pass
  if len(candidates)!=1:raise RuntimeError(f'Expected one laboratory window: {len(candidates)}')
  return candidates[0]
 def key(name,hold=.12):
  w=game_window();w.activate();time.sleep(.1)
- subprocess.run(['xdotool','keydown',name],check=True)
- try:time.sleep(hold)
- finally:subprocess.run(['xdotool','keyup',name],check=True)
+ press(name,hold)
 def screenshot(name):
  from PIL import ImageGrab
  from PY import platform_windows as gw
@@ -85,7 +84,15 @@ def _ini_observation(fn):
    if (after['scene'],after['run'],after['object_list'])!=(before['scene'],before['run'],before['object_list']) or after['frame_count']<before['frame_count']:
     raise IniReadInProgress('INI read interrupted by scene reset')
    return result
-  except (IniReadInProgress,KeyError,StopIteration,RuntimeError):
+  except KeyError:
+   # A genuinely absent optional group does not invalidate object pointers.
+   # Still reject a reset while finding it; all later uses validate identity.
+   after=b.snapshot()
+   if (after['scene'],after['run'],after['object_list'])!=(before['scene'],before['run'],before['object_list']) or after['frame_count']<before['frame_count']:
+    b._ini_cache=None
+    raise IniReadInProgress('INI read interrupted by scene reset')
+   raise
+  except (IniReadInProgress,StopIteration,RuntimeError):
    b._ini_cache=None
    raise
  return read
@@ -227,28 +234,48 @@ def set_reward_flags(b,scouter,timer):
    assert encrypt_save_atomic(text,str(BASE/'IWBTB'/fn),b'BLOB')
  finally:pass
 
-def transition(b,frame,x,y,save_name="SaveFile1.ini"):
+def transition(b,frame,x,y,save_name="SaveFile1.ini",*,stabilize=False):
+ if stabilize:
+  from spawn_guard import perform
+  return perform(b,frame,x,y,lambda:_transition(b,frame,x,y,save_name,notify_arrival=False,require_generation=True))
+ return _transition(b,frame,x,y,save_name)
+
+def _transition(b,frame,x,y,save_name,*,notify_arrival=True,require_generation=False):
  if save_name not in ("SaveFile1.ini","SaveFile2.ini","SaveFile3.ini"):raise ValueError("Invalid save slot")
  from PY.file_utils import smart_read
  from PY.ini_utils import apply_values_in_section
  from PY.save_utils import encrypt_save_atomic
- import psutil
- p=psutil.Process(game_window().pid);# Do not SIGSTOP Wine: WriteProcessMemory may need the target to service it.
+ # This uses the attached bridge, not emulated keys: no focus change or delay.
  try:
-  game_window().activate();time.sleep(.1)
   before=b.snapshot();text,_=smart_read(str(BASE/'IWBTB'/save_name))
   text=apply_values_in_section(text,'Positions',{'frame':str(frame),'xPos':str(x),'yPos':str(y)})
   assert encrypt_save_atomic(text,str(BASE/'IWBTB'/save_name),b'BLOB')
   assert b.cmd(f'scene {frame-1} {before["scene"]}')['requested']
+  from transition_timing import observe
+  observe(b,'requested')
  finally:pass
- deadline=time.monotonic()+8
+ deadline=time.monotonic()+8;generation_changed=False;pause_released=False
  while time.monotonic()<deadline:
-  time.sleep(.03)
+  time.sleep(.005)
   try:
    s=b.snapshot()
+   if require_generation:
+    generation_changed=generation_changed or s['next']!=0 or any(s[k]!=before[k] for k in ('scene','run','object_list')) or s['frame_count']<before['frame_count']
+    if not generation_changed:continue
+    # A same-scene reload can reuse RunHeader. Release the old pause after
+    # confirmed engine processing instead of waiting for its two-second cap.
+    address=getattr(b,'spawn_guard_address',None)
+    if not pause_released and s['scene']==frame-1 and s['next']==0 and address is not None:
+     b.cmd(f'menu {address:x} 60 1');pause_released=True
    if s['scene']!=frame-1 or s['next']!=0 or s['frame_count']<2:continue
    ids=ini_object_ids(b);pos=ini_items(b,'positions',ids['Ini++'])
-   if all(int(pos[k]['value'])==v for k,v in [('frame',frame),('xpos',x),('ypos',y)]):return s
+   confirmed=all(int(pos[k]['value'])==v for k,v in [('frame',frame),('xpos',x),('ypos',y)])
+   if not confirmed and require_generation:
+    from spawn_guard import adjusted_checkpoint
+    confirmed=adjusted_checkpoint(b,s,frame,x,y,pos)
+   if confirmed:
+    if notify_arrival:observe(b,'arrived')
+    return s
   except (RuntimeError,KeyError,StopIteration):continue
  raise TimeoutError('Engine did not confirm scene and spawn')
 
@@ -256,5 +283,5 @@ def dismiss_pickup():
  from PY import platform_windows as gw
  w=game_window();dialogs=[d for d in gw.getAllWindows() if d.pid==w.pid and d.title=='SCOUTER GET!']
  if dialogs:
-  dialogs[0].activate();subprocess.run(['xdotool','key','Return'],check=True);time.sleep(.25)
+  dialogs[0].activate();press('Return');time.sleep(.25)
  return bool(dialogs)

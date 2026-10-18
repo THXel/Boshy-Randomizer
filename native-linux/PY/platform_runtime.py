@@ -15,7 +15,7 @@ _BASE = Path(__file__).resolve().parent.parent
 def _settings():
     import json
     path = _BASE / 'linux-settings.json'
-    return json.loads(path.read_text()) if path.exists() else {}
+    return json.loads(path.read_text(encoding='utf-8')) if path.exists() else {}
 
 def preflight():
     if os.name == 'nt':
@@ -269,3 +269,19 @@ def disable_full_keyboard_lock():
     global _FULL_LOCK
     _FULL_LOCK = False
     _apply_key_grabs()
+
+if os.name=='nt':
+    def is_hwnd_valid(hwnd):
+        from windows_api import user
+        return bool(hwnd and user.IsWindow(hwnd))
+    def game_is_active():
+        from lab import game_window
+        try:return game_window().isActive
+        except RuntimeError:return False
+    def focus_hwnd(hwnd):
+        from PY.platform_windows import Window
+        if not is_hwnd_valid(hwnd):raise RuntimeError('Game window unavailable')
+        Window(hwnd).activate()
+    def play_sound(path):
+        import winsound
+        if Path(path).is_file():winsound.PlaySound(str(path),winsound.SND_FILENAME|winsound.SND_ASYNC|winsound.SND_NODEFAULT)

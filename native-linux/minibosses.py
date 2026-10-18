@@ -1,9 +1,10 @@
 """Read native player coordinates and Kracko health; never sample screen pixels."""
 import hashlib,struct,time
 
-REGIONS={'kracko':(3200,0,3840,480),'ninja_ryu':(4480,0,5120,480),'gravitron':(2560,1440,3200,1920),'kid_icarus':(640,6240,1280,6624)}
+KAPPA_EXIT_VERSION=1
+REGIONS={'kracko':(3200,0,3840,480),'ninja_ryu':(4480,0,5120,480),'gravitron':(2560,1440,3200,1920),'kid_icarus':(640,6240,1280,6624),'kappa':(1920,1440,2560,1920)}
 RYU_EXIT=(5120,0,5760,480)
-PLAYER_OI={5:358,11:358,31:93,27:1725}
+PLAYER_OI={5:358,11:358,31:93,27:1725,37:307}
 # Filled from the original event bank in the inspected executable.
 KID_EVENTS=((277502,156,'59bafb89e677e30ada6c8886b4896ffa1401b7cb364e559ba2443526854c181b'),(281628,64,'99506f3920fdb2b7fd83278e0c6541066cf7fcefb6f31ed3f9f4d7cc6b18f733'))
 KRACKO_EVENT_OFFSET=329818
@@ -19,6 +20,7 @@ class Reader:
   frame=snap['scene']+1
   if frame not in PLAYER_OI:return None
   if frame==27:return self.kid_sample(bridge,snap)
+  if frame==37:return self.kappa_sample(bridge,snap)
   identity=(frame,snap['run'],snap['object_list'])
   if identity!=self.identity or self.tick is None or snap['frame_count']<self.tick:
    self.identity=identity;self.refs={};self.scanned=None
@@ -54,6 +56,29 @@ class Reader:
   if (after['scene'],after['run'],after['object_list'])!=(snap['scene'],snap['run'],snap['object_list']) or after['frame_count']<snap['frame_count']:raise RuntimeError('Scene changed during observation')
   return result
 
+ def kappa_sample(self,bridge,snap):
+  from lab import objects
+  identity=(37,snap['run'],snap['object_list'])
+  if identity!=self.identity or self.tick is None or snap['frame_count']<self.tick:
+   bank=struct.unpack('<I',bridge.read(snap['run']+0x88,4))[0]
+   # Validate the original death conditions; sound handles in its actions
+   # are legitimately remapped by MMF when loading this room.
+   if hashlib.sha256(bridge.read(bank+288428,106)).hexdigest()!='16a94a16ae8c710756a6c8df847e31aa1b1f29e0c6281d829f29625af6e732e1':raise RuntimeError('Unknown Kappa death event.')
+   self.identity=identity
+  self.tick=snap['frame_count'];found={o['oi']:o for o in objects(bridge,strict=True) if o['type']==2 and o['oi'] in (307,2277)}
+  player=found.get(307);boss=found.get(2277);hp=None;active=False
+  if boss:
+   relative=struct.unpack_from('<I',bytes.fromhex(boss['raw']),128)[0]
+   if not 128<=relative<4096:raise RuntimeError('Invalid Kappa values.')
+   values=struct.unpack('<I',bridge.read(boss['ptr']+relative,4))[0];health=bridge.read(values+16,16)
+   if struct.unpack_from('<I',health)[0]!=0:raise RuntimeError('Invalid Kappa health.')
+   hp=struct.unpack_from('<i',health,8)[0]
+   if not -1000<=hp<=10000:raise RuntimeError('Invalid Kappa health range.')
+   active=bool(struct.unpack('<I',bridge.read(boss['ptr']+relative+0x68,4))[0]&1)
+  after=bridge.snapshot()
+  if (after['scene'],after['run'],after['object_list'])!=(snap['scene'],snap['run'],snap['object_list']) or after['frame_count']<snap['frame_count']:raise RuntimeError('Scene changed during observation')
+  return dict(frame=37,tick=snap['frame_count'],generation=[snap['run'],snap['object_list']],player_alive=player is not None,position=[player['x'],player['y']] if player else None,hp=hp,boss_object=boss['ptr'] if boss else None,intro_active=not active)
+
  def kid_sample(self,bridge,snap):
   from lab import objects
   identity=(27,snap['run'],snap['object_list'])
@@ -74,23 +99,23 @@ class Reader:
 class Gate:
  def __init__(self):self.reset()
  def reset(self):
-  self.identity=None;self.armed=False;self.candidate=None;self.since=None;self.deaths=None;self.tick=None;self.previous=None;self.boss_object=None
+  self.identity=None;self.armed=False;self.candidate=None;self.since=None;self.deaths=None;self.tick=None;self.previous=None;self.boss_object=None;self.defeated=False
  def snapshot(self):
-  return dict(version=1,identity=list(self.identity) if self.identity else None,armed=self.armed,candidate=self.candidate,deaths=self.deaths,previous=self.previous,boss_object=self.boss_object)
+  return dict(version=1,identity=list(self.identity) if self.identity else None,armed=self.armed,candidate=self.candidate,deaths=self.deaths,previous=self.previous,boss_object=self.boss_object,defeated=self.defeated)
  def restore(self,data):
   self.reset()
   if not data or data.get('version')!=1:return
   self.identity=tuple(data['identity']) if data.get('identity') else None
-  for key in ('armed','candidate','deaths','previous','boss_object'):setattr(self,key,data.get(key))
+  for key in ('armed','candidate','deaths','previous','boss_object','defeated'):setattr(self,key,data.get(key))
   if self.candidate:self.since=time.monotonic()
  def observe(self,spot,index,point,sample,deaths,now=None):
   now=time.monotonic() if now is None else now;segment=point.get('segment')
-  if segment not in ('before_kracko','before_ninja_ryu','before_gravitron','before_kid_icarus','kracko','ninja_ryu','kid_icarus'):
+  if segment not in ('before_kracko','before_ninja_ryu','before_gravitron','before_kid_icarus','before_kappa','kracko','ninja_ryu','kid_icarus'):
    self.reset();return None
   identity=(spot,index,segment)
   if not sample or sample.get('frame')!=point['frame'] or not sample.get('player_alive'):
    self.reset();return None
-  if segment in ('kid_icarus','before_kid_icarus'):identity=(*identity,*sample.get('generation',[]))
+  if segment in ('kid_icarus','before_kid_icarus','kappa','before_kappa'):identity=(*identity,*sample.get('generation',[]))
   tick=sample['tick'];position=sample.get('position')
   if identity!=self.identity or (self.deaths is not None and deaths!=self.deaths) or (self.tick is not None and tick<self.tick):self.reset();self.identity=identity
   self.deaths=deaths;self.tick=tick
@@ -122,7 +147,7 @@ class Gate:
   if self.candidate is None:self.candidate=reason;self.since=now
   # Native outside -> inside samples already prove a screen crossing.
   # Do not wait for another slow inventory poll while a miniboss can attack.
-  return reason if segment not in ('kracko','kid_icarus') or now-self.since>=1.0 else None
+  return reason if segment not in ('kracko','kid_icarus') or now-self.since>=(4.0 if segment=='kracko' else 1.0) else None
 
 
 def prepare_pool(pool,options):
@@ -142,4 +167,7 @@ def prepare_pool(pool,options):
   pool={**pool,'save10.ini':dict(frame=23,x=16,y=1679,category='rooms')}
   segments.update({'save9.ini':'random_world_part1','save10.ini':'random_world_part2'})
   labels.update({'save9.ini':'Random World · Teil 1','save10.ini':'Random World · Teil 2'})
+ if options.get('route_version',1)>=8:
+  pool={**pool,'boss_kappa':dict(frame=37,x=2175,y=1864,category='bosses'),'boss21.ini':dict(frame=54,x=213,y=447,category='bosses'),'save15.ini':dict(frame=35,x=50,y=447,category='rooms',fixed_start=True),'boss_kid_icarus':dict(frame=27,x=777,y=6607,category='bosses')}
+  segments.update({'save17.ini':'before_kappa','boss_kappa':'kappa'});labels.update({'save17.ini':'Justin.tv · vor Kappa','boss_kappa':'Kappa'})
  return {name:dict(point,segment=segments[name],label=labels[name]) if name in segments else point for name,point in pool.items()}

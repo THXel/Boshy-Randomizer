@@ -1,5 +1,6 @@
 """Arm only already established room-exit rules; no new trigger positions."""
 import struct
+from hub_guard import HUB,NOTICE_FLAG
 MAGIC=0x42584531
 class FastExit:
  def __init__(self,player):self.player=player;self.armed=None
@@ -10,7 +11,7 @@ class FastExit:
   return self.player.bridge.cmd(f"exit {self.player.metadata['menu']:x} {scene} {op} {mask&0xffffffff} {mask>>32}").get('written',False)
  def allowed(self,frame):
   p=self.player;d=p.progress.data;spot=d.get('trigger_spot',d['spot']);point=p.m['pool'].get(spot);g=p.progress.gate
-  if (not p.m['options']['levels'] or not point or d['pending'] or d['spot'] in ('boss_solgryn.ini','boss23.ini') or point['frame']==51 or p.watch.down or p.watch.pressed.is_set()):return ()
+  if (not p.m['options']['levels'] or not point or d['pending'] or d['spot'] in ('boss_solgryn.ini','boss23.ini') or p.watch.down or p.watch.pressed.is_set()):return ()
   mod=p.rules.module('native_triggers')
   if getattr(mod,'RULE_VERSION',0)!=3 or not hasattr(mod,'stage_frames'):return ()
   spot='save1.ini' if spot.startswith('prehistorik_') else spot
@@ -21,10 +22,13 @@ class FastExit:
   if c[0]!=MAGIC:return
   if c[3]>=256:return
   exits=self.allowed(frame)
+  guard=getattr(p,'hub_guard',None)
+  blocked_hub=bool(guard and guard.intercept(frame))
+  if blocked_hub:exits=tuple(sorted(set(exits)|{HUB}))
   identity=(p.progress.data['index'],p.progress.data['spot'],frame,int(stats.get('deaths',0)),tuple(exits))
   if exits:
    if self.armed!=identity or c[3]!=1:
-    if self.command(frame-1,1,exits):self.armed=identity
+    if self.command(frame-1,1,exits+((NOTICE_FLAG,) if blocked_hub else ())):self.armed=identity
   elif c[3]==1:self.command(frame-1,0);self.armed=None
  def captured(self,frame,stats):
   c=self.control()

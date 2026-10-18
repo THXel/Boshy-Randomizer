@@ -6,7 +6,7 @@ spoken cues and CD/item sounds deliberately do not belong to this catalogue.
 import hashlib,json,struct,zlib
 from pathlib import Path
 
-TRACKS=(
+SOURCE_TRACKS=(
  '232446_Street_Shinobi','255232_Bomberman','321522_Jarrid_Langill___Wasteland',
  'Ace Combat  Megalith','Burningheat(fulloptionmix)','CHEETAHMENTHEME','Castlevania',
  'Cavestory - on to grasstown','CeladonTrance','Do teh mario!','Duck Tales - The Himalayas',
@@ -19,13 +19,22 @@ TRACKS=(
  'relax','rose at midnight','rose at nightfall','sea of flames','stormwind',
  'terranigma-theunderworld','vvv positive force','warioland stage','wilystage',
 )
+# Keep the original cue recognized, but never choose this song as replacement.
+EXCLUDED_TRACKS=frozenset({'Do teh mario!'})
+TRACKS=tuple(name for name in SOURCE_TRACKS if name not in EXCLUDED_TRACKS)
 MAGIC=b'BRM1'
 
 def mapping(seed):
  # Versioned independent hash ordering never consumes route/reward RNG.
- order=sorted(TRACKS,key=lambda name:hashlib.sha256(('boshy-music-v1\0'+str(seed)+'\0'+name).encode()).digest())
- # A single permutation cycle guarantees every track changes, without retries.
- return {name:order[(i+1)%len(order)] for i,name in enumerate(order)}
+ order=sorted(SOURCE_TRACKS,key=lambda name:hashlib.sha256(('boshy-music-v1\0'+str(seed)+'\0'+name).encode()).digest())
+ # Bypass excluded destinations in the stable cycle: unrelated swaps stay put.
+ cycle={name:order[(i+1)%len(order)] for i,name in enumerate(order)}
+ result={}
+ for name in SOURCE_TRACKS:
+  target=cycle[name]
+  while target in EXCLUDED_TRACKS:target=cycle[target]
+  result[name]=target
+ return result
 
 def extract(path,expected,*,names=TRACKS):
  data=Path(path).read_bytes()
@@ -70,7 +79,7 @@ def prepare(base,manifest):
   digest=hashlib.sha256(audio).hexdigest();filename=digest[:24]+('.ogg' if audio.startswith(b'OggS') else '.mp3' if audio.startswith(b'ID3') else '.wav');path=cache/filename
   if not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest()!=digest:atomic(path,audio)
   paths[name]='..\\menu-runtime\\music\\'+filename
- swaps=mapping(manifest['seed']);raw=bytearray(MAGIC+session.encode()+struct.pack('<I',len(TRACKS)))
- for name in TRACKS:raw.extend(name.encode('latin1').ljust(68,b'\0')+paths[swaps[name]].encode('ascii').ljust(100,b'\0'))
+ swaps=mapping(manifest['seed']);raw=bytearray(MAGIC+session.encode()+struct.pack('<I',len(SOURCE_TRACKS)))
+ for name in SOURCE_TRACKS:raw.extend(name.encode('latin1').ljust(68,b'\0')+paths[swaps[name]].encode('ascii').ljust(100,b'\0'))
  atomic(plan,bytes(raw))
- atomic(folder/'music-map.json',(json.dumps(dict(version=1,run_id=session,tracks=swaps),indent=2)+'\n').encode())
+ atomic(folder/'music-map.json',(json.dumps(dict(version=2,run_id=session,tracks=swaps),indent=2)+'\n').encode())

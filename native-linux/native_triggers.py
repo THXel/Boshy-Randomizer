@@ -22,6 +22,8 @@ BOSS_KEYS.update({'boss23.ini':'sonic','boss21.ini':'cheetahmen','boss10.ini':'g
 RULE_VERSION=3
 OLD_SONIC_EXIT_VERSION=1
 ROOM_EXIT_TIMING_VERSION=1
+KAPPA_EXIT_VERSION=1
+TOWER_EXIT_VERSION=1
 
 def old_sonic_exit(gate,spot,point,frame,ach,disk):
     # Native victory event advances 60 -> 61. The next room can kill the player
@@ -40,9 +42,11 @@ def stage_frames(spot,point):
     return (frame,)
 
 def exits_for(spot,point):
+    # The reward screen belongs to Kappa; only its portal finishes this stage.
+    if spot=='boss_kappa' and point.get('frame')==37 and point.get('segment')=='kappa':return (29,)
     if point.get('segment')=='random_world_part1':return (23,24,53)
     if point.get('segment')=='random_world_part2':return (24,53)
-    if point.get('segment') in ('before_kracko','before_ninja_ryu','before_kid_icarus','kracko','ninja_ryu','kid_icarus'):return ()
+    if point.get('segment') in ('before_kracko','before_ninja_ryu','before_kid_icarus','before_kappa','kracko','ninja_ryu','kid_icarus','kappa'):return ()
     if spot=='boss7.ini':return (12,)
     if spot=='boss10.ini':return (17,)
     return (BOSS_EXITS if point['category']=='bosses' else EXITS).get(point['frame'],())
@@ -84,10 +88,11 @@ class CompletionGate:
         if spot=='boss23.ini' and point['frame']==60:exits=()
         if self.previous is None or restarted:
             self.previous=current;self.candidate=None;self.candidate_frame=None;self.seen_origin=frame in origins;self.last_frame=frame;return None
-        exact_exit=(point['frame']!=51 or (position is not None and tuple(position)==(7871,553)))
-        if self.candidate and (frame!=self.candidate_frame or frame not in exits or not exact_exit):
+        # The Tower finishes on its native top-door room edge, before gravity
+        # or an unchanged checkpoint can alter the observed arrival coordinates.
+        if self.candidate and (frame!=self.candidate_frame or frame not in exits):
             self.candidate=None;self.candidate_frame=None
-        if self.seen_origin and self.last_frame in origins and frame in exits and exact_exit and not self.candidate:
+        if self.seen_origin and self.last_frame in origins and frame in exits and not self.candidate:
             self.candidate='Boss-Ausgang' if point['category']=='bosses' else 'Level-Ausgang'
             self.candidate_frame=frame;self.since=time.monotonic()
         if frame in origins:self.seen_origin=True

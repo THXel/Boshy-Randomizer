@@ -1,6 +1,7 @@
 """Short-lived loading cover; keeps process/profile switching out of the menu UX."""
 from ui_i18n import tr, display as localize, font_path, font_family, configure_tk, LANGUAGE, Localized
 import json,os,select,subprocess,sys,time
+from host_platform import LineReader,python_command
 from pathlib import Path
 
 class LoadingScreen:
@@ -13,12 +14,14 @@ class LoadingScreen:
   except RuntimeError:rect=None;pid=None
   (base/'menu-runtime').mkdir(exist_ok=True)
   log=(base/'menu-runtime/loading.log').open('a')
-  self.p=subprocess.Popen([sys.executable,str(base/'loading_screen.py'),'--window',json.dumps(dict(slot=slot,message=message,rect=rect,pid=pid,destination=destination,position=vars(self.position) if self.position else None))],cwd=base,stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=log,text=True,bufsize=1)
+  self.p=subprocess.Popen(python_command('loading_screen.py','--window',json.dumps(dict(slot=slot,message=message,rect=rect,pid=pid,destination=destination,position=vars(self.position) if self.position else None))),cwd=base,stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=log,text=True,bufsize=1,**__import__('host_platform').child_options())
   log.close()
-  ready=self.p.stdout.readline().strip() if select.select([self.p.stdout],[],[],8)[0] else ''
+  try:ready=LineReader(self.p.stdout).readline().strip()
+  except (RuntimeError,TimeoutError):
+   self.close();raise RuntimeError(tr('Ladebildschirm konnte nicht geöffnet werden. Spielstand bleibt unverändert.'))
   if not ready.startswith('READY '):
    self.close();raise RuntimeError(tr('Ladebildschirm konnte nicht geöffnet werden. Spielstand bleibt unverändert.'))
-  os.environ['PULSE_SINK']=ready.split(' ',1)[1]
+  if os.name!='nt':os.environ['PULSE_SINK']=ready.split(' ',1)[1]
  def restore_game(self):
   if self.position:self.position.restore()
  def close(self):
@@ -33,6 +36,9 @@ class LoadingScreen:
   finally:p.stdout.close()
 
 def client_rect(game):
+ if os.name=='nt':
+  from windows_api import client_rect as rect
+  return rect(game._hWnd)
  from PY.platform_windows import connection
  win=game._window;xy=connection().screen().root.translate_coords(win,0,0);g=win.get_geometry()
  return xy.x,xy.y,g.width,g.height
@@ -64,6 +70,10 @@ def window(settings):
   # The cover must not steal keyboard focus from the native, state-checked loader.
   root.update()
   try:
+   if os.name=='nt':
+    from windows_api import user
+    hwnd=root.winfo_id()
+    user.SetWindowLongW(hwnd,-20,user.GetWindowLongW(hwnd,-20)|0x08000020)
    from Xlib import display,Xutil
    d=display.Display();win=d.create_resource_object('window',root.winfo_id());
    from Xlib.ext import shape

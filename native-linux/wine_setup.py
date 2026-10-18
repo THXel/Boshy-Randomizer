@@ -10,7 +10,7 @@ MANIFEST=Path(__file__).with_name('wine-runner-manifest.json')
 def verified(root):
  root=Path(root)
  if not root.is_dir():return False
- data=json.loads(MANIFEST.read_text())
+ data=json.loads(MANIFEST.read_text(encoding='utf-8'))
  try:
   for name,want in data['files'].items():
    p=root/name

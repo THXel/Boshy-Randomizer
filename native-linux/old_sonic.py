@@ -45,7 +45,7 @@ class Reader:
   return result
 
 class Gate:
- COOLDOWN=3.0
+ COOLDOWN=6.0
  def __init__(self):
   self.identity=None;self.tick=None;self.deaths=None;self.armed=False;self.reported=False;self.since=None;self.boss=None
  def remaining(self,now=None):
@@ -82,6 +82,6 @@ def confirm(progress,gate,sample,stats):
  won=gate.observe(active,d['index'],sample,int(stats.get('deaths',0)))
  if sample is not None:sample['cooldown_remaining']=gate.remaining()
  if not won or d.get('pending') or not progress.m['options'].get('levels',True):return False
- d.setdefault('stage_bosses',{})['oldsonic']=dict(index=d['index'],frame=FRAME,native_hp=0,exit='Old Sonic besiegt (HP 0)',cooldown_seconds=3)
+ d.setdefault('stage_bosses',{})['oldsonic']=dict(index=d['index'],frame=FRAME,native_hp=0,exit='Old Sonic besiegt (HP 0)',cooldown_seconds=gate.COOLDOWN)
  progress.trace('stage-boss-defeated',frame=FRAME,boss='oldsonic',native_hp=0)
  progress.save();return True
