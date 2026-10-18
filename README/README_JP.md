@@ -9,6 +9,7 @@
 [Linux版DEBをダウンロード](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.15/boshy-randomizer_2026.10.15-1_amd64.deb) · [リリースとチェックサム](https://github.com/THXel/Boshy-Randomizer/releases/tag/v2026.10.15)
 
 **Linux Mint 22.x / Ubuntu 24.04 · amd64 · X11**
+
 [Windowsセットアップ（プレビュー）](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.18-windows-preview/BoshyRandomizer-2026.10.18-Windows-Setup-x64.exe)
 
 **Windows x64プレビュー：** セットアップ後、スタートメニューまたは任意のデスクトップショートカットから **Boshy Randomizer** を起動できます。CMDやPython、Wine、Lutrisのインストールは不要です。初回起動時に自分のBoshyフォルダーまたはZIPを選びます。ゲーム本体は含まれません。更新・アンインストール後もセーブデータは残ります。Windows 10でDefenderを有効にしたまま検証しました。インストーラーは未署名です。Windows 11と非ASCII文字を含むユーザーパスは未検証です。
@@ -42,7 +43,7 @@
 
 ![設定・Advanced・弾・追加機能・シードのメニューツアー](../docs/media/rediscover-menu-tour.gif)
 
-## インストール
+## Linuxへのインストール
 
 DEBをダウンロードし、更新時はランダマイザーを終了してからインストールします。
 
@@ -62,7 +63,7 @@ sudo apt install ./boshy-randomizer_2026.10.15-1_amd64.deb
 
 ![現在の日本語設定画面](../docs/media/setup-ja.png)
 
-自動テスト180件が成功。45か所すべてでゲーム内の読み込みとリセットを確認し、Questionmark、Ridley、Old Sonic、Solgrynは練習用設定を使って撃破を確認しました。クモのタイマー、保存・再開、結果表示も実機で検証しています。すべてのルートや設定の組み合わせを通しでクリアしたという意味ではありません。[検証範囲](../docs/RELEASE_PREPARATION.md)。
+自動テスト369件が成功。45か所すべてでゲーム内の読み込みとリセットを確認し、Questionmark、Ridley、Old Sonic、Solgrynは練習用設定を使って撃破を確認しました。クモのタイマー、保存・再開、結果表示も実機で検証しています。すべてのルートや設定の組み合わせを通しでクリアしたという意味ではありません。[検証範囲](../docs/RELEASE_PREPARATION.md)。
 
 **THXelとBoshyスピードランコミュニティ**によるファンプロジェクト。オリジナルゲーム：**Solgryn / Grynsoft**。
 

@@ -9,6 +9,7 @@ Vuelve a sacar *I Wanna Be The Boshy* del cajón. Sus mundos, jefes y secretos t
 [Descargar DEB para Linux](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.15/boshy-randomizer_2026.10.15-1_amd64.deb) · [Versión y sumas de verificación](https://github.com/THXel/Boshy-Randomizer/releases/tag/v2026.10.15)
 
 **Linux Mint 22.x / Ubuntu 24.04 · amd64 · X11**
+
 [Descargar instalador de Windows (vista previa)](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.18-windows-preview/BoshyRandomizer-2026.10.18-Windows-Setup-x64.exe)
 
 **Vista previa para Windows x64:** instala con el asistente y abre **Boshy Randomizer** desde Inicio o el acceso directo opcional del escritorio. No necesitas CMD ni instalar Python, Wine o Lutris. Al iniciar por primera vez, elige tu carpeta de Boshy o ZIP; el juego no está incluido. Las actualizaciones y la desinstalación conservan las partidas. Probado en Windows 10 con Defender activado. El instalador no está firmado; Windows 11 y las rutas de usuario con caracteres no ASCII aún no se han verificado.
@@ -42,7 +43,7 @@ Tres archivos independientes conservan el progreso y los personajes desbloqueado
 
 ![Recorrido por ajustes, Advanced, disparos, hacks y semilla](../docs/media/rediscover-menu-tour.gif)
 
-## Instala y juega
+## Instalación en Linux
 
 Descarga el DEB, cierra el randomizer antes de actualizar e instala:
 
@@ -62,7 +63,7 @@ La interfaz detecta inglés, alemán, ruso, español y japonés; usa inglés si 
 
 ![Ajustes actuales en español](../docs/media/setup-es.png)
 
-180 pruebas automáticas superadas. Los 45 puntos se cargaron y reiniciaron en el juego; Questionmark, Ridley, Old Sonic y Solgryn se completaron con hacks de entrenamiento. También se comprobaron el temporizador de la araña, guardado/carga y resultados. No se han completado todas las rutas y combinaciones. [Alcance de las pruebas](../docs/RELEASE_PREPARATION.md).
+369 pruebas automáticas superadas. Los 45 puntos se cargaron y reiniciaron en el juego; Questionmark, Ridley, Old Sonic y Solgryn se completaron con hacks de entrenamiento. También se comprobaron el temporizador de la araña, guardado/carga y resultados. No se han completado todas las rutas y combinaciones. [Alcance de las pruebas](../docs/RELEASE_PREPARATION.md).
 
 Un proyecto de fans de **THXel y la comunidad de speedrunning de Boshy**. Juego original de **Solgryn / Grynsoft**.
 

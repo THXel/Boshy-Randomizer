@@ -9,6 +9,7 @@ Dust off *I Wanna Be The Boshy* and take a different path through its worlds, bo
 [Download Linux DEB](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.15/boshy-randomizer_2026.10.15-1_amd64.deb) · [Release & checksums](https://github.com/THXel/Boshy-Randomizer/releases/tag/v2026.10.15)
 
 **Linux Mint 22.x / Ubuntu 24.04 · amd64 · X11**
+
 [Download Windows Setup (preview)](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.18-windows-preview/BoshyRandomizer-2026.10.18-Windows-Setup-x64.exe)
 
 **Windows x64 preview:** install with the setup wizard, then launch **Boshy Randomizer** from the Start menu or optional desktop shortcut. No CMD, Python, Wine or Lutris installation is needed. On first launch, choose your own Boshy folder or ZIP; the game is not included. Updates and uninstall preserve saves. Defender stayed enabled during Windows 10 testing. The installer is unsigned; Windows 11 and non-ASCII account paths are not yet verified.
@@ -42,7 +43,7 @@ Three independent save slots keep each run's progress and character unlocks sepa
 
 ![Tour of run settings, Advanced, shot styles, hacks and seeds](docs/media/rediscover-menu-tour.gif)
 
-## Install & play
+## Linux installation
 
 1. Download the DEB above. Close the randomizer before updating.
 2. Open it with your package manager, or run:
@@ -67,7 +68,7 @@ The interface detects **English, German, Russian, Spanish or Japanese** from the
 
 ## Tested—and clear about the limits
 
-180 automated tests pass. All 45 points were loaded and reset in-game; natural combat exits were additionally checked for Questionmark, Ridley, Old Sonic and Solgryn with training hacks enabled. Spider timing, save/resume and the completed-run screen were checked in the real game. This does **not** mean every complete route or hack combination has been played through. [Verification details](docs/RELEASE_PREPARATION.md).
+369 automated tests pass. All 45 points were loaded and reset in-game; natural combat exits were additionally checked for Questionmark, Ridley, Old Sonic and Solgryn with training hacks enabled. Spider timing, save/resume and the completed-run screen were checked in the real game. This does **not** mean every complete route or hack combination has been played through. [Verification details](docs/RELEASE_PREPARATION.md).
 
 ## Community & development
 

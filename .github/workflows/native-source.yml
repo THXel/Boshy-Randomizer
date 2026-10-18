@@ -17,7 +17,7 @@ jobs:
       - name: Install Python runtime dependencies
         run: python -m pip install pillow numpy psutil python-xlib
       - name: Install native build dependencies
-        run: sudo apt-get update && sudo apt-get install -y gcc-multilib binutils gcc-mingw-w64-x86-64
+        run: sudo apt-get update && sudo apt-get install -y gcc-multilib binutils gcc-mingw-w64-x86-64 ffmpeg
       - name: Build native payloads
         run: python native-linux/build_runtime.py
       - name: Compile Python source

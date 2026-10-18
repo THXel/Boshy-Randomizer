@@ -9,6 +9,7 @@
 [Скачать DEB для Linux](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.15/boshy-randomizer_2026.10.15-1_amd64.deb) · [Релиз и контрольные суммы](https://github.com/THXel/Boshy-Randomizer/releases/tag/v2026.10.15)
 
 **Linux Mint 22.x / Ubuntu 24.04 · amd64 · X11**
+
 [Скачать установщик Windows (предварительная версия)](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.18-windows-preview/BoshyRandomizer-2026.10.18-Windows-Setup-x64.exe)
 
 **Предварительная версия для Windows x64:** установите программу через мастер и запускайте **Boshy Randomizer** из меню «Пуск» или с ярлыка на рабочем столе. CMD, установка Python, Wine и Lutris не нужны. При первом запуске выберите свою папку Boshy или ZIP; игра не включена. Обновление и удаление программы сохраняют прогресс. Проверено в Windows 10 с включённым Defender. Установщик не подписан; Windows 11 и пути пользователя с не-ASCII символами ещё не проверены.
@@ -42,7 +43,7 @@
 
 ![Настройки, Advanced, выстрелы, хаки и сид](../docs/media/rediscover-menu-tour.gif)
 
-## Установка
+## Установка в Linux
 
 Скачай DEB, закрой рандомайзер перед обновлением и установи пакет:
 
@@ -62,7 +63,7 @@ sudo apt install ./boshy-randomizer_2026.10.15-1_amd64.deb
 
 ![Настройки на русском](../docs/media/setup-ru.png)
 
-180 автоматических тестов пройдены. Все 45 точек проверены загрузкой и сбросом в игре; Questionmark, Ridley, Old Sonic и Solgryn побеждены с тренировочными хаками. Проверены таймер паука, сохранение/загрузка и экран результатов. Это не полное прохождение всех маршрутов и комбинаций. [Область проверки](../docs/RELEASE_PREPARATION.md).
+369 автоматических тестов пройдены. Все 45 точек проверены загрузкой и сбросом в игре; Questionmark, Ridley, Old Sonic и Solgryn побеждены с тренировочными хаками. Проверены таймер паука, сохранение/загрузка и экран результатов. Это не полное прохождение всех маршрутов и комбинаций. [Область проверки](../docs/RELEASE_PREPARATION.md).
 
 Фан-проект **THXel и сообщества спидраннеров Boshy**. Оригинальная игра: **Solgryn / Grynsoft**.
 

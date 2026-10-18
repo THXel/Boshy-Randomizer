@@ -9,6 +9,7 @@ Du kennst *I Wanna Be The Boshy* in- und auswendig? Dann entdecke seine Welten, 
 [Linux-DEB herunterladen](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.15/boshy-randomizer_2026.10.15-1_amd64.deb) · [Release & Prüfsummen](https://github.com/THXel/Boshy-Randomizer/releases/tag/v2026.10.15)
 
 **Linux Mint 22.x / Ubuntu 24.04 · amd64 · X11**
+
 [Windows-Setup herunterladen (Vorschau)](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.18-windows-preview/BoshyRandomizer-2026.10.18-Windows-Setup-x64.exe)
 
 **Windows-Vorschau für x64:** Installiere mit dem Setup-Assistenten und starte **Boshy Randomizer** über das Startmenü oder die optionale Desktop-Verknüpfung. Keine CMD und keine Installation von Python, Wine oder Lutris nötig. Beim ersten Start wählst du deinen Boshy-Ordner oder eine ZIP; das Spiel ist nicht enthalten. Updates und Deinstallation behalten Spielstände. Defender blieb beim Windows-10-Test aktiv. Der Installer ist unsigniert; Windows 11 und Kontopfade mit Sonderzeichen sind noch nicht geprüft.
@@ -42,7 +43,7 @@ Drei getrennte Speicherplätze behalten Fortschritt und freigeschaltete Charakte
 
 ![Menütour: Einstellungen, Advanced, Schussstile, Hacks und Seed](../docs/media/rediscover-menu-tour.gif)
 
-## Installieren und loslegen
+## Installation unter Linux
 
 1. DEB oben herunterladen. Vor einem Update den Randomizer schließen.
 2. Mit der Paketverwaltung öffnen oder installieren:
@@ -67,7 +68,7 @@ Die Oberfläche erkennt **Deutsch, Englisch, Russisch, Spanisch und Japanisch** 
 
 ## Geprüft, ohne mehr zu versprechen
 
-180 automatische Tests bestanden. Alle 45 Punkte wurden im Spiel geladen und zurückgesetzt. Questionmark, Ridley, Old Sonic und Solgryn wurden zusätzlich mit Trainingshacks besiegt; Spinnenzeit, Speichern/Laden und Abschlussanzeige wurden praktisch geprüft. Nicht jede komplette Route und Hackkombination wurde durchgespielt. [Prüfumfang](../docs/RELEASE_PREPARATION.md).
+369 automatische Tests bestanden. Alle 45 Punkte wurden im Spiel geladen und zurückgesetzt. Questionmark, Ridley, Old Sonic und Solgryn wurden zusätzlich mit Trainingshacks besiegt; Spinnenzeit, Speichern/Laden und Abschlussanzeige wurden praktisch geprüft. Nicht jede komplette Route und Hackkombination wurde durchgespielt. [Prüfumfang](../docs/RELEASE_PREPARATION.md).
 
 Ein Fanprojekt von **THXel und der Boshy-Speedrunning-Community**. Originalspiel: **Solgryn / Grynsoft**. Danke, dass ihr Boshy am Leben haltet!
 
