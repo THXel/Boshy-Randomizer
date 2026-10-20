@@ -3,10 +3,10 @@ from pathlib import Path
 import json,html,hashlib
 R=Path(__file__).resolve().parents[1]
 DATA=json.loads((R/'site/content.json').read_text())
-RELEASE='https://github.com/THXel/Boshy-Randomizer/releases/tag/v2026.10.18'
-BASE='https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.18/'
-WIN=BASE+'BoshyRandomizer-2026.10.18-Windows-Setup-x64.exe'
-LINUX=BASE+'boshy-randomizer_2026.10.18-1_amd64.deb'
+RELEASE='https://github.com/THXel/Boshy-Randomizer/releases/tag/v2026.10.20.1'
+BASE='https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.20.1/'
+WIN=BASE+'BoshyRandomizer-2026.10.20.1-Windows-Setup-x64.exe'
+LINUX=BASE+'boshy-randomizer_2026.10.20.1-1_amd64.deb'
 GH='https://github.com/THXel/Boshy-Randomizer'
 GAME='https://grynsoft.com/site/game/i-wanna-be-the-boshy'
 def e(s):return html.escape(s,quote=True)
@@ -28,8 +28,12 @@ def render(lang,d):
  controls=''.join(f'<li>{e(x)}</li>' for x in d['controls'])
  steps=''.join(f'<li><span>0{i+1}</span><p>{e(x)}</p></li>' for i,x in enumerate(w['quicksteps']))
  faq=''.join(f'<details><summary>{e(q)}</summary><p>{e(a)}</p></details>' for q,a in d['faq'])
- previews=[('docs/media/rediscover-intro.gif','site/media/intro-poster.webp','site/media/intro.mp4'),('docs/media/rediscover-menu-tour.gif','site/media/menu-tour-poster.webp','site/media/menu-tour.mp4'),('docs/media/linux-run-tracker.png','docs/media/linux-run-tracker.png','')]
- gallery=''.join(f'<figure><a href="{assets(original)}" data-gallery-index="{i}" data-video="{assets(video) if video else ""}" data-poster="{assets(poster)}" data-caption="{e(caption)}"><img src="{assets(poster)}" alt="{e(caption)}" loading="lazy" width="880" height="660"><span class="zoom-mark" aria-hidden="true">↗</span></a><figcaption>{e(caption)}</figcaption></figure>' for i,((original,poster,video),caption) in enumerate(zip(previews,d['captions'])))
+ previews=[('docs/media/rediscover-intro.gif','site/media/intro-poster.webp','site/media/intro.mp4',False),('docs/media/rediscover-menu-tour.gif','site/media/menu-tour-poster.webp','site/media/menu-tour.mp4',False),('docs/media/linux-run-tracker.png','docs/media/linux-run-tracker.png','',False)]
+ previews += [(f'docs/media/{name}.gif',f'site/media/{name}-poster.webp',f'site/media/{name}.mp4',True) for name in ('death-kamilia3','death-wannafest22','beta-questionmark','beta-ridley','menu-variant-1','menu-variant-2')]
+ gallery=''
+ for i,((original,poster,video,audio),caption) in enumerate(zip(previews,d['captions'])):
+  downloads=f'<span class="media-links"><a href="{assets(original)}">GIF</a><a href="{assets(video)}">{e(w["soundvideo"])}</a></span>' if i>=3 else ''
+  gallery+=f'<figure><a href="{assets(video if audio else original)}" data-gallery-index="{i}" data-video="{assets(video) if video else ""}" data-webm="{assets(video.replace('.mp4','.webm')) if i>=3 else ''}" data-audio="{str(audio).lower()}" data-poster="{assets(poster)}" data-caption="{e(caption)}"><img src="{assets(poster)}" alt="{e(caption)}" loading="lazy" width="880" height="660"><span class="zoom-mark" aria-hidden="true">{"▶" if video else "↗"}</span></a><figcaption>{e(caption)}{downloads}</figcaption></figure>'
  issue=GH+'/issues/new?template=problem.yml'
  text=f'''<!doctype html>
 <html lang="{lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="{e(d['intro'])}"><meta name="theme-color" content="#101411"><meta property="og:title" content="Boshy Randomizer — {e(d['title'])}"><meta property="og:description" content="{e(d['tagline'])}"><meta property="og:image" content="https://thxel.github.io/Boshy-Randomizer/Custom/boshy_randomizer.png"><title>Boshy Randomizer — {e(d['title'])}</title><link rel="stylesheet" href="{versioned('site/style.css')}"><link rel="icon" href="{assets('Custom/rando_icon.ico')}"><script src="{versioned('site/app.js')}" defer></script></head><body>
@@ -66,6 +70,10 @@ def readme(lang,d,root=False):
  for n,body in d['features']:s+=f'### {n}\n\n{body}\n\n'
  s+=f'![{d["captions"][1]}]({pre}docs/media/rediscover-menu-tour.gif)\n\n### {d["visualTitle"]}\n\n{d["visual"]}\n\n### {d["shotsTitle"]}\n\n{d["shots"]}\n\n{d["music"]}\n\n<a id="hacks"></a>\n\n## {d["hacksTitle"]}\n\n{d["hacksIntro"]}\n\n'
  s+=''.join('- '+x+'\n' for x in d['hacks'])+f'\n> {d["spider"]}\n\n### {d["controlsTitle"]}\n\n'+''.join('- '+x+'\n' for x in d['controls'])
+ s+=f'\n## {d["galleryTitle"]}\n\n{d["web"]["galleryhelp"]}\n\n'
+ for i,name in ((3,'death-kamilia3'),(4,'death-wannafest22')):
+  s+=f'### {d["captions"][i]}\n\n[![{d["captions"][i]}]({pre}docs/media/{name}.gif)]({site}#gallery)\n\n[{d["web"]["soundvideo"]}](https://thxel.github.io/Boshy-Randomizer/site/media/{name}.mp4)\n\n'
+ s+=f'[![{d["captions"][6]}]({pre}site/media/beta-ridley-poster.webp)]({site}#gallery)\n\n[{d["galleryTitle"]}]({site}#gallery)\n'
  s+=f'\n<a id="download"></a>\n\n## {d["download"]}\n\n| | Download | |\n| --- | --- | --- |\n| **Windows** | [{d["windows"]}]({WIN}) | {d["preview"]} |\n| **Linux** | [{d["linux"]}]({LINUX}) | {d["linuxnote"]} |\n\n[{d["release"]}]({RELEASE}) · [Windows]({pre}docs/WINDOWS_PACKAGE.md) · [Linux]({pre}docs/LINUX_PACKAGE.md)\n\n### {d["installTitle"]}\n\n'
  s+=''.join(f'{i+1}. {x}\n' for i,x in enumerate(d['steps']))+f'\n{d["preserve"]}\n\n<a id="faq"></a>\n\n## {d["faqTitle"]}\n\n'
  for q,a in d['faq']:s+=f'<details>\n<summary>{q}</summary>\n\n{a}\n\n</details>\n\n'

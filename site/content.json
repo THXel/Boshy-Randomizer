@@ -76,7 +76,7 @@
     "visual": "New intro casts and scenery on launch. Optional Sprite Chaos reshuffles reviewed backgrounds with their animated parallax, decoration and platform materials. Configure the layers separately and dim backgrounds for clarity. Enemy and boss colour changes are beta; their shapes, attacks and collision geometry stay intact.",
     "shotsTitle": "New shots. New sound.",
     "shots": "Randomize projectiles and their firing effects independently of your character: after a spot, after a death, after both, or at a random time within your chosen limit. Set that limit in seconds or minutes; the default is five minutes.",
-    "music": "Music Shuffle mixes level and boss music together with a seed-based assignment. Optional locally installed Kamilia 3 and WannaFest22 soundpacks can also replace matching intro, menu, death and ending cues. Soundpack selection is remembered; shuffle tracks must be longer than 30 seconds. These extra soundpacks are not included in the downloads.",
+    "music": "Music Shuffle mixes level and boss music together with a seed-based assignment. Optional locally installed Kamilia 3 and WannaFest22 soundpacks can also replace matching intro, menu, death and ending cues. Soundpack selection is remembered; shuffle tracks must be longer than 30 seconds. These extra soundpacks are not included in the downloads. Locally imported pack graphics add matching animated death screens and blood sprites: Kamilia fades red before its title, while WannaFest slams its title in over VHS noise. Original reset behavior stays unchanged.",
     "hacksTitle": "A little help. A little chaos.",
     "hacksIntro": "Choose optional tweaks under Advanced → Hacks. Make a practice run, change the feel, or leave a surprise waiting.",
     "hacks": [
@@ -135,7 +135,13 @@
     "captions": [
       "The original intro, remixed",
       "Native run settings and Advanced",
-      "Your run at a glance"
+      "Your run at a glance",
+      "Kamilia 3: red fade, Game Over and death audio",
+      "WannaFest22: VHS noise, flying title and death cubes",
+      "Questionmark: the beta boss returns",
+      "Ridley: another beta fight in the pool",
+      "A different main menu: Wario Skyline",
+      "Another restart, another backdrop: Green Greens"
     ],
     "footer": "A fan project by THXel and the Boshy speedrunning community. Original game by Solgryn / Grynsoft.",
     "support": "Report an issue",
@@ -162,7 +168,7 @@
         "Choose a save slot, mode and settings.",
         "Start your run — or share its seed with a friend."
       ],
-      "galleryhelp": "Select a preview to enlarge it. Animations can be paused.",
+      "galleryhelp": "Open a preview for the full animation. Death-screen videos include sound; GIFs are silent. Playback starts only when you open a preview.",
       "pause": "Pause animation",
       "play": "Play animation",
       "close": "Close",
@@ -175,7 +181,8 @@
       "copyfallback": "Template selected. Copy it with Ctrl+C or ⌘C.",
       "report": "Report a problem",
       "template": "Version:\nPlatform (Windows / Linux):\nMode:\nSeed (if available):\n\nWhat did you do?\n\nWhat did you expect?\n\nWhat happened instead?\n\nDebug report or screenshot (optional):",
-      "debug": "Ctrl+Alt+D opens diagnostics. Ctrl+Alt+M marks a problem during play; you can attach the exported report to your issue."
+      "debug": "Ctrl+Alt+D opens diagnostics. Ctrl+Alt+M marks a problem during play; you can attach the exported report to your issue.",
+      "soundvideo": "Video with sound"
     },
     "gameDownload": "Download the original I Wanna Be The Boshy from Grynsoft"
   },
@@ -256,7 +263,7 @@
     "visual": "Neue Intro-Charaktere und Kulissen beim Start. Das optionale Sprite-Chaos mischt geprüfte Hintergründe samt animierter Parallaxe, Dekoration und Plattform-Materialien. Die Ebenen sind einzeln einstellbar, Hintergründe lassen sich abdunkeln. Farbwechsel für Gegner und Bosse sind Beta; Formen, Angriffe und Kollisionen bleiben erhalten.",
     "shotsTitle": "Neue Schüsse. Neuer Sound.",
     "shots": "Projektil und Schusseffekt wechseln unabhängig vom Charakter: nach einem Spot, nach einem Tod, nach beidem oder zufällig innerhalb einer selbst gewählten Zeitspanne. Sekunden und Minuten sind einstellbar; Standard sind fünf Minuten.",
-    "music": "Music Shuffle mischt Level- und Bossmusik gemeinsam mit einer Zuordnung über den Seed. Lokal installierte Kamilia-3- und WannaFest22-Soundpacks können außerdem passende Intro-, Menü-, Todes- und Abspann-Sounds ersetzen. Die Auswahl bleibt gespeichert; Shuffle-Titel müssen länger als 30 Sekunden sein. Diese zusätzlichen Soundpacks sind nicht im Download enthalten.",
+    "music": "Music Shuffle mischt Level- und Bossmusik gemeinsam mit einer Zuordnung über den Seed. Lokal installierte Kamilia-3- und WannaFest22-Soundpacks können außerdem passende Intro-, Menü-, Todes- und Abspann-Sounds ersetzen. Die Auswahl bleibt gespeichert; Shuffle-Titel müssen länger als 30 Sekunden sein. Diese zusätzlichen Soundpacks sind nicht im Download enthalten. Lokal importierte Pack-Grafiken ergänzen animierte Todesanzeigen und Blutpartikel: Kamilia blendet zuerst Rot und dann die Schrift ein, WannaFest lässt die Schrift über VHS-Rauschen einschlagen. Das ursprüngliche Reset-Verhalten bleibt erhalten.",
     "hacksTitle": "Ein bisschen Hilfe. Ein bisschen Chaos.",
     "hacksIntro": "Unter Advanced → Hacks wählst du optionale Extras für Training, Abwechslung oder eine kleine Überraschung.",
     "hacks": [
@@ -315,7 +322,13 @@
     "captions": [
       "Das originale Intro, neu gemischt",
       "Native Laufeinstellungen und Advanced",
-      "Dein Lauf auf einen Blick"
+      "Dein Lauf auf einen Blick",
+      "Kamilia 3: rote Blende, Game Over und Todessound",
+      "WannaFest22: VHS-Rauschen, Titelanimation und Todeswürfel",
+      "Questionmark: der Beta-Boss ist zurück",
+      "Ridley: ein weiterer Beta-Kampf im Pool",
+      "Ein anderes Hauptmenü: Wario Skyline",
+      "Neustart, neuer Hintergrund: Green Greens"
     ],
     "footer": "Ein Fanprojekt von THXel und der Boshy-Speedrun-Community. Originalspiel von Solgryn / Grynsoft.",
     "support": "Problem melden",
@@ -342,7 +355,7 @@
         "Wähle Speicherplatz, Modus und Einstellungen.",
         "Starte deinen Lauf — oder teile den Seed mit Freunden."
       ],
-      "galleryhelp": "Klicke auf eine Vorschau zum Vergrößern. Animationen lassen sich pausieren.",
+      "galleryhelp": "Öffne eine Vorschau für die vollständige Animation. Die Todesvideos enthalten Ton; GIFs sind stumm. Die Wiedergabe startet erst beim Öffnen einer Vorschau.",
       "pause": "Animation pausieren",
       "play": "Animation abspielen",
       "close": "Schließen",
@@ -355,7 +368,8 @@
       "copyfallback": "Vorlage markiert. Kopiere sie mit Strg+C oder ⌘C.",
       "report": "Problem melden",
       "template": "Version:\nPlattform (Windows / Linux):\nModus:\nSeed (falls vorhanden):\n\nWas hast du gemacht?\n\nWas hast du erwartet?\n\nWas ist stattdessen passiert?\n\nDebugbericht oder Screenshot (optional):",
-      "debug": "Strg+Alt+D öffnet die Diagnose. Strg+Alt+M markiert ein Problem während des Spielens; den exportierten Bericht kannst du deiner Meldung anhängen."
+      "debug": "Strg+Alt+D öffnet die Diagnose. Strg+Alt+M markiert ein Problem während des Spielens; den exportierten Bericht kannst du deiner Meldung anhängen.",
+      "soundvideo": "Video mit Ton"
     },
     "gameDownload": "I Wanna Be The Boshy bei Grynsoft herunterladen"
   },
@@ -436,7 +450,7 @@
     "visual": "El reparto y escenario del intro cambian al iniciar. Sprite Chaos mezcla fondos revisados con su paralaje animado, decoración y materiales de plataformas. Configura cada capa y oscurece fondos para mejorar la visibilidad. Los cambios de color de enemigos y jefes están en beta; formas, ataques y colisiones se conservan.",
     "shotsTitle": "Nuevos disparos. Nuevo sonido.",
     "shots": "Cambia proyectil y efecto de disparo independientemente del personaje: tras cada sección, muerte, ambos o aleatoriamente dentro de un límite de tiempo. Elige segundos o minutos; cinco minutos por defecto.",
-    "music": "Music Shuffle mezcla música de niveles y jefes según la semilla. Los packs locales de Kamilia 3 y WannaFest22 también pueden sustituir sonidos de intro, menú, muerte y final. La selección se guarda; las pistas mezclables deben durar más de 30 segundos. Los packs adicionales no están incluidos.",
+    "music": "Music Shuffle mezcla música de niveles y jefes según la semilla. Los packs locales de Kamilia 3 y WannaFest22 también pueden sustituir sonidos de intro, menú, muerte y final. La selección se guarda; las pistas mezclables deben durar más de 30 segundos. Los packs adicionales no están incluidos. Los gráficos importados localmente añaden pantallas de muerte animadas y partículas de sangre: Kamilia muestra primero una capa roja y después el título; WannaFest lanza el título desde los lados sobre ruido VHS. El reinicio original se conserva.",
     "hacksTitle": "Un poco de ayuda. Un poco de caos.",
     "hacksIntro": "En Advanced → Hacks elige opciones para practicar, variar la partida o añadir sorpresas.",
     "hacks": [
@@ -495,7 +509,13 @@
     "captions": [
       "El intro original, remezclado",
       "Opciones nativas y Advanced",
-      "Tu partida de un vistazo"
+      "Tu partida de un vistazo",
+      "Kamilia 3: fundido rojo, Game Over y sonido de muerte",
+      "WannaFest22: ruido VHS, título animado y cubos rojos",
+      "Questionmark: vuelve el jefe beta",
+      "Ridley: otro combate beta disponible",
+      "Un menú diferente: Wario Skyline",
+      "Otro inicio, otro fondo: Green Greens"
     ],
     "footer": "Proyecto de fans de THXel y la comunidad speedrun de Boshy. Juego original de Solgryn / Grynsoft.",
     "support": "Informar de un problema",
@@ -522,7 +542,7 @@
         "Elige una ranura, un modo y los ajustes.",
         "Empieza la partida o comparte la semilla con amigos."
       ],
-      "galleryhelp": "Selecciona una vista previa para ampliarla. Puedes pausar las animaciones.",
+      "galleryhelp": "Abre una vista previa para ver la animación completa. Los vídeos de muerte tienen sonido; los GIF son silenciosos. La reproducción comienza al abrir una vista previa.",
       "pause": "Pausar animación",
       "play": "Reproducir animación",
       "close": "Cerrar",
@@ -535,7 +555,8 @@
       "copyfallback": "Plantilla seleccionada. Cópiala con Ctrl+C o ⌘C.",
       "report": "Informar de un problema",
       "template": "Versión:\nPlataforma (Windows / Linux):\nModo:\nSemilla (si está disponible):\n\n¿Qué hiciste?\n\n¿Qué esperabas?\n\n¿Qué ocurrió?\n\nInforme de depuración o captura (opcional):",
-      "debug": "Ctrl+Alt+D abre el diagnóstico. Ctrl+Alt+M marca un problema durante la partida; puedes adjuntar el informe exportado."
+      "debug": "Ctrl+Alt+D abre el diagnóstico. Ctrl+Alt+M marca un problema durante la partida; puedes adjuntar el informe exportado.",
+      "soundvideo": "Vídeo con sonido"
     },
     "gameDownload": "Descargar I Wanna Be The Boshy desde Grynsoft"
   },
@@ -616,7 +637,7 @@
     "visual": "Персонажи и декорации интро меняются при запуске. Sprite Chaos перемешивает проверенные фоны с анимированным параллаксом, декор и материалы платформ. Слои настраиваются отдельно, фон можно затемнить. Перекраска врагов и боссов — бета; формы, атаки и коллизии сохраняются.",
     "shotsTitle": "Новые выстрелы. Новый звук.",
     "shots": "Меняй снаряд и эффект выстрела независимо от героя: после участка, смерти, обоих событий или в случайный момент внутри выбранного интервала. Секунды и минуты настраиваются; по умолчанию пять минут.",
-    "music": "Music Shuffle объединяет музыку уровней и боссов по сиду. Локальные наборы Kamilia 3 и WannaFest22 могут заменять также подходящие звуки интро, меню, смерти и титров. Выбор сохраняется; треки для перемешивания должны быть длиннее 30 секунд. Дополнительные наборы не включены.",
+    "music": "Music Shuffle объединяет музыку уровней и боссов по сиду. Локальные наборы Kamilia 3 и WannaFest22 могут заменять также подходящие звуки интро, меню, смерти и титров. Выбор сохраняется; треки для перемешивания должны быть длиннее 30 секунд. Дополнительные наборы не включены. Локально импортированная графика добавляет анимированные экраны смерти и частицы крови: в Kamilia сначала появляется красный слой, затем надпись; в WannaFest надпись влетает с двух сторон поверх VHS-шума. Поведение перезапуска остаётся оригинальным.",
     "hacksTitle": "Немного помощи. Немного хаоса.",
     "hacksIntro": "В Advanced → Hacks выбирай дополнения для тренировки, разнообразия или неожиданностей.",
     "hacks": [
@@ -675,7 +696,13 @@
     "captions": [
       "Оригинальное интро по-новому",
       "Настройки и Advanced внутри игры",
-      "Забег одним взглядом"
+      "Забег одним взглядом",
+      "Kamilia 3: красное затемнение, Game Over и звук смерти",
+      "WannaFest22: VHS-шум, анимация текста и красные кубики",
+      "Questionmark: возвращение бета-босса",
+      "Ridley: ещё один бета-босс",
+      "Другое главное меню: Wario Skyline",
+      "Новый запуск, новый фон: Green Greens"
     ],
     "footer": "Фан-проект THXel и сообщества спидраннеров Boshy. Оригинальная игра — Solgryn / Grynsoft.",
     "support": "Сообщить о проблеме",
@@ -702,7 +729,7 @@
         "Выбери слот, режим и настройки.",
         "Начни забег или поделись сидом с друзьями."
       ],
-      "galleryhelp": "Нажми на превью для увеличения. Анимации можно приостановить.",
+      "galleryhelp": "Откройте превью, чтобы увидеть всю анимацию. Видео смерти содержат звук; GIF — без звука. Воспроизведение начинается только после открытия превью.",
       "pause": "Приостановить анимацию",
       "play": "Включить анимацию",
       "close": "Закрыть",
@@ -715,7 +742,8 @@
       "copyfallback": "Шаблон выделен. Скопируй его через Ctrl+C или ⌘C.",
       "report": "Сообщить о проблеме",
       "template": "Версия:\nПлатформа (Windows / Linux):\nРежим:\nСид (если есть):\n\nЧто ты сделал?\n\nЧто ожидалось?\n\nЧто произошло?\n\nОтчёт диагностики или скриншот (необязательно):",
-      "debug": "Ctrl+Alt+D открывает диагностику. Ctrl+Alt+M отмечает проблему во время игры; экспортированный отчёт можно приложить к сообщению."
+      "debug": "Ctrl+Alt+D открывает диагностику. Ctrl+Alt+M отмечает проблему во время игры; экспортированный отчёт можно приложить к сообщению.",
+      "soundvideo": "Видео со звуком"
     },
     "gameDownload": "Скачать I Wanna Be The Boshy на Grynsoft"
   },
@@ -796,7 +824,7 @@
     "visual": "起動時のイントロキャラクターと景色が変化。Sprite Chaosでは確認済みの背景とアニメ付きパララックス、装飾、足場素材を変更できます。レイヤー別設定と背景の暗さ調整に対応。敵・ボスの色変更はベータで、形・攻撃・当たり判定は維持します。",
     "shotsTitle": "弾も、音も、新しく。",
     "shots": "キャラクターとは独立して弾と発射エフェクトを変更。区間ごと、死亡ごと、両方、または設定時間内のランダムなタイミングを選べます。秒・分で設定でき、標準は5分です。",
-    "music": "Music Shuffleはステージとボスの音楽を共通の候補からシードに基づいて割り当てます。ローカルのKamilia 3・WannaFest22パックでは対応するイントロ、メニュー、死亡、エンディング音も変更可能。選択は保存され、シャッフル対象は30秒を超える曲です。追加パックは同梱しません。",
+    "music": "Music Shuffleはステージとボスの音楽を共通の候補からシードに基づいて割り当てます。ローカルのKamilia 3・WannaFest22パックでは対応するイントロ、メニュー、死亡、エンディング音も変更可能。選択は保存され、シャッフル対象は30秒を超える曲です。追加パックは同梱しません。 ローカルで取り込んだ画像を使うと、死亡画面と血の粒子も変更できます。Kamiliaは赤い半透明の画面の後に文字が現れ、WannaFestはVHSノイズとともに文字が左右から飛び込みます。リセット時の動作は従来どおりです。",
     "hacksTitle": "少しの助けと、少しのカオス。",
     "hacksIntro": "Advanced → Hacksで練習用の補助や変化、サプライズを選べます。",
     "hacks": [
@@ -855,7 +883,13 @@
     "captions": [
       "元のイントロをリミックス",
       "ゲーム内設定とAdvanced",
-      "ランをひと目で確認"
+      "ランをひと目で確認",
+      "Kamilia 3：赤いフェード、Game Over、死亡サウンド",
+      "WannaFest22：VHSノイズ、タイトル演出、赤いキューブ",
+      "Questionmark：ベータ版ボスが復活",
+      "Ridley：もうひとつのベータ版ボス戦",
+      "メインメニューの別背景：Wario Skyline",
+      "再起動すると新しい背景に：Green Greens"
     ],
     "footer": "THXelとBoshyスピードランコミュニティのファンプロジェクト。原作：Solgryn / Grynsoft。",
     "support": "問題を報告",
@@ -882,7 +916,7 @@
         "セーブ枠、モード、設定を選ぶ。",
         "ランを開始。シードを友達と共有することもできます。"
       ],
-      "galleryhelp": "プレビューを選ぶと拡大できます。アニメーションは一時停止できます。",
+      "galleryhelp": "プレビューを開くとアニメーション全体を再生できます。死亡シーンの動画には音声があり、GIFは無音です。プレビューを開くまで再生されません。",
       "pause": "アニメーションを一時停止",
       "play": "アニメーションを再生",
       "close": "閉じる",
@@ -895,7 +929,8 @@
       "copyfallback": "テンプレートを選択しました。Ctrl+Cまたは⌘Cでコピーしてください。",
       "report": "問題を報告",
       "template": "バージョン：\n環境（Windows / Linux）：\nモード：\nシード（あれば）：\n\n行った操作：\n\n期待した動作：\n\n実際に起きたこと：\n\n診断レポートやスクリーンショット（任意）：",
-      "debug": "Ctrl+Alt+Dで診断を開けます。Ctrl+Alt+Mでプレイ中の問題を記録し、書き出したレポートを報告に添付できます。"
+      "debug": "Ctrl+Alt+Dで診断を開けます。Ctrl+Alt+Mでプレイ中の問題を記録し、書き出したレポートを報告に添付できます。",
+      "soundvideo": "音声付き動画"
     },
     "gameDownload": "GrynsoftでI Wanna Be The Boshyをダウンロード"
   }

@@ -1,22 +1,22 @@
 {
-  "version": "2026.10.18",
-  "date": "2026-10-18",
+  "version": "2026.10.20.1",
+  "date": "2026-10-20",
   "entries": [
     [
-      "Windows + Linux, together",
-      "One release now includes the graphical Windows installer preview and the Linux package."
+      "Soundpack death screens",
+      "Local Kamilia 3 and WannaFest22 packs can now include animated death screens, blood sprites and matching death audio."
     ],
     [
-      "Five ways to play",
-      "Randomizer, Target Select, Normal, Boss Rush and Level Rush \u2014 with configurable pools and a Solgryn finale for the routed modes."
+      "Red fade and VHS impacts",
+      "Kamilia fades red before its title. WannaFest slams Game Over in from both sides over animated noise."
     ],
     [
-      "Smoother saves, clearer goals",
-      "Compatible runs can switch without restarting. Target Select goals stand out in the separate live tracker."
+      "Clean resets",
+      "Only the selected pack death cue plays after dying. R restores game audio without changing volumes; imported screens no longer bounce."
     ],
     [
-      "Complete background sets",
-      "Reviewed worlds shuffle matching scenery, clouds and animated parallax together while preserving collision geometry."
+      "Windows + Linux",
+      "Both packages are built from the same source revision. Optional game and soundpack media are supplied locally."
     ]
   ]
 }

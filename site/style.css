@@ -38,3 +38,5 @@ button,textarea{font:inherit}button{cursor:pointer}button:focus-visible,textarea
 @media(max-width:410px){.update-grid{grid-template-columns:1fr}.spider{grid-template-columns:1fr}.spider-art{max-width:150px;margin:auto}.download-heading{align-items:flex-start;flex-direction:column-reverse}.download-heading .mascot{align-self:flex-end;margin:0 25px 4px}.feedback h2{font-size:30px}}
 
 .original-game{font-size:14px;margin-top:10px;line-height:1.6}.original-game a{color:var(--lime)}
+
+.media-links{display:flex;gap:1rem;margin-top:.6rem;font-size:.8rem}.media-links a{color:var(--mint,#83e8d2);text-underline-offset:3px}

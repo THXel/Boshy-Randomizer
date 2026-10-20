@@ -8,7 +8,7 @@
 
 [English](README_EN.md) · [Deutsch](README_DE.md) · [Español](README_ES.md) · [Русский](README_RU.md) · [日本語](README_JP.md)
 
-[🌐 Website](https://thxel.github.io/Boshy-Randomizer/site/ja/) · [↓ Windowsセットアップ](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.18/BoshyRandomizer-2026.10.18-Windows-Setup-x64.exe) · [↓ Linux DEB](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.18/boshy-randomizer_2026.10.18-1_amd64.deb) · [リリース・チェックサム](https://github.com/THXel/Boshy-Randomizer/releases/tag/v2026.10.18)
+[🌐 Website](https://thxel.github.io/Boshy-Randomizer/site/ja/) · [↓ Windowsセットアップ](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.20.1/BoshyRandomizer-2026.10.20.1-Windows-Setup-x64.exe) · [↓ Linux DEB](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.20.1/boshy-randomizer_2026.10.20.1-1_amd64.deb) · [リリース・チェックサム](https://github.com/THXel/Boshy-Randomizer/releases/tag/v2026.10.20.1)
 
 </div>
 
@@ -72,7 +72,7 @@ Solgryn後、少し待って半透明の結果画面を表示。統計とコピ�
 
 キャラクターとは独立して弾と発射エフェクトを変更。区間ごと、死亡ごと、両方、または設定時間内のランダムなタイミングを選べます。秒・分で設定でき、標準は5分です。
 
-Music Shuffleはステージとボスの音楽を共通の候補からシードに基づいて割り当てます。ローカルのKamilia 3・WannaFest22パックでは対応するイントロ、メニュー、死亡、エンディング音も変更可能。選択は保存され、シャッフル対象は30秒を超える曲です。追加パックは同梱しません。
+Music Shuffleはステージとボスの音楽を共通の候補からシードに基づいて割り当てます。ローカルのKamilia 3・WannaFest22パックでは対応するイントロ、メニュー、死亡、エンディング音も変更可能。選択は保存され、シャッフル対象は30秒を超える曲です。追加パックは同梱しません。 ローカルで取り込んだ画像を使うと、死亡画面と血の粒子も変更できます。Kamiliaは赤い半透明の画面の後に文字が現れ、WannaFestはVHSノイズとともに文字が左右から飛び込みます。リセット時の動作は従来どおりです。
 
 <a id="hacks"></a>
 
@@ -102,16 +102,36 @@ Advanced → Hacksで練習用の補助や変化、サプライズを選べま�
 - 元のOptionsからモニターに合うサイズを選択。引き伸ばし全画面も利用可能。
 - 英語・ドイツ語・ロシア語・スペイン語・日本語をシステムから判定。未対応言語は英語。更新履歴は英語のままです。
 
+## 動くBoshyを見よう
+
+プレビューを開くとアニメーション全体を再生できます。死亡シーンの動画には音声があり、GIFは無音です。プレビューを開くまで再生されません。
+
+### Kamilia 3：赤いフェード、Game Over、死亡サウンド
+
+[![Kamilia 3：赤いフェード、Game Over、死亡サウンド](../docs/media/death-kamilia3.gif)](https://thxel.github.io/Boshy-Randomizer/site/ja/#gallery)
+
+[音声付き動画](https://thxel.github.io/Boshy-Randomizer/site/media/death-kamilia3.mp4)
+
+### WannaFest22：VHSノイズ、タイトル演出、赤いキューブ
+
+[![WannaFest22：VHSノイズ、タイトル演出、赤いキューブ](../docs/media/death-wannafest22.gif)](https://thxel.github.io/Boshy-Randomizer/site/ja/#gallery)
+
+[音声付き動画](https://thxel.github.io/Boshy-Randomizer/site/media/death-wannafest22.mp4)
+
+[![Ridley：もうひとつのベータ版ボス戦](../site/media/beta-ridley-poster.webp)](https://thxel.github.io/Boshy-Randomizer/site/ja/#gallery)
+
+[動くBoshyを見よう](https://thxel.github.io/Boshy-Randomizer/site/ja/#gallery)
+
 <a id="download"></a>
 
 ## プラットフォームを選択
 
 | | Download | |
 | --- | --- | --- |
-| **Windows** | [Windowsセットアップ](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.18/BoshyRandomizer-2026.10.18-Windows-Setup-x64.exe) | Windowsプレビュー · x64 |
-| **Linux** | [Linux DEB](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.18/boshy-randomizer_2026.10.18-1_amd64.deb) | Linux Mint 22 / Ubuntu 24.04 · X11 · amd64 |
+| **Windows** | [Windowsセットアップ](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.20.1/BoshyRandomizer-2026.10.20.1-Windows-Setup-x64.exe) | Windowsプレビュー · x64 |
+| **Linux** | [Linux DEB](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.20.1/boshy-randomizer_2026.10.20.1-1_amd64.deb) | Linux Mint 22 / Ubuntu 24.04 · X11 · amd64 |
 
-[リリース・チェックサム](https://github.com/THXel/Boshy-Randomizer/releases/tag/v2026.10.18) · [Windows](../docs/WINDOWS_PACKAGE.md) · [Linux](../docs/LINUX_PACKAGE.md)
+[リリース・チェックサム](https://github.com/THXel/Boshy-Randomizer/releases/tag/v2026.10.20.1) · [Windows](../docs/WINDOWS_PACKAGE.md) · [Linux](../docs/LINUX_PACKAGE.md)
 
 ### ダウンロードから最初のランへ
 

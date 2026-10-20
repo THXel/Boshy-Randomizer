@@ -8,7 +8,7 @@
 
 [English](README_EN.md) · [Deutsch](README_DE.md) · [Español](README_ES.md) · [Русский](README_RU.md) · [日本語](README_JP.md)
 
-[🌐 Website](https://thxel.github.io/Boshy-Randomizer/site/ru/) · [↓ Установщик Windows](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.18/BoshyRandomizer-2026.10.18-Windows-Setup-x64.exe) · [↓ DEB для Linux](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.18/boshy-randomizer_2026.10.18-1_amd64.deb) · [Релиз и контрольные суммы](https://github.com/THXel/Boshy-Randomizer/releases/tag/v2026.10.18)
+[🌐 Website](https://thxel.github.io/Boshy-Randomizer/site/ru/) · [↓ Установщик Windows](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.20.1/BoshyRandomizer-2026.10.20.1-Windows-Setup-x64.exe) · [↓ DEB для Linux](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.20.1/boshy-randomizer_2026.10.20.1-1_amd64.deb) · [Релиз и контрольные суммы](https://github.com/THXel/Boshy-Randomizer/releases/tag/v2026.10.20.1)
 
 </div>
 
@@ -72,7 +72,7 @@
 
 Меняй снаряд и эффект выстрела независимо от героя: после участка, смерти, обоих событий или в случайный момент внутри выбранного интервала. Секунды и минуты настраиваются; по умолчанию пять минут.
 
-Music Shuffle объединяет музыку уровней и боссов по сиду. Локальные наборы Kamilia 3 и WannaFest22 могут заменять также подходящие звуки интро, меню, смерти и титров. Выбор сохраняется; треки для перемешивания должны быть длиннее 30 секунд. Дополнительные наборы не включены.
+Music Shuffle объединяет музыку уровней и боссов по сиду. Локальные наборы Kamilia 3 и WannaFest22 могут заменять также подходящие звуки интро, меню, смерти и титров. Выбор сохраняется; треки для перемешивания должны быть длиннее 30 секунд. Дополнительные наборы не включены. Локально импортированная графика добавляет анимированные экраны смерти и частицы крови: в Kamilia сначала появляется красный слой, затем надпись; в WannaFest надпись влетает с двух сторон поверх VHS-шума. Поведение перезапуска остаётся оригинальным.
 
 <a id="hacks"></a>
 
@@ -102,16 +102,36 @@ Music Shuffle объединяет музыку уровней и боссов �
 - Размеры под монитор в оригинальном Options; растянутый полный экран сохранён.
 - Английский, немецкий, русский, испанский и японский по языку системы; запасной — английский. Журнал обновлений остаётся английским.
 
+## Посмотри в движении
+
+Откройте превью, чтобы увидеть всю анимацию. Видео смерти содержат звук; GIF — без звука. Воспроизведение начинается только после открытия превью.
+
+### Kamilia 3: красное затемнение, Game Over и звук смерти
+
+[![Kamilia 3: красное затемнение, Game Over и звук смерти](../docs/media/death-kamilia3.gif)](https://thxel.github.io/Boshy-Randomizer/site/ru/#gallery)
+
+[Видео со звуком](https://thxel.github.io/Boshy-Randomizer/site/media/death-kamilia3.mp4)
+
+### WannaFest22: VHS-шум, анимация текста и красные кубики
+
+[![WannaFest22: VHS-шум, анимация текста и красные кубики](../docs/media/death-wannafest22.gif)](https://thxel.github.io/Boshy-Randomizer/site/ru/#gallery)
+
+[Видео со звуком](https://thxel.github.io/Boshy-Randomizer/site/media/death-wannafest22.mp4)
+
+[![Ridley: ещё один бета-босс](../site/media/beta-ridley-poster.webp)](https://thxel.github.io/Boshy-Randomizer/site/ru/#gallery)
+
+[Посмотри в движении](https://thxel.github.io/Boshy-Randomizer/site/ru/#gallery)
+
 <a id="download"></a>
 
 ## Выбери платформу
 
 | | Download | |
 | --- | --- | --- |
-| **Windows** | [Установщик Windows](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.18/BoshyRandomizer-2026.10.18-Windows-Setup-x64.exe) | Предварительная версия Windows · x64 |
-| **Linux** | [DEB для Linux](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.18/boshy-randomizer_2026.10.18-1_amd64.deb) | Linux Mint 22 / Ubuntu 24.04 · X11 · amd64 |
+| **Windows** | [Установщик Windows](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.20.1/BoshyRandomizer-2026.10.20.1-Windows-Setup-x64.exe) | Предварительная версия Windows · x64 |
+| **Linux** | [DEB для Linux](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.20.1/boshy-randomizer_2026.10.20.1-1_amd64.deb) | Linux Mint 22 / Ubuntu 24.04 · X11 · amd64 |
 
-[Релиз и контрольные суммы](https://github.com/THXel/Boshy-Randomizer/releases/tag/v2026.10.18) · [Windows](../docs/WINDOWS_PACKAGE.md) · [Linux](../docs/LINUX_PACKAGE.md)
+[Релиз и контрольные суммы](https://github.com/THXel/Boshy-Randomizer/releases/tag/v2026.10.20.1) · [Windows](../docs/WINDOWS_PACKAGE.md) · [Linux](../docs/LINUX_PACKAGE.md)
 
 ### От загрузки до первого забега
 

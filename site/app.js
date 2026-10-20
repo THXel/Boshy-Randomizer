@@ -27,14 +27,21 @@
     const link = links[index];
     fullVideo.pause();
     fullVideo.removeAttribute('src');
+    fullVideo.replaceChildren();
     fullVideo.load();
     fullImage.hidden = Boolean(link.dataset.video);
     fullVideo.hidden = !link.dataset.video;
     caption.textContent = link.dataset.caption;
     dialog.querySelector('#gallery-count').textContent = `${index + 1} / ${links.length}`;
     if (link.dataset.video) {
+      fullVideo.muted = link.dataset.audio !== 'true';
       fullVideo.poster = link.dataset.poster;
-      fullVideo.src = link.dataset.video;
+      for (const [src, type] of [[link.dataset.webm, 'video/webm'], [link.dataset.video, 'video/mp4']]) {
+        if (!src) continue;
+        const source = document.createElement('source');
+        source.src = src; source.type = type; fullVideo.append(source);
+      }
+      fullVideo.load();
       if (!reducedMotion.matches) play(fullVideo);
     } else {
       fullImage.src = link.href;
@@ -69,6 +76,7 @@
   dialog.addEventListener('close', () => {
     fullVideo.pause();
     fullVideo.removeAttribute('src');
+    fullVideo.replaceChildren();
     fullVideo.load();
     document.documentElement.classList.remove('gallery-open');
     if (opener) opener.focus();
