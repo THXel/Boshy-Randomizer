@@ -38,7 +38,7 @@ class Player:
         if game is None:
             self.store._stopped()
             self.metadata=launch(self.store,self.m);self.metadata['menu']=self.metadata['context']+CONTEXT_SIZE
-            wait_for_game(position);self.bridge=Bridge()
+            wait_for_game(position,process_id=self.metadata["pid"]);self.bridge=Bridge()
         else:
             self.metadata=dict(game.metadata);self.bridge=game.bridge
             if self.bridge.read(self.metadata['context']+64,32).decode('ascii')!=self.m['run_id']:raise RuntimeError(tr('Laufwechsel wurde nicht bestätigt.'))

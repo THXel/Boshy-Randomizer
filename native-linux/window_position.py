@@ -1,5 +1,6 @@
 """Restore the game's outer origin without moving the pointer or changing its size."""
 import subprocess,time
+from host_platform import WINDOWS
 from dataclasses import dataclass
 from lab import game_window
 from PY.platform_windows import window_rect
@@ -34,11 +35,20 @@ class WindowPosition:
     if (x,y)==(self.x,self.y):return window
   raise RuntimeError(f'Die Fensterposition wurde nicht bestätigt: gewünscht {(self.x,self.y)}, gemessen {(x,y)}.')
 
-def wait_for_game(position=None,timeout=15):
+def wait_for_game(position=None,timeout=None,process_id=None):
+ # Fresh Windows installs can scan the old self-extracting game before its
+ # first window appears. Keep the host/tracker alive throughout that startup.
+ if timeout is None:timeout=180 if WINDOWS else 15
+ process=None
+ if process_id is not None:
+  import psutil
+  try:process=psutil.Process(process_id)
+  except psutil.NoSuchProcess:raise RuntimeError('Game exited before opening its window.')
  end=time.monotonic()+timeout
  while True:
   try:window=game_window();break
   except RuntimeError:
+   if process is not None and not process.is_running():raise RuntimeError('Game exited before opening its window.')
    if time.monotonic()>=end:raise
    time.sleep(.1)
  return position.restore(window) if position else window

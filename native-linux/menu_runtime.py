@@ -33,7 +33,7 @@ class MenuGame:
   if ret.returncode:raise RuntimeError(log.read_text(encoding='utf-8')[-1000:])
   meta=json.loads(next(x for x in log.read_text(encoding='utf-8').splitlines() if x.startswith('{')));self.address=meta['hook']+off;self.metadata={**meta,'menu':self.address,'context':self.address-CONTEXT_SIZE};self.bridge=None
   try:
-   wait_for_game(position)
+   wait_for_game(position,process_id=meta["pid"])
    self.bridge=Bridge();self.generation=1
    deadline=time.monotonic()+20
    while time.monotonic()<deadline:
