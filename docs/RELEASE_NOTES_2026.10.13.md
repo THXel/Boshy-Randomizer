@@ -6,7 +6,7 @@ Install the `.deb` with your package manager or `sudo apt install ./boshy-random
 
 The native menu supports three independent saves, Randomizer and Target Select, compact BR3 seeds (BR2 import supported), advanced routes, mixed item/character rewards, optional character/projectile randomization, comfort/training settings and a separate live tracker. Ctrl+Alt+D opens optional diagnostics and recording tools.
 
-Automatic interface languages: English, German, Russian, Spanish and Japanese, with English fallback. Update logs remain English. The separate PinguLexa/OBS integration is not installed by this package.
+Automatic interface languages: English, German, Russian, Spanish and Japanese, with English fallback. Update logs remain English.
 
 See [installation and data locations](LINUX_PACKAGE.md) and [release verification](RELEASE_PREPARATION.md). Existing development installations are not automatically migrated. Keep your current installation until you have tested the new package.
 

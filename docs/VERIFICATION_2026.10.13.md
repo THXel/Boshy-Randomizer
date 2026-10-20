@@ -23,7 +23,7 @@ This is a fresh-install and application-start test in a running VM, not a machin
 
 The Linux release candidate is distributed through [GitHub Releases](https://github.com/THXel/Boshy-Randomizer/releases/tag/v2026.10.13-rc1), with the game-free `.deb` and `SHA256SUMS`. **The updated Windows version will follow** and needs its own backend integration and tests. Existing root Windows executables remain historical and must not be presented as this new version.
 
-The original game is not bundled. Keep the existing third-party attribution and review distribution permissions before public publication; the preparation itself does not add any new rights to game-derived assets. The PinguLexa/OBS integration remains separate.
+The original game is not bundled. Keep the existing third-party attribution and review distribution permissions before public publication; the preparation itself does not add any new rights to game-derived assets.
 
 ## Source/install boundary
 

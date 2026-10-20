@@ -112,7 +112,7 @@
     "faq": [
       [
         "Can I use it for a stream?",
-        "The built-in live tracker is a separate window that you can arrange beside the game or capture in OBS. The custom PinguLexa/LiveSplit integration is maintained separately and is not part of these downloads."
+        "The built-in live tracker is a separate window that you can arrange beside the game or capture in OBS."
       ],
       [
         "What if a trigger behaves strangely?",
@@ -256,7 +256,7 @@
     "faq": [
       [
         "Kann ich damit streamen?",
-        "Der eingebaute Live-Tracker ist ein separates Fenster: neben das Spiel stellen oder in OBS erfassen. Die angepasste PinguLexa-/LiveSplit-Anbindung wird separat gepflegt und gehört nicht zu diesen Downloads."
+        "Der eingebaute Live-Tracker ist ein separates Fenster: neben das Spiel stellen oder in OBS erfassen."
       ],
       [
         "Was tun, wenn ein Trigger nicht passt?",
@@ -400,7 +400,7 @@
     "faq": [
       [
         "¿Puedo usarlo en stream?",
-        "El tracker es una ventana separada que puedes colocar junto al juego o capturar en OBS. La integración personalizada PinguLexa/LiveSplit se mantiene aparte y no se incluye."
+        "El tracker es una ventana separada que puedes colocar junto al juego o capturar en OBS."
       ],
       [
         "¿Qué hago si falla una transición?",
@@ -544,7 +544,7 @@
     "faq": [
       [
         "Можно использовать на стриме?",
-        "Трекер — отдельное окно для размещения рядом с игрой или захвата в OBS. Пользовательская интеграция PinguLexa/LiveSplit поддерживается отдельно и не входит в загрузки."
+        "Трекер — отдельное окно для размещения рядом с игрой или захвата в OBS."
       ],
       [
         "Что делать при проблеме с переходом?",
@@ -688,7 +688,7 @@
     "faq": [
       [
         "配信にも使えますか？",
-        "別ウィンドウのトラッカーをゲーム横に配置したり、OBSで取り込めます。専用のPinguLexa/LiveSplit連携は別管理で、この配布には含まれません。"
+        "別ウィンドウのトラッカーをゲーム横に配置したり、OBSで取り込めます。"
       ],
       [
         "遷移がおかしいときは？",

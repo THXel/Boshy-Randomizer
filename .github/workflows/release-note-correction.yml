@@ -1,0 +1,33 @@
+name: Apply reviewed release-note correction
+on:
+  push:
+    branches: [Boshy-Randomizer]
+    paths: ['packaging/release-note-correction.json', '.github/workflows/release-note-correction.yml']
+permissions:
+  contents: read
+jobs:
+  update:
+    if: github.repository == 'THXel/Boshy-Randomizer' && github.ref == 'refs/heads/Boshy-Randomizer'
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Apply only the reviewed text change
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PY'
+          import json,hashlib,subprocess
+          from pathlib import Path
+          change=json.loads(Path('packaging/release-note-correction.json').read_text())
+          endpoint=f'repos/THXel/Boshy-Randomizer/releases/{change["release_id"]}'
+          current=json.loads(subprocess.check_output(['gh','api',endpoint]))
+          assert current['tag_name']==change['tag']
+          if current['body']!=change['body']:
+              assert hashlib.sha256(current['body'].encode()).hexdigest()==change['previous_body_sha256'], 'Release text changed; review before updating'
+              subprocess.run(['gh','api','--method','PATCH',endpoint,'--input','-'],input=json.dumps({'body':change['body']}),text=True,check=True,stdout=subprocess.DEVNULL)
+          verified=json.loads(subprocess.check_output(['gh','api',endpoint]))
+          assert verified['body']==change['body']
+          print('Reviewed release text updated; downloads unchanged.')
+          PY

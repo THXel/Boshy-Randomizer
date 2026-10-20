@@ -10,6 +10,6 @@ Catalogs are UTF-8 JSON in `native-linux/locales/`. German source messages serve
 
 The custom menu is rendered to Unicode-capable images. Japanese uses Noto Sans CJK (`fonts-noto-cjk` on Debian/Mint), with a Droid CJK fallback for bitmap rendering. Other languages use DejaVu Sans (`fonts-dejavu-core`). Tk widgets use Noto Sans CJK JP for Japanese. Install the Noto package for reliable Japanese text across both renderers.
 
-The original game message window uses an ANSI text engine. `menu_updates.json` and the message window heading deliberately remain English in every language. Original game artwork/text and its Options screen are not replaced. The separately maintained PinguLexa OBS overlay is outside this UI localization patch.
+The original game message window uses an ANSI text engine. `menu_updates.json` and the message window heading deliberately remain English in every language. Original game artwork/text and its Options screen are not replaced.
 
 Translate only at presentation boundaries. Frozen rule modules and canonical machine-readable debug reports remain unchanged. Use `tr()` for literal templates and `display()` only for known display values from those modules.

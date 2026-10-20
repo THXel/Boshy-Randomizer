@@ -126,7 +126,7 @@ Der Randomizer legt eine eigene Spielkopie an. Originalspielstände bleiben unbe
 <details>
 <summary>Kann ich damit streamen?</summary>
 
-Der eingebaute Live-Tracker ist ein separates Fenster: neben das Spiel stellen oder in OBS erfassen. Die angepasste PinguLexa-/LiveSplit-Anbindung wird separat gepflegt und gehört nicht zu diesen Downloads.
+Der eingebaute Live-Tracker ist ein separates Fenster: neben das Spiel stellen oder in OBS erfassen.
 
 </details>
 

@@ -126,7 +126,7 @@ Advanced → Hacksで練習用の補助や変化、サプライズを選べま�
 <details>
 <summary>配信にも使えますか？</summary>
 
-別ウィンドウのトラッカーをゲーム横に配置したり、OBSで取り込めます。専用のPinguLexa/LiveSplit連携は別管理で、この配布には含まれません。
+別ウィンドウのトラッカーをゲーム横に配置したり、OBSで取り込めます。
 
 </details>
 

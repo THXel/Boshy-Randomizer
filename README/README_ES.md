@@ -126,7 +126,7 @@ Se crea una copia privada del juego. Los guardados originales no cambian; actual
 <details>
 <summary>¿Puedo usarlo en stream?</summary>
 
-El tracker es una ventana separada que puedes colocar junto al juego o capturar en OBS. La integración personalizada PinguLexa/LiveSplit se mantiene aparte y no se incluye.
+El tracker es una ventana separada que puedes colocar junto al juego o capturar en OBS.
 
 </details>
 

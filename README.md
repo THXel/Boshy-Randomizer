@@ -126,7 +126,7 @@ The randomizer creates a private game copy. Your original saves stay untouched; 
 <details>
 <summary>Can I use it for a stream?</summary>
 
-The built-in live tracker is a separate window that you can arrange beside the game or capture in OBS. The custom PinguLexa/LiveSplit integration is maintained separately and is not part of these downloads.
+The built-in live tracker is a separate window that you can arrange beside the game or capture in OBS.
 
 </details>
 

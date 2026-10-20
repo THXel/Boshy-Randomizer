@@ -37,6 +37,6 @@ New native-menu captures dated 2026-10-15 show an unsaved demonstration configur
 
 Not every natural level exit, complete route, Target Select finale or every hack combination has been played through. The maximum 30-minute spider interval was not waited out. Test successes are listed by scope in the debug overview; simulation results are not labelled as natural gameplay completion.
 
-The [earlier Mint 22.3 VM test](VERIFICATION_2026.10.13.md) remains the fresh-machine installation baseline. It is not a new VM test of this release and not a performance benchmark. Development installations are not automatically migrated. The external PinguLexa/OBS integration is separate.
+The [earlier Mint 22.3 VM test](VERIFICATION_2026.10.13.md) remains the fresh-machine installation baseline. It is not a new VM test of this release and not a performance benchmark. Development installations are not automatically migrated.
 
 **The updated Windows version will follow.** Legacy Windows executables are not the current native-menu version.
