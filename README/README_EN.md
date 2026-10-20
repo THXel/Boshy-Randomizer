@@ -15,6 +15,8 @@
 Your favourite worlds. An unfamiliar route. Return to I Wanna Be The Boshy with shuffled encounters, surprising rewards and a run you can share with friends.
 
 > Bring your own Boshy folder or ZIP. The original game is not included.
+>
+> [Download the original I Wanna Be The Boshy from Grynsoft](https://grynsoft.com/site/game/i-wanna-be-the-boshy)
 
 [Modes](#modes) · [Features](#features) · [Hacks](#hacks) · [Download](#download) · [FAQ](#faq)
 

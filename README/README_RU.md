@@ -15,6 +15,8 @@
 Знакомые миры. Неожиданные пути. Вернись в I Wanna Be The Boshy: новые сочетания встреч, случайные награды и маршрут, которым можно поделиться.
 
 > Нужна собственная папка Boshy или ZIP. Оригинальная игра не включена.
+>
+> [Скачать I Wanna Be The Boshy на Grynsoft](https://grynsoft.com/site/game/i-wanna-be-the-boshy)
 
 [Режимы](#modes) · [Возможности](#features) · [Hacks](#hacks) · [Скачать](#download) · [Вопросы](#faq)
 

@@ -15,6 +15,8 @@
 Vertraute Welten. Unbekannte Wege. Entdecke I Wanna Be The Boshy mit gemischten Begegnungen, überraschenden Belohnungen und einem Lauf, den du mit Freunden teilen kannst.
 
 > Du brauchst deinen eigenen Boshy-Ordner oder eine ZIP. Das Originalspiel ist nicht enthalten.
+>
+> [I Wanna Be The Boshy bei Grynsoft herunterladen](https://grynsoft.com/site/game/i-wanna-be-the-boshy)
 
 [Spielmodi](#modes) · [Funktionen](#features) · [Hacks](#hacks) · [Download](#download) · [FAQ](#faq)
 

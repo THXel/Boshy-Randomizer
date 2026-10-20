@@ -176,7 +176,8 @@
       "report": "Report a problem",
       "template": "Version:\nPlatform (Windows / Linux):\nMode:\nSeed (if available):\n\nWhat did you do?\n\nWhat did you expect?\n\nWhat happened instead?\n\nDebug report or screenshot (optional):",
       "debug": "Ctrl+Alt+D opens diagnostics. Ctrl+Alt+M marks a problem during play; you can attach the exported report to your issue."
-    }
+    },
+    "gameDownload": "Download the original I Wanna Be The Boshy from Grynsoft"
   },
   "de": {
     "name": "Deutsch",
@@ -355,7 +356,8 @@
       "report": "Problem melden",
       "template": "Version:\nPlattform (Windows / Linux):\nModus:\nSeed (falls vorhanden):\n\nWas hast du gemacht?\n\nWas hast du erwartet?\n\nWas ist stattdessen passiert?\n\nDebugbericht oder Screenshot (optional):",
       "debug": "Strg+Alt+D öffnet die Diagnose. Strg+Alt+M markiert ein Problem während des Spielens; den exportierten Bericht kannst du deiner Meldung anhängen."
-    }
+    },
+    "gameDownload": "I Wanna Be The Boshy bei Grynsoft herunterladen"
   },
   "es": {
     "name": "Español",
@@ -534,7 +536,8 @@
       "report": "Informar de un problema",
       "template": "Versión:\nPlataforma (Windows / Linux):\nModo:\nSemilla (si está disponible):\n\n¿Qué hiciste?\n\n¿Qué esperabas?\n\n¿Qué ocurrió?\n\nInforme de depuración o captura (opcional):",
       "debug": "Ctrl+Alt+D abre el diagnóstico. Ctrl+Alt+M marca un problema durante la partida; puedes adjuntar el informe exportado."
-    }
+    },
+    "gameDownload": "Descargar I Wanna Be The Boshy desde Grynsoft"
   },
   "ru": {
     "name": "Русский",
@@ -713,7 +716,8 @@
       "report": "Сообщить о проблеме",
       "template": "Версия:\nПлатформа (Windows / Linux):\nРежим:\nСид (если есть):\n\nЧто ты сделал?\n\nЧто ожидалось?\n\nЧто произошло?\n\nОтчёт диагностики или скриншот (необязательно):",
       "debug": "Ctrl+Alt+D открывает диагностику. Ctrl+Alt+M отмечает проблему во время игры; экспортированный отчёт можно приложить к сообщению."
-    }
+    },
+    "gameDownload": "Скачать I Wanna Be The Boshy на Grynsoft"
   },
   "ja": {
     "name": "日本語",
@@ -892,6 +896,7 @@
       "report": "問題を報告",
       "template": "バージョン：\n環境（Windows / Linux）：\nモード：\nシード（あれば）：\n\n行った操作：\n\n期待した動作：\n\n実際に起きたこと：\n\n診断レポートやスクリーンショット（任意）：",
       "debug": "Ctrl+Alt+Dで診断を開けます。Ctrl+Alt+Mでプレイ中の問題を記録し、書き出したレポートを報告に添付できます。"
-    }
+    },
+    "gameDownload": "GrynsoftでI Wanna Be The Boshyをダウンロード"
   }
 }

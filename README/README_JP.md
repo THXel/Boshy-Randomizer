@@ -15,6 +15,8 @@
 おなじみの世界を、知らないルートで。出会いも報酬も変わる I Wanna Be The Boshy を楽しんで、同じシードを友達と共有しよう。
 
 > 自分のBoshyフォルダーまたはZIPが必要です。ゲーム本体は含まれません。
+>
+> [GrynsoftでI Wanna Be The Boshyをダウンロード](https://grynsoft.com/site/game/i-wanna-be-the-boshy)
 
 [モード](#modes) · [機能](#features) · [Hacks](#hacks) · [ダウンロード](#download) · [よくある質問](#faq)
 
