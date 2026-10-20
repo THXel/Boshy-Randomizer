@@ -15,4 +15,15 @@ class DeathImport(unittest.TestCase):
   self.assertEqual(frames[loop].getpixel((320,240)),(255,255,255,255))
   self.assertLess(frames[loop].getpixel((0,0))[3],140)
   self.assertEqual(len(ticks),len(frames))
+ def test_wannafest_cubes_rotate_and_keep_texture_colors(self):
+  texture=Image.new('RGBA',(8,8),(255,25,25,255))
+  frames=module.blood_wannafest(texture)
+  self.assertEqual(len(frames),32)
+  self.assertGreater(len({f.tobytes() for f in frames}),12)
+  for frame in frames:
+   self.assertEqual(frame.size,(20,20))
+   self.assertIsNotNone(frame.getbbox())
+   self.assertEqual(frame.getpixel((0,0))[3],0)
+   self.assertGreater(sum(a>0 for a in frame.getchannel('A').getdata()),50)
+   self.assertEqual(frame.getpixel((10,10)),(255,25,25,255))
 if __name__=='__main__':unittest.main()

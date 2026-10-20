@@ -8,8 +8,15 @@ static U spider_player(U run,U scene);
 U DeathScreenState[7]; /* visible, original object, image, serial, resets, scale (1000), opacity (255) */
 static const U deathOI[8]={161,330,1042,1322,2947,105,1032,1323};
 
-static U deathSeen[20000],deathBorn[20000],deathObject[20000],deathBirthId[20000];
+static U deathBorn[20000],deathObject[20000],deathBirthId[20000];
 U DeathVisualState[10]={1,0,0,0,0,0,0,0,0,0}; /* version, active, load generation, imported, error, screen ticks, blood ticks, frame, max load ms, scene */
+/* +0x1a is the native creation ID; +2 is the mutable selection-list link.
+ * A skipped render tick must not restart a living particle's animation. */
+static U death_age(U slot,U o,U tick){
+ U birth=*(unsigned short*)(o+0x1a);
+ if(deathObject[slot]!=o||deathBirthId[slot]!=birth){deathObject[slot]=o;deathBirthId[slot]=birth;deathBorn[slot]=tick;}
+ return tick-deathBorn[slot];
+}
 static U death_index(U age,U fps,U count,U loop){U frame=age*fps/50;return frame<count?frame:loop+(frame-loop)%(count-loop);}
 static U death_screen_index(U age){
  if(deathPlan.screenFps)return death_index(age,deathPlan.screenFps,deathPlan.screenCount,deathPlan.screenLoop);
@@ -85,6 +92,26 @@ static I death_unfade(U o){
  if(effect!=nextEffect||param!=nextParam){*(U*)(r+24)=nextEffect;*(U*)(r+28)=nextParam;void(*update)(U)=(void*)0x4127a0;update(o);}
  DeathScreenState[6]=255;return 1;
 }
+/* Animated blood stays airborne: Kamilia fades at animation end; WannaFest
+ * uses rotating textured cubes. Boshy's paste-and-destroy floor actions would
+ * remove these larger particles immediately. Static/vanilla blood and gameplay
+ * objects keep the original actions; imported particles have a bounded life. */
+static I death_animated_blood(U o){
+ if(!deathReady||!deathPlan.bloodFps||o<65536)return 0;
+ U oi=*(unsigned short*)(o+0x12);
+ for(U i=5;i<8;i++)if(oi==deathOI[i]&&deathCommon[i]&&*(U*)(o+0x44)==deathCommon[i])return 1;
+ return 0;
+}
+static void death_blood_paste(U action){
+ U(*selected)(U)=(void*)0x449500;
+ if(death_animated_blood(selected(action)))return;
+ void(*original)(U)=(void*)0x4111b0;original(action);
+}
+static void death_blood_destroy(U action){
+ U(*selected)(U)=(void*)0x449500;
+ if(death_animated_blood(selected(action)))return;
+ void(*original)(U)=(void*)0x411e80;original(action);
+}
 static void death_tick(U run,U scene){
  DeathVisualState[9]=scene;
  U p=spider_player(run,scene),rel=p?*(U*)(p+0x80):0;
@@ -101,12 +128,13 @@ static void death_tick(U run,U scene){
  for(U slot=0;slot<count;slot++){
   U o=*(U*)(table+slot*8);if(o<65536||*(unsigned short*)(o+0x18)!=2||*(unsigned short*)(o+0x7c)&1)continue;
   U oi=*(unsigned short*)(o+0x12),i=0;for(;i<8&&deathOI[i]!=oi;i++);if(i==8||!deathCommon[i]||*(U*)(o+0x44)!=deathCommon[i]||*(U*)(o+0xb8)!=462)continue;
-  U birth=*(unsigned short*)(o+2);
-  if(deathObject[slot]!=o||deathBirthId[slot]!=birth||deathSeen[slot]+1!=tick){deathObject[slot]=o;deathBirthId[slot]=birth;deathBorn[slot]=tick;}
-  deathSeen[slot]=tick;
-  U age=tick-deathBorn[slot],frame;
+  U birth=*(unsigned short*)(o+0x1a),age=death_age(slot,o,tick),frame;
+  if(i>=5&&deathPlan.bloodFps&&age*deathPlan.bloodFps>=deathPlan.bloodCount*50){
+   /* Queue ordinary native destruction, never free a renderer object ourselves. */
+   *(unsigned short*)(o+0x7c)|=1;void(*destroy)(I)=(void*)0x41f730;destroy(*(short*)o);continue;
+  }
   if(i<5)frame=packDeathSerial&&packDeathRun==run&&tick>=packDeathTick?death_screen_index(tick-packDeathTick):0;
-  else frame=deathPlan.bloodFps?death_index(age,deathPlan.bloodFps,deathPlan.bloodCount,deathPlan.bloodLoop):(slot*2654435761U+birth)%deathPlan.bloodCount;
+  else frame=deathPlan.bloodFps?(deathPlan.bloodLoop?death_index(age,deathPlan.bloodFps,deathPlan.bloodCount,deathPlan.bloodLoop):(age*deathPlan.bloodFps/50+slot*17U+birth)%deathPlan.bloodCount):(slot*2654435761U+birth)%deathPlan.bloodCount;
   U image=*(unsigned short*)(deathPointers[i]+frame*2);if(!image||image>=32768)continue;
   if(i<5){death_unfade(o);DeathScreenState[0]=packDeathSerial!=0;DeathScreenState[1]=o;DeathScreenState[2]=image;DeathScreenState[3]=packDeathSerial;DeathScreenState[5]=1000;}
   *(U*)(o+0xdc)=*(U*)(o+0x10c)=image;*(U*)(o+0xfc)=1;
@@ -134,6 +162,6 @@ static void death_alpha_action(U action){
  void(*original)(U)=(void*)0x412d10;original(action);
 }
 static I death_init(void){
- if(*(U*)0x456a6c!=0x4114c0||*(U*)0x4113e0!=0x8b20ec83||*(U*)0x456324!=0x412d10||*(U*)0x4127a0!=0x04244c8b)return 0;
- return hook(0x456a6c,death_scale_action)&&hook(0x456324,death_alpha_action);
+ if(*(U*)0x456a58!=0x4111b0||*(U*)0x456280!=0x411e80||*(U*)0x456a6c!=0x4114c0||*(U*)0x4113e0!=0x8b20ec83||*(U*)0x456324!=0x412d10||*(U*)0x4127a0!=0x04244c8b)return 0;
+ return hook(0x456a6c,death_scale_action)&&hook(0x456324,death_alpha_action)&&hook(0x456a58,death_blood_paste)&&hook(0x456280,death_blood_destroy);
 }

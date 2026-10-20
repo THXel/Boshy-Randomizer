@@ -34,7 +34,7 @@ int main(void){
  assert(mmap((void*)0x449000,4096,7,MAP_PRIVATE|MAP_ANONYMOUS|MAP_FIXED,-1,0)!=(void*)-1);
  assert(mmap((void*)(uintptr_t)object,8192,3,MAP_PRIVATE|MAP_ANONYMOUS|MAP_FIXED,-1,0)!=(void*)-1);
  assert(mmap((void*)0x412000,4096,7,MAP_PRIVATE|MAP_ANONYMOUS|MAP_FIXED,-1,0)!=(void*)-1);
- jump(0x4127a0,opacity);jump(0x412d10,original);jump(0x449500,selected);jump(0x4113e0,scale);jump(0x4114c0,original);
+ jump(0x4111b0,original);jump(0x411e80,original);jump(0x4127a0,opacity);jump(0x412d10,original);jump(0x449500,selected);jump(0x4113e0,scale);jump(0x4114c0,original);
  U action=object+4096;*(unsigned short*)(uintptr_t)(action+6)=161;*(unsigned short*)(uintptr_t)(object+0x12)=161;*(U*)(uintptr_t)(object+0x44)=0x2000000;deathCommon[0]=0x2000000;
  deathReady=0;death_scale_action(action);assert(delegated==1&&!changed);
  deathReady=1;death_scale_action(action);assert(changed==1&&delegated==1);
@@ -46,5 +46,15 @@ int main(void){
  deathReady=0;death_alpha_action(action);assert(delegated==4);
  deathReady=1;*(unsigned short*)(uintptr_t)(action+6)=93;death_alpha_action(action);assert(delegated==5);
  *(unsigned short*)(uintptr_t)(action+6)=161;*(U*)(uintptr_t)(object+0x318)=13;death_alpha_action(action);assert(delegated==6);
+ deathPlan.bloodFps=16;deathCommon[5]=0x2000000;*(unsigned short*)(uintptr_t)(object+0x12)=105;
+ death_blood_paste(action);death_blood_destroy(action);assert(delegated==6);
+ deathPlan.bloodFps=0;death_blood_paste(action);death_blood_destroy(action);assert(delegated==8);
+ deathPlan.bloodFps=16;*(unsigned short*)(uintptr_t)(object+0x12)=93;death_blood_paste(action);death_blood_destroy(action);assert(delegated==10);
+ *(unsigned short*)(uintptr_t)(object+0x12)=105;deathReady=0;death_blood_paste(action);death_blood_destroy(action);assert(delegated==12);
+ deathReady=1;deathCommon[5]=0x2001000;death_blood_paste(action);death_blood_destroy(action);assert(delegated==14);
+ *(unsigned short*)(uintptr_t)(object+0x1a)=123;*(unsigned short*)(uintptr_t)(object+2)=15;
+ assert(death_age(0,object,10)==0);assert(death_age(0,object,15)==5);
+ *(unsigned short*)(uintptr_t)(object+2)=0x8000;assert(death_age(0,object,40)==30);
+ *(unsigned short*)(uintptr_t)(object+0x1a)=124;assert(death_age(0,object,42)==0);
  puts("Variable death timing and isolated no-bounce action passed");
 }

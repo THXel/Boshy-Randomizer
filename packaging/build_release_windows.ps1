@@ -37,7 +37,7 @@ foreach ($entry in $manifest.files.PSObject.Properties) {
  if ((Get-FileHash (Join-Path "$target\app" $entry.Name) -Algorithm SHA256).Hash.ToLower() -ne $entry.Value) { throw "Installed file mismatch: $($entry.Name)" }
 }
 Push-Location "$target\app"
-try { & "$target\runtime\python.exe" -c 'import tkinter,PIL,numpy,psutil,death_visuals,soundpacks; assert "reset" not in soundpacks.CUES; print("Installed runtime OK")'; if ($LASTEXITCODE -ne 0) { throw 'Installed runtime smoke test failed' } } finally { Pop-Location }
+try { & "$target\runtime\python.exe" -c 'import sys; sys.path.insert(0,sys.argv[1]); import tkinter,PIL,numpy,psutil,death_visuals,soundpacks; assert "reset" not in soundpacks.CUES; print("Installed runtime OK")' "$target\app"; if ($LASTEXITCODE -ne 0) { throw 'Installed runtime smoke test failed' } } finally { Pop-Location }
 $defender = 'unavailable'
 try {
  $status = Get-MpComputerStatus

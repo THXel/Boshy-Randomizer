@@ -5,7 +5,7 @@ Accepts a locally extracted .gm81 project, never downloads or ships game assets.
 WannaFest additionally needs the OFL Press Start 2P font. The original death
 impact and jingle are combined; reset sounds and behavior remain unchanged.
 """
-import argparse,hashlib,json,random,struct,zlib,subprocess,wave
+import argparse,hashlib,json,random,struct,zlib,subprocess,wave,math
 from pathlib import Path
 from PIL import Image,ImageDraw,ImageFont
 
@@ -49,6 +49,48 @@ def sprites(project,wanted):
    frames.append(Image.frombytes('RGBA',(w,h),raw,'raw','BGRA'))
   result[index]=(name,origin,frames)
  return result
+
+def blood_texture(project):
+ r=Reader(Path(project).read_bytes());r.take(28)
+ if r.u()!=800:raise ValueError('Unsupported GM8 project')
+ r.packed();r.assets();r.take(8)
+ if r.u()!=800:raise ValueError('Unsupported GM8 constants')
+ for _ in range(r.u()):r.string();r.string()
+ r.take(8);r.assets();r.assets()
+ for background in r.assets():
+  if background is None:continue
+  name=background.string();background.take(8)
+  if name!='texBlood':continue
+  if background.u()!=710:raise ValueError('Unsupported GM8 background')
+  background.take(28)
+  if background.u()!=800:raise ValueError('Unsupported background image')
+  w,h=background.u(),background.u();raw=background.take(background.u())
+  if (w,h)!=(8,8) or len(raw)!=256:raise ValueError('Unexpected blood texture')
+  return Image.frombytes('RGBA',(w,h),raw,'raw','BGRA')
+ raise ValueError('WannaFest blood texture missing')
+
+def blood_wannafest(texture):
+ # Blood3D draws an 8x8x8 cube with texBlood, not the tiny sprBlood used
+ # by the HP damage effect. Bake those textured faces into native 2D frames.
+ import numpy as np
+ vertices=np.array([(x,y,z) for x in (-4,4) for y in (-4,4) for z in (-4,4)],dtype=float)
+ faces=((0,1,3,2),(4,6,7,5),(0,4,5,1),(2,3,7,6),(0,2,6,4),(1,5,7,3))
+ tex=np.array(texture);frames=[]
+ for frame in range(32):
+  a=frame*math.tau/32
+  cx,sx=math.cos(a+.3),math.sin(a+.3);cy,sy=math.cos(a*2+.7),math.sin(a*2+.7);cz,sz=math.cos(a*3),math.sin(a*3)
+  rx=np.array(((1,0,0),(0,cx,-sx),(0,sx,cx)));ry=np.array(((cy,0,sy),(0,1,0),(-sy,0,cy)));rz=np.array(((cz,-sz,0),(sz,cz,0),(0,0,1)))
+  points=vertices@(rz@ry@rx).T;canvas=np.zeros((20,20,4),dtype=np.uint8)
+  for face in sorted(faces,key=lambda f:float(points[list(f),2].mean())):
+   p=points[list(face),:2]+10;matrix=np.column_stack((p[1]-p[0],p[3]-p[0]))
+   if abs(np.linalg.det(matrix))<1e-8:continue
+   inverse=np.linalg.inv(matrix)
+   for y in range(max(0,math.floor(p[:,1].min())),min(20,math.ceil(p[:,1].max()))):
+    for x in range(max(0,math.floor(p[:,0].min())),min(20,math.ceil(p[:,0].max()))):
+     u,v=inverse@(np.array((x+.5,y+.5))-p[0])
+     if 0<=u<1 and 0<=v<1:canvas[y,x]=tex[min(7,int(v*8)),min(7,int(u*8))]
+  frames.append(Image.fromarray(canvas))
+ return frames
 
 def screen_kamilia(sprite,red):
  # The original RedEffect ramps up by .04 per 50 Hz step until it reaches .52.
@@ -118,15 +160,14 @@ def death_audio(pack,game,root,data):
 def build(pack,project,game,root,font=None):
  data=json.loads((root/'pack.json').read_text())
  if data.get('id')!=pack:raise ValueError('Soundpack identity mismatch')
- bank=sprites(project,(0,21,40) if pack=='kamilia3' else (111,545))
+ bank=sprites(project,(0,21,40) if pack=='kamilia3' else (545,))
  if pack=='kamilia3':
   screen,fps,loop,ticks=screen_kamilia(bank[21][2][0],bank[40][2][0]);_,origin,blood=bank[0];blood=blood+[Image.new('RGBA',blood[0].size)];bloodfps=16;bloodloop=len(blood)-1
  else:
   if font is None:raise ValueError('Press Start 2P font required')
-  screen,fps,loop,ticks=screen_wannafest(bank[545][2],game,font);_,origin,blood=bank[111];bloodfps=1;bloodloop=0
+  screen,fps,loop,ticks=screen_wannafest(bank[545][2],game,font);origin=(10,10);blood=blood_wannafest(blood_texture(project));bloodfps=16;bloodloop=0
  visual=dict(version=1,screen=write_group(root,'screen',screen,fps,loop),blood=write_group(root,'blood',blood,bloodfps,bloodloop,origin))
  visual['screen']['ticks']=ticks
- if pack=='wannafest22':visual['blood']['random_static']=True
  death_audio(pack,game,root,data)
  data['death_visuals']=visual
  path=root/'pack.json';temp=path.with_suffix('.json.tmp');temp.write_text(json.dumps(data,indent=2)+'\n');temp.replace(path)
