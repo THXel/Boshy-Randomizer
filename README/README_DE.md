@@ -1,77 +1,165 @@
-# Boshy ist zurück.
+<div align="center">
 
-[English](README_EN.md) · [Deutsch](README_DE.md) · [Русский](README_RU.md) · [Español](README_ES.md) · [日本語](README_JP.md)
+<img src="../Custom/boshy_randomizer.png" alt="Boshy Randomizer" width="420">
+
+# Boshy ist zurück.
 
 **Kram Boshy wieder raus. Jeder Seed ein neues Abenteuer.**
 
-Du kennst *I Wanna Be The Boshy* in- und auswendig? Dann entdecke seine Welten, Bosse und Geheimnisse noch einmal neu. Spiele eine gemischte Route, jage einer zufälligen Zielliste hinterher oder teile deinen Seed mit Freunden. Ein paar optionale Überraschungen sorgen dafür, dass selbst alte Hasen nicht alles kommen sehen.
+[English](README_EN.md) · [Deutsch](README_DE.md) · [Español](README_ES.md) · [Русский](README_RU.md) · [日本語](README_JP.md)
 
-[Linux-DEB herunterladen](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.15/boshy-randomizer_2026.10.15-1_amd64.deb) · [Release & Prüfsummen](https://github.com/THXel/Boshy-Randomizer/releases/tag/v2026.10.15)
+[🌐 Website](https://thxel.github.io/Boshy-Randomizer/site/de/) · [↓ Windows-Setup](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.18/BoshyRandomizer-2026.10.18-Windows-Setup-x64.exe) · [↓ Linux-DEB](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.18/boshy-randomizer_2026.10.18-1_amd64.deb) · [Release & Prüfsummen](https://github.com/THXel/Boshy-Randomizer/releases/tag/v2026.10.18)
 
-**Linux Mint 22.x / Ubuntu 24.04 · amd64 · X11**
+</div>
 
-[Windows-Setup herunterladen (Vorschau)](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.18-windows-preview/BoshyRandomizer-2026.10.18-Windows-Setup-x64.exe)
+Vertraute Welten. Unbekannte Wege. Entdecke I Wanna Be The Boshy mit gemischten Begegnungen, überraschenden Belohnungen und einem Lauf, den du mit Freunden teilen kannst.
 
-**Windows-Vorschau für x64:** Installiere mit dem Setup-Assistenten und starte **Boshy Randomizer** über das Startmenü oder die optionale Desktop-Verknüpfung. Keine CMD und keine Installation von Python, Wine oder Lutris nötig. Beim ersten Start wählst du deinen Boshy-Ordner oder eine ZIP; das Spiel ist nicht enthalten. Updates und Deinstallation behalten Spielstände. Defender blieb beim Windows-10-Test aktiv. Der Installer ist unsigniert; Windows 11 und Kontopfade mit Sonderzeichen sind noch nicht geprüft.
+> Du brauchst deinen eigenen Boshy-Ordner oder eine ZIP. Das Originalspiel ist nicht enthalten.
 
-[Windows setup details](../docs/WINDOWS_PACKAGE.md)
+[Spielmodi](#modes) · [Funktionen](#features) · [Hacks](#hacks) · [Download](#download) · [FAQ](#faq)
 
-![Das originale Intro mit neuem Look](../docs/media/rediscover-intro.gif)
+![Das originale Intro, neu gemischt](../docs/media/rediscover-intro.gif)
 
-## Dein Spiel, dein Lauf
+<a id="modes"></a>
 
-| Modus | So spielst du |
+## Fünf Arten, Boshy zu spielen
+
+| Mode | |
 | --- | --- |
-| **Randomizer** | Gemischte Level- und Bossziele; Truhen können Items oder Charaktere enthalten. Im Advanced-Menü stellst du die Auswahl zusammen. Empfohlen sind sieben Level und sieben Bosse. |
-| **Target Select** | Eine zufällige Item-Zielliste mit einstellbarer Anzahl und optionalen Bosszielen. Positionen werden gemischt, Items bleiben an ihren ursprünglichen Fundorten. Erst nach allen Zielen geht es zu Solgryn. |
-| **Normal** | Originaler Spielverlauf und originale Truhen. Startcharakter, Charakter-Randomizer und Hacks sind optional. Rotation und Hacks sind zunächst aus; nur bei aktivierter Rotation ist F3 gesperrt. |
+| **Randomizer** | **Das vertraute Spiel, neu gemischt.** Level- und Bossziele werden gemischt; Item- und Charaktertruhen teilen sich einen Belohnungspool. Im Advanced-Menü wählst du Abschnitte und Anzahl. Empfohlen: sieben Level und sieben Bosse, soweit die Auswahl es erlaubt abwechselnd, danach Solgryn. |
+| **Target Select** | **Eine Zielliste. Ein unvorhersehbarer Weg.** Sammle eine zufällige Liste originaler Items mit einstellbarer Anzahl und optionalen Bosszielen. Die Ziele wechseln, die Truhenbelohnungen bleiben original. Erst wenn alle Vorgaben erfüllt sind, geht es ins Solgryn-Finale. |
+| **Normal** | **Dein Weg. Deine Regeln.** Originaler Spielverlauf und originale Truhen. Startcharakter, Charakterwechsel und Hacks sind optional. Diese Extras sind im Normal-Modus zunächst ausgeschaltet. |
+| **Boss Rush** | **Direkt zu den Kämpfen.** Wähle Bossauswahl und Anzahl der Begegnungen. Standard sind sieben. Nach den gewählten Kämpfen wartet Solgryn als Finale. |
+| **Level Rush** | **Die Welten sind deine Herausforderung.** Wähle Levelauswahl und Anzahl der Abschnitte. Standard sind sieben. Danach folgt Solgryn als Finale. |
 
-Drei getrennte Speicherplätze behalten Fortschritt und freigeschaltete Charaktere je Lauf. Neue Läufe stellst du direkt im originalen Spielmenü ein; belegte Slots setzt du fort. Kompakte **Seedcodes** enthalten Seed und Einstellungen – mit Vorschau und Prüfung beim Einfügen.
+<a id="features"></a>
 
-## Was Boshy neu macht
+## Mach jeden Lauf zu deinem Lauf
 
-- Die Menüs passen sich automatisch an kleinere Spielfenster an. Über **Aa** in der Speicherplatzauswahl oder beim neuen Lauf wählst du kleine, normale oder große Schrift. Die Schriftgröße wird lokal gespeichert; Seed und Spielauflösung bleiben unverändert.
-- **45 auswählbare Routenpunkte**, darunter aufgeteilte Level, Minibosse und Beta-Kämpfe wie Ridley, Questionmark und Old Sonic. Die Übergänge lesen den Spielzustand statt Bildschirm-Pixel.
-- Optional wechselnde Charaktere und zufällige **Projektile samt Schusseffekt**: nach einem Spot, nach einem Tod, nach beidem oder nach zufälligen Zeitabständen mit einstellbarer Obergrenze.
-- Optionaler **Musik-Randomizer** mit 45 gemeinsam gemischten Level- und Bossstücken.
-- Wechselnde Intro-Charaktere, Hintergründe, Böden und dezente Effekte beim Neustart – unabhängig vom Seed.
-- Hacks für Komfort oder Training: Item-Pop-ups unterdrücken, Mausgeist deaktivieren, Bossintro überspringen, Truhenanimation verkürzen, Autofire, Bosse mit 1 HP und God Mode.
-- Eine seltene **Spinnenüberraschung** ist für neue Läufe zunächst an: ohne Vorwarnung, nach zufälligen 5–30 Minuten aktiver Spielzeit, auch bei Bossen. Unter **Advanced → Hacks** ausschalten und übernehmen; dann bleibt sie für neue Läufe standardmäßig aus, bis du sie wieder einschaltest. Bestehende Saves behalten ihre Einstellungen; eingefügte Seeds bringen eigene mit.
-- Separater, kompakter Live-Tracker mit Sammelicons und „Copy Seed“, Ergebnisübersicht nach Solgryn und optionales Debugfenster über **Strg+Alt+D** mit exportierbaren Aufzeichnungen.
-- **Strg+Alt+M** markiert ein Problem bei geschlossenem Debugfenster und speichert bis zu zwei Minuten Diagnose-Vorlauf unter `debug-reports`. Im Debugfenster lassen sich Wartezeit ab Trigger-Erkennung, Ladezeit und gesamte Übergangszeit getrennt ablesen.
-- Die Grafikdiagnose kann Hintergründe, Dekoration, Böden und Gegnerfarben getrennt vorübergehend abschalten. Die Änderung gilt ab dem nächsten Levelwechsel; beim Laden eines Spielstands gelten wieder dessen Einstellungen. Problemberichte enthalten nach Möglichkeit einen Screenshot nur des Spielfensters und die letzten Grafikwechsel.
+### Mehr als der normale Weg
 
-![Menütour: Einstellungen, Advanced, Schussstile, Hacks und Seed](../docs/media/rediscover-menu-tour.gif)
+Geteilte Welten, Minibosse und Geheimwege treffen auf Beta-Kämpfe wie Ridley, Questionmark, Bomberman und Old Sonic. Im Advanced-Menü bestimmst du die Auswahl. Übergänge lesen den Spielzustand statt Bildschirm-Pixel.
 
-## Installation unter Linux
+### Items und Charaktere in einem Pool
 
-1. DEB oben herunterladen. Vor einem Update den Randomizer schließen.
-2. Mit der Paketverwaltung öffnen oder installieren:
+Jede Truhe kann ein Item oder einen Charakter enthalten, unabhängig vom ursprünglichen Typ. Der optionale Charakterwechsel nutzt deinen verfügbaren Pool; neu gesammelte Charaktere kommen hinzu. Während der Rotation ist die manuelle F3-Auswahl gesperrt.
 
-```sh
-sudo apt install ./boshy-randomizer_2026.10.15-1_amd64.deb
-```
+### Ein Seed zum Teilen
 
-3. **Boshy Randomizer** im Anwendungsmenü starten.
-4. Beim ersten Start den eigenen unterstützten Boshy-**Ordner oder eine ZIP** auswählen. Das Spiel wird separat kopiert; ursprüngliche Spielstände bleiben unangetastet und werden nicht importiert.
-5. Slot wählen, Lauf einstellen, spielen.
+Kompakte Codes enthalten Seed und Laufeinstellungen. Im Spielmenü kannst du sie kopieren, einfügen, prüfen, als Vorschau ansehen oder neu generieren. Für vergleichbare Läufe verwendet ihr dieselbe Randomizer-Version.
 
-**Das Originalspiel ist nicht enthalten.** Wine, Lutris und benötigte Bibliotheken werden als Abhängigkeiten installiert. Die Ersteinrichtung lädt den geprüften Wine-Staging-11.2-WoW64-Runner oder nutzt eine identische vorhandene Kopie. Dafür wird Internet benötigt. Lutris muss später nicht geöffnet bleiben.
+### Drei Slots. Drei Abenteuer.
 
-Daten liegen unter `~/.local/share/boshy-randomizer/`. Paketupdates und Deinstallation behalten deine Saves. Entwicklungsinstallationen werden nicht automatisch übernommen. [Installationsdetails](../docs/LINUX_PACKAGE.md).
+Jeder Speicherplatz hat einen eigenen Lauf und eigene Charakterfreischaltungen. Die Übersicht zeigt Ort, Schwierigkeit, aktuellen Charakter und Fortschritt. Fortsetzen, anlegen und löschen geht im nativen Menü.
 
-## Fünf Sprachen
+### Ein Tracker neben dem Spiel
 
-Die Oberfläche erkennt **Deutsch, Englisch, Russisch, Spanisch und Japanisch** anhand der Systemsprache; sonst wird Englisch verwendet. Update-Verlauf bleibt Englisch. Originaldialoge, Grafik und Charakternamen werden nicht übersetzt.
+Ein separates Fenster hält die Spielfläche frei: Timer, Tode, Ort, gesammelte Items und Charaktere, Bossfortschritt und Seed-Kopieren. Es passt sich dem Modus an, hebt Target-Select-Ziele hervor und zeigt neue Funde mit einer Animation.
 
-![Aktuelle deutsche Laufeinstellungen](../docs/media/setup-de.png)
+### Ein Finale, das du genießen kannst
 
-## Geprüft, ohne mehr zu versprechen
+Nach Solgryn erscheint zeitversetzt eine leicht transparente Übersicht mit Seed, Laufstatistik und Kopierfunktion. Sterbeanimation und Credits laufen dahinter weiter.
 
-369 automatische Tests bestanden. Alle 45 Punkte wurden im Spiel geladen und zurückgesetzt. Questionmark, Ridley, Old Sonic und Solgryn wurden zusätzlich mit Trainingshacks besiegt; Spinnenzeit, Speichern/Laden und Abschlussanzeige wurden praktisch geprüft. Nicht jede komplette Route und Hackkombination wurde durchgespielt. [Prüfumfang](../docs/RELEASE_PREPARATION.md).
+![Native Laufeinstellungen und Advanced](../docs/media/rediscover-menu-tour.gif)
 
-Ein Fanprojekt von **THXel und der Boshy-Speedrunning-Community**. Originalspiel: **Solgryn / Grynsoft**. Danke, dass ihr Boshy am Leben haltet!
+### Vertrautes Spiel, ungewohnter Look
 
-[Änderungsverlauf](../CHANGELOG.md) · [Quellcode & Build](../docs/LINUX_PACKAGE.md#building) · [Fehler melden](https://github.com/THXel/Boshy-Randomizer/issues)
+Neue Intro-Charaktere und Kulissen beim Start. Das optionale Sprite-Chaos mischt geprüfte Hintergründe samt animierter Parallaxe, Dekoration und Plattform-Materialien. Die Ebenen sind einzeln einstellbar, Hintergründe lassen sich abdunkeln. Farbwechsel für Gegner und Bosse sind Beta; Formen, Angriffe und Kollisionen bleiben erhalten.
 
-Aktueller Quellcode: `native-linux/`. Die PinguLexa-/OBS-Anbindung ist separat und nicht im Paket enthalten. [Unterstützte Spielversion und Grafiknachweise](../docs/LINUX_PACKAGE.md#game-and-assets), [bestehende Credits](../Custom/License.txt).
+### Neue Schüsse. Neuer Sound.
+
+Projektil und Schusseffekt wechseln unabhängig vom Charakter: nach einem Spot, nach einem Tod, nach beidem oder zufällig innerhalb einer selbst gewählten Zeitspanne. Sekunden und Minuten sind einstellbar; Standard sind fünf Minuten.
+
+Music Shuffle mischt Level- und Bossmusik gemeinsam mit einer Zuordnung über den Seed. Lokal installierte Kamilia-3- und WannaFest22-Soundpacks können außerdem passende Intro-, Menü-, Todes- und Abspann-Sounds ersetzen. Die Auswahl bleibt gespeichert; Shuffle-Titel müssen länger als 30 Sekunden sein. Diese zusätzlichen Soundpacks sind nicht im Download enthalten.
+
+<a id="hacks"></a>
+
+## Ein bisschen Hilfe. Ein bisschen Chaos.
+
+Unter Advanced → Hacks wählst du optionale Extras für Training, Abwechslung oder eine kleine Überraschung.
+
+- Störende Item-Pop-ups unterdrücken
+- Mausgeist deaktivieren
+- Bosse mit 1 HP pro verwundbarer Phase
+- God Mode
+- Dauerfeuer bei gehaltener Schusstaste
+- Spiegelmodus
+- Charakterwechsel nach Tod
+- Boss-Intros automatisch überspringen
+- Truhenanimation verkürzen
+- Musik mischen
+- Sprite-Chaos konfigurieren
+- Spinnen-Überraschung
+
+> Die Spinnen-Überraschung ist bei neuen Randomizer-Läufen zunächst an: ein unangekündigter Angriff alle 5–30 aktiven Spielminuten, auch bei Bossen. Ausschalten und übernehmen merkt sich die Wahl für zukünftige Läufe. Gespeicherte Läufe und importierte Seeds behalten ihre Regeln.
+
+### So bedienbar, wie du spielst
+
+- Maus-Hover und Tastaturnavigation; Enter bestätigt die Auswahl.
+- Menüs passen sich ans Spielfenster an, die Schriftgröße lässt sich separat wählen.
+- Moderne, zum Monitor passende Größen im originalen Optionsmenü; gestrecktes Vollbild bleibt verfügbar.
+- Deutsch, Englisch, Russisch, Spanisch und Japanisch mit Systemerkennung und Englisch als Fallback. Update-Logs bleiben Englisch.
+
+<a id="download"></a>
+
+## Wähle deine Plattform
+
+| | Download | |
+| --- | --- | --- |
+| **Windows** | [Windows-Setup](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.18/BoshyRandomizer-2026.10.18-Windows-Setup-x64.exe) | Windows-Vorschau · x64 |
+| **Linux** | [Linux-DEB](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.18/boshy-randomizer_2026.10.18-1_amd64.deb) | Linux Mint 22 / Ubuntu 24.04 · X11 · amd64 |
+
+[Release & Prüfsummen](https://github.com/THXel/Boshy-Randomizer/releases/tag/v2026.10.18) · [Windows](../docs/WINDOWS_PACKAGE.md) · [Linux](../docs/LINUX_PACKAGE.md)
+
+### Vom Download zum ersten Lauf
+
+1. Lade das Windows-Setup oder die Linux-DEB herunter.
+2. Installiere und starte Boshy Randomizer über dein Anwendungsmenü. Unter Windows kannst du zusätzlich eine Desktop-Verknüpfung anlegen.
+3. Wähle deinen unterstützten Boshy-Ordner oder eine ZIP, suche einen Speicherplatz aus und stelle deinen Lauf zusammen.
+
+Der Randomizer legt eine eigene Spielkopie an. Originalspielstände bleiben unberührt; Updates und Deinstallation behalten die Randomizer-Spielstände.
+
+<a id="faq"></a>
+
+## Gut zu wissen
+
+<details>
+<summary>Kann ich damit streamen?</summary>
+
+Der eingebaute Live-Tracker ist ein separates Fenster: neben das Spiel stellen oder in OBS erfassen. Die angepasste PinguLexa-/LiveSplit-Anbindung wird separat gepflegt und gehört nicht zu diesen Downloads.
+
+</details>
+
+<details>
+<summary>Was tun, wenn ein Trigger nicht passt?</summary>
+
+Strg+Alt+D öffnet die Diagnose mit Live-Daten, Testaktionen und exportierbaren Aufzeichnungen. Strg+Alt+M markiert ein Problem und speichert den jüngsten Verlauf ohne ein Fenster zu öffnen. Berichte können einen Screenshot nur vom Spiel enthalten.
+
+</details>
+
+<details>
+<summary>Ist jede Kombination getestet?</summary>
+
+369 automatische Quellcode-Tests bestehen. Windows-Installation, Update, Deinstallation, Datenerhalt und Fortsetzen wurden mit aktivem Defender geprüft. Die Linux-Paketprüfungen stehen in den Release-Hinweisen. Nicht jede komplette Route und Hackkombination wurde durchgespielt.
+
+</details>
+
+<details>
+<summary>Was bedeutet Windows-Vorschau?</summary>
+
+Der Installer ist unsigniert und wurde unter Windows 10 x64 getestet. Windows 11, Kontopfade mit Sonderzeichen, echte 4K-Anzeigen und gemischte DPI benötigen noch eigene Tests. Virenschutz eingeschaltet lassen.
+
+</details>
+
+<details>
+<summary>Kann man online spielen?</summary>
+
+Dies ist ein Einzelspieler-Randomizer. Das alte Boshy-Online-Menü ist deaktiviert. Über Seed-Codes könnt ihr vergleichbare Läufe mit Freunden spielen.
+
+</details>
+
+---
+
+Ein Fanprojekt von THXel und der Boshy-Speedrun-Community. Originalspiel von Solgryn / Grynsoft.
+
+[Problem melden](https://github.com/THXel/Boshy-Randomizer/issues) · [Änderungsverlauf](../CHANGELOG.md) · [Credits](../Custom/License.txt)

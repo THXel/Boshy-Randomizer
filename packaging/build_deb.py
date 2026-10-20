@@ -2,13 +2,13 @@
 """Create a game-free Debian package from the reviewed native source tree."""
 from pathlib import Path
 import json,hashlib,shutil,subprocess,os,sys
-ROOT=Path(__file__).resolve().parents[1];SOURCE=ROOT/'native-linux';VERSION='2026.10.15-1'
+ROOT=Path(__file__).resolve().parents[1];SOURCE=ROOT/'native-linux';VERSION='2026.10.18-1'
 # Fail before creating a package if the runtime export is incomplete.
 sys.path.insert(0,str(SOURCE))
 from native_session import ASSETS
 from extras_runtime import ASSETS as EXTRA_ASSETS
 from trigger_audit import FILES as AUDIT_ASSETS
-required=set(ASSETS+EXTRA_ASSETS+AUDIT_ASSETS)|{'bridge.exe','launch_slot_reward.py','gastly_route_lab.py','loading-icons/index.json','loading-icons/boshy.webp','INI/characters.json','wine-runner-manifest.json'}
+required=set(ASSETS+EXTRA_ASSETS+AUDIT_ASSETS)|{'bridge.exe','music_playback.py','launch_slot_reward.py','gastly_route_lab.py','loading-icons/index.json','loading-icons/boshy.webp','INI/characters.json','wine-runner-manifest.json'}
 missing=sorted(name for name in required if not (SOURCE/name).is_file())
 if missing:raise SystemExit('Missing runtime resources: '+', '.join(missing))
 OUTPUT=Path(sys.argv[1]).resolve() if len(sys.argv)>1 else ROOT/'dist'
@@ -34,20 +34,19 @@ Section: games
 Priority: optional
 Architecture: amd64
 Maintainer: THXel
-Depends: python3 (>= 3.12), python3-tk, python3-pil, python3-pil.imagetk, python3-numpy, python3-xlib, python3-psutil, wine, wine64, lutris, ca-certificates, xdotool, wmctrl, pulseaudio-utils, zenity, fonts-dejavu-core, fonts-noto-cjk, util-linux
+Depends: python3 (>= 3.12), python3-tk, python3-pil, python3-pil.imagetk, python3-numpy, python3-xlib, python3-psutil, wine, wine64, lutris, ca-certificates, xdotool, wmctrl, pulseaudio-utils, ffmpeg, zenity, fonts-dejavu-core, fonts-noto-cjk, util-linux
 Homepage: https://github.com/THXel/Boshy-Randomizer
 Description: Native-menu Boshy Randomizer for Linux
- Randomizer and Target Select modes, shared seeds and a separate live tracker.
+ Five play modes, shared seeds, optional hacks and a separate live tracker.
  First launch imports a user-supplied Boshy folder or ZIP into a private copy.
  The original game is not included. X11 desktop required.
- Windows support is planned for a later release.
 ''')
 (BUILD/'usr/bin').mkdir(parents=True);launcher=BUILD/'usr/bin/boshy-randomizer';launcher.write_text('#!/bin/sh\nexport PYTHONDONTWRITEBYTECODE=1\nexec /usr/bin/python3 /usr/lib/boshy-randomizer/package_bootstrap.py "$@"\n');launcher.chmod(0o755)
 (BUILD/'usr/share/applications').mkdir(parents=True);(BUILD/'usr/share/applications/boshy-randomizer.desktop').write_text('''[Desktop Entry]
 Type=Application
 Name=Boshy Randomizer
-Comment=Randomizer and Target Select for I Wanna Be The Boshy
-Comment[de]=Randomizer und Target Select für I Wanna Be The Boshy
+Comment=Rediscover I Wanna Be The Boshy with five play modes
+Comment[de]=I Wanna Be The Boshy mit fünf Spielmodi neu entdecken
 Exec=boshy-randomizer
 Icon=boshy-randomizer
 Terminal=false

@@ -1,0 +1,722 @@
+{
+  "en": {
+    "name": "English",
+    "title": "Boshy. Reborn.",
+    "tagline": "Rediscover Boshy. A new adventure with every seed.",
+    "intro": "Your favourite worlds. An unfamiliar route. Return to I Wanna Be The Boshy with shuffled encounters, surprising rewards and a run you can share with friends.",
+    "nav": [
+      "Modes",
+      "Features",
+      "Gallery",
+      "Download"
+    ],
+    "download": "Choose your platform",
+    "windows": "Windows Setup",
+    "linux": "Linux DEB",
+    "release": "Release & checksums",
+    "preview": "Windows preview · x64",
+    "linuxnote": "Linux Mint 22 / Ubuntu 24.04 · X11 · amd64",
+    "game": "Bring your own Boshy folder or ZIP. The original game is not included.",
+    "play": "Five ways to play",
+    "modes": [
+      [
+        "Randomizer",
+        "The familiar game, remixed.",
+        "Shuffle level and boss destinations, and mix items and characters across both kinds of chest. Advanced settings let you choose the pools and counts. Recommended: seven levels and seven bosses, alternating where the selected pools allow, then Solgryn."
+      ],
+      [
+        "Target Select",
+        "A checklist. An unpredictable journey.",
+        "Chase a random list of original items, with an adjustable target count and optional required bosses. Destinations change; chest rewards stay original. The route continues until your goals are complete, then opens the Solgryn finale."
+      ],
+      [
+        "Normal",
+        "Your route. Your rules.",
+        "Keep the original progression and chest rewards. Choose a starting character and optionally enable character rotation or hacks. These extras initially stay off in Normal mode."
+      ],
+      [
+        "Boss Rush",
+        "Skip straight to the fights.",
+        "Choose the boss pool and how many encounters you want. Seven is the default. After the chosen fights, face Solgryn as the finale."
+      ],
+      [
+        "Level Rush",
+        "Make the worlds your challenge.",
+        "Choose the level pool and number of sections. Seven is the default. Finish the selected sections, then face Solgryn as the finale."
+      ]
+    ],
+    "featuresTitle": "Make every run your own",
+    "features": [
+      [
+        "Routes beyond the usual path",
+        "Split worlds, minibosses and secret routes sit alongside beta fights such as Ridley, Questionmark, Bomberman and Old Sonic. Advanced lets you include the encounters you want. Transitions use game state instead of screen pixels."
+      ],
+      [
+        "Items & characters, one reward pool",
+        "A chest can award an item or a character regardless of its original type. Optional character rotation draws from your available cast; newly collected characters join the pool. F3 selection is locked while rotation is active."
+      ],
+      [
+        "A seed worth sharing",
+        "Compact share codes carry the seed and run settings. Copy, paste, validate, preview or generate a new code in the game menu. Use the same randomizer version when comparing runs."
+      ],
+      [
+        "Three slots. Three adventures.",
+        "Each slot keeps its own run and character unlocks. Menu summaries show your location, difficulty, selected character and progress. Resume, create or delete saves from the native menu."
+      ],
+      [
+        "A tracker beside the game",
+        "A separate window keeps the playfield clear: timer, deaths, location, collected items and characters, boss progress and copy-seed. It adapts to the mode, highlights Target Select goals, uses compact icons and announces new pickups."
+      ],
+      [
+        "An ending you can enjoy",
+        "After Solgryn, a delayed, lightly transparent results screen brings together the seed and run statistics, with a copy button. The death animation and credits continue behind it."
+      ]
+    ],
+    "visualTitle": "A familiar game with an unfamiliar look",
+    "visual": "New intro casts and scenery on launch. Optional Sprite Chaos reshuffles reviewed backgrounds with their animated parallax, decoration and platform materials. Configure the layers separately and dim backgrounds for clarity. Enemy and boss colour changes are beta; their shapes, attacks and collision geometry stay intact.",
+    "shotsTitle": "New shots. New sound.",
+    "shots": "Randomize projectiles and their firing effects independently of your character: after a spot, after a death, after both, or at a random time within your chosen limit. Set that limit in seconds or minutes; the default is five minutes.",
+    "music": "Music Shuffle mixes level and boss music together with a seed-based assignment. Optional locally installed Kamilia 3 and WannaFest22 soundpacks can also replace matching intro, menu, death and ending cues. Soundpack selection is remembered; shuffle tracks must be longer than 30 seconds. These extra soundpacks are not included in the downloads.",
+    "hacksTitle": "A little help. A little chaos.",
+    "hacksIntro": "Choose optional tweaks under Advanced → Hacks. Make a practice run, change the feel, or leave a surprise waiting.",
+    "hacks": [
+      "Suppress disruptive item pop-ups",
+      "Disable the mouse ghost",
+      "One-HP bosses, per vulnerable phase",
+      "God Mode",
+      "Autofire while holding shoot",
+      "Mirror mode",
+      "Change character after death",
+      "Automatically skip boss intros",
+      "Shorten chest animations",
+      "Shuffle music",
+      "Configure Sprite Chaos",
+      "Spider surprise"
+    ],
+    "spider": "The spider surprise starts enabled for new randomizer runs: an unannounced attack every 5–30 active gameplay minutes, including boss rooms. Turn it off and apply the setting to remember that preference for future runs. Saved runs and imported seeds keep their own rules.",
+    "controlsTitle": "Built for the way you play",
+    "controls": [
+      "Mouse hover and keyboard navigation; Enter confirms selections.",
+      "Menus adapt to the game window, with a separate text-size setting.",
+      "Modern monitor-fitting sizes in the original Options menu; stretched fullscreen remains available.",
+      "English, German, Russian, Spanish and Japanese; automatic system-language selection with English fallback. Update logs stay English."
+    ],
+    "installTitle": "From download to your first run",
+    "steps": [
+      "Download the Windows installer or Linux DEB below.",
+      "Install, then open Boshy Randomizer from your apps menu. On Windows you can also add a desktop shortcut.",
+      "Select your own supported Boshy folder or ZIP, choose a save slot and configure your run."
+    ],
+    "preserve": "The randomizer creates a private game copy. Your original saves stay untouched; package updates and removal preserve randomizer save data.",
+    "faqTitle": "Good to know",
+    "faq": [
+      [
+        "Can I use it for a stream?",
+        "The built-in live tracker is a separate window that you can arrange beside the game or capture in OBS. The custom PinguLexa/LiveSplit integration is maintained separately and is not part of these downloads."
+      ],
+      [
+        "What if a trigger behaves strangely?",
+        "Ctrl+Alt+D opens diagnostics with live state, test actions and exportable recordings. Ctrl+Alt+M marks a problem and saves recent diagnostic history without opening a window. Reports can include a game-only screenshot."
+      ],
+      [
+        "Is every combination tested?",
+        "369 automated source tests pass. Windows installation, update, uninstall, save preservation and resume were checked with Defender enabled. Linux package checks are recorded in the release notes. Every complete route and hack combination has not been played through."
+      ],
+      [
+        "What does Windows preview mean?",
+        "The installer is unsigned and has been tested in Windows 10 x64. Windows 11, non-ASCII account paths, physical 4K and mixed-DPI setups still need dedicated checks. Keep antivirus protection enabled."
+      ],
+      [
+        "Can I play online?",
+        "This is a single-player randomizer. The old Boshy online menu is disabled. Share seed codes to play comparable runs with friends."
+      ]
+    ],
+    "galleryTitle": "See it in motion",
+    "captions": [
+      "The original intro, remixed",
+      "Native run settings and Advanced",
+      "Your run at a glance"
+    ],
+    "footer": "A fan project by THXel and the Boshy speedrunning community. Original game by Solgryn / Grynsoft.",
+    "support": "Report an issue",
+    "docs": "Installation details",
+    "changelog": "Changelog",
+    "faqnav": "FAQ"
+  },
+  "de": {
+    "name": "Deutsch",
+    "title": "Boshy ist zurück.",
+    "tagline": "Kram Boshy wieder raus. Jeder Seed ein neues Abenteuer.",
+    "intro": "Vertraute Welten. Unbekannte Wege. Entdecke I Wanna Be The Boshy mit gemischten Begegnungen, überraschenden Belohnungen und einem Lauf, den du mit Freunden teilen kannst.",
+    "nav": [
+      "Spielmodi",
+      "Funktionen",
+      "Einblicke",
+      "Download"
+    ],
+    "download": "Wähle deine Plattform",
+    "windows": "Windows-Setup",
+    "linux": "Linux-DEB",
+    "release": "Release & Prüfsummen",
+    "preview": "Windows-Vorschau · x64",
+    "linuxnote": "Linux Mint 22 / Ubuntu 24.04 · X11 · amd64",
+    "game": "Du brauchst deinen eigenen Boshy-Ordner oder eine ZIP. Das Originalspiel ist nicht enthalten.",
+    "play": "Fünf Arten, Boshy zu spielen",
+    "modes": [
+      [
+        "Randomizer",
+        "Das vertraute Spiel, neu gemischt.",
+        "Level- und Bossziele werden gemischt; Item- und Charaktertruhen teilen sich einen Belohnungspool. Im Advanced-Menü wählst du Abschnitte und Anzahl. Empfohlen: sieben Level und sieben Bosse, soweit die Auswahl es erlaubt abwechselnd, danach Solgryn."
+      ],
+      [
+        "Target Select",
+        "Eine Zielliste. Ein unvorhersehbarer Weg.",
+        "Sammle eine zufällige Liste originaler Items mit einstellbarer Anzahl und optionalen Bosszielen. Die Ziele wechseln, die Truhenbelohnungen bleiben original. Erst wenn alle Vorgaben erfüllt sind, geht es ins Solgryn-Finale."
+      ],
+      [
+        "Normal",
+        "Dein Weg. Deine Regeln.",
+        "Originaler Spielverlauf und originale Truhen. Startcharakter, Charakterwechsel und Hacks sind optional. Diese Extras sind im Normal-Modus zunächst ausgeschaltet."
+      ],
+      [
+        "Boss Rush",
+        "Direkt zu den Kämpfen.",
+        "Wähle Bossauswahl und Anzahl der Begegnungen. Standard sind sieben. Nach den gewählten Kämpfen wartet Solgryn als Finale."
+      ],
+      [
+        "Level Rush",
+        "Die Welten sind deine Herausforderung.",
+        "Wähle Levelauswahl und Anzahl der Abschnitte. Standard sind sieben. Danach folgt Solgryn als Finale."
+      ]
+    ],
+    "featuresTitle": "Mach jeden Lauf zu deinem Lauf",
+    "features": [
+      [
+        "Mehr als der normale Weg",
+        "Geteilte Welten, Minibosse und Geheimwege treffen auf Beta-Kämpfe wie Ridley, Questionmark, Bomberman und Old Sonic. Im Advanced-Menü bestimmst du die Auswahl. Übergänge lesen den Spielzustand statt Bildschirm-Pixel."
+      ],
+      [
+        "Items und Charaktere in einem Pool",
+        "Jede Truhe kann ein Item oder einen Charakter enthalten, unabhängig vom ursprünglichen Typ. Der optionale Charakterwechsel nutzt deinen verfügbaren Pool; neu gesammelte Charaktere kommen hinzu. Während der Rotation ist die manuelle F3-Auswahl gesperrt."
+      ],
+      [
+        "Ein Seed zum Teilen",
+        "Kompakte Codes enthalten Seed und Laufeinstellungen. Im Spielmenü kannst du sie kopieren, einfügen, prüfen, als Vorschau ansehen oder neu generieren. Für vergleichbare Läufe verwendet ihr dieselbe Randomizer-Version."
+      ],
+      [
+        "Drei Slots. Drei Abenteuer.",
+        "Jeder Speicherplatz hat einen eigenen Lauf und eigene Charakterfreischaltungen. Die Übersicht zeigt Ort, Schwierigkeit, aktuellen Charakter und Fortschritt. Fortsetzen, anlegen und löschen geht im nativen Menü."
+      ],
+      [
+        "Ein Tracker neben dem Spiel",
+        "Ein separates Fenster hält die Spielfläche frei: Timer, Tode, Ort, gesammelte Items und Charaktere, Bossfortschritt und Seed-Kopieren. Es passt sich dem Modus an, hebt Target-Select-Ziele hervor und zeigt neue Funde mit einer Animation."
+      ],
+      [
+        "Ein Finale, das du genießen kannst",
+        "Nach Solgryn erscheint zeitversetzt eine leicht transparente Übersicht mit Seed, Laufstatistik und Kopierfunktion. Sterbeanimation und Credits laufen dahinter weiter."
+      ]
+    ],
+    "visualTitle": "Vertrautes Spiel, ungewohnter Look",
+    "visual": "Neue Intro-Charaktere und Kulissen beim Start. Das optionale Sprite-Chaos mischt geprüfte Hintergründe samt animierter Parallaxe, Dekoration und Plattform-Materialien. Die Ebenen sind einzeln einstellbar, Hintergründe lassen sich abdunkeln. Farbwechsel für Gegner und Bosse sind Beta; Formen, Angriffe und Kollisionen bleiben erhalten.",
+    "shotsTitle": "Neue Schüsse. Neuer Sound.",
+    "shots": "Projektil und Schusseffekt wechseln unabhängig vom Charakter: nach einem Spot, nach einem Tod, nach beidem oder zufällig innerhalb einer selbst gewählten Zeitspanne. Sekunden und Minuten sind einstellbar; Standard sind fünf Minuten.",
+    "music": "Music Shuffle mischt Level- und Bossmusik gemeinsam mit einer Zuordnung über den Seed. Lokal installierte Kamilia-3- und WannaFest22-Soundpacks können außerdem passende Intro-, Menü-, Todes- und Abspann-Sounds ersetzen. Die Auswahl bleibt gespeichert; Shuffle-Titel müssen länger als 30 Sekunden sein. Diese zusätzlichen Soundpacks sind nicht im Download enthalten.",
+    "hacksTitle": "Ein bisschen Hilfe. Ein bisschen Chaos.",
+    "hacksIntro": "Unter Advanced → Hacks wählst du optionale Extras für Training, Abwechslung oder eine kleine Überraschung.",
+    "hacks": [
+      "Störende Item-Pop-ups unterdrücken",
+      "Mausgeist deaktivieren",
+      "Bosse mit 1 HP pro verwundbarer Phase",
+      "God Mode",
+      "Dauerfeuer bei gehaltener Schusstaste",
+      "Spiegelmodus",
+      "Charakterwechsel nach Tod",
+      "Boss-Intros automatisch überspringen",
+      "Truhenanimation verkürzen",
+      "Musik mischen",
+      "Sprite-Chaos konfigurieren",
+      "Spinnen-Überraschung"
+    ],
+    "spider": "Die Spinnen-Überraschung ist bei neuen Randomizer-Läufen zunächst an: ein unangekündigter Angriff alle 5–30 aktiven Spielminuten, auch bei Bossen. Ausschalten und übernehmen merkt sich die Wahl für zukünftige Läufe. Gespeicherte Läufe und importierte Seeds behalten ihre Regeln.",
+    "controlsTitle": "So bedienbar, wie du spielst",
+    "controls": [
+      "Maus-Hover und Tastaturnavigation; Enter bestätigt die Auswahl.",
+      "Menüs passen sich ans Spielfenster an, die Schriftgröße lässt sich separat wählen.",
+      "Moderne, zum Monitor passende Größen im originalen Optionsmenü; gestrecktes Vollbild bleibt verfügbar.",
+      "Deutsch, Englisch, Russisch, Spanisch und Japanisch mit Systemerkennung und Englisch als Fallback. Update-Logs bleiben Englisch."
+    ],
+    "installTitle": "Vom Download zum ersten Lauf",
+    "steps": [
+      "Lade das Windows-Setup oder die Linux-DEB herunter.",
+      "Installiere und starte Boshy Randomizer über dein Anwendungsmenü. Unter Windows kannst du zusätzlich eine Desktop-Verknüpfung anlegen.",
+      "Wähle deinen unterstützten Boshy-Ordner oder eine ZIP, suche einen Speicherplatz aus und stelle deinen Lauf zusammen."
+    ],
+    "preserve": "Der Randomizer legt eine eigene Spielkopie an. Originalspielstände bleiben unberührt; Updates und Deinstallation behalten die Randomizer-Spielstände.",
+    "faqTitle": "Gut zu wissen",
+    "faq": [
+      [
+        "Kann ich damit streamen?",
+        "Der eingebaute Live-Tracker ist ein separates Fenster: neben das Spiel stellen oder in OBS erfassen. Die angepasste PinguLexa-/LiveSplit-Anbindung wird separat gepflegt und gehört nicht zu diesen Downloads."
+      ],
+      [
+        "Was tun, wenn ein Trigger nicht passt?",
+        "Strg+Alt+D öffnet die Diagnose mit Live-Daten, Testaktionen und exportierbaren Aufzeichnungen. Strg+Alt+M markiert ein Problem und speichert den jüngsten Verlauf ohne ein Fenster zu öffnen. Berichte können einen Screenshot nur vom Spiel enthalten."
+      ],
+      [
+        "Ist jede Kombination getestet?",
+        "369 automatische Quellcode-Tests bestehen. Windows-Installation, Update, Deinstallation, Datenerhalt und Fortsetzen wurden mit aktivem Defender geprüft. Die Linux-Paketprüfungen stehen in den Release-Hinweisen. Nicht jede komplette Route und Hackkombination wurde durchgespielt."
+      ],
+      [
+        "Was bedeutet Windows-Vorschau?",
+        "Der Installer ist unsigniert und wurde unter Windows 10 x64 getestet. Windows 11, Kontopfade mit Sonderzeichen, echte 4K-Anzeigen und gemischte DPI benötigen noch eigene Tests. Virenschutz eingeschaltet lassen."
+      ],
+      [
+        "Kann man online spielen?",
+        "Dies ist ein Einzelspieler-Randomizer. Das alte Boshy-Online-Menü ist deaktiviert. Über Seed-Codes könnt ihr vergleichbare Läufe mit Freunden spielen."
+      ]
+    ],
+    "galleryTitle": "Boshy in Bewegung",
+    "captions": [
+      "Das originale Intro, neu gemischt",
+      "Native Laufeinstellungen und Advanced",
+      "Dein Lauf auf einen Blick"
+    ],
+    "footer": "Ein Fanprojekt von THXel und der Boshy-Speedrun-Community. Originalspiel von Solgryn / Grynsoft.",
+    "support": "Problem melden",
+    "docs": "Installationsdetails",
+    "changelog": "Änderungsverlauf",
+    "faqnav": "FAQ"
+  },
+  "es": {
+    "name": "Español",
+    "title": "Boshy renace.",
+    "tagline": "Redescubre Boshy. Una nueva aventura con cada semilla.",
+    "intro": "Mundos conocidos. Caminos inesperados. Vuelve a I Wanna Be The Boshy con encuentros mezclados, recompensas sorprendentes y una partida que puedes compartir.",
+    "nav": [
+      "Modos",
+      "Funciones",
+      "Galería",
+      "Descargar"
+    ],
+    "download": "Elige tu plataforma",
+    "windows": "Instalador Windows",
+    "linux": "DEB para Linux",
+    "release": "Versión y verificaciones",
+    "preview": "Vista previa de Windows · x64",
+    "linuxnote": "Linux Mint 22 / Ubuntu 24.04 · X11 · amd64",
+    "game": "Necesitas tu propia carpeta o ZIP de Boshy. El juego original no está incluido.",
+    "play": "Cinco formas de jugar",
+    "modes": [
+      [
+        "Randomizer",
+        "El juego conocido, remezclado.",
+        "Mezcla destinos de niveles y jefes y combina objetos y personajes en ambos tipos de cofre. En Advanced eliges las listas y cantidades. Recomendado: siete niveles y siete jefes, alternando cuando sea posible, y Solgryn al final."
+      ],
+      [
+        "Target Select",
+        "Una lista. Un viaje imprevisible.",
+        "Persigue una lista aleatoria de objetos originales, con cantidad ajustable y jefes obligatorios opcionales. Cambian los destinos; las recompensas permanecen originales. Completa todos los objetivos para llegar a Solgryn."
+      ],
+      [
+        "Normal",
+        "Tu camino. Tus reglas.",
+        "Progresión y cofres originales. Personaje inicial, rotación de personajes y hacks opcionales; estos extras empiezan desactivados."
+      ],
+      [
+        "Boss Rush",
+        "Directo a los combates.",
+        "Elige los jefes disponibles y cuántos encuentros jugar; siete por defecto. Después llega Solgryn."
+      ],
+      [
+        "Level Rush",
+        "Los mundos son el reto.",
+        "Elige niveles y cantidad de secciones; siete por defecto. Termina la ruta y enfréntate a Solgryn."
+      ]
+    ],
+    "featuresTitle": "Haz tuya cada partida",
+    "features": [
+      [
+        "Más allá de la ruta habitual",
+        "Mundos divididos, minijefes y secretos, además de encuentros beta como Ridley, Questionmark, Bomberman y Old Sonic. Advanced permite elegirlos; las transiciones leen el estado del juego, no píxeles."
+      ],
+      [
+        "Objetos y personajes juntos",
+        "Cualquier cofre puede dar un objeto o personaje. La rotación opcional utiliza los personajes disponibles y añade los recién obtenidos. F3 queda bloqueado mientras la rotación está activa."
+      ],
+      [
+        "Semillas para compartir",
+        "Los códigos compactos incluyen semilla y opciones. Copia, pega, valida, previsualiza o genera uno nuevo desde el menú. Usa la misma versión para comparar partidas."
+      ],
+      [
+        "Tres espacios, tres aventuras",
+        "Cada espacio conserva su partida y personajes desbloqueados. El resumen muestra ubicación, dificultad, personaje y progreso. Continúa, crea o elimina desde el menú nativo."
+      ],
+      [
+        "Un tracker junto al juego",
+        "Ventana separada con tiempo, muertes, ubicación, objetos, personajes, jefes y copia de semilla. Se adapta al modo, destaca objetivos de Target Select y anima las nuevas recompensas."
+      ],
+      [
+        "Disfruta del final",
+        "Tras Solgryn aparece un resumen ligeramente transparente con estadísticas y semilla copiable. La animación final y los créditos siguen reproduciéndose."
+      ]
+    ],
+    "visualTitle": "El mismo juego, otra apariencia",
+    "visual": "El reparto y escenario del intro cambian al iniciar. Sprite Chaos mezcla fondos revisados con su paralaje animado, decoración y materiales de plataformas. Configura cada capa y oscurece fondos para mejorar la visibilidad. Los cambios de color de enemigos y jefes están en beta; formas, ataques y colisiones se conservan.",
+    "shotsTitle": "Nuevos disparos. Nuevo sonido.",
+    "shots": "Cambia proyectil y efecto de disparo independientemente del personaje: tras cada sección, muerte, ambos o aleatoriamente dentro de un límite de tiempo. Elige segundos o minutos; cinco minutos por defecto.",
+    "music": "Music Shuffle mezcla música de niveles y jefes según la semilla. Los packs locales de Kamilia 3 y WannaFest22 también pueden sustituir sonidos de intro, menú, muerte y final. La selección se guarda; las pistas mezclables deben durar más de 30 segundos. Los packs adicionales no están incluidos.",
+    "hacksTitle": "Un poco de ayuda. Un poco de caos.",
+    "hacksIntro": "En Advanced → Hacks elige opciones para practicar, variar la partida o añadir sorpresas.",
+    "hacks": [
+      "Suprimir ventanas de objetos",
+      "Desactivar el fantasma del ratón",
+      "Jefes con 1 HP por fase vulnerable",
+      "God Mode",
+      "Disparo continuo al mantener la tecla",
+      "Modo espejo",
+      "Cambiar personaje al morir",
+      "Saltar intros de jefes",
+      "Acortar animaciones de cofres",
+      "Mezclar música",
+      "Configurar Sprite Chaos",
+      "Sorpresa de la araña"
+    ],
+    "spider": "La araña está activada inicialmente en partidas nuevas del randomizer: ataca sin aviso cada 5–30 minutos de juego activo, también contra jefes. Desactívala y aplica para guardar esa preferencia futura. Las partidas guardadas y semillas importadas conservan sus reglas.",
+    "controlsTitle": "Juega a tu manera",
+    "controls": [
+      "Navegación con ratón y teclado; Enter confirma.",
+      "Menús adaptados a la ventana y tamaño de texto independiente.",
+      "Resoluciones adaptadas al monitor en Options; se mantiene pantalla completa estirada.",
+      "Inglés, alemán, ruso, español y japonés según el sistema; inglés como alternativa. Los registros de cambios permanecen en inglés."
+    ],
+    "installTitle": "De la descarga a tu primera partida",
+    "steps": [
+      "Descarga el instalador Windows o el DEB Linux.",
+      "Instala y abre Boshy Randomizer desde el menú de aplicaciones. En Windows puedes añadir un acceso directo al escritorio.",
+      "Selecciona tu carpeta o ZIP compatible de Boshy, un espacio de guardado y las opciones."
+    ],
+    "preserve": "Se crea una copia privada del juego. Los guardados originales no cambian; actualizar o desinstalar conserva las partidas del randomizer.",
+    "faqTitle": "Información útil",
+    "faq": [
+      [
+        "¿Puedo usarlo en stream?",
+        "El tracker es una ventana separada que puedes colocar junto al juego o capturar en OBS. La integración personalizada PinguLexa/LiveSplit se mantiene aparte y no se incluye."
+      ],
+      [
+        "¿Qué hago si falla una transición?",
+        "Ctrl+Alt+D abre datos en vivo, acciones de prueba y grabaciones exportables. Ctrl+Alt+M marca un problema y guarda el historial reciente sin abrir una ventana. El informe puede incluir una captura solo del juego."
+      ],
+      [
+        "¿Está todo probado?",
+        "369 pruebas automáticas superadas. Instalación, actualización, desinstalación, conservación de datos y continuación probadas en Windows con Defender activo. Las comprobaciones Linux figuran en las notas. No se ha jugado cada combinación completa."
+      ],
+      [
+        "¿Qué significa vista previa de Windows?",
+        "Instalador sin firma, probado en Windows 10 x64. Windows 11, rutas de cuenta no ASCII, 4K físico y DPI mixtos aún requieren pruebas. Mantén activo el antivirus."
+      ],
+      [
+        "¿Hay modo online?",
+        "Es un randomizer para un jugador. El antiguo menú online está desactivado. Comparte semillas para jugar rutas comparables con amigos."
+      ]
+    ],
+    "galleryTitle": "Míralo en movimiento",
+    "captions": [
+      "El intro original, remezclado",
+      "Opciones nativas y Advanced",
+      "Tu partida de un vistazo"
+    ],
+    "footer": "Proyecto de fans de THXel y la comunidad speedrun de Boshy. Juego original de Solgryn / Grynsoft.",
+    "support": "Informar de un problema",
+    "docs": "Detalles de instalación",
+    "changelog": "Cambios",
+    "faqnav": "Preguntas"
+  },
+  "ru": {
+    "name": "Русский",
+    "title": "Boshy возвращается.",
+    "tagline": "Открой Boshy заново. Каждый сид — новое приключение.",
+    "intro": "Знакомые миры. Неожиданные пути. Вернись в I Wanna Be The Boshy: новые сочетания встреч, случайные награды и маршрут, которым можно поделиться.",
+    "nav": [
+      "Режимы",
+      "Возможности",
+      "Галерея",
+      "Скачать"
+    ],
+    "download": "Выбери платформу",
+    "windows": "Установщик Windows",
+    "linux": "DEB для Linux",
+    "release": "Релиз и контрольные суммы",
+    "preview": "Предварительная версия Windows · x64",
+    "linuxnote": "Linux Mint 22 / Ubuntu 24.04 · X11 · amd64",
+    "game": "Нужна собственная папка Boshy или ZIP. Оригинальная игра не включена.",
+    "play": "Пять способов играть",
+    "modes": [
+      [
+        "Randomizer",
+        "Знакомая игра в новом порядке.",
+        "Перемешивай уровни и боссов, объединяй предметы и персонажей в общий пул наград сундуков. В Advanced выбираются списки и количество. Рекомендуется семь уровней и семь боссов, по возможности поочерёдно, затем Solgryn."
+      ],
+      [
+        "Target Select",
+        "Список целей. Неизвестный путь.",
+        "Собери случайный список оригинальных предметов; количество и обязательные боссы настраиваются. Меняются точки назначения, но не награды. Выполни цели, чтобы открыть финал с Solgryn."
+      ],
+      [
+        "Normal",
+        "Твой путь. Твои правила.",
+        "Оригинальное прохождение и сундуки. Можно выбрать стартового персонажа, ротацию и хаки; сначала эти дополнения выключены."
+      ],
+      [
+        "Boss Rush",
+        "Сразу к сражениям.",
+        "Выбирай боссов и число встреч — по умолчанию семь. После них тебя ждёт Solgryn."
+      ],
+      [
+        "Level Rush",
+        "Миры становятся испытанием.",
+        "Выбирай уровни и количество участков — по умолчанию семь. После маршрута следует финал с Solgryn."
+      ]
+    ],
+    "featuresTitle": "Каждый забег — по-твоему",
+    "features": [
+      [
+        "Больше обычного маршрута",
+        "Разделённые миры, мини-боссы, секреты и бета-бои с Ridley, Questionmark, Bomberman и Old Sonic. Список выбирается в Advanced. Переходы используют состояние игры вместо пикселей."
+      ],
+      [
+        "Предметы и персонажи вместе",
+        "Любой сундук может дать предмет или персонажа. Необязательная ротация использует доступных героев и добавляет новых после получения. Ручной выбор F3 при ротации заблокирован."
+      ],
+      [
+        "Сиды для друзей",
+        "Компактный код содержит сид и настройки забега. Копируй, вставляй, проверяй и просматривай его в меню или создавай новый. Для сравнения забегов нужна одинаковая версия."
+      ],
+      [
+        "Три слота, три приключения",
+        "Каждый слот хранит отдельный забег и открытия персонажей. В меню видны место, сложность, герой и прогресс; там же можно продолжить, создать или удалить сохранение."
+      ],
+      [
+        "Трекер рядом с игрой",
+        "Отдельное окно с таймером, смертями, местом, предметами, персонажами, боссами и копированием сида. Оно учитывает режим, выделяет цели Target Select и анимирует новые находки."
+      ],
+      [
+        "Финал без спешки",
+        "После Solgryn появляется отложенный полупрозрачный итог со статистикой и копируемым сидом. Анимация смерти и титры продолжаются."
+      ]
+    ],
+    "visualTitle": "Знакомая игра, новый облик",
+    "visual": "Персонажи и декорации интро меняются при запуске. Sprite Chaos перемешивает проверенные фоны с анимированным параллаксом, декор и материалы платформ. Слои настраиваются отдельно, фон можно затемнить. Перекраска врагов и боссов — бета; формы, атаки и коллизии сохраняются.",
+    "shotsTitle": "Новые выстрелы. Новый звук.",
+    "shots": "Меняй снаряд и эффект выстрела независимо от героя: после участка, смерти, обоих событий или в случайный момент внутри выбранного интервала. Секунды и минуты настраиваются; по умолчанию пять минут.",
+    "music": "Music Shuffle объединяет музыку уровней и боссов по сиду. Локальные наборы Kamilia 3 и WannaFest22 могут заменять также подходящие звуки интро, меню, смерти и титров. Выбор сохраняется; треки для перемешивания должны быть длиннее 30 секунд. Дополнительные наборы не включены.",
+    "hacksTitle": "Немного помощи. Немного хаоса.",
+    "hacksIntro": "В Advanced → Hacks выбирай дополнения для тренировки, разнообразия или неожиданностей.",
+    "hacks": [
+      "Убрать окна предметов",
+      "Отключить призрак мыши",
+      "1 HP у босса на уязвимую фазу",
+      "God Mode",
+      "Автоогонь при удержании кнопки",
+      "Зеркальный режим",
+      "Смена героя после смерти",
+      "Автопропуск интро боссов",
+      "Укоротить анимации сундуков",
+      "Перемешать музыку",
+      "Настроить Sprite Chaos",
+      "Сюрприз с пауком"
+    ],
+    "spider": "Паук изначально включён в новых забегах randomizer: нападение без предупреждения каждые 5–30 минут активной игры, в том числе у боссов. Отключи и примени настройку, чтобы запомнить выбор для будущих забегов. Сохранения и импортированные сиды оставляют свои правила.",
+    "controlsTitle": "Удобно играть",
+    "controls": [
+      "Мышь и клавиатура; Enter подтверждает выбор.",
+      "Меню подстраивается под окно, размер текста регулируется отдельно.",
+      "Размеры под монитор в оригинальном Options; растянутый полный экран сохранён.",
+      "Английский, немецкий, русский, испанский и японский по языку системы; запасной — английский. Журнал обновлений остаётся английским."
+    ],
+    "installTitle": "От загрузки до первого забега",
+    "steps": [
+      "Скачай установщик Windows или DEB для Linux.",
+      "Установи и открой Boshy Randomizer из меню приложений. В Windows можно добавить ярлык на рабочий стол.",
+      "Выбери поддерживаемую папку Boshy или ZIP, слот и настройки."
+    ],
+    "preserve": "Создаётся отдельная копия игры. Оригинальные сохранения не изменяются; обновление и удаление программы сохраняют забеги.",
+    "faqTitle": "Полезно знать",
+    "faq": [
+      [
+        "Можно использовать на стриме?",
+        "Трекер — отдельное окно для размещения рядом с игрой или захвата в OBS. Пользовательская интеграция PinguLexa/LiveSplit поддерживается отдельно и не входит в загрузки."
+      ],
+      [
+        "Что делать при проблеме с переходом?",
+        "Ctrl+Alt+D открывает текущие данные, тестовые действия и экспорт записей. Ctrl+Alt+M отмечает проблему и сохраняет недавнюю историю без открытия окна. Отчёт может включать снимок только игры."
+      ],
+      [
+        "Всё ли проверено?",
+        "369 автоматических тестов пройдены. Установка, обновление, удаление, сохранность данных и продолжение проверены в Windows с активным Defender. Проверки Linux описаны в релизе. Не все маршруты и сочетания пройдены целиком."
+      ],
+      [
+        "Что значит предварительная версия Windows?",
+        "Установщик не подписан, проверен в Windows 10 x64. Windows 11, не-ASCII пути аккаунта, физический 4K и смешанный DPI требуют проверки. Не отключай антивирус."
+      ],
+      [
+        "Есть онлайн-режим?",
+        "Это одиночный рандомайзер. Старое онлайн-меню отключено. Делись сидами, чтобы проходить сопоставимые маршруты с друзьями."
+      ]
+    ],
+    "galleryTitle": "Посмотри в движении",
+    "captions": [
+      "Оригинальное интро по-новому",
+      "Настройки и Advanced внутри игры",
+      "Забег одним взглядом"
+    ],
+    "footer": "Фан-проект THXel и сообщества спидраннеров Boshy. Оригинальная игра — Solgryn / Grynsoft.",
+    "support": "Сообщить о проблеме",
+    "docs": "Установка подробно",
+    "changelog": "Изменения",
+    "faqnav": "Вопросы"
+  },
+  "ja": {
+    "name": "日本語",
+    "title": "Boshyを、もう一度。",
+    "tagline": "シードが変われば、冒険も変わる。",
+    "intro": "おなじみの世界を、知らないルートで。出会いも報酬も変わる I Wanna Be The Boshy を楽しんで、同じシードを友達と共有しよう。",
+    "nav": [
+      "モード",
+      "機能",
+      "ギャラリー",
+      "ダウンロード"
+    ],
+    "download": "プラットフォームを選択",
+    "windows": "Windowsセットアップ",
+    "linux": "Linux DEB",
+    "release": "リリース・チェックサム",
+    "preview": "Windowsプレビュー · x64",
+    "linuxnote": "Linux Mint 22 / Ubuntu 24.04 · X11 · amd64",
+    "game": "自分のBoshyフォルダーまたはZIPが必要です。ゲーム本体は含まれません。",
+    "play": "5つの遊び方",
+    "modes": [
+      [
+        "Randomizer",
+        "おなじみのゲームをシャッフル。",
+        "ステージとボスの行き先を変更し、アイテムとキャラクターを共通の宝箱報酬にします。Advancedで候補と数を選択。推奨はステージ7つとボス7体を可能な範囲で交互に進み、最後はSolgryn。"
+      ],
+      [
+        "Target Select",
+        "目標リストと予測不能な旅。",
+        "ランダムな元のアイテム一覧を集めます。目標数と必須ボスは設定可能。行き先は変わりますが報酬は元のままです。全目標達成後にSolgrynへ進みます。"
+      ],
+      [
+        "Normal",
+        "いつものルートに、自分のルール。",
+        "元の進行と宝箱を維持。開始キャラクター、キャラクター変更、ハックを任意で選べます。追加機能は初期状態でオフです。"
+      ],
+      [
+        "Boss Rush",
+        "すぐにボス戦へ。",
+        "ボス候補と戦う数を選択。標準は7体で、その後にSolgrynが待ちます。"
+      ],
+      [
+        "Level Rush",
+        "ステージを主役に。",
+        "ステージ候補と区間数を選択。標準は7区間で、最後はSolgryn戦です。"
+      ]
+    ],
+    "featuresTitle": "自分だけのランに",
+    "features": [
+      [
+        "通常ルートの、その先へ",
+        "分割ステージ、ミニボス、隠しルートに加え、Ridley、Questionmark、Bomberman、Old Sonicなどのベータ戦も選べます。遷移は画面のピクセルではなくゲームの状態を読み取ります。"
+      ],
+      [
+        "アイテムもキャラクターも",
+        "宝箱の元の種類に関係なく、アイテムかキャラクターが手に入ります。任意のキャラクター変更では新しく集めたキャラクターも候補に追加。変更機能が有効な間はF3の手動選択をロックします。"
+      ],
+      [
+        "共有できるシード",
+        "短いコードにシードとラン設定をまとめます。ゲーム内でコピー、貼り付け、検証、プレビュー、新規生成が可能。同じランを比較する場合は同じバージョンを使ってください。"
+      ],
+      [
+        "3スロット、3つの冒険",
+        "ランとキャラクター解放をスロットごとに保存。場所、難易度、使用キャラクター、進捗を表示し、ゲーム内メニューから続行・作成・削除できます。"
+      ],
+      [
+        "ゲームの横にトラッカー",
+        "タイマー、死亡数、場所、収集物、キャラクター、ボス、シードコピーを別ウィンドウに表示。モードに合わせてTarget Selectの目標を強調し、新しい入手物をアニメーションで知らせます。"
+      ],
+      [
+        "最後まで楽しめる結果画面",
+        "Solgryn後、少し待って半透明の結果画面を表示。統計とコピー可能なシードを確認しながら、死亡演出とクレジットは背後で続きます。"
+      ]
+    ],
+    "visualTitle": "いつものゲームに、新しい景色",
+    "visual": "起動時のイントロキャラクターと景色が変化。Sprite Chaosでは確認済みの背景とアニメ付きパララックス、装飾、足場素材を変更できます。レイヤー別設定と背景の暗さ調整に対応。敵・ボスの色変更はベータで、形・攻撃・当たり判定は維持します。",
+    "shotsTitle": "弾も、音も、新しく。",
+    "shots": "キャラクターとは独立して弾と発射エフェクトを変更。区間ごと、死亡ごと、両方、または設定時間内のランダムなタイミングを選べます。秒・分で設定でき、標準は5分です。",
+    "music": "Music Shuffleはステージとボスの音楽を共通の候補からシードに基づいて割り当てます。ローカルのKamilia 3・WannaFest22パックでは対応するイントロ、メニュー、死亡、エンディング音も変更可能。選択は保存され、シャッフル対象は30秒を超える曲です。追加パックは同梱しません。",
+    "hacksTitle": "少しの助けと、少しのカオス。",
+    "hacksIntro": "Advanced → Hacksで練習用の補助や変化、サプライズを選べます。",
+    "hacks": [
+      "アイテムのポップアップ抑制",
+      "マウスのゴースト無効化",
+      "攻撃可能な各フェーズのボスHPを1に",
+      "God Mode",
+      "ボタン長押しで連射",
+      "ミラーモード",
+      "死亡後にキャラクター変更",
+      "ボスイントロを自動スキップ",
+      "宝箱演出を短縮",
+      "音楽をシャッフル",
+      "Sprite Chaos設定",
+      "クモのサプライズ"
+    ],
+    "spider": "新しいrandomizerランではクモが初期状態でオン。ボス戦を含む実プレイ5〜30分ごとに予告なしで襲います。オフにして適用すると今後のランにも記憶されます。既存セーブとインポートしたシードは元のルールを保持します。",
+    "controlsTitle": "遊びやすさも、自分に合わせて",
+    "controls": [
+      "マウスホバーとキーボード操作。Enterで決定。",
+      "ウィンドウに合わせるメニューと、独立した文字サイズ設定。",
+      "元のOptionsからモニターに合うサイズを選択。引き伸ばし全画面も利用可能。",
+      "英語・ドイツ語・ロシア語・スペイン語・日本語をシステムから判定。未対応言語は英語。更新履歴は英語のままです。"
+    ],
+    "installTitle": "ダウンロードから最初のランへ",
+    "steps": [
+      "WindowsインストーラーまたはLinux DEBをダウンロード。",
+      "インストール後、アプリメニューからBoshy Randomizerを起動。Windowsではデスクトップショートカットも選べます。",
+      "対応するBoshyフォルダーまたはZIPとセーブスロットを選び、ランを設定。"
+    ],
+    "preserve": "専用のゲームコピーを作成するため、元のセーブには触れません。更新・アンインストール後もランのデータは残ります。",
+    "faqTitle": "知っておきたいこと",
+    "faq": [
+      [
+        "配信にも使えますか？",
+        "別ウィンドウのトラッカーをゲーム横に配置したり、OBSで取り込めます。専用のPinguLexa/LiveSplit連携は別管理で、この配布には含まれません。"
+      ],
+      [
+        "遷移がおかしいときは？",
+        "Ctrl+Alt+Dでライブ状態、テスト操作、記録のエクスポートを開きます。Ctrl+Alt+Mはウィンドウを開かず問題を記録。ゲームだけのスクリーンショットをレポートに含められます。"
+      ],
+      [
+        "すべて検証済みですか？",
+        "369件の自動テストが成功。Windowsのインストール、更新、削除、データ保持、再開をDefender有効で確認。Linuxの確認範囲はリリースに記載しています。全ルート・全設定の通しプレイではありません。"
+      ],
+      [
+        "Windowsプレビューとは？",
+        "未署名インストーラーをWindows 10 x64で検証しています。Windows 11、非ASCIIアカウントパス、実機4K、混在DPIは追加確認が必要です。ウイルス対策は有効のまま使用してください。"
+      ],
+      [
+        "オンラインで遊べますか？",
+        "シングルプレイヤー用です。元のオンラインメニューは無効です。友達とシードを共有して同じ条件のランを楽しめます。"
+      ]
+    ],
+    "galleryTitle": "動くBoshyを見よう",
+    "captions": [
+      "元のイントロをリミックス",
+      "ゲーム内設定とAdvanced",
+      "ランをひと目で確認"
+    ],
+    "footer": "THXelとBoshyスピードランコミュニティのファンプロジェクト。原作：Solgryn / Grynsoft。",
+    "support": "問題を報告",
+    "docs": "インストール詳細",
+    "changelog": "更新履歴",
+    "faqnav": "よくある質問"
+  }
+}

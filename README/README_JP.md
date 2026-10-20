@@ -1,72 +1,165 @@
-# Boshyを、もう一度。
+<div align="center">
 
-[English](README_EN.md) · [Deutsch](README_DE.md) · [Русский](README_RU.md) · [Español](README_ES.md) · [日本語](README_JP.md)
+<img src="../Custom/boshy_randomizer.png" alt="Boshy Randomizer" width="420">
+
+# Boshyを、もう一度。
 
 **シードが変われば、冒険も変わる。**
 
-久しぶりに *I Wanna Be The Boshy* を起動してみませんか。おなじみのステージ、ボス、隠しエリアを、新しい順番で楽しめます。ランダムな目標に挑戦したり、友達とシードを共有したり。任意の追加要素で、遊び慣れたBoshyにも驚きが生まれます。
+[English](README_EN.md) · [Deutsch](README_DE.md) · [Español](README_ES.md) · [Русский](README_RU.md) · [日本語](README_JP.md)
 
-[Linux版DEBをダウンロード](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.15/boshy-randomizer_2026.10.15-1_amd64.deb) · [リリースとチェックサム](https://github.com/THXel/Boshy-Randomizer/releases/tag/v2026.10.15)
+[🌐 Website](https://thxel.github.io/Boshy-Randomizer/site/ja/) · [↓ Windowsセットアップ](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.18/BoshyRandomizer-2026.10.18-Windows-Setup-x64.exe) · [↓ Linux DEB](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.18/boshy-randomizer_2026.10.18-1_amd64.deb) · [リリース・チェックサム](https://github.com/THXel/Boshy-Randomizer/releases/tag/v2026.10.18)
 
-**Linux Mint 22.x / Ubuntu 24.04 · amd64 · X11**
+</div>
 
-[Windowsセットアップ（プレビュー）](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.18-windows-preview/BoshyRandomizer-2026.10.18-Windows-Setup-x64.exe)
+おなじみの世界を、知らないルートで。出会いも報酬も変わる I Wanna Be The Boshy を楽しんで、同じシードを友達と共有しよう。
 
-**Windows x64プレビュー：** セットアップ後、スタートメニューまたは任意のデスクトップショートカットから **Boshy Randomizer** を起動できます。CMDやPython、Wine、Lutrisのインストールは不要です。初回起動時に自分のBoshyフォルダーまたはZIPを選びます。ゲーム本体は含まれません。更新・アンインストール後もセーブデータは残ります。Windows 10でDefenderを有効にしたまま検証しました。インストーラーは未署名です。Windows 11と非ASCII文字を含むユーザーパスは未検証です。
+> 自分のBoshyフォルダーまたはZIPが必要です。ゲーム本体は含まれません。
 
-[Windows setup details](../docs/WINDOWS_PACKAGE.md)
+[モード](#modes) · [機能](#features) · [Hacks](#hacks) · [ダウンロード](#download) · [よくある質問](#faq)
 
-![新しい装いのオリジナルメニュー](../docs/media/rediscover-intro.gif)
+![元のイントロをリミックス](../docs/media/rediscover-intro.gif)
 
-## 遊び方を選ぶ
+<a id="modes"></a>
 
-| モード | 内容 |
+## 5つの遊び方
+
+| Mode | |
 | --- | --- |
-| **Randomizer** | ステージとボスの行き先をシャッフル。宝箱の報酬にはアイテムとキャラクターが混在します。Advancedで候補を選択でき、推奨設定はステージ7つとボス7体です。 |
-| **Target Select** | 指定した個数のアイテム目標をランダムに選び、任意でボス目標も追加。移動先はランダムですが、アイテムの配置は元のままです。目標達成後にSolgrynへ進みます。 |
-| **Normal** | 通常の進行と宝箱の報酬。開始キャラクター、ランダムなキャラクター変更、ハックを任意で選べます。変更とハックは初期状態でオフ。F3はキャラクター変更が有効な場合のみ無効です。 |
+| **Randomizer** | **おなじみのゲームをシャッフル。** ステージとボスの行き先を変更し、アイテムとキャラクターを共通の宝箱報酬にします。Advancedで候補と数を選択。推奨はステージ7つとボス7体を可能な範囲で交互に進み、最後はSolgryn。 |
+| **Target Select** | **目標リストと予測不能な旅。** ランダムな元のアイテム一覧を集めます。目標数と必須ボスは設定可能。行き先は変わりますが報酬は元のままです。全目標達成後にSolgrynへ進みます。 |
+| **Normal** | **いつものルートに、自分のルール。** 元の進行と宝箱を維持。開始キャラクター、キャラクター変更、ハックを任意で選べます。追加機能は初期状態でオフです。 |
+| **Boss Rush** | **すぐにボス戦へ。** ボス候補と戦う数を選択。標準は7体で、その後にSolgrynが待ちます。 |
+| **Level Rush** | **ステージを主役に。** ステージ候補と区間数を選択。標準は7区間で、最後はSolgryn戦です。 |
 
-3つの独立したセーブスロットで、進行状況とキャラクター解放を別々に管理します。新規設定も続きからの再開も、元のゲームメニューから操作できます。短い **共有シードコード**にシードと設定が含まれ、読み込み時は内容確認と形式チェックが行われます。
+<a id="features"></a>
 
-## 新しい楽しみ方
+## 自分だけのランに
 
-- メニューは小さなゲームウィンドウに自動対応します。セーブ選択や新規ランの **Aa** から文字サイズを変更できます。設定は端末に保存され、シードやゲームの解像度は変わりません。
-- **45か所のルートポイント**。分割ステージ、ミニボス、Ridley・Questionmark・Old Sonicなどのベータ版ボスを選択可能。画面のピクセルではなくゲームの状態で移動を判定します。
-- キャラクター変更と、**弾および発射エフェクト**のランダム化。移動時、死亡時、両方、または上限を設定できるランダムな時間間隔から選べます。
-- ステージとボスの**45曲をまとめてシャッフル**する音楽オプション。
-- 起動ごとに変化するイントロのキャラクター、背景、足場と控えめな演出。見た目の変化はシードに影響しません。
-- アイテムのポップアップ抑制、マウスゴースト無効化、ボスのイントロ省略、宝箱演出短縮、連射、ボスHP1、God Modeなどの設定。
-- 新規プレイでは**クモのサプライズ**が初期状態で有効。実際のプレイ時間で5～30分のランダムな間隔で、ボス戦でも予告なく現れます。**Advanced → Hacks**で無効にして適用すると、再び有効にするまで新規プレイの既定値として記憶されます。既存セーブと読み込んだシードは、それぞれの設定を使います。
-- 別ウィンドウの小さなライブトラッカー、収集アイコン、シードのコピー、Solgryn撃破後の結果画面。**Ctrl+Alt+D**で診断と記録の書き出しができます。
-- **Ctrl+Alt+M**で診断画面を開かずに問題を記録し、直前2分間までの診断履歴を`debug-reports`に保存できます。診断画面にはトリガー検出後の待機時間、読み込み時間、遷移の合計時間も個別に表示されます。
-- グラフィック診断では、背景・装飾・床・敵の色を個別に一時停止できます。次のレベル読み込み時に反映され、セーブを読み込むと元の設定に戻ります。問題レポートには、取得可能な場合にゲーム画面だけのスクリーンショットと最近のグラフィック変更履歴が含まれます。
+### 通常ルートの、その先へ
 
-![設定・Advanced・弾・追加機能・シードのメニューツアー](../docs/media/rediscover-menu-tour.gif)
+分割ステージ、ミニボス、隠しルートに加え、Ridley、Questionmark、Bomberman、Old Sonicなどのベータ戦も選べます。遷移は画面のピクセルではなくゲームの状態を読み取ります。
 
-## Linuxへのインストール
+### アイテムもキャラクターも
 
-DEBをダウンロードし、更新時はランダマイザーを終了してからインストールします。
+宝箱の元の種類に関係なく、アイテムかキャラクターが手に入ります。任意のキャラクター変更では新しく集めたキャラクターも候補に追加。変更機能が有効な間はF3の手動選択をロックします。
 
-```sh
-sudo apt install ./boshy-randomizer_2026.10.15-1_amd64.deb
-```
+### 共有できるシード
 
-アプリケーションメニューから **Boshy Randomizer** を起動してください。初回は対応するBoshyの**フォルダーまたはZIP**を指定します。専用コピーを作成するため、元のセーブデータは変更も取り込みもされません。その後スロットと設定を選びます。
+短いコードにシードとラン設定をまとめます。ゲーム内でコピー、貼り付け、検証、プレビュー、新規生成が可能。同じランを比較する場合は同じバージョンを使ってください。
 
-**元のゲーム本体は含まれていません。** Wine、Lutrisと必要なライブラリは依存関係としてインストールされます。初回設定では検証済みのWine Staging 11.2 WoW64をダウンロードするか、同一の既存コピーを使用します。依存関係と初回ダウンロードにはインターネットが必要です。Lutrisを開いたままにする必要はありません。
+### 3スロット、3つの冒険
 
-保存先は `~/.local/share/boshy-randomizer/` です。パッケージの更新・削除でもユーザーデータは残ります。開発用インストールは自動移行しません。[詳細](../docs/LINUX_PACKAGE.md)。
+ランとキャラクター解放をスロットごとに保存。場所、難易度、使用キャラクター、進捗を表示し、ゲーム内メニューから続行・作成・削除できます。
 
-## 言語と検証
+### ゲームの横にトラッカー
 
-英語・ドイツ語・ロシア語・スペイン語・日本語をシステム設定から検出し、未対応の言語では英語を使用します。更新履歴は英語のままです。元のゲームの台詞、画像、キャラクター名は翻訳しません。
+タイマー、死亡数、場所、収集物、キャラクター、ボス、シードコピーを別ウィンドウに表示。モードに合わせてTarget Selectの目標を強調し、新しい入手物をアニメーションで知らせます。
 
-![現在の日本語設定画面](../docs/media/setup-ja.png)
+### 最後まで楽しめる結果画面
 
-自動テスト369件が成功。45か所すべてでゲーム内の読み込みとリセットを確認し、Questionmark、Ridley、Old Sonic、Solgrynは練習用設定を使って撃破を確認しました。クモのタイマー、保存・再開、結果表示も実機で検証しています。すべてのルートや設定の組み合わせを通しでクリアしたという意味ではありません。[検証範囲](../docs/RELEASE_PREPARATION.md)。
+Solgryn後、少し待って半透明の結果画面を表示。統計とコピー可能なシードを確認しながら、死亡演出とクレジットは背後で続きます。
 
-**THXelとBoshyスピードランコミュニティ**によるファンプロジェクト。オリジナルゲーム：**Solgryn / Grynsoft**。
+![ゲーム内設定とAdvanced](../docs/media/rediscover-menu-tour.gif)
 
-[更新履歴](../CHANGELOG.md) · [ビルド方法](../docs/LINUX_PACKAGE.md#building) · [不具合の報告](https://github.com/THXel/Boshy-Randomizer/issues)
+### いつものゲームに、新しい景色
 
-現行ソースは `native-linux/`。PinguLexa/OBS連携は別途提供されます。[対応ゲームと素材](../docs/LINUX_PACKAGE.md#game-and-assets) · [クレジット](../Custom/License.txt)。
+起動時のイントロキャラクターと景色が変化。Sprite Chaosでは確認済みの背景とアニメ付きパララックス、装飾、足場素材を変更できます。レイヤー別設定と背景の暗さ調整に対応。敵・ボスの色変更はベータで、形・攻撃・当たり判定は維持します。
+
+### 弾も、音も、新しく。
+
+キャラクターとは独立して弾と発射エフェクトを変更。区間ごと、死亡ごと、両方、または設定時間内のランダムなタイミングを選べます。秒・分で設定でき、標準は5分です。
+
+Music Shuffleはステージとボスの音楽を共通の候補からシードに基づいて割り当てます。ローカルのKamilia 3・WannaFest22パックでは対応するイントロ、メニュー、死亡、エンディング音も変更可能。選択は保存され、シャッフル対象は30秒を超える曲です。追加パックは同梱しません。
+
+<a id="hacks"></a>
+
+## 少しの助けと、少しのカオス。
+
+Advanced → Hacksで練習用の補助や変化、サプライズを選べます。
+
+- アイテムのポップアップ抑制
+- マウスのゴースト無効化
+- 攻撃可能な各フェーズのボスHPを1に
+- God Mode
+- ボタン長押しで連射
+- ミラーモード
+- 死亡後にキャラクター変更
+- ボスイントロを自動スキップ
+- 宝箱演出を短縮
+- 音楽をシャッフル
+- Sprite Chaos設定
+- クモのサプライズ
+
+> 新しいrandomizerランではクモが初期状態でオン。ボス戦を含む実プレイ5〜30分ごとに予告なしで襲います。オフにして適用すると今後のランにも記憶されます。既存セーブとインポートしたシードは元のルールを保持します。
+
+### 遊びやすさも、自分に合わせて
+
+- マウスホバーとキーボード操作。Enterで決定。
+- ウィンドウに合わせるメニューと、独立した文字サイズ設定。
+- 元のOptionsからモニターに合うサイズを選択。引き伸ばし全画面も利用可能。
+- 英語・ドイツ語・ロシア語・スペイン語・日本語をシステムから判定。未対応言語は英語。更新履歴は英語のままです。
+
+<a id="download"></a>
+
+## プラットフォームを選択
+
+| | Download | |
+| --- | --- | --- |
+| **Windows** | [Windowsセットアップ](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.18/BoshyRandomizer-2026.10.18-Windows-Setup-x64.exe) | Windowsプレビュー · x64 |
+| **Linux** | [Linux DEB](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.18/boshy-randomizer_2026.10.18-1_amd64.deb) | Linux Mint 22 / Ubuntu 24.04 · X11 · amd64 |
+
+[リリース・チェックサム](https://github.com/THXel/Boshy-Randomizer/releases/tag/v2026.10.18) · [Windows](../docs/WINDOWS_PACKAGE.md) · [Linux](../docs/LINUX_PACKAGE.md)
+
+### ダウンロードから最初のランへ
+
+1. WindowsインストーラーまたはLinux DEBをダウンロード。
+2. インストール後、アプリメニューからBoshy Randomizerを起動。Windowsではデスクトップショートカットも選べます。
+3. 対応するBoshyフォルダーまたはZIPとセーブスロットを選び、ランを設定。
+
+専用のゲームコピーを作成するため、元のセーブには触れません。更新・アンインストール後もランのデータは残ります。
+
+<a id="faq"></a>
+
+## 知っておきたいこと
+
+<details>
+<summary>配信にも使えますか？</summary>
+
+別ウィンドウのトラッカーをゲーム横に配置したり、OBSで取り込めます。専用のPinguLexa/LiveSplit連携は別管理で、この配布には含まれません。
+
+</details>
+
+<details>
+<summary>遷移がおかしいときは？</summary>
+
+Ctrl+Alt+Dでライブ状態、テスト操作、記録のエクスポートを開きます。Ctrl+Alt+Mはウィンドウを開かず問題を記録。ゲームだけのスクリーンショットをレポートに含められます。
+
+</details>
+
+<details>
+<summary>すべて検証済みですか？</summary>
+
+369件の自動テストが成功。Windowsのインストール、更新、削除、データ保持、再開をDefender有効で確認。Linuxの確認範囲はリリースに記載しています。全ルート・全設定の通しプレイではありません。
+
+</details>
+
+<details>
+<summary>Windowsプレビューとは？</summary>
+
+未署名インストーラーをWindows 10 x64で検証しています。Windows 11、非ASCIIアカウントパス、実機4K、混在DPIは追加確認が必要です。ウイルス対策は有効のまま使用してください。
+
+</details>
+
+<details>
+<summary>オンラインで遊べますか？</summary>
+
+シングルプレイヤー用です。元のオンラインメニューは無効です。友達とシードを共有して同じ条件のランを楽しめます。
+
+</details>
+
+---
+
+THXelとBoshyスピードランコミュニティのファンプロジェクト。原作：Solgryn / Grynsoft。
+
+[問題を報告](https://github.com/THXel/Boshy-Randomizer/issues) · [更新履歴](../CHANGELOG.md) · [Credits](../Custom/License.txt)

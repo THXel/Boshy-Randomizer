@@ -2,15 +2,21 @@
 
 All update logs remain in English, regardless of the UI language.
 
-## 2026.10.18 — Windows installer preview and display options
+## 2026.10.18 — Boshy, Reborn: Windows & Linux
+
+- Bring the Linux DEB and tested Windows installer preview into one release with a shared download page and checksums.
+- Replace the project landing page with a responsive five-language website, animated game previews, mode cards, feature groups and installation guides.
+- Rewrite all five READMEs around the current five modes, seeds, independent saves, trackers, graphics, music, shot styles and optional hacks.
+
+### Windows installer and display options
 
 - Add a five-language per-user setup wizard, Start-menu and optional desktop shortcuts, upgrade support and an uninstaller that preserves separate game/save data. Shortcuts launch directly without a CMD window.
-- Add a Windows backend for native saves, loading audio, focus, tracker and debug windows, without Wine or Lutris.
+- Add a Windows backend for native saves, loading audio, focus, tracker and debug windows, using native Windows APIs.
 - Package the preview with signed CPython runtime files and visible application sources. Keep Defender enabled; the quarantined PyInstaller prototype is not a release artifact.
 - Extend the original Screen size option with monitor-fitting 4:3 presets up to a 2160-pixel content height. Preserve the final stretched fullscreen option and keep resized windows inside the current work area.
 - Add display-size guidance in all five languages. Physical 4K and mixed-DPI verification remain open.
 
-## Unreleased — Playtest fixes
+### Included playtest fixes
 
 - Confirm native checkpoint settling within eight pixels only when the actual player is equally close in the requested frame. This handles the VVVVVV entrance save changing Y=140 to Y=143; final wrong-warp validation and the single target reset remain intact.
 

@@ -7,10 +7,10 @@ The installed Linux copy is not modified by Windows testing.
 ## Starting
 
 Download `BoshyRandomizer-2026.10.18-Windows-Setup-x64.exe` from the
-[Windows preview release](https://github.com/THXel/Boshy-Randomizer/releases/tag/v2026.10.18-windows-preview).
+[combined Windows & Linux release](https://github.com/THXel/Boshy-Randomizer/releases/tag/v2026.10.18).
 Run the setup wizard, then open **Boshy Randomizer** from the Start menu or the
 optional desktop shortcut. No command window is needed. A private Python runtime
-is included; users do not need Python, Wine or Lutris. On first start, select a
+is included. On first start, select a
 compatible Boshy game folder or ZIP. The game itself and existing personal saves
 are never included in the download or copied into a new run.
 
@@ -100,4 +100,4 @@ Earlier portable tests covered three separate Randomizer / Normal / Target slots
 three resets per mode, the tracker and the debug hotkey. The installer packages
 the same validated application payload. Natural playthroughs of every boss,
 soundpack and hack combination remain outside this Windows smoke test. The
-Windows build is published as a preview; Linux downloads remain separate.
+Windows build remains a preview within the combined Windows & Linux release.
