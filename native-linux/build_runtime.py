@@ -3,6 +3,18 @@ from pathlib import Path
 import subprocess,tempfile,os,json,hashlib,re
 B=Path(__file__).resolve().parent
 
+def bind_native_hashes(base):
+ """Bind integrity checks to this build, including the named Extras constant."""
+ hashes={name:hashlib.sha256((base/name).read_bytes()).hexdigest() for name in ('native_intro_guard.dll','native_menu_polished.dll','native_extras.dll')}
+ p=base/'intro_guard.py';text=p.read_text(encoding='utf-8')
+ replacements=[(r"GUARD_HASH='[^']+'",'GUARD_HASH='+repr(hashes['native_intro_guard.dll'])),
+               (r"EXTRAS_CURRENT='[^']+'",'EXTRAS_CURRENT='+repr(hashes['native_extras.dll'])),
+               (r"(native_menu_polished\.dll'\).read_bytes\(\)\).hexdigest\(\)!=')[^']+",r'\g<1>'+hashes['native_menu_polished.dll'])]
+ for pattern,value in replacements:
+  text,count=re.subn(pattern,value,text)
+  if count!=1:raise RuntimeError('Native integrity binding must match exactly once: '+pattern)
+ p.write_text(text,encoding='utf-8')
+
 def build():
  from build_context import build as build_context
  from elf_to_coff import convert
@@ -27,11 +39,6 @@ def build():
    symbols=run(['nm','-n',str(elf)],capture_output=True,text=True).stdout;offset=int(next(l.split()[0] for l in symbols.splitlines() if l.endswith(' context')),16)
    output='slot_reward_symbols.json' if name=='slot_reward_hook' else 'slot_reward_extras_symbols.json'
    (B/output).write_text(json.dumps({'context_offset':offset},indent=2)+'\n', encoding='utf-8')
- hashes={name:hashlib.sha256((B/name).read_bytes()).hexdigest() for name in ('native_intro_guard.dll','native_menu_polished.dll','native_extras.dll')}
- p=B/'intro_guard.py';text=p.read_text(encoding='utf-8');text=re.sub("GUARD_HASH='[^']+'", "GUARD_HASH="+repr(hashes['native_intro_guard.dll']),text)
- for name in ('native_menu_polished.dll','native_extras.dll'):
-  pattern=r"("+re.escape(name)+r"'\).read_bytes\(\)\).hexdigest\(\)!=')[^']+"
-  text=re.sub(pattern,r'\g<1>'+hashes[name],text)
- p.write_text(text, encoding='utf-8')
+ bind_native_hashes(B)
  print('Built portable launchers, four DLLs and two hook payloads.')
 if __name__=='__main__':build()
