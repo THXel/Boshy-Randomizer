@@ -2,7 +2,7 @@ name: Combined Windows and Linux release
 on:
   push:
     branches: [Boshy-Randomizer]
-    paths: ['packaging/release.json', 'packaging/publish_release.py', '.github/workflows/release.yml']
+    paths: ['packaging/release.json', 'packaging/publish_release.py', 'packaging/build_release_windows.ps1', '.github/workflows/release.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -10,12 +10,10 @@ concurrency:
   group: combined-release
   cancel-in-progress: false
 jobs:
-  release:
+  native:
     if: github.repository == 'THXel/Boshy-Randomizer' && github.ref == 'refs/heads/Boshy-Randomizer'
     runs-on: ubuntu-24.04
     timeout-minutes: 20
-    permissions:
-      contents: write
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -30,13 +28,60 @@ jobs:
         run: python native-linux/build_runtime.py
       - name: Test runtime and localization
         run: python -m unittest discover -s native-linux/tests -v
-      - name: Verify generated documentation
+      - name: Build game-free Linux package and Windows payload
         run: |
-          python packaging/render_site.py
-          git diff --exit-code -- index.html site README.md README
-      - name: Build game-free Linux package
-        run: python packaging/build_deb.py dist
-      - name: Verify Windows installer and publish combined release
+          python packaging/build_deb.py dist
+          python packaging/export_windows.py windows-payload --version "$(python -c 'import json; print(json.load(open("packaging/release.json"))["version"])')"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: linux-package
+          path: dist/*.deb
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows-payload
+          path: windows-payload/
+          if-no-files-found: error
+  windows:
+    needs: native
+    runs-on: windows-2025
+    timeout-minutes: 25
+    env:
+      PYTHONUTF8: '1'
+      PYTHONNOUSERSITE: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: windows-payload
+          path: windows-payload
+      - name: Build and verify Windows installer
+        shell: pwsh
+        run: ./packaging/build_release_windows.ps1
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows-package
+          path: |
+            dist/*.exe
+            dist/windows-build.json
+          if-no-files-found: error
+  publish:
+    needs: [native, windows]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: linux-package
+          path: dist
+      - uses: actions/download-artifact@v4
+        with:
+          name: windows-package
+          path: dist
+      - name: Verify packages and publish combined release
         env:
           GH_TOKEN: ${{ github.token }}
-        run: python packaging/publish_release.py
+        run: python3 packaging/publish_release.py

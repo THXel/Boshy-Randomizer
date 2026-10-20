@@ -28,6 +28,7 @@ static void bg_instance(U at,U handle,const BgInstance*instance,I shift){
  const BgObject*o=&bgObjects[instance->object];bg_zero(at,36);*(unsigned short*)at=handle;*(unsigned short*)(at+2)=o->oi;*(I*)(at+4)=instance->x+shift;*(I*)(at+8)=instance->y;*(unsigned short*)(at+18)=o->type;
 }
 static void background_load(U frame){
+ pack_death_clear();deathEpoch++;DeathScreenState[0]=DeathScreenState[1]=0;
  graphics_debug_load();
  U app=*(U*)0x459a94,scene=app?*(U*)(app+0x1ec):~0U;bgReady=0;bgScene=~0U;BackgroundState[1]=0;BackgroundState[2]=scene;BackgroundState[6]=0;
  U target=BG_COUNT;for(U i=0;i<BG_COUNT;i++)if(bgSets[i].scene==scene){target=i;break;}
@@ -84,12 +85,13 @@ static I background_images(U arg){
   * texture instead. 0xffff is MMF's absent source-image sentinel: the loader
   * skips its count, converts it to 0, and the importer owns the new reference.
   * Original instances outside this plan keep the original loader untouched. */
+ death_before_images();
  I direct=0;U pd=0,pc=0;
  if(bgReady&&bg_has(bgSource,681)){
   pd=theme_definition(681);pc=pd?*(U*)(pd+20):0;
   if(pc>=65536&&*(U*)pc==174&&*(U*)(pc+46)==0x70616c78&&*(U*)(pc+152)==1&&*(unsigned short*)(pc+170)==2936){*(unsigned short*)(pc+170)=0xffff;direct=1;}
  }
- I(*loadOriginal)(U)=(void*)0x41b840;I result=loadOriginal(arg);
+ I(*loadOriginal)(U)=(void*)0x41b840;I result=loadOriginal(arg);death_after_images(result);
  if(result||!bgReady||bgFrame!=*(U*)0x459a98)return result;
  U start=GetTickCount(),seen[sizeof(bgObjects)/sizeof(*bgObjects)]={0},indices[25],pointers[25],definitions[25],n=0;const BgSet*s=&bgSets[bgSource];
  U bank=*(U*)(*(U*)0x459a94+0x1c4);I(W*getinfo)(U,U,U,U,U,H)=(void*)0x450de6;

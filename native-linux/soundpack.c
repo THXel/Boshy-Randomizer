@@ -1,6 +1,13 @@
 /* Global cosmetic sound pack. Literal actions only; unrelated audio delegates. */
 static struct {char name[68],path[100];U kind;} packRows[32];
 static U packCount,packGeneration,packChecked;
+static U packDeathSerial,packDeathRun,packDeathTick,packDeathPlaying;
+/* Channel 32 is reserved only for our death sequence. Original explicit audio
+ * channels, music controls and ordinary SFX remain handled by MMF. */
+static void pack_death_clear(void){
+ if(packDeathPlaying){void(*stop)(I)=(void*)0x41fab0;void(*reserve)(I,I)=(void*)0x41fe30;stop(32);reserve(32,0);}
+ packDeathPlaying=packDeathSerial=0;
+}
 U SoundPackState[8]={0x42525031,0,0,0,0,0,0,0}; /* magic,generation,count,replaced,error,last row,scene,code */
 U SoundTrace[1+16*36]; /* ring: scene, code, size, reserved, up to 128 action bytes */
 static I pack_equal(S a,S b,U n){for(U j=0;j<n;j++){if(a[j]!=b[j])return 0;if(!a[j])return 1;}return 0;}
@@ -41,6 +48,7 @@ static I pack_action(U action){
   if(pack_equal(packRows[i].name,"select",68)&&q->scene!=19)return 0;
   U flags=0x10000|((*(unsigned char*)(action+20)&1)?2:0);
   if(packRows[i].kind==1){flags|=0x10;if(!channel)channel=2;void(*reserve)(I,I)=(void*)0x41fe30;reserve(channel,1);}
+  if(packRows[i].kind==2){channel=32;void(*reserve)(I,I)=(void*)0x41fe30;reserve(channel,1);packDeathPlaying=1;U run=*(U*)0x459a9c;if(run>=65536){packDeathRun=run;packDeathTick=*(U*)(run+0xd0);packDeathSerial++;}}
   void(*play)(S,U,I,I)=(void*)0x41f9a0;play(packRows[i].path,flags,0,channel);
   SoundPackState[3]++;SoundPackState[5]=i;SoundPackState[6]=q->scene;SoundPackState[7]=code;return 1;
  }

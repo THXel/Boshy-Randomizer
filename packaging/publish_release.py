@@ -1,7 +1,7 @@
 """Publish reviewed Windows + freshly tested Linux assets as one GitHub release.
 
 Executed by release.yml with the repository-scoped GITHUB_TOKEN. The Windows
-installer is reused byte-for-byte from the tested preview and hash checked.
+installer is rebuilt in the same workflow, installation tested and hash checked.
 """
 from pathlib import Path
 import hashlib,json,os,subprocess,urllib.request
@@ -20,11 +20,11 @@ def main():
     linux=OUT/CFG['linux_file']
     if not linux.is_file():raise SystemExit('Build and test the Linux package first.')
     win=OUT/CFG['windows_file']
-    old=api(f'repos/{REPO}/releases/tags/{CFG["windows_tag"]}')
-    asset=next(a for a in old['assets'] if a['name']==win.name)
-    with urllib.request.urlopen(asset['browser_download_url']) as response:
-        win.write_bytes(response.read())
-    if digest(win)!=CFG['windows_sha256']:raise SystemExit('Windows installer checksum mismatch.')
+    report=json.loads((OUT/'windows-build.json').read_text(encoding='utf-8-sig'))
+    if (report.get('source_commit')!=os.environ['GITHUB_SHA'] or report.get('version')!=CFG['version']
+        or report.get('file')!=win.name or report.get('installed_files',0)<100
+        or not win.is_file() or digest(win)!=report.get('sha256')):
+        raise SystemExit('Windows build provenance or checksum mismatch.')
     sums=OUT/'SHA256SUMS';sums.write_text(''.join(f'{digest(p)}  {p.name}\n' for p in (win,linux)))
     notes=(ROOT/CFG['notes']).read_text()
     for rel in ('WINDOWS_PACKAGE.md','LINUX_PACKAGE.md'):
@@ -48,12 +48,5 @@ def main():
         if a['size']!=p.stat().st_size or a.get('digest')!='sha256:'+digest(p):
             raise SystemExit('Uploaded asset verification failed: '+p.name)
     gh('release','edit',CFG['tag'],'--repo',REPO,'--draft=false','--latest')
-    notice=f'> **Windows & Linux now share one release:** [Download both platforms](https://github.com/{REPO}/releases/tag/{CFG["tag"]}). This page is retained for earlier download links.\n\n'
-    for tag in (CFG['windows_tag'],'v2026.10.15'):
-        record=api(f'repos/{REPO}/releases/tags/{tag}')
-        body=record['body'] or ''
-        if notice not in body:
-            path=OUT/(tag+'-archive-notice.md');path.write_text(notice+body)
-            gh('release','edit',tag,'--repo',REPO,'--notes-file',str(path))
     print(f'Published https://github.com/{REPO}/releases/tag/{CFG["tag"]}')
 if __name__=='__main__':main()

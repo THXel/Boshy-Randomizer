@@ -19,7 +19,7 @@ def extras_compatible(base,asset_base):return extras_path(base,asset_base).read_
 def attach(base,blob,*,context_offset=None,extras=False,asset_base=None):
  archived=asset_base is not None and asset_base!=base
  asset_base=asset_base or base
- if hashlib.sha256((base/'native_menu_polished.dll').read_bytes()).hexdigest()!='a7585db9e3487824312923e8f4c78dd0d8f4a2902f62e1e2d1bdd0bea5ad9ab5':raise RuntimeError('Die native Menü-Bibliothek fehlt oder wurde verändert.')
+ if hashlib.sha256((base/'native_menu_polished.dll').read_bytes()).hexdigest()!='00d4f2bde4a4f4db5a2e71cac6238fd2da810e5a0cddd15dbb06c8d7f708c067':raise RuntimeError('Die native Menü-Bibliothek fehlt oder wurde verändert.')
  path=asset_base/'native_intro_guard.dll'
  if not archived and hashlib.sha256(path.read_bytes()).hexdigest() not in GUARD_HASHES:raise RuntimeError('Der native Intro-Schutz fehlt oder wurde verändert.')
  raw=bytearray(blob);context=context_offset if context_offset is not None else json.loads((base/'slot_reward_symbols.json').read_text(encoding='utf-8'))['context_offset'];offset=context+CONTEXT_SIZE

@@ -2,6 +2,14 @@
 
 All update logs remain in English, regardless of the UI language.
 
+## 2026.10.20 — Soundpack death screens
+
+- Support locally imported Kamilia 3 and WannaFest22 death screens, blood sprites and matching death audio. Optional game assets remain outside the distributed packages.
+- Fade in Kamilia's translucent red screen before its Game Over title.
+- Reproduce WannaFest's fast left/right Game Over title impacts and animated VHS noise. Remove the original Boshy bouncing scale only for imported death displays.
+- Stop the imported death cue on reset and scene changes, keeping Boshy's original reset behavior in all three packs. No extra reset sound is added.
+- Validate image checksums, dimensions and animation timelines before activating a pack; switching back to Original restores the native death display.
+
 ## 2026.10.18 — Boshy, Reborn: Windows & Linux
 
 - Bring the Linux DEB and tested Windows installer preview into one release with a shared download page and checksums.

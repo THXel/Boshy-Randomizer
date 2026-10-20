@@ -58,6 +58,7 @@ static I W proc(H w,U msg,U a,I b){
 #include "intro_themes.c"
 #include "graphics_debug.c"
 #include "sprite_scenery.c"
+#include "death_visuals.c"
 #include "background_sets.c"
 #include "sprite_chaos.c"
 #include "intro_atmosphere.c"
@@ -104,7 +105,7 @@ static I init(void){
  GET(user,RegisterClassA);GET(user,CreateWindowExA);GET(user,DefWindowProcA);GET(user,GetClientRect);GET(user,ShowWindow);GET(user,SetFocus);GET(user,MoveWindow);GET(user,BeginPaint);GET(user,EndPaint);GET(user,InvalidateRect);GET(user,LoadImageA);GET(user,FillRect);GET(user,IsWindow);GET(user,SetWindowRgn);GET(user,GetForegroundWindow);GET(user,SetForegroundWindow);GET(user,GetWindowLongA);GET(user,SetWindowLongA);GET(user,SetLayeredWindowAttributes);GET(user,ClientToScreen);
  GET(gdi,CreateCompatibleDC);GET(gdi,SelectObject);GET(gdi,DeleteObject);GET(gdi,DeleteDC);GET(gdi,StretchBlt);GET(gdi,GetStockObject);GET(gdi,CreateRectRgn);GET(gdi,SetStretchBltMode);
  H kernel=library("kernel32.dll");GET(kernel,VirtualProtect);GET(kernel,GetTickCount);
- if(!music_init()||!exit_init()||!notice_init(user,gdi))return 0;
+ if(!music_init()||!death_init()||!exit_init()||!notice_init(user,gdi))return 0;
  oldAsync=*(H*)0x453384;oldKey=*(H*)0x453398;oldKeyboard=*(H*)0x453410;
  if(!hook(0x453384,lockedAsync)||!hook(0x453398,lockedKey)||!hook(0x453410,lockedKeyboard))return 0;
  Class c={0};c.proc=proc;c.instance=instance;c.name="BoshyNativeRandomizerMenu";return RegisterClassA(&c)!=0;
@@ -116,7 +117,7 @@ void MenuTick(Shared*s,U run,U scene){
  background_init();background_tick(run,scene);
  session_tick(run,scene);context_rebase(run,scene);
  exit_tick(run,scene);pack_tick();music_load();spider_tick(run,scene);
- scenery_tick(run,scene);chaos_tick(run,scene);intro_cast(run,scene);intro_theme(run,scene);intro_atmosphere(run,scene);
+ death_tick(run,scene);scenery_tick(run,scene);chaos_tick(run,scene);intro_cast(run,scene);intro_theme(run,scene);intro_atmosphere(run,scene);
  if(transition_guard(run,scene)){q->status=2;return;}
  H h=*(H*)(run+0x10);if(!IsWindow(h))return;
  resolution_tick(run,scene,h);

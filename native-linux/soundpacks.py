@@ -55,6 +55,8 @@ def prepare_menu(base,name=None):
   a=cue.encode('latin1');b=path.encode('ascii')
   if len(a)>=68 or len(b)>=100:raise ValueError('Sound pack path length')
   raw.extend(a.ljust(68,b'\0')+b.ljust(100,b'\0')+struct.pack('<I',kind))
+ from death_visuals import prepare as prepare_death_visuals
+ prepare_death_visuals(base,name,data if name!='original' else None)
  atomic(folder/'soundpack.bin',bytes(raw));write_json(folder/'soundpack-map.json',dict(pack=name,rows=[dict(cue=a,path=b,kind=c) for a,b,c in rows]))
  return name
 

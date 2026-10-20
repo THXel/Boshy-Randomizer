@@ -1,6 +1,17 @@
 {
   "entries": [
     {
+      "date": "2026-10-20",
+      "title": "Soundpack death screens",
+      "lines": [
+        "Local soundpacks can include their death screen and blood sprites.",
+        "Kamilia first fades red, then brings in its Game Over title.",
+        "WannaFest titles slam in from both sides with animated VHS noise.",
+        "Imported screens no longer bounce; quick resets clear the death cue.",
+        "Original Boshy reset behavior is preserved for every pack."
+      ]
+    },
+    {
       "date": "2026-10-18",
       "title": "Graphics tools & stability",
       "lines": [
