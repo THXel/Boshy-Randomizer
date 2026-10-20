@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026.10.20.2 — Package integrity and Windows cold starts
+
+- Bind the Extras DLL checksum to each native build; fail the build if an integrity binding cannot be updated exactly once.
+- Add regressions for rebuilt and modified DLLs, slow startup, bounded deadlines and early process exit.
+- Wait for slow Windows first launches without abandoning the host and tracker prematurely.
+- Verify a fresh Windows 11 installation, import, native menu, normal start, Q/R and regular tracker launch with Defender enabled.
+
+
 All update logs remain in English, regardless of the UI language.
 
 ## 2026.10.20 — Soundpack death screens

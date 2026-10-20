@@ -8,7 +8,7 @@
 
 [English](README_EN.md) · [Deutsch](README_DE.md) · [Español](README_ES.md) · [Русский](README_RU.md) · [日本語](README_JP.md)
 
-[🌐 Website](https://thxel.github.io/Boshy-Randomizer/site/es/) · [↓ Instalador Windows](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.20.1/BoshyRandomizer-2026.10.20.1-Windows-Setup-x64.exe) · [↓ DEB para Linux](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.20.1/boshy-randomizer_2026.10.20.1-1_amd64.deb) · [Versión y verificaciones](https://github.com/THXel/Boshy-Randomizer/releases/tag/v2026.10.20.1)
+[🌐 Website](https://thxel.github.io/Boshy-Randomizer/site/es/) · [↓ Instalador Windows](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.20.2/BoshyRandomizer-2026.10.20.2-Windows-Setup-x64.exe) · [↓ DEB para Linux](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.20.2/boshy-randomizer_2026.10.20.2-1_amd64.deb) · [Versión y verificaciones](https://github.com/THXel/Boshy-Randomizer/releases/tag/v2026.10.20.2)
 
 </div>
 
@@ -128,10 +128,10 @@ Abre una vista previa para ver la animación completa. Los vídeos de muerte tie
 
 | | Download | |
 | --- | --- | --- |
-| **Windows** | [Instalador Windows](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.20.1/BoshyRandomizer-2026.10.20.1-Windows-Setup-x64.exe) | Vista previa de Windows · x64 |
-| **Linux** | [DEB para Linux](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.20.1/boshy-randomizer_2026.10.20.1-1_amd64.deb) | Linux Mint 22 / Ubuntu 24.04 · X11 · amd64 |
+| **Windows** | [Instalador Windows](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.20.2/BoshyRandomizer-2026.10.20.2-Windows-Setup-x64.exe) | Vista previa de Windows · x64 |
+| **Linux** | [DEB para Linux](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.20.2/boshy-randomizer_2026.10.20.2-1_amd64.deb) | Linux Mint 22 / Ubuntu 24.04 · X11 · amd64 |
 
-[Versión y verificaciones](https://github.com/THXel/Boshy-Randomizer/releases/tag/v2026.10.20.1) · [Windows](../docs/WINDOWS_PACKAGE.md) · [Linux](../docs/LINUX_PACKAGE.md)
+[Versión y verificaciones](https://github.com/THXel/Boshy-Randomizer/releases/tag/v2026.10.20.2) · [Windows](../docs/WINDOWS_PACKAGE.md) · [Linux](../docs/LINUX_PACKAGE.md)
 
 ### De la descarga a tu primera partida
 

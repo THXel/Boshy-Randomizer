@@ -3,10 +3,11 @@ from pathlib import Path
 import json,html,hashlib
 R=Path(__file__).resolve().parents[1]
 DATA=json.loads((R/'site/content.json').read_text())
-RELEASE='https://github.com/THXel/Boshy-Randomizer/releases/tag/v2026.10.20.1'
-BASE='https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.20.1/'
-WIN=BASE+'BoshyRandomizer-2026.10.20.1-Windows-Setup-x64.exe'
-LINUX=BASE+'boshy-randomizer_2026.10.20.1-1_amd64.deb'
+PACKAGE=json.loads((R/'packaging/release.json').read_text())
+RELEASE='https://github.com/THXel/Boshy-Randomizer/releases/tag/'+PACKAGE['tag']
+BASE='https://github.com/THXel/Boshy-Randomizer/releases/download/'+PACKAGE['tag']+'/'
+WIN=BASE+PACKAGE['windows_file']
+LINUX=BASE+PACKAGE['linux_file']
 GH='https://github.com/THXel/Boshy-Randomizer'
 GAME='https://grynsoft.com/site/game/i-wanna-be-the-boshy'
 def e(s):return html.escape(s,quote=True)

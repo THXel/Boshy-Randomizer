@@ -1,7 +1,11 @@
 {
-  "version": "2026.10.20.1",
+  "version": "2026.10.20.2",
   "date": "2026-10-20",
   "entries": [
+    [
+      "Windows cold-start fixes",
+      "Rebuilt Extras checksums now match their DLLs. Slow Windows first launches keep the host alive until the game window is ready."
+    ],
     [
       "Soundpack death screens",
       "Local Kamilia 3 and WannaFest22 packs can now include animated death screens, blood sprites and matching death audio."
@@ -13,10 +17,6 @@
     [
       "Clean resets",
       "Only the selected pack death cue plays after dying. R restores game audio without changing volumes; imported screens no longer bounce."
-    ],
-    [
-      "Windows + Linux",
-      "Both packages are built from the same source revision. Optional game and soundpack media are supplied locally."
     ]
   ]
 }

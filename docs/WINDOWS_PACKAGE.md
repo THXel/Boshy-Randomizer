@@ -6,8 +6,8 @@ The installed Linux copy is not modified by Windows testing.
 
 ## Starting
 
-Download `BoshyRandomizer-2026.10.18-Windows-Setup-x64.exe` from the
-[combined Windows & Linux release](https://github.com/THXel/Boshy-Randomizer/releases/tag/v2026.10.18).
+Download `BoshyRandomizer-2026.10.20.2-Windows-Setup-x64.exe` from the
+[combined Windows & Linux release](https://github.com/THXel/Boshy-Randomizer/releases/tag/v2026.10.20.2).
 Run the setup wizard, then open **Boshy Randomizer** from the Start menu or the
 optional desktop shortcut. No command window is needed. A private Python runtime
 is included. On first start, select a
@@ -17,8 +17,8 @@ are never included in the download or copied into a new run.
 Private game data and three independent runs live in
 `%LOCALAPPDATA%\BoshyRandomizer`. Keep this folder when updating the application.
 The current native hooks require a short ASCII data path; `BOSHY_DATA_HOME` can
-select another private local directory. Non-ASCII Windows account paths and
-Windows 11 still need dedicated compatibility testing.
+select another private local directory. Non-ASCII Windows account paths still need dedicated compatibility testing.
+Windows 11 startup checks are described below.
 
 The application installs for the current user in `%LOCALAPPDATA%\Programs\Boshy Randomizer`
 without requesting administrator rights. Close the game before installing an update.
@@ -101,3 +101,15 @@ three resets per mode, the tracker and the debug hotkey. The installer packages
 the same validated application payload. Natural playthroughs of every boss,
 soundpack and hack combination remain outside this Windows smoke test. The
 Windows build remains a preview within the combined Windows & Linux release.
+
+## Windows 11 cold-start check (2026-10-20)
+
+A fresh Windows 11 VirtualBox VM exposed a stale Extras DLL checksum in the
+release build and a startup timeout that was too short for the first game launch.
+Version 2026.10.20.2 corrects the build binding and waits up to three minutes for
+the Windows game window, failing promptly if the launched process exits.
+
+The corrected candidate passed installation, game import, native menu, a normal
+run start and Q/R smoke checks. A separate regular application launch showed the
+live tracker. Defender antivirus and real-time protection remained enabled.
+This does not replace full playthrough, physical hardware, or mixed-DPI testing.
