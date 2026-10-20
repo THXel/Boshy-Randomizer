@@ -34,7 +34,6 @@ __pycache__/
 # Supply the game locally; never add a user's game installation.
 native-linux/IWBTB/
 **/INI/twitch_config.json
-**/INI/tracker-view.json
 **/.live-tracker.lock
 
 # Generated native package build output
@@ -46,3 +45,12 @@ native-linux/slot_reward_hook.bin
 native-linux/slot_reward_extras.bin
 native-linux/slot_reward_symbols.json
 native-linux/slot_reward_extras_symbols.json
+
+# Retired desktop GUI and generated Windows build directories
+/PY/
+/INI/
+/IWBTB/
+/Boshy Randomizer.exe
+/Boshy Randomizer installer.exe
+/windows-payload/
+/windows-build/

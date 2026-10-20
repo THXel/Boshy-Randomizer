@@ -2,7 +2,8 @@ name: Combined Windows and Linux release
 on:
   push:
     branches: [Boshy-Randomizer]
-    paths: ['packaging/release.json', 'packaging/publish_release.py', 'packaging/build_release_windows.ps1', 'packaging/build_deb.py', '.github/workflows/release.yml']
+    # Source cleanup must not silently replace an existing published release.
+    paths: ['packaging/release.json']
   workflow_dispatch:
 permissions:
   contents: read

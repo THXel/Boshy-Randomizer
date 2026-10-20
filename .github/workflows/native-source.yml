@@ -1,9 +1,9 @@
 name: Native source checks
 on:
   push:
-    paths: ['native-linux/**', '.github/workflows/native-source.yml']
+    paths: ['native-linux/**', 'packaging/**', '.github/workflows/native-source.yml']
   pull_request:
-    paths: ['native-linux/**', '.github/workflows/native-source.yml']
+    paths: ['native-linux/**', 'packaging/**', '.github/workflows/native-source.yml']
 permissions:
   contents: read
 jobs:
@@ -24,3 +24,7 @@ jobs:
         run: python -m compileall -q native-linux
       - name: Test native runtime, routes, seeds and localization
         run: python -m unittest discover -s native-linux/tests -v
+      - name: Verify Linux and Windows package payloads
+        run: |
+          python packaging/build_deb.py dist
+          python packaging/export_windows.py windows-payload

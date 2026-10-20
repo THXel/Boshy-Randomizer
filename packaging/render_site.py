@@ -78,7 +78,7 @@ def readme(lang,d,root=False):
  s+=f'\n<a id="download"></a>\n\n## {d["download"]}\n\n| | Download | |\n| --- | --- | --- |\n| **Windows** | [{d["windows"]}]({WIN}) | {d["preview"]} |\n| **Linux** | [{d["linux"]}]({LINUX}) | {d["linuxnote"]} |\n\n[{d["release"]}]({RELEASE}) · [Windows]({pre}docs/WINDOWS_PACKAGE.md) · [Linux]({pre}docs/LINUX_PACKAGE.md)\n\n### {d["installTitle"]}\n\n'
  s+=''.join(f'{i+1}. {x}\n' for i,x in enumerate(d['steps']))+f'\n{d["preserve"]}\n\n<a id="faq"></a>\n\n## {d["faqTitle"]}\n\n'
  for q,a in d['faq']:s+=f'<details>\n<summary>{q}</summary>\n\n{a}\n\n</details>\n\n'
- s+=f'---\n\n{d["footer"]}\n\n[{d["support"]}]({GH}/issues) · [{d["changelog"]}]({pre}CHANGELOG.md) · [Credits]({pre}Custom/License.txt)\n'
+ s+=f'---\n\n{d["footer"]}\n\n[{d["support"]}]({GH}/issues) · [{d["changelog"]}]({pre}CHANGELOG.md) · [Credits]({pre}Custom/License.txt) · [Development]({pre}docs/DEVELOPMENT.md)\n'
  target=R/'README.md' if root else R/'README'/('README_'+suffix[lang]+'.md');target.write_text(s)
 for lang,d in DATA.items():render(lang,d);readme(lang,d)
 readme('en',DATA['en'],True)

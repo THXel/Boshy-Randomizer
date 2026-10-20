@@ -1,7 +1,7 @@
 # Windows installer preview
 
 The current native-menu controller now has a Windows backend. This is a preview;
-the existing public Windows executables in the repository are legacy downloads.
+installers are published under GitHub Releases, not stored in the source tree.
 The installed Linux copy is not modified by Windows testing.
 
 ## Starting

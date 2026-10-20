@@ -184,4 +184,4 @@ Dies ist ein Einzelspieler-Randomizer. Das alte Boshy-Online-Menü ist deaktivie
 
 Ein Fanprojekt von THXel und der Boshy-Speedrun-Community. Originalspiel von Solgryn / Grynsoft.
 
-[Problem melden](https://github.com/THXel/Boshy-Randomizer/issues) · [Änderungsverlauf](../CHANGELOG.md) · [Credits](../Custom/License.txt)
+[Problem melden](https://github.com/THXel/Boshy-Randomizer/issues) · [Änderungsverlauf](../CHANGELOG.md) · [Credits](../Custom/License.txt) · [Development](../docs/DEVELOPMENT.md)

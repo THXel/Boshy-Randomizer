@@ -21,13 +21,13 @@ This is a fresh-install and application-start test in a running VM, not a machin
 
 ## Distribution status
 
-The Linux release candidate is distributed through [GitHub Releases](https://github.com/THXel/Boshy-Randomizer/releases/tag/v2026.10.13-rc1), with the game-free `.deb` and `SHA256SUMS`. **The updated Windows version will follow** and needs its own backend integration and tests. Existing root Windows executables remain historical and must not be presented as this new version.
+The Linux release candidate is distributed through [GitHub Releases](https://github.com/THXel/Boshy-Randomizer/releases/tag/v2026.10.13-rc1), with the game-free `.deb` and `SHA256SUMS`. **The updated Windows version will follow** and needs its own backend integration and tests. At that time, the root Windows executables were historical downloads. They were removed from the source tree during the October 20 cleanup; current installers are on GitHub Releases.
 
 The original game is not bundled. Keep the existing third-party attribution and review distribution permissions before public publication; the preparation itself does not add any new rights to game-derived assets.
 
 ## Source/install boundary
 
-`native-linux/` is the current package source. `source-manifest.json` inventories the source/resources, while each built package has its own payload hash manifest. Generated native binaries and user data are excluded from Git. The existing host game installation was not used as the test target: all 238 protected live files matched the pre-update baseline after packaging work.
+`native-linux/` is the current package source. The historical `source-manifest.json` inventory was removed during the October 20 cleanup because it no longer described the current tree. Git records the source; each built package has its own payload hash manifest. Generated native binaries and user data are excluded from Git. The existing host game installation was not used as the test target: all 238 protected live files matched the pre-update baseline after packaging work.
 
 ## Package revision 2
 

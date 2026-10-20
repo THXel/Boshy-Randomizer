@@ -28,7 +28,15 @@ for src in (source/'Lib/site-packages').glob('*.dist-info'):
 (runtime/(tag+'._pth')).write_text('.\nDLLs\nLib\nLib/site-packages\nimport site\n')
 shutil.copytree(a.payload,package/'app')
 (package/'BoshyRandomizer.cmd').write_text('@echo off\nsetlocal\nset "PYTHONUTF8=1"\nset "PYTHONNOUSERSITE=1"\nstart "" "%~dp0runtime\\pythonw.exe" "%~dp0app\\windows_entry.py"\n',encoding='ascii')
-(package/'README.txt').write_text('Boshy Randomizer Windows preview\n\nExtract the entire folder. Open BoshyRandomizer.cmd.\nSupply your own compatible game folder or ZIP on first start.\nYour game and runs are kept in %LOCALAPPDATA%\\BoshyRandomizer.\nNo Python installation, administrator rights, Wine or Lutris required.\nThe game and personal saves are not distributed.\nThis preview uses the original CPython executables, with application source\nfiles alongside them. Defender must remain enabled; no exclusions required.\nWindows compatibility testing is ongoing.\n',encoding='utf-8')
+(package/'README.txt').write_text(
+    'Boshy Randomizer for Windows\n\n'
+    'Keep the entire folder together. Open BoshyRandomizer.cmd.\n'
+    'Supply your own compatible game folder or ZIP on first start.\n'
+    'Your game and runs are kept in %LOCALAPPDATA%\\BoshyRandomizer.\n'
+    'The game and personal saves are not distributed.\n'
+    'Documentation: https://thxel.github.io/Boshy-Randomizer/\n',
+    encoding='utf-8',
+)
 subprocess.run([str(runtime/'python.exe'),'-c','import tkinter,PIL,numpy,psutil,pygetwindow,pycaw,comtypes,imageio_ffmpeg;print("Portable dependencies OK")'],check=True,cwd=package)
 archive=shutil.make_archive(str(D/('BoshyRandomizer-'+manifest['version']+'-x64')),'zip',package.parent,package.name)
 digest=hashlib.sha256(Path(archive).read_bytes()).hexdigest()

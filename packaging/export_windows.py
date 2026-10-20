@@ -2,15 +2,12 @@
 """Export only public runtime assets; no game, saves, user settings or Wine."""
 from pathlib import Path
 import argparse,hashlib,json,shutil,sys
+from payload import runtime_files
 
 def export(source,target,version):
  source=Path(source).resolve();target=Path(target).resolve();sys.path.insert(0,str(source))
  from trigger_audit import FILES
- exclude={'source-manifest.json','slot_reward_context.bin','package_bootstrap.py','wine_setup.py','wine-runner-manifest.json'}
- files=[p for p in source.iterdir() if p.is_file() and not p.is_symlink() and p.suffix in ('.py','.dll','.exe','.bin','.json') and not p.name.startswith('build_') and p.name not in exclude]
- for folder,extensions in [('PY',{'.py'}),('locales',{'.json'}),('INI',{'.json'}),('Custom',{'.png','.bmp','.ttf','.wav','.txt'}),('menu-character-icons',{'.png'}),('native-icons',{'.bmp'}),('loading-icons',{'.png','.webp','.json'})]:
-  files.extend(p for p in (source/folder).rglob('*') if p.is_file() and not p.is_symlink() and p.suffix in extensions and '__pycache__' not in p.parts)
- files.extend(source/n for n in FILES if source/n not in files)
+ files=runtime_files(source,platform='windows',audit_files=FILES)
  if target.exists() and any(target.iterdir()):raise ValueError('Choose an empty export directory')
  target.mkdir(parents=True,exist_ok=True);hashes={};seen={}
  for p in sorted(set(files)):
@@ -24,5 +21,5 @@ def export(source,target,version):
  return hashes
 
 if __name__=='__main__':
- parser=argparse.ArgumentParser();parser.add_argument('output',type=Path);parser.add_argument('--source',type=Path,default=Path(__file__).resolve().parents[1]/'native-linux');parser.add_argument('--version',default='2026.10.18-win-preview2');a=parser.parse_args()
+ parser=argparse.ArgumentParser();parser.add_argument('output',type=Path);parser.add_argument('--source',type=Path,default=Path(__file__).resolve().parents[1]/'native-linux');parser.add_argument('--version',default=json.loads((Path(__file__).parent/'release.json').read_text())['version']);a=parser.parse_args()
  print('Exported',len(export(a.source,a.output,a.version)),'files')

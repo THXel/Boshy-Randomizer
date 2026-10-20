@@ -33,6 +33,6 @@ Windows 11, non-ASCII account paths, physical 4K and mixed-DPI monitors still
 need dedicated testing. See [Windows details](https://github.com/THXel/Boshy-Randomizer/blob/Boshy-Randomizer/docs/WINDOWS_PACKAGE.md).
 
 [Linux downloads remain available](https://github.com/THXel/Boshy-Randomizer/releases/tag/v2026.10.15).
-Old Windows executables in the repository belong to the legacy randomizer.
+Old Windows executables belonged to the legacy randomizer and were subsequently removed from the source tree.
 
 Original game by **Solgryn / Grynsoft**. Fan project by **THXel and the Boshy speedrunning community**.

@@ -184,4 +184,4 @@ This is a single-player randomizer. The old Boshy online menu is disabled. Share
 
 A fan project by THXel and the Boshy speedrunning community. Original game by Solgryn / Grynsoft.
 
-[Report an issue](https://github.com/THXel/Boshy-Randomizer/issues) · [Changelog](CHANGELOG.md) · [Credits](Custom/License.txt)
+[Report an issue](https://github.com/THXel/Boshy-Randomizer/issues) · [Changelog](CHANGELOG.md) · [Credits](Custom/License.txt) · [Development](docs/DEVELOPMENT.md)

@@ -15,13 +15,8 @@ OUTPUT=Path(sys.argv[1]).resolve() if len(sys.argv)>1 else ROOT/'dist'
 OUTPUT.mkdir(parents=True,exist_ok=True);BUILD=OUTPUT/'package-root'
 if BUILD.exists():shutil.rmtree(BUILD)
 PAYLOAD=BUILD/'usr/lib/boshy-randomizer';PAYLOAD.mkdir(parents=True)
-exclude={'source-manifest.json','slot_reward_context.bin'}
-files=[]
-for p in SOURCE.iterdir():
- if p.is_file() and (p.suffix in ('.py','.dll','.exe','.bin','.json','.sh')) and not p.name.startswith('build_') and p.name not in exclude:files.append(p)
-for folder,exts in [('PY',{'.py'}),('locales',{'.json'}),('INI',{'.json'}),('Custom',{'.png','.bmp','.ttf','.wav','.txt'}),('menu-character-icons',{'.png'}),('native-icons',{'.bmp'}),('loading-icons',{'.png','.webp','.json'})]:
- files.extend(p for p in (SOURCE/folder).rglob('*') if p.is_file() and not p.is_symlink() and p.suffix in exts and '__pycache__' not in p.parts)
-files.extend(SOURCE/name for name in AUDIT_ASSETS if SOURCE/name not in files)
+from payload import runtime_files
+files=runtime_files(SOURCE,platform='linux',audit_files=AUDIT_ASSETS)
 for p in files:
  rel=p.relative_to(SOURCE);dest=PAYLOAD/rel;dest.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(p,dest);dest.chmod(0o755 if p.suffix=='.sh' else 0o644)
 hashes={str(p.relative_to(PAYLOAD)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(PAYLOAD.rglob('*')) if p.is_file()}

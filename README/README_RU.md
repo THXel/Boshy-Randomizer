@@ -184,4 +184,4 @@ Ctrl+Alt+D открывает текущие данные, тестовые де
 
 Фан-проект THXel и сообщества спидраннеров Boshy. Оригинальная игра — Solgryn / Grynsoft.
 
-[Сообщить о проблеме](https://github.com/THXel/Boshy-Randomizer/issues) · [Изменения](../CHANGELOG.md) · [Credits](../Custom/License.txt)
+[Сообщить о проблеме](https://github.com/THXel/Boshy-Randomizer/issues) · [Изменения](../CHANGELOG.md) · [Credits](../Custom/License.txt) · [Development](../docs/DEVELOPMENT.md)

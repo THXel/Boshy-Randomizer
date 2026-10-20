@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased — source cleanup
+
+- Remove the retired desktop GUI, Twitch chat integration, old installers and obsolete GUI media from the source tree.
+- Stop shipping unused trigger, reload and randomizer modules; retain the shared helpers still used by the native runtime and tracker.
+- Share the Linux/Windows payload selection and allow only public INI catalogues and maintained Python helpers.
+- Validate both package formats in source CI. Publishing an installer now requires a release-version change or explicit release dispatch.
+
+
 ## 2026.10.20.2 — Package integrity and Windows cold starts
 
 - Bind the Extras DLL checksum to each native build; fail the build if an integrity binding cannot be updated exactly once.

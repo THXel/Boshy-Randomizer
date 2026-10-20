@@ -184,4 +184,4 @@ Ctrl+Alt+Dでライブ状態、テスト操作、記録のエクスポートを�
 
 THXelとBoshyスピードランコミュニティのファンプロジェクト。原作：Solgryn / Grynsoft。
 
-[問題を報告](https://github.com/THXel/Boshy-Randomizer/issues) · [更新履歴](../CHANGELOG.md) · [Credits](../Custom/License.txt)
+[問題を報告](https://github.com/THXel/Boshy-Randomizer/issues) · [更新履歴](../CHANGELOG.md) · [Credits](../Custom/License.txt) · [Development](../docs/DEVELOPMENT.md)
