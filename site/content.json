@@ -141,7 +141,42 @@
     "support": "Report an issue",
     "docs": "Installation details",
     "changelog": "Changelog",
-    "faqnav": "FAQ"
+    "faqnav": "FAQ",
+    "web": {
+      "chooser": "What do you feel like playing?",
+      "choices": [
+        "Surprise me",
+        "Give me collection goals",
+        "Keep the original route",
+        "Just the bosses",
+        "Mostly platforming"
+      ],
+      "recommend": "Your pick",
+      "details": "Explore this mode",
+      "news": "What’s new",
+      "newslink": "Full changelog",
+      "quick": "From download to your first run",
+      "quicksteps": [
+        "Download your platform’s installer.",
+        "Install, then import your own Boshy folder or ZIP.",
+        "Choose a save slot, mode and settings.",
+        "Start your run — or share its seed with a friend."
+      ],
+      "galleryhelp": "Select a preview to enlarge it. Animations can be paused.",
+      "pause": "Pause animation",
+      "play": "Play animation",
+      "close": "Close",
+      "previous": "Previous preview",
+      "next": "Next preview",
+      "feedback": "Help us improve your next run",
+      "feedbackintro": "Something went wrong? A few details help us reproduce it.",
+      "copy": "Copy report template",
+      "copied": "Template copied.",
+      "copyfallback": "Template selected. Copy it with Ctrl+C or ⌘C.",
+      "report": "Report a problem",
+      "template": "Version:\nPlatform (Windows / Linux):\nMode:\nSeed (if available):\n\nWhat did you do?\n\nWhat did you expect?\n\nWhat happened instead?\n\nDebug report or screenshot (optional):",
+      "debug": "Ctrl+Alt+D opens diagnostics. Ctrl+Alt+M marks a problem during play; you can attach the exported report to your issue."
+    }
   },
   "de": {
     "name": "Deutsch",
@@ -285,7 +320,42 @@
     "support": "Problem melden",
     "docs": "Installationsdetails",
     "changelog": "Änderungsverlauf",
-    "faqnav": "FAQ"
+    "faqnav": "FAQ",
+    "web": {
+      "chooser": "Worauf hast du Lust?",
+      "choices": [
+        "Überrasch mich",
+        "Gib mir Sammelziele",
+        "Den originalen Weg spielen",
+        "Nur die Bosse",
+        "Vor allem Plattform-Level"
+      ],
+      "recommend": "Deine Auswahl",
+      "details": "Diesen Modus ansehen",
+      "news": "Neu im Update",
+      "newslink": "Vollständiger Änderungsverlauf",
+      "quick": "Vom Download zum ersten Lauf",
+      "quicksteps": [
+        "Lade das Installationspaket für deine Plattform herunter.",
+        "Installiere und importiere deinen Boshy-Ordner oder eine ZIP.",
+        "Wähle Speicherplatz, Modus und Einstellungen.",
+        "Starte deinen Lauf — oder teile den Seed mit Freunden."
+      ],
+      "galleryhelp": "Klicke auf eine Vorschau zum Vergrößern. Animationen lassen sich pausieren.",
+      "pause": "Animation pausieren",
+      "play": "Animation abspielen",
+      "close": "Schließen",
+      "previous": "Vorherige Vorschau",
+      "next": "Nächste Vorschau",
+      "feedback": "Hilf uns, deinen nächsten Lauf zu verbessern",
+      "feedbackintro": "Etwas lief schief? Mit ein paar Angaben können wir es besser nachvollziehen.",
+      "copy": "Fehlervorlage kopieren",
+      "copied": "Vorlage kopiert.",
+      "copyfallback": "Vorlage markiert. Kopiere sie mit Strg+C oder ⌘C.",
+      "report": "Problem melden",
+      "template": "Version:\nPlattform (Windows / Linux):\nModus:\nSeed (falls vorhanden):\n\nWas hast du gemacht?\n\nWas hast du erwartet?\n\nWas ist stattdessen passiert?\n\nDebugbericht oder Screenshot (optional):",
+      "debug": "Strg+Alt+D öffnet die Diagnose. Strg+Alt+M markiert ein Problem während des Spielens; den exportierten Bericht kannst du deiner Meldung anhängen."
+    }
   },
   "es": {
     "name": "Español",
@@ -429,7 +499,42 @@
     "support": "Informar de un problema",
     "docs": "Detalles de instalación",
     "changelog": "Cambios",
-    "faqnav": "Preguntas"
+    "faqnav": "Preguntas",
+    "web": {
+      "chooser": "¿Qué te apetece jugar?",
+      "choices": [
+        "Sorpréndeme",
+        "Dame objetivos para recoger",
+        "Seguir la ruta original",
+        "Solo los jefes",
+        "Principalmente plataformas"
+      ],
+      "recommend": "Tu elección",
+      "details": "Ver este modo",
+      "news": "Novedades",
+      "newslink": "Registro completo de cambios",
+      "quick": "De la descarga a tu primera partida",
+      "quicksteps": [
+        "Descarga el instalador de tu plataforma.",
+        "Instala e importa tu carpeta o ZIP de Boshy.",
+        "Elige una ranura, un modo y los ajustes.",
+        "Empieza la partida o comparte la semilla con amigos."
+      ],
+      "galleryhelp": "Selecciona una vista previa para ampliarla. Puedes pausar las animaciones.",
+      "pause": "Pausar animación",
+      "play": "Reproducir animación",
+      "close": "Cerrar",
+      "previous": "Vista anterior",
+      "next": "Vista siguiente",
+      "feedback": "Ayúdanos a mejorar tu próxima partida",
+      "feedbackintro": "¿Algo salió mal? Estos datos nos ayudan a reproducirlo.",
+      "copy": "Copiar plantilla",
+      "copied": "Plantilla copiada.",
+      "copyfallback": "Plantilla seleccionada. Cópiala con Ctrl+C o ⌘C.",
+      "report": "Informar de un problema",
+      "template": "Versión:\nPlataforma (Windows / Linux):\nModo:\nSemilla (si está disponible):\n\n¿Qué hiciste?\n\n¿Qué esperabas?\n\n¿Qué ocurrió?\n\nInforme de depuración o captura (opcional):",
+      "debug": "Ctrl+Alt+D abre el diagnóstico. Ctrl+Alt+M marca un problema durante la partida; puedes adjuntar el informe exportado."
+    }
   },
   "ru": {
     "name": "Русский",
@@ -573,7 +678,42 @@
     "support": "Сообщить о проблеме",
     "docs": "Установка подробно",
     "changelog": "Изменения",
-    "faqnav": "Вопросы"
+    "faqnav": "Вопросы",
+    "web": {
+      "chooser": "Во что хочется сыграть?",
+      "choices": [
+        "Удиви меня",
+        "Хочу цели для сбора",
+        "Оригинальный маршрут",
+        "Только боссы",
+        "Больше платформинга"
+      ],
+      "recommend": "Твой выбор",
+      "details": "Посмотреть режим",
+      "news": "Что нового",
+      "newslink": "Полный список изменений",
+      "quick": "От загрузки до первого забега",
+      "quicksteps": [
+        "Скачай установщик для своей платформы.",
+        "Установи и импортируй свою папку или ZIP с Boshy.",
+        "Выбери слот, режим и настройки.",
+        "Начни забег или поделись сидом с друзьями."
+      ],
+      "galleryhelp": "Нажми на превью для увеличения. Анимации можно приостановить.",
+      "pause": "Приостановить анимацию",
+      "play": "Включить анимацию",
+      "close": "Закрыть",
+      "previous": "Предыдущее превью",
+      "next": "Следующее превью",
+      "feedback": "Помоги улучшить следующий забег",
+      "feedbackintro": "Что-то пошло не так? Эти сведения помогут воспроизвести проблему.",
+      "copy": "Скопировать шаблон",
+      "copied": "Шаблон скопирован.",
+      "copyfallback": "Шаблон выделен. Скопируй его через Ctrl+C или ⌘C.",
+      "report": "Сообщить о проблеме",
+      "template": "Версия:\nПлатформа (Windows / Linux):\nРежим:\nСид (если есть):\n\nЧто ты сделал?\n\nЧто ожидалось?\n\nЧто произошло?\n\nОтчёт диагностики или скриншот (необязательно):",
+      "debug": "Ctrl+Alt+D открывает диагностику. Ctrl+Alt+M отмечает проблему во время игры; экспортированный отчёт можно приложить к сообщению."
+    }
   },
   "ja": {
     "name": "日本語",
@@ -717,6 +857,41 @@
     "support": "問題を報告",
     "docs": "インストール詳細",
     "changelog": "更新履歴",
-    "faqnav": "よくある質問"
+    "faqnav": "よくある質問",
+    "web": {
+      "chooser": "どんな遊び方がしたい？",
+      "choices": [
+        "予想外の展開を楽しみたい",
+        "収集目標に挑戦したい",
+        "元のルートを遊びたい",
+        "ボス戦を楽しみたい",
+        "ステージ攻略がしたい"
+      ],
+      "recommend": "おすすめのモード",
+      "details": "このモードを見る",
+      "news": "最新アップデート",
+      "newslink": "変更履歴をすべて読む",
+      "quick": "ダウンロードから最初のランまで",
+      "quicksteps": [
+        "対応するインストーラーをダウンロード。",
+        "インストール後、自分のBoshyフォルダーかZIPを取り込む。",
+        "セーブ枠、モード、設定を選ぶ。",
+        "ランを開始。シードを友達と共有することもできます。"
+      ],
+      "galleryhelp": "プレビューを選ぶと拡大できます。アニメーションは一時停止できます。",
+      "pause": "アニメーションを一時停止",
+      "play": "アニメーションを再生",
+      "close": "閉じる",
+      "previous": "前のプレビュー",
+      "next": "次のプレビュー",
+      "feedback": "次のランをもっと良くするために",
+      "feedbackintro": "問題が起きましたか？次の情報があると再現しやすくなります。",
+      "copy": "報告テンプレートをコピー",
+      "copied": "テンプレートをコピーしました。",
+      "copyfallback": "テンプレートを選択しました。Ctrl+Cまたは⌘Cでコピーしてください。",
+      "report": "問題を報告",
+      "template": "バージョン：\n環境（Windows / Linux）：\nモード：\nシード（あれば）：\n\n行った操作：\n\n期待した動作：\n\n実際に起きたこと：\n\n診断レポートやスクリーンショット（任意）：",
+      "debug": "Ctrl+Alt+Dで診断を開けます。Ctrl+Alt+Mでプレイ中の問題を記録し、書き出したレポートを報告に添付できます。"
+    }
   }
 }

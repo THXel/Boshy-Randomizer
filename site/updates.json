@@ -1,0 +1,22 @@
+{
+  "version": "2026.10.18",
+  "date": "2026-10-18",
+  "entries": [
+    [
+      "Windows + Linux, together",
+      "One release now includes the graphical Windows installer preview and the Linux package."
+    ],
+    [
+      "Five ways to play",
+      "Randomizer, Target Select, Normal, Boss Rush and Level Rush \u2014 with configurable pools and a Solgryn finale for the routed modes."
+    ],
+    [
+      "Smoother saves, clearer goals",
+      "Compatible runs can switch without restarting. Target Select goals stand out in the separate live tracker."
+    ],
+    [
+      "Complete background sets",
+      "Reviewed worlds shuffle matching scenery, clouds and animated parallax together while preserving collision geometry."
+    ]
+  ]
+}
