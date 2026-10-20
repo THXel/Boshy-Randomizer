@@ -6,3 +6,20 @@
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.button{transition:none}.hero-media .motion{display:none!important}.hero-media .still{display:block!important}}
 
 .language-top{display:flex;justify-content:flex-end;gap:18px;flex-wrap:wrap;padding-top:18px;font-size:12px}.languages a[aria-current="page"]{color:var(--lime);font-weight:bold}@media(max-width:760px){.language-top{justify-content:center;gap:16px}.hero{padding-top:40px}}
+
+/* Original mascots lead the page; transparent sprite padding is cropped in CSS. */
+.hero{row-gap:26px;align-items:center;padding-top:42px}
+.hero-copy{grid-column:1;grid-row:1 / span 2}
+.hero-cast{grid-column:2;grid-row:1;display:flex;justify-content:center;align-items:flex-end;gap:42px;padding:0 18px 26px;border-bottom:1px solid #45513b}
+.mascot{position:relative;isolation:isolate;width:clamp(140px,16vw,200px);aspect-ratio:1;flex-shrink:0}
+.mascot:before{content:'';position:absolute;z-index:-1;inset:-12%;border-radius:50%;background:radial-gradient(ellipse,#b5c86b38,transparent 68%)}
+.mascot-dark:before{background:radial-gradient(ellipse,#d4dfc69c 0%,#abbfa740 42%,transparent 72%);inset:-20%}
+.mascot:after{content:'';position:absolute;left:12%;right:12%;bottom:-12px;height:5px;background:#758258;border-radius:50%;opacity:.55}
+.mascot-art{position:absolute;inset:0;overflow:hidden}
+.mascot img{position:absolute;display:block;max-width:none;image-rendering:pixelated;pointer-events:none}
+.mascot-yellow img{width:133.333333%;height:133.333333%;left:-21.875%;top:-27.083333%}
+.mascot-dark img{width:177.777778%;height:177.777778%;left:-44.444444%;top:-50%;filter:drop-shadow(0 0 1px #e3ebce)}
+.hero-media{grid-column:2;grid-row:2;width:100%;max-width:440px;justify-self:center}
+@media(min-width:761px) and (max-width:1000px){.hero-cast{gap:24px;padding-inline:0}.mascot{width:140px}}
+@media(max-width:760px){.hero{padding-top:28px;row-gap:28px}.hero-cast{grid-column:1;grid-row:1;gap:40px;padding-bottom:22px}.mascot{width:clamp(118px,25vw,160px)}.hero-copy{grid-column:1;grid-row:2}.hero-media{grid-column:1;grid-row:3}.hero h1{margin-top:14px}.hero-copy .eyebrow{font-size:10px}}
+@media(max-width:360px){.hero-cast{gap:26px;padding-inline:0}.mascot{width:108px}}
