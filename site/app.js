@@ -15,13 +15,6 @@
   if (!reducedMotion.matches) play(hero);
   updateToggle();
 
-  const choices = [...document.querySelectorAll('[data-mode-choice]')];
-  const results = [...document.querySelectorAll('[data-mode-result]')];
-  choices.forEach(button => button.addEventListener('click', () => {
-    choices.forEach(choice => choice.setAttribute('aria-pressed', String(choice === button)));
-    results.forEach(result => { result.hidden = result.dataset.modeResult !== button.dataset.modeChoice; });
-  }));
-
   const dialog = document.querySelector('.gallery-dialog');
   const links = [...document.querySelectorAll('[data-gallery-index]')];
   const fullImage = dialog.querySelector('img');
