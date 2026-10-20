@@ -1,8 +1,8 @@
 {
-  "tag": "v2026.10.20",
+  "tag": "v2026.10.20.1",
   "title": "Boshy, Reborn — Soundpack Death Screens",
-  "version": "2026.10.20",
-  "windows_file": "BoshyRandomizer-2026.10.20-Windows-Setup-x64.exe",
-  "linux_file": "boshy-randomizer_2026.10.20-1_amd64.deb",
+  "version": "2026.10.20.1",
+  "windows_file": "BoshyRandomizer-2026.10.20.1-Windows-Setup-x64.exe",
+  "linux_file": "boshy-randomizer_2026.10.20.1-1_amd64.deb",
   "notes": "docs/RELEASE_2026_10_20.md"
 }

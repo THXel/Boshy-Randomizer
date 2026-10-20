@@ -4,11 +4,9 @@
       "date": "2026-10-20",
       "title": "Soundpack death screens",
       "lines": [
-        "Local soundpacks can include their death screen and blood sprites.",
-        "Kamilia first fades red, then shows its title; animated blood stays visible at floor contact.",
-        "WannaFest adds rotating red death cubes, side-impact titles and VHS noise.",
-        "Imported screens no longer bounce; quick resets clear the death cue.",
-        "Original Boshy reset behavior is preserved for every pack."
+        "Kamilia red fade; WannaFest VHS and red cubes.",
+        "Only pack death audio; R restores game sounds.",
+        "Animated blood; no bouncing Game Over."
       ]
     },
     {
