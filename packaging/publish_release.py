@@ -40,7 +40,8 @@ def main():
     else:
         gh('release','edit',CFG['tag'],'--repo',REPO,'--title',CFG['title'],'--notes-file',str(notesfile))
     gh('release','upload',CFG['tag'],str(win),str(linux),str(sums),'--repo',REPO,'--clobber')
-    check=api(f'repos/{REPO}/releases/tags/{CFG["tag"]}')
+    draft=next(x for x in api(f'repos/{REPO}/releases?per_page=100') if x['tag_name']==CFG['tag'])
+    check=api(f'repos/{REPO}/releases/{draft["id"]}')
     uploaded={x['name']:x for x in check['assets']}
     for p in (win,linux,sums):
         a=uploaded[p.name]

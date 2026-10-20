@@ -2,7 +2,7 @@ name: Combined Windows and Linux release
 on:
   push:
     branches: [Boshy-Randomizer]
-    paths: ['packaging/release.json', '.github/workflows/release.yml']
+    paths: ['packaging/release.json', 'packaging/publish_release.py', '.github/workflows/release.yml']
   workflow_dispatch:
 permissions:
   contents: read
