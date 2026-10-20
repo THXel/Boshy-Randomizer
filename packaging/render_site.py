@@ -21,8 +21,7 @@ def render(lang,d):
  def mascot(color):
   file,alt,size=('Custom/boshy.png','Boshy',384) if color=='yellow' else ('Custom/trophies/Dark%20Boshy.png','Dark Boshy',32)
   return f'<div class="mascot mascot-{color}"><div class="mascot-art"><img src="{assets(file)}" alt="{alt}" width="{size}" height="{size}"></div></div>'
- modes=''.join(f'<article class="mode" id="mode-{i}"><span class="number">0{i+1}</span><h3>{e(n)}</h3><p class="lead">{e(tag)}</p><p>{e(body)}</p></article>' for i,(n,tag,body) in enumerate(d['modes']))
- advice=''.join(f'<li class="mode-advice"><p class="mode-intent">{e(label)}</p><h4>{e(n)}</h4><p>{e(tag)}</p><a href="#mode-{i}">{e(w["details"])} →</a></li>' for i,(label,(n,tag,body)) in enumerate(zip(w['choices'],d['modes'])))
+ advice=''.join(f'<li class="mode-advice" id="mode-{i}"><p class="mode-intent">{e(label)}</p><h4>{e(n)}</h4><p class="mode-tagline">{e(tag)}</p><p class="mode-description">{e(body)}</p></li>' for i,(label,(n,tag,body)) in enumerate(zip(w['choices'],d['modes'])))
  news=''.join(f'<article lang="en"><h3>{e(title)}</h3><p>{e(body)}</p></article>' for title,body in updates['entries'])
  features=''.join(f'<article><span class="feature-mark">{mark}</span><h3>{e(n)}</h3><p>{e(body)}</p></article>' for mark,(n,body) in zip(('↗','✦','#','III','◷','★'),d['features']))
  hacks=''.join(f'<li>{e(x)}</li>' for x in d['hacks'])
@@ -44,7 +43,7 @@ def render(lang,d):
 <section id="updates" class="wrap section updates"><div class="section-heading"><span class="eyebrow">{e(updates['version'])} · <time datetime="{e(updates['date'])}">{e(updates['date'])}</time></span><h2>{e(w['news'])}</h2></div><div class="update-grid">{news}</div><a class="text-link" href="{GH}/blob/Boshy-Randomizer/CHANGELOG.md">{e(w['newslink'])} ↗</a></section>
 <section id="modes" class="wrap section"><div class="section-heading"><span class="eyebrow">01 / PLAY</span><h2>{e(d['play'])}</h2></div>
 <div class="mode-picker"><h3>{e(w['chooser'])}</h3><ol class="mode-recommendations">{advice}</ol></div>
-<div class="modes">{modes}</div></section>
+</section>
 <section id="features" class="wrap section"><div class="section-heading"><span class="eyebrow">02 / REMIX</span><h2>{e(d['featuresTitle'])}</h2></div><div class="features">{features}</div></section>
 <section class="spotlight"><div class="wrap split"><div><span class="eyebrow">NEW LOOK · SAME BOSHY</span><h2>{e(d['visualTitle'])}</h2><p>{e(d['visual'])}</p></div><div class="audio"><h3>{e(d['shotsTitle'])}</h3><p>{e(d['shots'])}</p><p>{e(d['music'])}</p></div></div></section>
 <section class="wrap section hacks"><div class="section-heading"><span class="eyebrow">03 / ADVANCED</span><h2>{e(d['hacksTitle'])}</h2><p>{e(d['hacksIntro'])}</p></div><ul class="chips">{hacks}</ul><aside class="spider"><div class="spider-art" aria-hidden="true"><span class="spider-thread"></span><img src="{assets('site/media/spider.png')}" alt="" width="128" height="85" loading="lazy"></div><p>{e(d['spider'])}</p></aside><div class="comfort"><h3>{e(d['controlsTitle'])}</h3><ul>{controls}</ul></div></section>
