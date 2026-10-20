@@ -1,6 +1,6 @@
 """Render the static GitHub Pages site and five README editions from shared copy."""
 from pathlib import Path
-import json,html
+import json,html,hashlib
 R=Path(__file__).resolve().parents[1]
 DATA=json.loads((R/'site/content.json').read_text())
 RELEASE='https://github.com/THXel/Boshy-Randomizer/releases/tag/v2026.10.18'
@@ -13,6 +13,7 @@ def e(s):return html.escape(s,quote=True)
 def render(lang,d):
  prefix='' if lang=='en' else '../../'
  assets=lambda p:prefix+p
+ versioned=lambda p:assets(p)+'?v='+hashlib.sha256((R/p).read_bytes()).hexdigest()[:12]
  w=d['web'];updates=json.loads((R/'site/updates.json').read_text())
  languages=''.join(f'<a href="{prefix+("index.html" if code=="en" else "site/"+code+"/index.html")}" lang="{code}" hreflang="{code}" {"aria-current=\"page\"" if code==lang else ""}>{e(v["name"])}</a>' for code,v in DATA.items())
  nav=''.join(f'<a href="#{k}">{e(v)}</a>' for k,v in zip(('modes','features','gallery','download'),d['nav']))
@@ -32,7 +33,7 @@ def render(lang,d):
  gallery=''.join(f'<figure><a href="{assets(original)}" data-gallery-index="{i}" data-video="{assets(video) if video else ""}" data-poster="{assets(poster)}" data-caption="{e(caption)}"><img src="{assets(poster)}" alt="{e(caption)}" loading="lazy" width="880" height="660"><span class="zoom-mark" aria-hidden="true">↗</span></a><figcaption>{e(caption)}</figcaption></figure>' for i,((original,poster,video),caption) in enumerate(zip(previews,d['captions'])))
  issue=GH+'/issues/new?template=problem.yml'
  text=f'''<!doctype html>
-<html lang="{lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="{e(d['intro'])}"><meta name="theme-color" content="#101411"><meta property="og:title" content="Boshy Randomizer — {e(d['title'])}"><meta property="og:description" content="{e(d['tagline'])}"><meta property="og:image" content="https://thxel.github.io/Boshy-Randomizer/Custom/boshy_randomizer.png"><title>Boshy Randomizer — {e(d['title'])}</title><link rel="stylesheet" href="{assets('site/style.css')}"><link rel="icon" href="{assets('Custom/rando_icon.ico')}"><script src="{assets('site/app.js')}" defer></script></head><body>
+<html lang="{lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="{e(d['intro'])}"><meta name="theme-color" content="#101411"><meta property="og:title" content="Boshy Randomizer — {e(d['title'])}"><meta property="og:description" content="{e(d['tagline'])}"><meta property="og:image" content="https://thxel.github.io/Boshy-Randomizer/Custom/boshy_randomizer.png"><title>Boshy Randomizer — {e(d['title'])}</title><link rel="stylesheet" href="{versioned('site/style.css')}"><link rel="icon" href="{assets('Custom/rando_icon.ico')}"><script src="{versioned('site/app.js')}" defer></script></head><body>
 <a class="skip" href="#main">{e(d['nav'][1])}</a>
 <header class="header"><a class="brand" href="#"><img src="{assets('Custom/boshy_randomizer.png')}" alt="Boshy Randomizer" width="180" height="72"></a><nav aria-label="Main">{nav}</nav><a class="github" href="{GH}">GitHub ↗</a></header><nav class="language-top wrap languages" aria-label="Language">{languages}</nav>
 <main id="main">
