@@ -3,7 +3,7 @@ on:
   push:
     branches: [Boshy-Randomizer]
     # Source cleanup must not silently replace an existing published release.
-    paths: ['packaging/release.json']
+    paths: ['packaging/release.json', '.github/workflows/release.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -13,7 +13,7 @@ concurrency:
 jobs:
   native:
     if: github.repository == 'THXel/Boshy-Randomizer' && github.ref == 'refs/heads/Boshy-Randomizer'
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
@@ -72,7 +72,7 @@ jobs:
           if-no-files-found: error
   publish:
     needs: [native, windows]
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
       contents: write
