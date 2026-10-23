@@ -54,3 +54,8 @@ native-linux/slot_reward_extras_symbols.json
 /Boshy Randomizer installer.exe
 /windows-payload/
 /windows-build/
+
+# Structured source is assembled here; never edit or install a game into it.
+/build/
+# Historical local test runtime left after source migration.
+/native-linux/

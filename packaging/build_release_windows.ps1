@@ -16,7 +16,9 @@ $python = Join-Path $pythonRoot 'python.exe'
 if ($LASTEXITCODE -ne 0) { throw 'Runtime dependencies failed' }
 & $python -m pip install PyGetWindow==0.0.9
 if ($LASTEXITCODE -ne 0) { throw 'Window library failed' }
-& $python -m unittest discover -s "$repo\native-linux\tests" -p test_death_visuals.py
+& $python "$repo\tools\build.py" --assemble-only
+if ($LASTEXITCODE -ne 0) { throw "Source assembly failed" }
+& $python -m unittest discover -s "$repo\build\runtime\tests" -p test_death_visuals.py
 if ($LASTEXITCODE -ne 0) { throw 'Windows death pack validation failed' }
 & $python "$repo\packaging\build_windows.py" "$repo\windows-payload" "$work\portable"
 if ($LASTEXITCODE -ne 0) { throw 'Portable build failed' }

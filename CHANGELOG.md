@@ -1,4 +1,20 @@
+# 2026.10.23
+
+- Organize source by responsibility and extract the menu controller and gameplay loop.
+- Separate optional Kamilia 3/WannaFest22 level and boss music with audited categories.
+- Verify every custom-run route entry through clickable controls and shared seeds.
+- Include Windows focus, sprite/fire/death effects, boss-exit and loading-audio repairs.
+- Build Linux and Windows packages from the same verified runtime.
+
 # Changelog
+
+## 2026.10.22.2
+
+Preserve Castlevania skeleton image banks shared with later enemy spawns. The affected skeletons retain original colors and animations; other sprite options remain available. See [release notes](docs/RELEASE_2026_10_22_2.md).
+
+## 2026.10.22.1
+
+Repair Windows focus handling, Wine PID handling, intercepted route commits, active sprite image references, player-only death audio/blood, automatic seed renewal and missing menu translations. See [release notes](docs/RELEASE_2026_10_22_1.md).
 
 ## Unreleased — source cleanup
 

@@ -22,13 +22,17 @@ jobs:
           python-version: '3.12'
       - name: Install build dependencies
         run: |
-          python -m pip install pillow numpy psutil python-xlib
+          python -m pip install pillow numpy psutil python-xlib -r requirements/development.txt
           sudo apt-get update
           sudo apt-get install -y gcc-multilib binutils gcc-mingw-w64-x86-64 ffmpeg
+      - name: Check maintained source formatting
+        run: python tools/check_style.py
       - name: Build native runtime
-        run: python native-linux/build_runtime.py
+        run: python tools/build.py
+      - name: Test source assembly protections
+        run: python -m unittest discover -s tests/tooling -v
       - name: Test runtime and localization
-        run: python -m unittest discover -s native-linux/tests -v
+        run: python -m unittest discover -s build/runtime/tests -v
       - name: Build game-free Linux package and Windows payload
         run: |
           python packaging/build_deb.py dist

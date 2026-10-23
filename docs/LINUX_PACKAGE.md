@@ -35,8 +35,8 @@ Build on the target Ubuntu/Mint generation with Python 3.12, Pillow, GCC multili
 
 ```sh
 sudo apt install gcc-multilib binutils gcc-mingw-w64-x86-64 python3-pil
-python3 native-linux/build_runtime.py
-python3 -m unittest discover -s native-linux/tests -v
+python3 tools/build.py
+python3 -m unittest discover -s build/runtime/tests -v
 python3 packaging/build_deb.py dist
 ```
 

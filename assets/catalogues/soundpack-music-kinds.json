@@ -1,0 +1,401 @@
+{
+  "version": 1,
+  "packs": {
+    "kamilia3": {
+      "001.ogg": {
+        "kind": "level",
+        "sha256": "f3869d04a7ea4e0f0d253436db99534da9578125d38b85e5b8f40d7e5c265336"
+      },
+      "002.ogg": {
+        "kind": "boss",
+        "sha256": "e9c886310c6ffa4177227d58e5567efa60208319a24af5fa765aa3f8378c173b"
+      },
+      "004.ogg": {
+        "kind": "level",
+        "sha256": "85161f9b7f6dccc17109efb9fa0f139963cfa6772322a7b659e9bf287d7fe5ab"
+      },
+      "005.ogg": {
+        "kind": "boss",
+        "sha256": "b4dfe2f4e6236f4665bff0f501069648ce3652e61e10aadc17d4469d595a58bc"
+      },
+      "006.ogg": {
+        "kind": "boss",
+        "sha256": "a05d453fa011632065fed5862d04d5c2b3f1c0b16af93357c2c84a70fda94586"
+      },
+      "007.ogg": {
+        "kind": "level",
+        "sha256": "4ce29faa3b4d471f102e5c54daa9d295f8b280275d572271cb4bda04162286da"
+      },
+      "008.ogg": {
+        "kind": "level",
+        "sha256": "9ce33481f2fe3b6066728f634031d70865eb15b47d670313489430ff3ca63533"
+      },
+      "009.ogg": {
+        "kind": "boss",
+        "sha256": "002ee55576a8b1d7bcfc4e267a9f7118a3d4eeef18d45959ee2d2dd0906d4260"
+      },
+      "010.ogg": {
+        "kind": "boss",
+        "sha256": "87951af38224fa1332b2b131955ef790fa34cc7d56e994c1445ed151feb89163"
+      },
+      "011.ogg": {
+        "kind": "level",
+        "sha256": "7f64ad1d20e92855be19fe7453b963cc0a8ad7f0eb4fab36a9f79844e819900a"
+      },
+      "012.ogg": {
+        "kind": "level",
+        "sha256": "12b4f08ebd07e9e2beb036c1e708092f0eef2a5aab56b1c3de6bded51f8e8f3c"
+      },
+      "013.ogg": {
+        "kind": "level",
+        "sha256": "ad11d59906966a4075ff4eb9c61cf49081d457af7b878dcbf8513d28f1c1f1d5"
+      },
+      "015.ogg": {
+        "kind": "boss",
+        "sha256": "1e9f35bb10587f15bac97a475ecc7d5fd9fb5e809e9dbf00d1b1e396c2496e53"
+      },
+      "016.ogg": {
+        "kind": "boss",
+        "sha256": "9d1a5d3f046950770a15889385f753fda035e83338c3198f79fa42c01d5158c2"
+      },
+      "017.ogg": {
+        "kind": "boss",
+        "sha256": "4a8f4cb3e20fb0444522afca2e8cf6bb9dfa4e0530518bdbe5901595136eaa16"
+      },
+      "018.ogg": {
+        "kind": "boss",
+        "sha256": "050f4ef51c2b31a8ef668e08fbb9bf494d8e82f2e7c61f620b797124349c5351"
+      },
+      "019.ogg": {
+        "kind": "level",
+        "sha256": "f6246696a985a2476a081768f9d3d6e2b6aa72cb090c46d156ce2a6d7704f815"
+      },
+      "020.ogg": {
+        "kind": "boss",
+        "sha256": "72201c1ecbcd1b5699116a35e8803518830031a45b3d449a18e3385be53931cf"
+      },
+      "021.ogg": {
+        "kind": "level",
+        "sha256": "a2a0bed97efb7e1e0a63609ccf1a452718b9b7a16fa05d9875b1ac10968add78"
+      },
+      "022.ogg": {
+        "kind": "boss",
+        "sha256": "a448b31b62c41830de75a69a8d3af9b44a1915d428c19812870a667ec3ba95e8"
+      },
+      "023.ogg": {
+        "kind": "level",
+        "sha256": "e18294ecce9b7dbfa1e834761090a7e07530d778a07335618ed83a28876aaad7"
+      },
+      "024.ogg": {
+        "kind": "boss",
+        "sha256": "1c91b5d51e3b7beef185b0c356b93532e1aa9c391fc2311105e1b69ab6b2cdff"
+      },
+      "025.ogg": {
+        "kind": "level",
+        "sha256": "bc757fcebc4e6d959b4b94555c0b8230406fb44c761ec4eca3ef83ec1f35652f"
+      },
+      "026.ogg": {
+        "kind": "boss",
+        "sha256": "fdb29df79d9dbdd3b334b3fd97492b12f30a831150a56f2695a4c160b403799b"
+      },
+      "027.ogg": {
+        "kind": "level",
+        "sha256": "55818b056f799d6544a948e1e77734ac89682820dd34c8ea3a9645223a115687"
+      },
+      "028.ogg": {
+        "kind": "boss",
+        "sha256": "89ff52b376e8e5fd5e452bea6dfce91b313470801fd15c67184743723a80ca7e"
+      },
+      "029.ogg": {
+        "kind": "boss",
+        "sha256": "89b6f0a117040236c009137e64f91ca0ee01331aab24e3b47569976aaf06ee43"
+      },
+      "030.ogg": {
+        "kind": "level",
+        "sha256": "1fe8a2f3e9759788bb9691500feee41a27e82950a5e9a3267c92882f111eae17"
+      },
+      "031.ogg": {
+        "kind": "boss",
+        "sha256": "4655d32cad0a6ec1f5a55fd7877db183f1d5061774b8838806765e76c89504dd"
+      },
+      "032.ogg": {
+        "kind": "boss",
+        "sha256": "978827d66ba32e80385b97da491686a3b334454c877155d8d72967a8fde137ff"
+      },
+      "033.ogg": {
+        "kind": "boss",
+        "sha256": "b6b19ac16c318918227a1bc145260834105b56d336abcb68d552a5c6aa06a666"
+      },
+      "034.ogg": {
+        "kind": "boss",
+        "sha256": "5e645adb1ef0c7db4a117ca679ec0e9389bcd8a718a5d254ad183bafca7e7a27"
+      },
+      "035.ogg": {
+        "kind": "boss",
+        "sha256": "ed37fb0d30a5f57f942e56631538e3b7e13530c3f30423188bc2f3052b0b194e"
+      },
+      "036.ogg": {
+        "kind": "boss",
+        "sha256": "6b14fe058736c509ad0b8a7fb4be722e3ed61faa1b4b55312d863b1069f6f86c"
+      },
+      "038.ogg": {
+        "kind": "excluded",
+        "sha256": "c66ece69d8a5c01f63196cb907d226d5c7d8cda4b259854a0c4ac8f602ebcbb8"
+      },
+      "039.ogg": {
+        "kind": "boss",
+        "sha256": "a7b9f8a668b474fc4b6c2eba75e8fc34bdcd81ad437662b3bce6a0a6939aa831"
+      },
+      "040.ogg": {
+        "kind": "excluded",
+        "sha256": "faf2bc6a17628136445e85947a7b569ac28bc1e8ee83c2ddb31f61bbed44f947"
+      },
+      "041.ogg": {
+        "kind": "level",
+        "sha256": "e8250b38e46ce331f2eea6882cc98207bb032465c776649f2b19e01bc1733f96"
+      },
+      "043.ogg": {
+        "kind": "boss",
+        "sha256": "785d028e0db579c6a002d95338ba1485230a2334b3ef89d5d0fc72d96b416319"
+      },
+      "044.ogg": {
+        "kind": "boss",
+        "sha256": "2779cb3ae0080ca8479c7648f7e924f345bca6108874c3d4e78c024f08d51f4b"
+      },
+      "045.ogg": {
+        "kind": "boss",
+        "sha256": "0551a14d37702904ed00286938dc47d022ede87cbe2cfb9ca38b09aeedffeaf9"
+      },
+      "046.ogg": {
+        "kind": "level",
+        "sha256": "59a0092fc1f3361328dac9d91e93fdda1ad0a4e0dac2c11b0c6c4b63439848df"
+      },
+      "047.ogg": {
+        "kind": "level",
+        "sha256": "d7092356556f1b9b73608d10da9c59ff65479bebd595ef167db46fc83b1e4837"
+      },
+      "048.ogg": {
+        "kind": "boss",
+        "sha256": "1dbcce22685e726bdfd51fa1e556a83590db62f08f1cd3eca5c0d1a246e473bd"
+      },
+      "049.ogg": {
+        "kind": "boss",
+        "sha256": "a17b95521203f9084147df807bc24c2d73ed7aed25d412faaeada44db3db5b0e"
+      },
+      "04B.ogg": {
+        "kind": "boss",
+        "sha256": "f02e9220f0100d94f5188be29dea3f3e805e98a8b9007b8f8b1848c6d92f2409"
+      },
+      "050.ogg": {
+        "kind": "boss",
+        "sha256": "f5237f0bba7d9a635c62e692d6fc47eca45c0f0051de9f50e4dc478c9b96ca63"
+      },
+      "052.ogg": {
+        "kind": "excluded",
+        "sha256": "ef7d837e73af2f2ab949c12e97509ff11afb386142e3bf41472d7d477027da67"
+      },
+      "053.ogg": {
+        "kind": "level",
+        "sha256": "a2103b0bf326ae059365585548760b162d994a22e9cbc90aaa412a510e1c82f4"
+      },
+      "054.ogg": {
+        "kind": "boss",
+        "sha256": "1b63c3084f8c3606552e998a1ec7bffde49a3b1284bcfdeb812354b5a062fd3c"
+      },
+      "055.ogg": {
+        "kind": "boss",
+        "sha256": "c2b055ab5f6c2845e59e5c106e8c4d59960cd4843edfc80183503362f1cd9347"
+      }
+    },
+    "wannafest22": {
+      "music/musBackroom.ogg": {
+        "kind": "level",
+        "sha256": "64d8ca5336b698490f99e8ecbf0f0174084b5337cdda4a6de7e312e2cf6104cd"
+      },
+      "music/musBackstage.ogg": {
+        "kind": "level",
+        "sha256": "04c33d4aeba560bc6f885644c8a45a33d1ac9061df16afbbde762ee32d1cabff"
+      },
+      "music/musBossRush.ogg": {
+        "kind": "boss",
+        "sha256": "062e8e640a98670a96cd039114818afbc746a102d1a04a722bba30f515c84116"
+      },
+      "music/musBossRush2.ogg": {
+        "kind": "boss",
+        "sha256": "096127a64e9ecf627a1dc420abbbeecfd4cdd5f6bfe5c896c794812df90613a9"
+      },
+      "music/musEscape.ogg": {
+        "kind": "level",
+        "sha256": "0bfac4d136f5193e17c8e6f6cef1d4dafa212f0e0e19363e06a62686783d2210"
+      },
+      "music/musFinalBoss.ogg": {
+        "kind": "boss",
+        "sha256": "89599bf0d27b0a213f4b417aa161a14f2f228103d003030114660cfe2c81fc2f"
+      },
+      "music/musSecret.ogg": {
+        "kind": "level",
+        "sha256": "b2b3214c307a3b95a4e217751aba2996f60113f965980ad6e317d2143164b1e4"
+      },
+      "music/musStage1Boss.ogg": {
+        "kind": "boss",
+        "sha256": "a1692bcae00bbbdf98333e489edd4ec9ea935ad0e7d940b1a2d43228f144fecf"
+      },
+      "music/musStage1BossIntro.ogg": {
+        "kind": "excluded",
+        "sha256": "77a6b08c1fc9e81ca022fa7c17524a3cf67704969c3b622974f36bbb5d6d0841"
+      },
+      "music/musStage1Cutscene.ogg": {
+        "kind": "excluded",
+        "sha256": "1c549d775dbf75b1872c80fcb9440157ade0480f1c0ed8ba2201dcc90e80d63f"
+      },
+      "music/musStage1Fake.ogg": {
+        "kind": "boss",
+        "sha256": "b42ce7dc808b1a9087f0e8453c1627dd7363ae2bbcca8da9b38740120bb2b011"
+      },
+      "music/musStage1Fortress.ogg": {
+        "kind": "level",
+        "sha256": "cccb059d69dd775870b78a3ea46b7f91e0a3e56042f83db11b83fa0fe2a4accc"
+      },
+      "music/musStage1Lake.ogg": {
+        "kind": "level",
+        "sha256": "2a827b1323ac5db9e07fb7387845b7b59349634798bb218509062ade256104ce"
+      },
+      "music/musStage1Woods.ogg": {
+        "kind": "level",
+        "sha256": "0542243f2dbd8170847b496712c52c2cb4dd476a601e7df20b6a1026764f4f7c"
+      },
+      "music/musStage2Boss.ogg": {
+        "kind": "boss",
+        "sha256": "120733c83b328161f03ae2de50d22604517ecea00cb06495ac77c43d04422679"
+      },
+      "music/musStage2Hurryup.ogg": {
+        "kind": "level",
+        "sha256": "78154ac462c1238bcbc6b3af57ff8bd44135dcd72ef711390e84a21ccc6c2f3b"
+      },
+      "music/musStage2Intro.ogg": {
+        "kind": "excluded",
+        "sha256": "f470e824fefe441f02dc4392d1421b3450d2eae326c336906ce030475a08ddad"
+      },
+      "music/musStage2Moon.ogg": {
+        "kind": "level",
+        "sha256": "b824c430de4bdeb2382e3684f96fb10252dd895a21ab962d80a09ee55ec50c64"
+      },
+      "music/musStage2Preboss.ogg": {
+        "kind": "excluded",
+        "sha256": "0b43096a49225033c34126aaff9f29fc146155c786fe573968e04786c5cc2aeb"
+      },
+      "music/musStage2Puzzle.ogg": {
+        "kind": "level",
+        "sha256": "2f90d9d1d89f740d7e47aa9682400baacc736265d04e6e83f2d261d4abf40f1e"
+      },
+      "music/musStage3Boss.ogg": {
+        "kind": "boss",
+        "sha256": "7ed15cac7405d8a2333a6810755a23a57cfef53ea29981def6f8acbd944c3abf"
+      },
+      "music/musStage3Cave.ogg": {
+        "kind": "level",
+        "sha256": "6884c3e0d00d7c7c6fb4cec5f9b9027526191f5e660e28e4e2745c7f9b9ce599"
+      },
+      "music/musStage3ForestInside.ogg": {
+        "kind": "level",
+        "sha256": "b08efed2707a07399642f1654fd864399a21252cd5fe22c72631239729828718"
+      },
+      "music/musStage3ForestOutside.ogg": {
+        "kind": "level",
+        "sha256": "3849b338623039fd70f8b134dfa9c61d9487e5252b032d711ba31e20b648032f"
+      },
+      "music/musStage3Windmill.ogg": {
+        "kind": "level",
+        "sha256": "6eb91d743cd6b9f64d22b9f0ecf41f4f2a2a40871b4105cd1ae7ba3751e5d0d1"
+      },
+      "music/musStage4Onion.ogg": {
+        "kind": "level",
+        "sha256": "8f0b408cccb69479de669f6dd52a788245142aa35a37eb8ce748669fd3e17241"
+      },
+      "music/musStage5Boss.ogg": {
+        "kind": "boss",
+        "sha256": "d6fcf19214b773b5d9c56af1b7e2566e753a19b8ccfd4e55f47a060630dc0bff"
+      },
+      "music/musStage5Future.ogg": {
+        "kind": "level",
+        "sha256": "af386029d5fbbe29abe6bd77feb3e8050034c2d0b133ff8afc3faa06b1aa9788"
+      },
+      "music/musStage5Past.ogg": {
+        "kind": "level",
+        "sha256": "31943b7666471bf08004550b5a00b30ddb8aacb587c148ca0baca861cd0b43af"
+      },
+      "music/musStage5Title.ogg": {
+        "kind": "excluded",
+        "sha256": "14a390c80ac560114fd93c06ad633a15902ce91c72d127665333771387bcb518"
+      },
+      "music/musStage6Bonus.ogg": {
+        "kind": "level",
+        "sha256": "21bd75d1eb7a56611cb19e376cabc70a713e863f59641613d65ed2b1f8b1f50b"
+      },
+      "music/musStage6Clear.ogg": {
+        "kind": "excluded",
+        "sha256": "b4965e918a0e806163524221a983477834fdbc128ee8ed0be1e37c4cddcfd658"
+      },
+      "music/musStage6Grass.ogg": {
+        "kind": "level",
+        "sha256": "dace8ac845c2e41ab470eb4a4ebaa33123287265c2d7cea616370750767f996a"
+      },
+      "music/musStage6Mall.ogg": {
+        "kind": "level",
+        "sha256": "92d0e3a4cc38c0bafe9d72ff7523c3cbcf0244af3ec97d24940a6cec7fe951c4"
+      },
+      "music/musStage6Sky.ogg": {
+        "kind": "level",
+        "sha256": "5158028c4e2d36a273e79d4f54bd690a811b215394946fb89db49132672929ec"
+      },
+      "music/musStage6Storm.ogg": {
+        "kind": "level",
+        "sha256": "e548022f46dd3101f0c6f42dbf5b47d121a6318b3af5c56284f1f0f9d60686b0"
+      },
+      "music/musStage6Title.ogg": {
+        "kind": "excluded",
+        "sha256": "ec5e2a4aaaf874d8c8523ddfce2af41d05322d8ec513f7ab5f3ed52e951f5059"
+      },
+      "music/musStage7Boss.ogg": {
+        "kind": "boss",
+        "sha256": "001c7978029eea75cf139e6f585588e166032cb95d565a2e6b5cffdf7ed20a48"
+      },
+      "music/musStage7Daisaku.ogg": {
+        "kind": "boss",
+        "sha256": "739ce26bdc77a6979811b4cfbf4d4577dc39006348b5cf2e203aa03316157e5b"
+      },
+      "music/musStage7Dice.ogg": {
+        "kind": "level",
+        "sha256": "0ca92df9b0b30de5b3fad1d57a67959c9002bee0ea34656464e94fee80398de0"
+      },
+      "music/musStage7Empire.ogg": {
+        "kind": "level",
+        "sha256": "a94ebc0279081b22346683dc521433bddf1fd2b6a7dab65f71a656aa9c2c8405"
+      },
+      "music/musStage7Grass.ogg": {
+        "kind": "level",
+        "sha256": "17350dfb6f68db8f72222cf95077f5326643e1067e7e3cced8ceb1f51804b6b2"
+      },
+      "music/musStage7Item.ogg": {
+        "kind": "level",
+        "sha256": "a6a1bb0afad61345fdf00136f01454d708c38ba37a15b4ea0c9b64ce3c1f05b9"
+      },
+      "music/musStage7Minion.ogg": {
+        "kind": "level",
+        "sha256": "261132fa955161261b11e8eb6329503ab92cc3b7842b5cc4cc66fa2fd346d783"
+      },
+      "music/musStage7Rushngo.ogg": {
+        "kind": "level",
+        "sha256": "40c3c2fbba8ccc54fa8c3e8b2c7b4b65019cc34c9d0e2cf154b7752f3546ba42"
+      },
+      "music/musStage7Title.ogg": {
+        "kind": "excluded",
+        "sha256": "8e4cae4571516d6cd95099428917bf12e950a7677cb9944a202d40d492159a0f"
+      },
+      "music/musTransition.ogg": {
+        "kind": "excluded",
+        "sha256": "0731ee09e27f79d0519eaa0d661fd0066be9997cbabfce16bcc5b50246a109a6"
+      }
+    }
+  }
+}

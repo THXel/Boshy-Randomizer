@@ -41,7 +41,7 @@ differently. Never recommend disabling protection as an installation step.
 
 ## Building
 
-Build the native DLLs and helpers using `native-linux/build_runtime.py` on Linux.
+Build the native DLLs and helpers using `tools/build.py` on Linux.
 Export only distributable runtime assets:
 
 ```sh

@@ -6,7 +6,7 @@ Detection order: `BOSHY_LANGUAGE` (explicit override), the ordered `LANGUAGE` pr
 
 For example, `BOSHY_LANGUAGE=ja ./start-linux.sh` selects Japanese. Normal desktop launches inherit the desktop language. This override changes display only; it is not stored in a shared seed.
 
-Catalogs are UTF-8 JSON in `native-linux/locales/`. German source messages serve as gettext-style lookup IDs. Numbered placeholders must occur exactly as in the English catalog. Proper names, save keys, seed text and raw debug data must never be translated.
+Catalogs are UTF-8 JSON in `assets/locales/`. German source messages serve as gettext-style lookup IDs. Numbered placeholders must occur exactly as in the English catalog. Proper names, save keys, seed text and raw debug data must never be translated.
 
 The custom menu is rendered to Unicode-capable images. Japanese uses Noto Sans CJK (`fonts-noto-cjk` on Debian/Mint), with a Droid CJK fallback for bitmap rendering. Other languages use DejaVu Sans (`fonts-dejavu-core`). Tk widgets use Noto Sans CJK JP for Japanese. Install the Noto package for reliable Japanese text across both renderers.
 

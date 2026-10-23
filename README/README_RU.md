@@ -8,7 +8,7 @@
 
 [English](README_EN.md) · [Deutsch](README_DE.md) · [Español](README_ES.md) · [Русский](README_RU.md) · [日本語](README_JP.md)
 
-[🌐 Website](https://thxel.github.io/Boshy-Randomizer/site/ru/) · [↓ Установщик Windows](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.20.2/BoshyRandomizer-2026.10.20.2-Windows-Setup-x64.exe) · [↓ DEB для Linux](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.20.2/boshy-randomizer_2026.10.20.2-1_amd64.deb) · [Релиз и контрольные суммы](https://github.com/THXel/Boshy-Randomizer/releases/tag/v2026.10.20.2)
+[🌐 Website](https://thxel.github.io/Boshy-Randomizer/site/ru/) · [↓ Установщик Windows](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.23/BoshyRandomizer-2026.10.23-Windows-Setup-x64.exe) · [↓ DEB для Linux](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.23/boshy-randomizer_2026.10.23-1_amd64.deb) · [Релиз и контрольные суммы](https://github.com/THXel/Boshy-Randomizer/releases/tag/v2026.10.23)
 
 </div>
 
@@ -128,10 +128,10 @@ Music Shuffle объединяет музыку уровней и боссов �
 
 | | Download | |
 | --- | --- | --- |
-| **Windows** | [Установщик Windows](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.20.2/BoshyRandomizer-2026.10.20.2-Windows-Setup-x64.exe) | Предварительная версия Windows · x64 |
-| **Linux** | [DEB для Linux](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.20.2/boshy-randomizer_2026.10.20.2-1_amd64.deb) | Linux Mint 22 / Ubuntu 24.04 · X11 · amd64 |
+| **Windows** | [Установщик Windows](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.23/BoshyRandomizer-2026.10.23-Windows-Setup-x64.exe) | Предварительная версия Windows · x64 |
+| **Linux** | [DEB для Linux](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.23/boshy-randomizer_2026.10.23-1_amd64.deb) | Linux Mint 22 / Ubuntu 24.04 · X11 · amd64 |
 
-[Релиз и контрольные суммы](https://github.com/THXel/Boshy-Randomizer/releases/tag/v2026.10.20.2) · [Windows](../docs/WINDOWS_PACKAGE.md) · [Linux](../docs/LINUX_PACKAGE.md)
+[Релиз и контрольные суммы](https://github.com/THXel/Boshy-Randomizer/releases/tag/v2026.10.23) · [Windows](../docs/WINDOWS_PACKAGE.md) · [Linux](../docs/LINUX_PACKAGE.md)
 
 ### От загрузки до первого забега
 

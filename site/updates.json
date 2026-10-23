@@ -1,22 +1,18 @@
 {
-  "version": "2026.10.20.2",
-  "date": "2026-10-20",
+  "version": "2026.10.23",
+  "date": "2026-10-23",
   "entries": [
     [
-      "Windows cold-start fixes",
-      "Rebuilt Extras checksums now match their DLLs. Slow Windows first launches keep the host alive until the game window is ready."
+      "Gameplay and menu fixes",
+      "Safer sprite effects, repaired boss exits, Windows focus recovery and uninterrupted music while deleting a save."
     ],
     [
-      "Soundpack death screens",
-      "Local Kamilia 3 and WannaFest22 packs can now include animated death screens, blood sprites and matching death audio."
+      "Soundtrack categories",
+      "Optional Kamilia 3 and WannaFest22 packs now choose separate music pools for levels and bosses."
     ],
     [
-      "Red fade and VHS impacts",
-      "Kamilia fades red before its title. WannaFest slams Game Over in from both sides over animated noise."
-    ],
-    [
-      "Clean resets",
-      "Only the selected pack death cue plays after dying. R restores game audio without changing volumes; imported screens no longer bounce."
+      "Readable source structure",
+      "Domain directories, a smaller menu controller and reproducible source-to-installer builds."
     ]
   ]
 }

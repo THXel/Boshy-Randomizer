@@ -1,8 +1,8 @@
 {
-  "tag": "v2026.10.20.2",
-  "title": "Boshy, Reborn — Windows cold-start fixes",
-  "version": "2026.10.20.2",
-  "windows_file": "BoshyRandomizer-2026.10.20.2-Windows-Setup-x64.exe",
-  "linux_file": "boshy-randomizer_2026.10.20.2-1_amd64.deb",
-  "notes": "docs/RELEASE_2026_10_20_2.md"
+  "tag": "v2026.10.23",
+  "title": "Boshy, Reborn — gameplay fixes and structured runtime",
+  "version": "2026.10.23",
+  "windows_file": "BoshyRandomizer-2026.10.23-Windows-Setup-x64.exe",
+  "linux_file": "boshy-randomizer_2026.10.23-1_amd64.deb",
+  "notes": "docs/RELEASE_2026_10_23.md"
 }

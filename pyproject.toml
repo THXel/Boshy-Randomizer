@@ -1,0 +1,6 @@
+[tool.black]
+line-length = 88
+target-version = ['py312']
+skip-string-normalization = true
+include = '\.py$'
+extend-exclude = '/(build|native-linux|assets|site)/'
