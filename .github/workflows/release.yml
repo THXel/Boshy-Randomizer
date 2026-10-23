@@ -9,7 +9,7 @@ permissions:
   contents: read
 concurrency:
   group: combined-release
-  cancel-in-progress: false
+  cancel-in-progress: true
 jobs:
   native:
     if: github.repository == 'THXel/Boshy-Randomizer' && github.ref == 'refs/heads/Boshy-Randomizer'

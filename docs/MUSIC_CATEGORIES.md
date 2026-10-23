@@ -8,7 +8,7 @@ The runtime catalogue identifies each existing imported file by path AND SHA-256
 
 The assignments were checked against the locally available original-game scripts extracted from the user's game copies:
 
-- Kamilia 3: `init` binds numbered files to music variables; `TrackPlayer` selects them by room. Boss/avoidance controllers and `objMusicSync` identify battle playback. Stage 5 contains both platforming and avoidance sections, so its tracks are not all level music. `038` and `040` have no confirmed playback in this build and are excluded. `052` is the Piyo ending.
+- Kamilia 3: `init` binds numbered files to music variables; `TrackPlayer` selects them by room. Boss/avoidance controllers and `objMusicSync` identify battle playback. Stage 5 contains both platforming and avoidance sections, so its tracks are not all level music. `038` and `040` are assigned by room creation code in `stageFinalBossA` and `stageFinalBossC`, rather than by object scripts; both are boss music. `052` is the Piyo ending.
 - WannaFest22: room instance creation code supplies stage music; `BossRushCtrl`, `GoemonFakeBoss`, `CatBat`, `GelgBolm`, `daisaku_part_2`, `smash_that_daisaku`, `TheManFinalCutscene` and `ParappaGameplayController` identify the corresponding sequences. Boss intro, preboss, title, clear and transition music is excluded. Stage 4's rhythm gameplay and the escape/platforming sections remain level music.
 - Boshy: the literal sample cues were checked against frame event data in the supported executable. Classification follows the music cue, including Kracko's `Kirby Bos`, Dedede's `mountain stage kirby` and Sonic's Green Hill theme. This preserves native cue/channel timing and does not replace enemy sounds.
 
@@ -54,9 +54,9 @@ These are usage categories within the respective fangame, not genres or classifi
 | `034.ogg` | boss |
 | `035.ogg` | boss |
 | `036.ogg` | boss |
-| `038.ogg` | excluded |
+| `038.ogg` | boss |
 | `039.ogg` | boss |
-| `040.ogg` | excluded |
+| `040.ogg` | boss |
 | `041.ogg` | level |
 | `043.ogg` | boss |
 | `044.ogg` | boss |

@@ -57,6 +57,10 @@ class MusicCategories(unittest.TestCase):
         )
         self.assertNotIn('intro.ogg', mapping('seed', tracks, 'kamilia3').values())
 
+    def test_room_creation_music_includes_kamilia_final_phases(self):
+        for file in ('038.ogg', '039.ogg', '040.ogg'):
+            self.assertEqual(audited_tracks()['kamilia3'][file]['kind'], 'boss')
+
     def test_boshy_boss_cues_are_complete_and_known(self):
         self.assertTrue(BOSS_CUES < set(SOURCE_TRACKS))
         for cue in (

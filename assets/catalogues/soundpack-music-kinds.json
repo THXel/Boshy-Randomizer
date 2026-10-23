@@ -139,7 +139,7 @@
         "sha256": "6b14fe058736c509ad0b8a7fb4be722e3ed61faa1b4b55312d863b1069f6f86c"
       },
       "038.ogg": {
-        "kind": "excluded",
+        "kind": "boss",
         "sha256": "c66ece69d8a5c01f63196cb907d226d5c7d8cda4b259854a0c4ac8f602ebcbb8"
       },
       "039.ogg": {
@@ -147,7 +147,7 @@
         "sha256": "a7b9f8a668b474fc4b6c2eba75e8fc34bdcd81ad437662b3bce6a0a6939aa831"
       },
       "040.ogg": {
-        "kind": "excluded",
+        "kind": "boss",
         "sha256": "faf2bc6a17628136445e85947a7b569ac28bc1e8ee83c2ddb31f61bbed44f947"
       },
       "041.ogg": {
