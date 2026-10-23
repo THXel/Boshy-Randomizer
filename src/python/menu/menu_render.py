@@ -283,17 +283,24 @@ class Renderer:
         )['entries']
         latest = all_entries[0]
         text = (
-            'LATEST UPDATE\r\n'
+            str(tr('Latest updates'))
+            + '\r\n'
             + latest['date']
             + '\r\n\r\n'
-            + latest['title']
+            + str(display(latest['title']))
             + '\r\n\r\n'
-            + '\r\n\r\n'.join(latest['lines'])
+            + '\r\n\r\n'.join(str(display(line)) for line in latest['lines'])
         )
         temp = self.base / 'menu-runtime/updates-next.txt'
-        temp.write_bytes(text.encode('cp1252', errors='replace'))
+        try:
+            native_text = text.encode('cp1252')
+        except UnicodeEncodeError:
+            # The original MMF text object is ANSI-only. An empty text resource
+            # selects the existing Unicode bitmap panel in the native renderer.
+            native_text = b''
+        temp.write_bytes(native_text)
         replace_file(temp, self.base / 'menu-runtime/updates.txt')
-        entries = all_entries[:2]
+        entries = all_entries[:1]
         y = 348
         for entry in entries:
             self.text(17, y, entry['date'], 10, '#94aebd')
@@ -319,7 +326,10 @@ class Renderer:
             19,
         )
         self.box((640, 274, 682, 299), m.focus == 7)
-        self.text(653, 279, '♪', 13)
+        # Draw the note directly; Segoe UI does not include this music glyph.
+        color = '#edf5f6'
+        self.d.ellipse((653, 286, 659, 291), fill=color)
+        self.d.line((659, 288, 659, 279, 664, 282), fill=color, width=2)
         self.box((690, 274, 732, 299), m.focus == 6)
         self.text(700, 279, 'Aa', 13)
         for i in range(3):

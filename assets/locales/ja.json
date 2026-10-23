@@ -644,5 +644,7 @@
   "Gameplay, music & structure": "ゲーム・音楽・構成",
   "Safer sprite effects and repaired boss exits.": "スプライト効果とボス撃破後の出口を修正。",
   "Separate level/boss music in optional packs.": "追加パックのステージ曲とボス曲を分離。",
-  "Save deletion keeps menu music playing.": "セーブ削除中もメニュー曲が続きます。"
+  "Save deletion keeps menu music playing.": "セーブ削除中もメニュー曲が続きます。",
+  "Latest updates": "最新の更新",
+  "Randomizer changelog.": "ランダマイザーの更新履歴。"
 }

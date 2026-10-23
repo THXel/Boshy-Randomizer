@@ -1,3 +1,9 @@
+# 2026.10.23.1
+
+- Localize the in-game update summary, with a Unicode panel for Russian/Japanese.
+- Draw the menu music note without depending on Windows font glyph coverage.
+- Verify Windows 11 install/update, all slots, old-run resume and deletion audio.
+
 # 2026.10.23
 
 - Organize source by responsibility and extract the menu controller and gameplay loop.
@@ -32,7 +38,7 @@ Repair Windows focus handling, Wine PID handling, intercepted route commits, act
 - Verify a fresh Windows 11 installation, import, native menu, normal start, Q/R and regular tracker launch with Defender enabled.
 
 
-All update logs remain in English, regardless of the UI language.
+Source update logs remain in English; the in-game summary follows the UI language.
 
 ## 2026.10.20 — Soundpack death screens
 
