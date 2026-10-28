@@ -37,10 +37,6 @@ def render(lang, d):
     preview = updates["preview"]
     preview_copy = preview["locales"][lang]
     presentation = preview_copy["presentation"]
-    preview_cards = "".join(
-        f"<article><h3>{e(title)}</h3><p>{e(body)}</p></article>"
-        for title, body in preview_copy["entries"]
-    )
     languages = "".join(
         f'<a href="{prefix+("index.html" if code=="en" else "site/"+code+"/index.html")}" lang="{code}" hreflang="{code}" {"aria-current=\"page\"" if code==lang else ""}>{e(v["name"])}</a>'
         for code, v in DATA.items()
@@ -61,7 +57,7 @@ def render(lang, d):
         return f'<div class="mascot mascot-{color}"><div class="mascot-art"><img src="{assets(file)}" alt="{alt}" width="{size}" height="{size}"></div></div>'
 
     advice = "".join(
-        f'<li class="mode-advice" id="mode-{i}"><p class="mode-intent">{e(label)}</p><h4>{e(n)}</h4><p class="mode-tagline">{e(tag)}</p><p class="mode-description">{e(body)}</p></li>'
+        f'<li class="mode-advice" id="mode-{i}"><p class="mode-intent">{e(label)}</p><h4>{e(n)}</h4><p class="mode-description">{e(body)}</p></li>'
         for i, (label, (n, tag, body)) in enumerate(zip(w["choices"], d["modes"]))
     )
     features = "".join(
@@ -101,30 +97,50 @@ def render(lang, d):
         f"<details><summary>{e(q)}</summary><p>{e(a)}</p></details>"
         for q, a in d["faq"]
     )
+    gallery = ""
     previews = [
         (
-            f"docs/media/{name}.gif",
-            f"site/media/{name}-poster.webp",
-            f"site/media/{name}.mp4",
+            "docs/media/death-kamilia3.gif",
+            "site/media/death-kamilia3-poster.webp",
+            "site/media/death-kamilia3.mp4",
             True,
-        )
-        for name in (
-            "death-kamilia3",
-            "death-wannafest22",
-            "beta-questionmark",
-            "beta-ridley",
-        )
+        ),
+        (
+            "docs/media/death-wannafest22.gif",
+            "site/media/death-wannafest22-poster.webp",
+            "site/media/death-wannafest22.mp4",
+            True,
+        ),
+        (
+            "docs/media/beta-ridley.gif",
+            "site/media/beta-ridley-poster.webp",
+            "site/media/beta-ridley.mp4",
+            True,
+        ),
+        (
+            "site/media/characters-tour.gif",
+            "site/media/characters-tour.png",
+            "site/media/characters-tour.mp4",
+            False,
+        ),
+        (
+            "site/media/route-tour.gif",
+            "site/media/route-tour.png",
+            "site/media/route-tour.mp4",
+            False,
+        ),
     ]
-    gallery = ""
     for i, ((original, poster, video, audio), caption) in enumerate(
-        zip(previews, d["captions"][3:7])
+        zip(previews, d["galleryCaptions"])
     ):
-        downloads = (
-            f'<span class="media-links"><a href="{assets(original)}">GIF</a><a href="{assets(video)}">{e(w["soundvideo"])}</a></span>'
-            if video
-            else ""
-        )
-        gallery += f'<figure><a href="{assets(video if audio else original)}" data-gallery-index="{i + 3}" data-video="{assets(video) if video else ""}" data-webm="{assets(video.replace('.mp4','.webm')) if video else ''}" data-audio="{str(audio).lower()}" data-poster="{assets(poster)}" data-caption="{e(caption)}"><img src="{assets(poster)}" alt="{e(caption)}" loading="lazy" width="880" height="660"><span class="zoom-mark" aria-hidden="true">{"▶" if video else "↗"}</span></a><figcaption>{e(caption)}{downloads}</figcaption></figure>'
+        downloads = f'<span class="media-links"><a href="{assets(original)}">GIF</a>'
+        if audio:
+            downloads += f'<a href="{assets(video)}">{e(w["soundvideo"])}</a>'
+        downloads += "</span>"
+        picture = f'<img src="{assets(poster)}" alt="{e(caption)}" loading="lazy" width="640" height="480">'
+        if not audio:
+            picture = f'<picture><source media="(prefers-reduced-motion: reduce)" srcset="{assets(poster)}"><img src="{assets(original)}" alt="{e(caption)}" loading="lazy" width="640" height="480"></picture>'
+        gallery += f'<figure><a href="{assets(video if audio else original)}" data-gallery-index="{i + 3}" data-video="{assets(video)}" data-audio="{str(audio).lower()}" data-poster="{assets(poster)}" data-caption="{e(caption)}">{picture}<span class="zoom-mark" aria-hidden="true">▶</span></a><figcaption>{e(caption)}{downloads}</figcaption></figure>'
     issue = GH + "/issues"
     text = f"""<!doctype html>
 <html lang="{lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="{e(d['intro'])}"><meta name="theme-color" content="#101411"><meta property="og:title" content="Boshy Randomizer — {e(d['title'])}"><meta property="og:description" content="{e(d['tagline'])}"><meta property="og:image" content="https://thxel.github.io/Boshy-Randomizer/Custom/boshy_randomizer.png"><title>Boshy Randomizer — {e(d['title'])}</title><link rel="stylesheet" href="{versioned('site/style.css')}"><link rel="icon" href="{assets('Custom/rando_icon.ico')}"><script src="{versioned('site/app.js')}" defer></script></head><body>
@@ -135,7 +151,7 @@ def render(lang, d):
 <div class="hero-cast">{mascot('yellow')}</div>
 <div class="hero-media motion-player"><div class="screen-bar"><span>● ● ●</span><span>I WANNA BE THE BOSHY</span></div><video class="hero-video" width="880" height="660" muted loop playsinline preload="metadata" poster="{assets('site/media/first-menu-tour.png')}" aria-label="{e(presentation['captions'][0])}"><source src="{assets('site/media/first-menu-tour.mp4')}" type="video/mp4"></video><div class="screen-bottom"><span>RANDOMIZER EDITION</span><button type="button" class="media-toggle enhanced-only" data-play="{e(w['play'])}" data-pause="{e(w['pause'])}">{e(w['play'])}</button></div></div></section>
 <div class="ribbon"><span>5 MODES</span><span>3 SAVE SLOTS</span><span>SHARE YOUR SEED</span><span>MAKE IT YOUR RUN</span></div>
-<section id="development" class="wrap section development" aria-labelledby="development-title"><div class="section-heading"><span class="eyebrow">{e(preview_copy['status'])}</span><h2 id="development-title">{e(preview_copy['title'])}</h2><p class="preview-notice">{e(preview_copy['notice'])}</p></div><div class="update-grid">{preview_cards}</div><p class="preview-detail">{e(preview_copy['beta'])}</p><details class="preview-checks"><summary>{e(presentation['tests'])}</summary><p>{e(preview_copy['test'])}</p></details><div class="current-screenshots"><h3>{e(presentation['shots'])}</h3><p>{e(presentation['shotnote'])}</p><div class="gallery">{current_screenshots}</div></div></section>
+<section id="development" class="wrap section development" aria-labelledby="development-title"><div class="section-heading"><span class="eyebrow">{e(preview_copy['status'])}</span><h2 id="development-title">{e(preview_copy['title'])}</h2><p class="preview-notice">{e(preview_copy['notice'])}</p></div><div class="current-screenshots"><p>{e(presentation['shotnote'])}</p><div class="gallery">{current_screenshots}</div></div></section>
 <section id="modes" class="wrap section"><div class="section-heading"><span class="eyebrow">01 / PLAY</span><h2>{e(d['play'])}</h2></div>
 <div class="mode-picker"><h3>{e(w['chooser'])}</h3><ol class="mode-recommendations">{advice}</ol></div>
 </section>

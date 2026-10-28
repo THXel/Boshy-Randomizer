@@ -4,46 +4,14 @@
     "date": "2026-10-28",
     "locales": {
       "en": {
-        "title": "Meet Boshy Randomizer",
+        "title": "Take a look",
         "status": "First final release coming soon",
-        "notice": "Boshy Randomizer is nearing its first final release. So far, THXel is the only playtester. The download will be available here when the first final version is ready.",
+        "notice": "The first final release is coming soon. Here’s a first look.",
         "download": "First final release · in preparation",
-        "test": "Gameplay has so far been tested only by THXel. Automated checks support development, but there has been no wider public playtest. Final checks are still in progress before release.",
-        "entries": [
-          [
-            "Clear game menus",
-            "Two-column categories, meaningful icons, contextual help and mouse or keyboard controls. Your seed is visible at a glance."
-          ],
-          [
-            "Save slots with useful details",
-            "Preview your location and collection. Choose newly collected characters with F3 when character selection is unlocked."
-          ],
-          [
-            "Your screen, your options",
-            "Classic 4:3 or stretched 16:9, F4 fullscreen and saved language and soundtrack preferences. Optional No Screen Shaking."
-          ],
-          [
-            "Consistent backgrounds and sound",
-            "Complete backgrounds with matching layers and effects. Separate music pools for levels and bosses; soundpack preferences stay outside the run seed."
-          ],
-          [
-            "Live tracking and the finale",
-            "LiveTracker follows the game language. Results appear over the credits, close with × and disappear on F2 restart."
-          ],
-          [
-            "Installation with clear feedback",
-            "Progress indicators, cancellation during preparation and optional launch on completion. Import your own original Boshy ZIP or folder."
-          ]
-        ],
-        "beta": "For new Randomizer and Boss Rush runs, Bomberman, Questionmark and Ridley start disabled. You can enable them explicitly; existing saves and imported seeds keep their choices.",
-        "music": "Music Shuffle assigns level tracks to levels and boss tracks to bosses, using separate pools. Optional locally imported Kamilia 3 and WannaFest22 packs also provide matching music and effects. Additional soundpacks are not included in the downloads.",
-        "windows": "The published 2026.10.23.1 release was checked in Windows 11, including installation, upgrade, save slots and restart. The installer is unsigned. Keep antivirus protection enabled; high-DPI and unusual account paths still need broader testing.",
-        "gallery": "Footage from the published version. The menu redesign above belongs to the next update. ",
         "presentation": {
           "nav": "News",
-          "tests": "Test status and details",
-          "shots": "Explore the menus",
-          "shotnote": "New GIF tours assembled from current test screenshots: menus, appearance settings and save slots. These are animated screenshot sequences, not continuous gameplay recordings.",
+          "shots": "Take a look",
+          "shotnote": "A few animated glimpses of the settings.",
           "captions": [
             "Menu tour: route, levels, bosses and characters",
             "Appearance settings in all five languages",
@@ -82,46 +50,14 @@
         "soon": "Coming soon"
       },
       "de": {
-        "title": "Das ist Boshy Randomizer",
+        "title": "So sieht’s aus",
         "status": "Kurz vor der ersten finalen Version",
-        "notice": "Boshy Randomizer steht kurz vor seiner ersten finalen Veröffentlichung. Bisher wurde das Spiel ausschließlich von THXel getestet. Sobald die erste finale Version fertig ist, findest du hier den Download.",
+        "notice": "Die erste finale Version kommt bald. Hier bekommst du schon einen Vorgeschmack.",
         "download": "Erste finale Version · in Vorbereitung",
-        "test": "Bisheriger Spieletester ist ausschließlich THXel. Automatisierte Prüfungen unterstützen die Entwicklung, ersetzen aber keinen breiten Spieltest. Vor der ersten Veröffentlichung laufen noch die abschließenden Prüfungen.",
-        "entries": [
-          [
-            "Ein übersichtliches Spielmenü",
-            "Rubriken in zwei Spalten, passende Icons, Hilfetexte und Bedienung per Maus oder Tastatur. Dein Seed ist direkt sichtbar."
-          ],
-          [
-            "Spielstände mit Vorschau",
-            "Standort und Sammlung vor dem Fortsetzen sehen. Neu gesammelte Charaktere sind bei freigegebener Auswahl mit F3 wählbar."
-          ],
-          [
-            "Dein Bildschirm, deine Optionen",
-            "Klassisches 4:3 oder gestrecktes 16:9, Vollbild mit F4 und gespeicherte Sprach- und Musikwahl. Bildschirmwackeln optional ausschaltbar."
-          ],
-          [
-            "Zusammenhängende Hintergründe und passende Musik",
-            "Komplette Hintergründe samt Ebenen und Effekten. Getrennte Musikpools für Levels und Bosse; Soundpacks bleiben außerhalb des Run-Seeds."
-          ],
-          [
-            "Live-Tracker und Finale",
-            "LiveTracker übernimmt die Spielsprache. Ergebnisse über dem Abspann lassen sich mit × schließen und verschwinden beim Neustart mit F2."
-          ],
-          [
-            "Installation mit klarer Rückmeldung",
-            "Fortschrittsanzeigen, Abbrechen während der Vorbereitung und optionaler Spielstart zum Abschluss. Eigene Boshy-ZIP oder eigenen Ordner auswählen."
-          ]
-        ],
-        "beta": "Bei neuen Randomizer- und Boss-Rush-Runs sind Bomberman, Questionmark und Ridley zunächst ausgeschaltet. Du kannst sie gezielt aktivieren; bestehende Spielstände und importierte Seeds behalten ihre Auswahl.",
-        "music": "Die Musikmischung verwendet getrennte Pools: Levelmusik für Levels, Bossmusik für Bosse. Optional lokal importierte Kamilia-3- und WannaFest22-Packs ergänzen passende Musik und Effekte. Zusätzliche Soundpacks sind nicht in den Downloads enthalten.",
-        "windows": "Die veröffentlichte Version 2026.10.23.1 wurde unter Windows 11 einschließlich Installation, Update, Speicherplätzen und Neustart geprüft. Der Installer ist nicht signiert. Virenschutz eingeschaltet lassen; hohe DPI-Werte und ungewöhnliche Kontopfade benötigen weitere Tests.",
-        "gallery": "Aufnahmen der veröffentlichten Version. Das oben beschriebene neue Menü gehört zum nächsten Update. ",
         "presentation": {
           "nav": "Neuigkeiten",
-          "tests": "Teststand und Details",
-          "shots": "Einblicke in die Menüs",
-          "shotnote": "Neue GIF-Touren aus aktuellen Testaufnahmen: Menüs, Darstellung und Speicherplätze. Es sind animierte Folgen von Screenshots, keine durchgehenden Gameplay-Aufzeichnungen.",
+          "shots": "So sieht’s aus",
+          "shotnote": "Ein paar animierte Einblicke in die Einstellungen.",
           "captions": [
             "Menü-Tour: Route, Levels, Bosse und Charaktere",
             "Darstellungsoptionen in allen fünf Sprachen",
@@ -160,46 +96,14 @@
         "soon": "Bald verfügbar"
       },
       "es": {
-        "title": "Conoce Boshy Randomizer",
+        "title": "Así se ve",
         "status": "La primera versión final está cerca",
-        "notice": "Boshy Randomizer se acerca a su primera versión final. Hasta ahora, THXel es la única persona que lo ha probado jugando. La descarga estará aquí cuando la primera versión final esté lista.",
+        "notice": "La primera versión final llegará pronto. Aquí tienes un adelanto.",
         "download": "Primera versión final · en preparación",
-        "test": "Hasta ahora solo THXel ha probado el juego. Las comprobaciones automáticas ayudan al desarrollo, pero no ha habido pruebas públicas amplias. Las últimas comprobaciones siguen en curso.",
-        "entries": [
-          [
-            "Un menú claro",
-            "Categorías en dos columnas, iconos adecuados, ayuda y control con ratón o teclado. La semilla está siempre a la vista."
-          ],
-          [
-            "Partidas con vista previa",
-            "Consulta la ubicación y la colección antes de continuar. Selecciona personajes recogidos con F3 cuando la selección esté desbloqueada."
-          ],
-          [
-            "Tu pantalla, tus opciones",
-            "4:3 clásico o 16:9 estirado, pantalla completa con F4 e idioma y música guardados. Sacudidas de pantalla desactivables."
-          ],
-          [
-            "Fondos completos y música adecuada",
-            "Fondos completos con sus capas y efectos. Música de niveles y jefes separada; el pack de sonido no forma parte de la semilla."
-          ],
-          [
-            "Seguimiento en directo y final",
-            "LiveTracker utiliza el idioma del juego. Los resultados aparecen sobre los créditos, se cierran con × y desaparecen al reiniciar con F2."
-          ],
-          [
-            "Instalación con información clara",
-            "Progreso visible, cancelación durante la preparación e inicio opcional al terminar. Selecciona tu ZIP o carpeta original de Boshy."
-          ]
-        ],
-        "beta": "En nuevas partidas de Randomizer y Boss Rush, Bomberman, Questionmark y Ridley empiezan desactivados. Puedes activarlos; las partidas existentes y las semillas importadas conservan sus selecciones.",
-        "music": "La mezcla utiliza grupos separados: música de niveles para niveles y música de jefes para jefes. Los packs opcionales de Kamilia 3 y WannaFest22 importados localmente añaden música y efectos. Los packs adicionales no están incluidos en las descargas.",
-        "windows": "La versión publicada 2026.10.23.1 se comprobó en Windows 11, incluida la instalación, actualización, partidas y reinicio. El instalador no está firmado. Mantén el antivirus activado; las pantallas de alta densidad y las rutas de cuenta poco habituales necesitan más pruebas.",
-        "gallery": "Imágenes de la versión publicada. El nuevo menú descrito arriba pertenece a la próxima actualización. ",
         "presentation": {
           "nav": "Novedades",
-          "tests": "Estado de las pruebas y detalles",
-          "shots": "Explora los menús",
-          "shotnote": "Nuevas visitas en GIF creadas con capturas actuales de las pruebas: menús, apariencia y partidas. Son secuencias animadas de capturas, no grabaciones continuas del juego.",
+          "shots": "Así se ve",
+          "shotnote": "Unos vistazos animados a los ajustes.",
           "captions": [
             "Visita al menú: ruta, niveles, jefes y personajes",
             "Opciones visuales en los cinco idiomas",
@@ -238,46 +142,14 @@
         "soon": "Próximamente"
       },
       "ru": {
-        "title": "Знакомьтесь: Boshy Randomizer",
+        "title": "Вот как это выглядит",
         "status": "Первый финальный выпуск уже близко",
-        "notice": "Boshy Randomizer готовится к первому финальному выпуску. Пока единственным игроком-тестировщиком был THXel. Загрузка появится здесь, когда первая финальная версия будет готова.",
+        "notice": "Первая финальная версия скоро выйдет. А пока — небольшой обзор.",
         "download": "Первый финальный выпуск · в подготовке",
-        "test": "Пока игру тестировал только THXel. Автоматические проверки помогают разработке, но широкого публичного тестирования ещё не было. Перед выпуском продолжаются заключительные проверки.",
-        "entries": [
-          [
-            "Понятное меню",
-            "Разделы в две колонки, подходящие значки, пояснения и управление мышью или клавиатурой. Сид сразу виден."
-          ],
-          [
-            "Предпросмотр сохранений",
-            "Местоположение и коллекция видны до продолжения игры. Собранных персонажей можно выбрать через F3, если выбор не заблокирован."
-          ],
-          [
-            "Экран и личные настройки",
-            "Классические 4:3 или растянутые 16:9, полный экран через F4, сохранение языка и музыки. Тряску экрана можно отключить."
-          ],
-          [
-            "Цельные фоны и подходящая музыка",
-            "Цельные фоны со слоями и эффектами. Раздельная музыка уровней и боссов; звуковой набор не входит в сид."
-          ],
-          [
-            "Трекер и финал",
-            "LiveTracker использует язык игры. Результаты поверх титров закрываются крестиком и исчезают при перезапуске через F2."
-          ],
-          [
-            "Понятная установка",
-            "Показ прогресса, отмена при подготовке и запуск по желанию после установки. Выберите свой оригинальный ZIP или папку Boshy."
-          ]
-        ],
-        "beta": "В новых забегах Randomizer и Boss Rush боссы Bomberman, Questionmark и Ridley изначально отключены. Их можно включить вручную; существующие сохранения и импортированные сиды сохраняют свой выбор.",
-        "music": "Используются отдельные наборы: музыка уровней для уровней, музыка боссов для боссов. Дополнительные локально импортированные наборы Kamilia 3 и WannaFest22 добавляют музыку и эффекты. Они не входят в загрузки.",
-        "windows": "Опубликованная версия 2026.10.23.1 проверена в Windows 11: установка, обновление, сохранения и перезапуск. Установщик не подписан. Не отключайте антивирус; высокое разрешение DPI и необычные пути учётных записей требуют дополнительных проверок.",
-        "gallery": "Записи опубликованной версии. Новое меню, описанное выше, относится к следующему обновлению. ",
         "presentation": {
           "nav": "Новости",
-          "tests": "Результаты и подробности проверок",
-          "shots": "Знакомство с меню",
-          "shotnote": "Новые GIF-туры собраны из актуальных снимков тестирования: меню, оформление и сохранения. Это анимированные последовательности снимков, а не непрерывные записи игры.",
+          "shots": "Вот как это выглядит",
+          "shotnote": "Несколько анимированных обзоров настроек.",
           "captions": [
             "Тур по меню: маршрут, уровни, боссы и персонажи",
             "Настройки оформления на всех пяти языках",
@@ -316,46 +188,14 @@
         "soon": "Скоро"
       },
       "ja": {
-        "title": "Boshy Randomizerをご紹介",
+        "title": "こんな見た目に",
         "status": "初の正式版公開まであと少し",
-        "notice": "Boshy Randomizerは初の正式版公開に向けて準備中です。これまでプレイテストを行ったのはTHXelだけです。正式版の準備が整い次第、ここでダウンロードを公開します。",
+        "notice": "初の正式版を近日公開予定。まずは少しだけご紹介。",
         "download": "初の正式版 · 準備中",
-        "test": "これまでゲームをプレイテストしたのはTHXelのみです。自動チェックも開発を支えていますが、広範な公開プレイテストはまだ行っていません。初の公開に向けて最終確認を続けています。",
-        "entries": [
-          [
-            "わかりやすいゲームメニュー",
-            "2列のカテゴリ、適切なアイコン、説明文、マウスとキーボード操作。現在のシードもすぐに確認できます。"
-          ],
-          [
-            "セーブデータのプレビュー",
-            "再開前に現在地とコレクションを確認。選択がロックされていなければ、入手したキャラクターをF3で選べます。"
-          ],
-          [
-            "画面と個人設定",
-            "標準4:3と引き伸ばし16:9、F4で全画面、言語と音楽の設定保存。画面の揺れも無効にできます。"
-          ],
-          [
-            "まとまりのある背景と音楽",
-            "背景をレイヤーや効果と一緒に交換。ステージ曲とボス曲は別々にシャッフルし、サウンドパックはシードに含めません。"
-          ],
-          [
-            "ライブトラッカーとエンディング",
-            "LiveTrackerはゲームの言語を使用。クレジット上の結果は×で閉じられ、F2で再起動すると消えます。"
-          ],
-          [
-            "進行状況がわかるインストール",
-            "進捗表示、準備中の中止、完了後の任意起動。元のBoshyのZIPまたはフォルダーを選択します。"
-          ]
-        ],
-        "beta": "新しいRandomizerとBoss RushのランではBomberman、Questionmark、Ridleyは初期状態で無効です。必要に応じて有効にできます。既存のセーブと読み込んだシードの選択は維持されます。",
-        "music": "ステージ曲はステージへ、ボス曲はボスへ、別々の候補から割り当てます。任意でローカルから取り込むKamilia 3とWannaFest22のパックでは音楽とエフェクトも追加できます。追加パックはダウンロードに含まれません。",
-        "windows": "公開済みの2026.10.23.1はWindows 11でインストール、更新、セーブスロット、再起動を検証済みです。インストーラーは未署名です。ウイルス対策は有効にしてください。高DPIや特殊なアカウントパスでは追加検証が必要です。",
-        "gallery": "公開済みバージョンの映像です。上記の新しいメニューは次のアップデートに含まれます。 ",
         "presentation": {
           "nav": "ニュース",
-          "tests": "テスト状況と詳細",
-          "shots": "メニューを見てみよう",
-          "shotnote": "現在のテスト画面から作成した新しいGIFツアーです。メニュー、表示設定、セーブを紹介します。連続したプレイ動画ではなく、スクリーンショットのアニメーションです。",
+          "shots": "こんな見た目に",
+          "shotnote": "設定画面をアニメーションで紹介。",
           "captions": [
             "メニューツアー：ルート、ステージ、ボス、キャラクター",
             "5言語で見る表示設定",

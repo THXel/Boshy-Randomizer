@@ -3,7 +3,7 @@
     "name": "English",
     "title": "Boshy. Reborn.",
     "tagline": "Rediscover Boshy. A new adventure with every seed.",
-    "intro": "Your favourite worlds. An unfamiliar route. Return to I Wanna Be The Boshy with shuffled encounters, surprising rewards and a run you can share with friends.",
+    "intro": "Boshy’s worlds and bosses in a new order, with surprises in every chest. Build your run and share it with friends.",
     "nav": [
       "Modes",
       "Features",
@@ -22,61 +22,61 @@
       [
         "Randomizer",
         "The familiar game, remixed.",
-        "Shuffle level and boss destinations, and mix items and characters across both kinds of chest. Route settings let you choose the pools and counts. Recommended: seven levels and seven bosses, alternating where the selected pools allow, then Solgryn."
+        "Shuffled levels, bosses and chests, ending with Solgryn."
       ],
       [
         "Target Select",
         "A checklist. An unpredictable journey.",
-        "Chase a random list of original items, with an adjustable target count and optional required bosses. Destinations change; chest rewards stay original. The route continues until your goals are complete, then opens the Solgryn finale."
+        "Find your target items and defeat your boss targets to reach Solgryn."
       ],
       [
         "Normal",
         "Your route. Your rules.",
-        "Keep the original progression and chest rewards. Choose a starting character and optionally enable character rotation or hacks. These extras initially stay off in Normal mode."
+        "Play the original route with your favourite optional extras."
       ],
       [
         "Boss Rush",
         "Skip straight to the fights.",
-        "Choose the boss pool and how many encounters you want. Seven is the default. After the chosen fights, face Solgryn as the finale."
+        "One boss after another. You choose the lineup."
       ],
       [
         "Level Rush",
         "Make the worlds your challenge.",
-        "Choose the level pool and number of sections. Seven is the default. Finish the selected sections, then face Solgryn as the finale."
+        "Take on your chosen levels, then face Solgryn."
       ]
     ],
-    "featuresTitle": "Make every run your own",
+    "featuresTitle": "What’s beyond the next exit?",
     "features": [
       [
-        "Routes beyond the usual path",
-        "Split worlds, minibosses and secret routes sit alongside beta fights such as Ridley, Questionmark, Bomberman and Old Sonic. Route lets you include the encounters you want. Transitions use game state instead of screen pixels."
+        "New paths through Boshy",
+        "Shuffle levels, bosses and secret routes. You choose what goes in."
       ],
       [
-        "Items & characters, one reward pool",
-        "A chest can award an item or a character regardless of its original type. Optional character rotation draws from your available cast; newly collected characters join the pool. F3 selection is locked while rotation is active."
+        "A surprise in every chest",
+        "An item or a new character? Open it and find out."
       ],
       [
-        "A seed worth sharing",
-        "Compact share codes carry the seed and run settings. Copy, paste, validate, preview or generate a new code in the game menu. Use the same randomizer version when comparing runs."
+        "Same seed. Who’s faster?",
+        "Share your seed with friends and race through the same route."
       ],
       [
-        "Three slots. Three adventures.",
-        "Each slot keeps its own run and character unlocks. Menu summaries show your location, difficulty, selected character and progress. Resume, create or delete saves from the native menu."
+        "Room for three runs",
+        "One for practice, one for racing, one for chaos. Pick up where you left off."
       ],
       [
-        "A tracker beside the game",
-        "Open LiveTracker from the main menu in your browser. It follows the game language and displays time, deaths, location and collected items and characters. You can also use it in OBS."
+        "Keep track of your run",
+        "Time, deaths and collected items in LiveTracker – ready for your stream, too."
       ],
       [
-        "An ending you can enjoy",
-        "After Solgryn, a delayed, lightly transparent results screen brings together the seed and run statistics, with a copy button. The death animation and credits continue behind it."
+        "Solgryn awaits",
+        "Reach the final fight and see how your run went."
       ]
     ],
-    "visualTitle": "A familiar game with an unfamiliar look",
-    "visual": "Backgrounds are shuffled as complete groups with their matching layers and effects. Decoration, platforms and enemy colours have separate options. Important gameplay effects stay protected.",
-    "shotsTitle": "New shots. New sound.",
-    "shots": "Randomize projectiles and their firing effects independently of your character: after a spot, after a death, after both, or at a random time within your chosen limit. Set that limit in seconds or minutes; the default is five minutes.",
-    "music": "Music Shuffle assigns level tracks to levels and boss tracks to bosses, using separate pools. Optional locally imported Kamilia 3 and WannaFest22 packs also provide matching music and effects. Additional soundpacks are not included in the downloads.",
+    "visualTitle": "Boshy, shuffled inside out",
+    "visual": "Familiar worlds get different backgrounds, colours and sprites. You decide how wild it gets.",
+    "shotsTitle": "Even your shots get mixed up",
+    "shots": "Let your shots change as you play and shuffle the soundtrack.",
+    "music": "Want Kamilia 3 or WannaFest22? Import your own soundpacks for their music and death effects.",
     "hacksTitle": "A little help. A little chaos.",
     "hacksIntro": "Choose optional extras in the game menu for practice or a different challenge.",
     "hacks": [
@@ -93,12 +93,12 @@
       "Configure Sprite Chaos",
       "Spider surprise"
     ],
-    "controlsTitle": "Built for the way you play",
+    "controlsTitle": "Play your way",
     "controls": [
-      "Mouse hover and keyboard navigation; Enter confirms selections.",
-      "Menus adapt to the game window, with a separate text-size setting.",
-      "Modern monitor-fitting sizes in the original Options menu; stretched fullscreen remains available.",
-      "English, German, Russian, Spanish and Japanese; automatic system-language selection with English fallback."
+      "Mouse or keyboard",
+      "Windowed or fullscreen with F4",
+      "Classic 4:3 or stretched 16:9",
+      "Five languages"
     ],
     "installTitle": "From download to your first run",
     "steps": [
@@ -119,7 +119,7 @@
       ],
       [
         "Who has tested the randomizer?",
-        "So far, only THXel has playtested it. The project is close to its first final release; no wider public testing has taken place."
+        "THXel is the only playtester so far. Final testing for the first release is underway."
       ],
       [
         "When can I download it?",
@@ -130,7 +130,7 @@
         "This is a single-player randomizer. The old Boshy online menu is disabled. Share seed codes to play comparable runs with friends."
       ]
     ],
-    "galleryTitle": "More glimpses of Boshy",
+    "galleryTitle": "A look at the game",
     "captions": [
       "The original intro, remixed",
       "Native run settings and Advanced",
@@ -167,7 +167,7 @@
         "Choose a save slot, mode and settings.",
         "Start your run — or share its seed with a friend."
       ],
-      "galleryhelp": "More glimpses of the project. Open a preview to play it. Videos include sound; GIFs are silent.",
+      "galleryhelp": "Click a preview to watch.",
       "pause": "Pause animation",
       "play": "Play animation",
       "close": "Close",
@@ -183,13 +183,20 @@
       "debug": "",
       "soundvideo": "Video with sound"
     },
-    "gameDownload": "Download the original I Wanna Be The Boshy from Grynsoft"
+    "gameDownload": "Download the original I Wanna Be The Boshy from Grynsoft",
+    "galleryCaptions": [
+      "Kamilia 3 Game Over",
+      "WannaFest22 Game Over",
+      "Ridley",
+      "Choose your characters",
+      "Build your route"
+    ]
   },
   "de": {
     "name": "Deutsch",
     "title": "Boshy ist zurück.",
     "tagline": "Kram Boshy wieder raus. Jeder Seed ein neues Abenteuer.",
-    "intro": "Vertraute Welten. Unbekannte Wege. Entdecke I Wanna Be The Boshy mit gemischten Begegnungen, überraschenden Belohnungen und einem Lauf, den du mit Freunden teilen kannst.",
+    "intro": "Boshys Welten und Bosse in neuer Reihenfolge, Überraschungen in jeder Truhe. Stell dir deinen Lauf zusammen und teile ihn mit Freunden.",
     "nav": [
       "Spielmodi",
       "Funktionen",
@@ -208,61 +215,61 @@
       [
         "Randomizer",
         "Das vertraute Spiel, neu gemischt.",
-        "Level- und Bossziele werden gemischt; Item- und Charaktertruhen teilen sich einen Belohnungspool. Im Routen-Menü wählst du Abschnitte und Anzahl. Empfohlen: sieben Level und sieben Bosse, soweit die Auswahl es erlaubt abwechselnd, danach Solgryn."
+        "Gemischte Level, Bosse und Truhen – bis zum Finale gegen Solgryn."
       ],
       [
         "Target Select",
         "Eine Zielliste. Ein unvorhersehbarer Weg.",
-        "Sammle eine zufällige Liste originaler Items mit einstellbarer Anzahl und optionalen Bosszielen. Die Ziele wechseln, die Truhenbelohnungen bleiben original. Erst wenn alle Vorgaben erfüllt sind, geht es ins Solgryn-Finale."
+        "Finde die gesuchten Items und besiege deine Bossziele, um Solgryn zu erreichen."
       ],
       [
         "Normal",
         "Dein Weg. Deine Regeln.",
-        "Originaler Spielverlauf und originale Truhen. Startcharakter, Charakterwechsel und Hacks sind optional. Diese Extras sind im Normal-Modus zunächst ausgeschaltet."
+        "Spiel den originalen Weg, auf Wunsch mit deinen Lieblingsextras."
       ],
       [
         "Boss Rush",
         "Direkt zu den Kämpfen.",
-        "Wähle Bossauswahl und Anzahl der Begegnungen. Standard sind sieben. Nach den gewählten Kämpfen wartet Solgryn als Finale."
+        "Ein Boss nach dem anderen. Du wählst, wer dabei ist."
       ],
       [
         "Level Rush",
         "Die Welten sind deine Herausforderung.",
-        "Wähle Levelauswahl und Anzahl der Abschnitte. Standard sind sieben. Danach folgt Solgryn als Finale."
+        "Spring durch deine Levelauswahl. Zum Schluss wartet Solgryn."
       ]
     ],
-    "featuresTitle": "Mach jeden Lauf zu deinem Lauf",
+    "featuresTitle": "Was wartet hinter dem nächsten Ausgang?",
     "features": [
       [
-        "Mehr als der normale Weg",
-        "Geteilte Welten, Minibosse und Geheimwege treffen auf Beta-Kämpfe wie Ridley, Questionmark, Bomberman und Old Sonic. Im Routen-Menü bestimmst du die Auswahl. Übergänge lesen den Spielzustand statt Bildschirm-Pixel."
+        "Neue Wege durch Boshy",
+        "Level, Bosse und Geheimwege werden neu gemischt. Du entscheidest, welche dabei sind."
       ],
       [
-        "Items und Charaktere in einem Pool",
-        "Jede Truhe kann ein Item oder einen Charakter enthalten, unabhängig vom ursprünglichen Typ. Der optionale Charakterwechsel nutzt deinen verfügbaren Pool; neu gesammelte Charaktere kommen hinzu. Während der Rotation ist die manuelle F3-Auswahl gesperrt."
+        "Jede Truhe eine Überraschung",
+        "Ein Item oder ein neuer Charakter? Im Randomizer weißt du es erst, wenn du sie öffnest."
       ],
       [
-        "Ein Seed zum Teilen",
-        "Kompakte Codes enthalten Seed und Laufeinstellungen. Im Spielmenü kannst du sie kopieren, einfügen, prüfen, als Vorschau ansehen oder neu generieren. Für vergleichbare Läufe verwendet ihr dieselbe Randomizer-Version."
+        "Gleicher Seed. Wer ist schneller?",
+        "Teile deinen Seed mit Freunden und tretet auf derselben Route gegeneinander an."
       ],
       [
-        "Drei Slots. Drei Abenteuer.",
-        "Jeder Speicherplatz hat einen eigenen Lauf und eigene Charakterfreischaltungen. Die Übersicht zeigt Ort, Schwierigkeit, aktuellen Charakter und Fortschritt. Fortsetzen, anlegen und löschen geht im nativen Menü."
+        "Platz für drei Runs",
+        "Ein Lauf zum Üben, einer fürs Rennen, einer fürs Chaos. Setz jederzeit dort fort, wo du aufgehört hast."
       ],
       [
-        "Ein Tracker neben dem Spiel",
-        "LiveTracker lässt sich direkt aus dem Hauptmenü im Browser öffnen. Er übernimmt die Spielsprache und zeigt Zeit, Tode, Standort sowie gesammelte Items und Charaktere. Du kannst ihn auch in OBS verwenden."
+        "Dein Fortschritt im Blick",
+        "Zeit, Tode und gesammelte Items im LiveTracker – auch für deinen Stream."
       ],
       [
-        "Ein Finale, das du genießen kannst",
-        "Nach Solgryn erscheint zeitversetzt eine leicht transparente Übersicht mit Seed, Laufstatistik und Kopierfunktion. Sterbeanimation und Credits laufen dahinter weiter."
+        "Solgryn wartet am Ende",
+        "Schaff es bis zum Finale und sieh dir an, wie du dich geschlagen hast."
       ]
     ],
-    "visualTitle": "Vertrautes Spiel, ungewohnter Look",
-    "visual": "Hintergründe werden als vollständige Gruppen samt zugehörigen Ebenen und Effekten getauscht. Dekoration, Plattformen und Gegnerfarben sind separat einstellbar. Wichtige Spieleffekte bleiben geschützt.",
-    "shotsTitle": "Neue Schüsse. Neuer Sound.",
-    "shots": "Projektil und Schusseffekt wechseln unabhängig vom Charakter: nach einem Spot, nach einem Tod, nach beidem oder zufällig innerhalb einer selbst gewählten Zeitspanne. Sekunden und Minuten sind einstellbar; Standard sind fünf Minuten.",
-    "music": "Die Musikmischung verwendet getrennte Pools: Levelmusik für Levels, Bossmusik für Bosse. Optional lokal importierte Kamilia-3- und WannaFest22-Packs ergänzen passende Musik und Effekte. Zusätzliche Soundpacks sind nicht in den Downloads enthalten.",
+    "visualTitle": "Boshy, bunt durcheinander",
+    "visual": "Vertraute Welten bekommen andere Hintergründe, Farben und Sprites. Du bestimmst, wie wild es wird.",
+    "shotsTitle": "Auch die Schüsse spielen verrückt",
+    "shots": "Lass deine Schüsse unterwegs wechseln und misch die Musik neu.",
+    "music": "Lust auf Kamilia 3 oder WannaFest22? Eigene Soundpacks bringen deren Musik und Todeseffekte mit.",
     "hacksTitle": "Ein bisschen Hilfe. Ein bisschen Chaos.",
     "hacksIntro": "Wähle im Spielmenü optionale Extras fürs Training oder für eine andere Herausforderung.",
     "hacks": [
@@ -279,12 +286,12 @@
       "Sprite-Chaos konfigurieren",
       "Spinnen-Überraschung"
     ],
-    "controlsTitle": "So bedienbar, wie du spielst",
+    "controlsTitle": "Spiel so, wie es dir passt",
     "controls": [
-      "Maus-Hover und Tastaturnavigation; Enter bestätigt die Auswahl.",
-      "Menüs passen sich ans Spielfenster an, die Schriftgröße lässt sich separat wählen.",
-      "Moderne, zum Monitor passende Größen im originalen Optionsmenü; gestrecktes Vollbild bleibt verfügbar.",
-      "Deutsch, Englisch, Russisch, Spanisch und Japanisch mit Systemerkennung und Englisch als Fallback."
+      "Maus oder Tastatur",
+      "Fenster oder Vollbild mit F4",
+      "Klassisch 4:3 oder gestreckt 16:9",
+      "Fünf Sprachen"
     ],
     "installTitle": "Vom Download zum ersten Lauf",
     "steps": [
@@ -305,7 +312,7 @@
       ],
       [
         "Wer hat den Randomizer bisher getestet?",
-        "Bisher hat ausschließlich THXel das Spiel getestet. Das Projekt steht kurz vor seiner ersten finalen Veröffentlichung; einen breiten öffentlichen Spieltest gab es noch nicht."
+        "Bisher hat THXel den Randomizer allein getestet. Die letzten Tests vor der ersten finalen Version laufen."
       ],
       [
         "Wann kann ich ihn herunterladen?",
@@ -316,7 +323,7 @@
         "Dies ist ein Einzelspieler-Randomizer. Das alte Boshy-Online-Menü ist deaktiviert. Über Seed-Codes könnt ihr vergleichbare Läufe mit Freunden spielen."
       ]
     ],
-    "galleryTitle": "Weitere Einblicke in Boshy",
+    "galleryTitle": "Ein Blick ins Spiel",
     "captions": [
       "Das originale Intro, neu gemischt",
       "Native Laufeinstellungen und Advanced",
@@ -353,7 +360,7 @@
         "Wähle Speicherplatz, Modus und Einstellungen.",
         "Starte deinen Lauf — oder teile den Seed mit Freunden."
       ],
-      "galleryhelp": "Weitere Einblicke ins Projekt. Öffne eine Vorschau zum Abspielen. Videos enthalten Ton; GIFs sind stumm.",
+      "galleryhelp": "Anklicken und ansehen.",
       "pause": "Animation pausieren",
       "play": "Animation abspielen",
       "close": "Schließen",
@@ -369,13 +376,20 @@
       "debug": "",
       "soundvideo": "Video mit Ton"
     },
-    "gameDownload": "I Wanna Be The Boshy bei Grynsoft herunterladen"
+    "gameDownload": "I Wanna Be The Boshy bei Grynsoft herunterladen",
+    "galleryCaptions": [
+      "Game Over im Kamilia-3-Stil",
+      "Game Over im WannaFest22-Stil",
+      "Ridley",
+      "Wähle deine Charaktere",
+      "Stell dir deine Route zusammen"
+    ]
   },
   "es": {
     "name": "Español",
     "title": "Boshy renace.",
     "tagline": "Redescubre Boshy. Una nueva aventura con cada semilla.",
-    "intro": "Mundos conocidos. Caminos inesperados. Vuelve a I Wanna Be The Boshy con encuentros mezclados, recompensas sorprendentes y una partida que puedes compartir.",
+    "intro": "Los mundos y jefes de Boshy en otro orden, con sorpresas en cada cofre. Prepara tu partida y compártela con amigos.",
     "nav": [
       "Modos",
       "Funciones",
@@ -394,61 +408,61 @@
       [
         "Randomizer",
         "El juego conocido, remezclado.",
-        "Mezcla destinos de niveles y jefes y combina objetos y personajes en ambos tipos de cofre. En Ruta eliges las listas y cantidades. Recomendado: siete niveles y siete jefes, alternando cuando sea posible, y Solgryn al final."
+        "Niveles, jefes y cofres mezclados, con Solgryn al final."
       ],
       [
         "Target Select",
         "Una lista. Un viaje imprevisible.",
-        "Persigue una lista aleatoria de objetos originales, con cantidad ajustable y jefes obligatorios opcionales. Cambian los destinos; las recompensas permanecen originales. Completa todos los objetivos para llegar a Solgryn."
+        "Encuentra los objetos y vence a los jefes indicados para llegar a Solgryn."
       ],
       [
         "Normal",
         "Tu camino. Tus reglas.",
-        "Progresión y cofres originales. Personaje inicial, rotación de personajes y hacks opcionales; estos extras empiezan desactivados."
+        "Juega la ruta original con tus extras opcionales favoritos."
       ],
       [
         "Boss Rush",
         "Directo a los combates.",
-        "Elige los jefes disponibles y cuántos encuentros jugar; siete por defecto. Después llega Solgryn."
+        "Un jefe tras otro. Tú eliges a quién enfrentarte."
       ],
       [
         "Level Rush",
         "Los mundos son el reto.",
-        "Elige niveles y cantidad de secciones; siete por defecto. Termina la ruta y enfréntate a Solgryn."
+        "Supera los niveles que elijas y termina contra Solgryn."
       ]
     ],
-    "featuresTitle": "Haz tuya cada partida",
+    "featuresTitle": "¿Qué hay tras la próxima salida?",
     "features": [
       [
-        "Más allá de la ruta habitual",
-        "Mundos divididos, minijefes y secretos, además de encuentros beta como Ridley, Questionmark, Bomberman y Old Sonic. Ruta permite elegirlos; las transiciones leen el estado del juego, no píxeles."
+        "Nuevos caminos por Boshy",
+        "Mezcla niveles, jefes y rutas secretas. Tú eliges cuáles entran."
       ],
       [
-        "Objetos y personajes juntos",
-        "Cualquier cofre puede dar un objeto o personaje. La rotación opcional utiliza los personajes disponibles y añade los recién obtenidos. F3 queda bloqueado mientras la rotación está activa."
+        "Cada cofre, una sorpresa",
+        "¿Un objeto o un personaje nuevo? Ábrelo y descúbrelo."
       ],
       [
-        "Semillas para compartir",
-        "Los códigos compactos incluyen semilla y opciones. Copia, pega, valida, previsualiza o genera uno nuevo desde el menú. Usa la misma versión para comparar partidas."
+        "Misma semilla. ¿Quién llega antes?",
+        "Comparte tu semilla con amigos y competid en la misma ruta."
       ],
       [
-        "Tres espacios, tres aventuras",
-        "Cada espacio conserva su partida y personajes desbloqueados. El resumen muestra ubicación, dificultad, personaje y progreso. Continúa, crea o elimina desde el menú nativo."
+        "Espacio para tres partidas",
+        "Una para practicar, otra para competir y otra para el caos. Continúa donde lo dejaste."
       ],
       [
-        "Un tracker junto al juego",
-        "Abre LiveTracker en el navegador desde el menú principal. Utiliza el idioma del juego y muestra tiempo, muertes, ubicación, objetos y personajes recogidos. También puedes usarlo en OBS."
+        "Tu progreso a la vista",
+        "Tiempo, muertes y objetos en LiveTracker, también para tu stream."
       ],
       [
-        "Disfruta del final",
-        "Tras Solgryn aparece un resumen ligeramente transparente con estadísticas y semilla copiable. La animación final y los créditos siguen reproduciéndose."
+        "Solgryn te espera",
+        "Llega al combate final y comprueba cómo te ha ido."
       ]
     ],
-    "visualTitle": "El mismo juego, otra apariencia",
-    "visual": "Los fondos se intercambian como grupos completos con sus capas y efectos. Decoración, plataformas y colores de enemigos tienen opciones independientes. Los efectos importantes del juego se mantienen protegidos.",
-    "shotsTitle": "Nuevos disparos. Nuevo sonido.",
-    "shots": "Cambia proyectil y efecto de disparo independientemente del personaje: tras cada sección, muerte, ambos o aleatoriamente dentro de un límite de tiempo. Elige segundos o minutos; cinco minutos por defecto.",
-    "music": "La mezcla utiliza grupos separados: música de niveles para niveles y música de jefes para jefes. Los packs opcionales de Kamilia 3 y WannaFest22 importados localmente añaden música y efectos. Los packs adicionales no están incluidos en las descargas.",
+    "visualTitle": "Boshy, todo revuelto",
+    "visual": "Mundos conocidos con otros fondos, colores y sprites. Tú decides cuánto caos quieres.",
+    "shotsTitle": "Tus disparos también cambian",
+    "shots": "Deja que cambien tus disparos y mezcla la banda sonora.",
+    "music": "¿Prefieres Kamilia 3 o WannaFest22? Importa tus propios packs para usar su música y efectos de muerte.",
     "hacksTitle": "Un poco de ayuda. Un poco de caos.",
     "hacksIntro": "Elige extras opcionales en el menú para practicar o cambiar el desafío.",
     "hacks": [
@@ -467,10 +481,10 @@
     ],
     "controlsTitle": "Juega a tu manera",
     "controls": [
-      "Navegación con ratón y teclado; Enter confirma.",
-      "Menús adaptados a la ventana y tamaño de texto independiente.",
-      "Resoluciones adaptadas al monitor en Options; se mantiene pantalla completa estirada.",
-      "Inglés, alemán, ruso, español y japonés según el sistema; inglés como alternativa."
+      "Ratón o teclado",
+      "Ventana o pantalla completa con F4",
+      "4:3 clásico o 16:9 estirado",
+      "Cinco idiomas"
     ],
     "installTitle": "De la descarga a tu primera partida",
     "steps": [
@@ -491,7 +505,7 @@
       ],
       [
         "¿Quién ha probado el randomizer?",
-        "Hasta ahora solo THXel lo ha probado jugando. La primera versión final está cerca; todavía no ha habido pruebas públicas amplias."
+        "Por ahora, THXel es el único que ha probado el juego. Las últimas pruebas antes de la primera versión final están en marcha."
       ],
       [
         "¿Cuándo podré descargarlo?",
@@ -502,7 +516,7 @@
         "Es un randomizer para un jugador. El antiguo menú online está desactivado. Comparte semillas para jugar rutas comparables con amigos."
       ]
     ],
-    "galleryTitle": "Más imágenes de Boshy",
+    "galleryTitle": "Un vistazo al juego",
     "captions": [
       "El intro original, remezclado",
       "Opciones nativas y Advanced",
@@ -539,7 +553,7 @@
         "Elige una ranura, un modo y los ajustes.",
         "Empieza la partida o comparte la semilla con amigos."
       ],
-      "galleryhelp": "Más imágenes del proyecto. Abre una vista previa para reproducirla. Los vídeos tienen sonido; los GIF son silenciosos.",
+      "galleryhelp": "Haz clic para verlo.",
       "pause": "Pausar animación",
       "play": "Reproducir animación",
       "close": "Cerrar",
@@ -555,13 +569,20 @@
       "debug": "",
       "soundvideo": "Vídeo con sonido"
     },
-    "gameDownload": "Descargar I Wanna Be The Boshy desde Grynsoft"
+    "gameDownload": "Descargar I Wanna Be The Boshy desde Grynsoft",
+    "galleryCaptions": [
+      "Game Over al estilo Kamilia 3",
+      "Game Over al estilo WannaFest22",
+      "Ridley",
+      "Elige tus personajes",
+      "Prepara tu ruta"
+    ]
   },
   "ru": {
     "name": "Русский",
     "title": "Boshy возвращается.",
     "tagline": "Открой Boshy заново. Каждый сид — новое приключение.",
-    "intro": "Знакомые миры. Неожиданные пути. Вернись в I Wanna Be The Boshy: новые сочетания встреч, случайные награды и маршрут, которым можно поделиться.",
+    "intro": "Миры и боссы Boshy в новом порядке, сюрпризы в каждом сундуке. Настрой забег и поделись им с друзьями.",
     "nav": [
       "Режимы",
       "Возможности",
@@ -580,61 +601,61 @@
       [
         "Randomizer",
         "Знакомая игра в новом порядке.",
-        "Перемешивай уровни и боссов, объединяй предметы и персонажей в общий пул наград сундуков. В Маршрут выбираются списки и количество. Рекомендуется семь уровней и семь боссов, по возможности поочерёдно, затем Solgryn."
+        "Уровни, боссы и сундуки вперемешку, а в конце — Солгрин."
       ],
       [
         "Target Select",
         "Список целей. Неизвестный путь.",
-        "Собери случайный список оригинальных предметов; количество и обязательные боссы настраиваются. Меняются точки назначения, но не награды. Выполни цели, чтобы открыть финал с Solgryn."
+        "Найди нужные предметы и победи заданных боссов, чтобы добраться до Солгрина."
       ],
       [
         "Normal",
         "Твой путь. Твои правила.",
-        "Оригинальное прохождение и сундуки. Можно выбрать стартового персонажа, ротацию и хаки; сначала эти дополнения выключены."
+        "Пройди оригинальный маршрут с любимыми дополнительными настройками."
       ],
       [
         "Boss Rush",
         "Сразу к сражениям.",
-        "Выбирай боссов и число встреч — по умолчанию семь. После них тебя ждёт Solgryn."
+        "Боссы один за другим. Состав выбираешь ты."
       ],
       [
         "Level Rush",
         "Миры становятся испытанием.",
-        "Выбирай уровни и количество участков — по умолчанию семь. После маршрута следует финал с Solgryn."
+        "Пройди выбранные уровни и сразись с Солгрином."
       ]
     ],
-    "featuresTitle": "Каждый забег — по-твоему",
+    "featuresTitle": "Что ждёт за следующим выходом?",
     "features": [
       [
-        "Больше обычного маршрута",
-        "Разделённые миры, мини-боссы, секреты и бета-бои с Ridley, Questionmark, Bomberman и Old Sonic. Список выбирается в Маршрут. Переходы используют состояние игры вместо пикселей."
+        "Новые пути по Boshy",
+        "Перемешай уровни, боссов и секретные пути. Ты выбираешь, что включить."
       ],
       [
-        "Предметы и персонажи вместе",
-        "Любой сундук может дать предмет или персонажа. Необязательная ротация использует доступных героев и добавляет новых после получения. Ручной выбор F3 при ротации заблокирован."
+        "Каждый сундук — сюрприз",
+        "Предмет или новый персонаж? Открой и узнай."
       ],
       [
-        "Сиды для друзей",
-        "Компактный код содержит сид и настройки забега. Копируй, вставляй, проверяй и просматривай его в меню или создавай новый. Для сравнения забегов нужна одинаковая версия."
+        "Один сид. Кто быстрее?",
+        "Поделись сидом с друзьями и соревнуйтесь на одном маршруте."
       ],
       [
-        "Три слота, три приключения",
-        "Каждый слот хранит отдельный забег и открытия персонажей. В меню видны место, сложность, герой и прогресс; там же можно продолжить, создать или удалить сохранение."
+        "Место для трёх забегов",
+        "Один для тренировки, другой для гонки, третий для хаоса. Продолжай с того места, где остановился."
       ],
       [
-        "Трекер рядом с игрой",
-        "Откройте LiveTracker в браузере из главного меню. Он использует язык игры и показывает время, смерти, местоположение, предметы и персонажей. Его также можно использовать в OBS."
+        "Прогресс перед глазами",
+        "Время, смерти и предметы в LiveTracker — в том числе для стрима."
       ],
       [
-        "Финал без спешки",
-        "После Solgryn появляется отложенный полупрозрачный итог со статистикой и копируемым сидом. Анимация смерти и титры продолжаются."
+        "Солгрин ждёт",
+        "Доберись до финального боя и посмотри на результаты забега."
       ]
     ],
-    "visualTitle": "Знакомая игра, новый облик",
-    "visual": "Фоны меняются целыми группами вместе со слоями и эффектами. Декорации, платформы и цвета врагов настраиваются отдельно. Важные игровые эффекты остаются защищёнными.",
-    "shotsTitle": "Новые выстрелы. Новый звук.",
-    "shots": "Меняй снаряд и эффект выстрела независимо от героя: после участка, смерти, обоих событий или в случайный момент внутри выбранного интервала. Секунды и минуты настраиваются; по умолчанию пять минут.",
-    "music": "Используются отдельные наборы: музыка уровней для уровней, музыка боссов для боссов. Дополнительные локально импортированные наборы Kamilia 3 и WannaFest22 добавляют музыку и эффекты. Они не входят в загрузки.",
+    "visualTitle": "Знакомый Boshy вперемешку",
+    "visual": "Знакомые миры с другими фонами, цветами и спрайтами. Сколько будет хаоса — решать тебе.",
+    "shotsTitle": "Даже выстрелы меняются",
+    "shots": "Пусть выстрелы меняются на ходу, а музыка звучит в новом порядке.",
+    "music": "Хочешь Kamilia 3 или WannaFest22? Импортируй свои звуковые паки с их музыкой и эффектами смерти.",
     "hacksTitle": "Немного помощи. Немного хаоса.",
     "hacksIntro": "Выбирайте дополнительные настройки в меню игры для тренировки или новых испытаний.",
     "hacks": [
@@ -651,12 +672,12 @@
       "Настроить Sprite Chaos",
       "Сюрприз с пауком"
     ],
-    "controlsTitle": "Удобно играть",
+    "controlsTitle": "Играй как удобно",
     "controls": [
-      "Мышь и клавиатура; Enter подтверждает выбор.",
-      "Меню подстраивается под окно, размер текста регулируется отдельно.",
-      "Размеры под монитор в оригинальном Options; растянутый полный экран сохранён.",
-      "Английский, немецкий, русский, испанский и японский по языку системы; запасной — английский."
+      "Мышь или клавиатура",
+      "Оконный или полноэкранный режим по F4",
+      "Классические 4:3 или растянутые 16:9",
+      "Пять языков"
     ],
     "installTitle": "От загрузки до первого забега",
     "steps": [
@@ -677,7 +698,7 @@
       ],
       [
         "Кто уже тестировал randomizer?",
-        "Пока игру тестировал исключительно THXel. Первый финальный выпуск близко; широкого публичного тестирования ещё не было."
+        "Пока игру тестировал только THXel. Идут последние проверки перед первой финальной версией."
       ],
       [
         "Когда можно будет скачать?",
@@ -688,7 +709,7 @@
         "Это одиночный рандомайзер. Старое онлайн-меню отключено. Делись сидами, чтобы проходить сопоставимые маршруты с друзьями."
       ]
     ],
-    "galleryTitle": "Другие кадры Boshy",
+    "galleryTitle": "Взгляд на игру",
     "captions": [
       "Оригинальное интро по-новому",
       "Настройки и Advanced внутри игры",
@@ -725,7 +746,7 @@
         "Выбери слот, режим и настройки.",
         "Начни забег или поделись сидом с друзьями."
       ],
-      "galleryhelp": "Другие кадры проекта. Откройте превью для воспроизведения. Видео со звуком, GIF — без звука.",
+      "galleryhelp": "Нажми на превью для просмотра.",
       "pause": "Приостановить анимацию",
       "play": "Включить анимацию",
       "close": "Закрыть",
@@ -741,13 +762,20 @@
       "debug": "",
       "soundvideo": "Видео со звуком"
     },
-    "gameDownload": "Скачать I Wanna Be The Boshy на Grynsoft"
+    "gameDownload": "Скачать I Wanna Be The Boshy на Grynsoft",
+    "galleryCaptions": [
+      "Game Over в стиле Kamilia 3",
+      "Game Over в стиле WannaFest22",
+      "Ridley",
+      "Выбери персонажей",
+      "Собери свой маршрут"
+    ]
   },
   "ja": {
     "name": "日本語",
     "title": "Boshyを、もう一度。",
     "tagline": "シードが変われば、冒険も変わる。",
-    "intro": "おなじみの世界を、知らないルートで。出会いも報酬も変わる I Wanna Be The Boshy を楽しんで、同じシードを友達と共有しよう。",
+    "intro": "Boshyのステージとボスをシャッフル。宝箱にも驚きが待っています。自分好みのランを作って、友達と共有しよう。",
     "nav": [
       "モード",
       "機能",
@@ -766,61 +794,61 @@
       [
         "Randomizer",
         "おなじみのゲームをシャッフル。",
-        "ステージとボスの行き先を変更し、アイテムとキャラクターを共通の宝箱報酬にします。ルートで候補と数を選択。推奨はステージ7つとボス7体を可能な範囲で交互に進み、最後はSolgryn。"
+        "ステージ、ボス、宝箱をシャッフル。最後はSolgryn戦へ。"
       ],
       [
         "Target Select",
         "目標リストと予測不能な旅。",
-        "ランダムな元のアイテム一覧を集めます。目標数と必須ボスは設定可能。行き先は変わりますが報酬は元のままです。全目標達成後にSolgrynへ進みます。"
+        "指定されたアイテムを集め、ボスを倒してSolgrynを目指そう。"
       ],
       [
         "Normal",
         "いつものルートに、自分のルール。",
-        "元の進行と宝箱を維持。開始キャラクター、キャラクター変更、ハックを任意で選べます。追加機能は初期状態でオフです。"
+        "オリジナルのルートに、お好みの追加設定を。"
       ],
       [
         "Boss Rush",
         "すぐにボス戦へ。",
-        "ボス候補と戦う数を選択。標準は7体で、その後にSolgrynが待ちます。"
+        "選んだボスと次々に対戦。"
       ],
       [
         "Level Rush",
         "ステージを主役に。",
-        "ステージ候補と区間数を選択。標準は7区間で、最後はSolgryn戦です。"
+        "選んだステージを攻略し、最後にSolgrynへ。"
       ]
     ],
-    "featuresTitle": "自分だけのランに",
+    "featuresTitle": "次の出口には何が待っている？",
     "features": [
       [
-        "通常ルートの、その先へ",
-        "分割ステージ、ミニボス、隠しルートに加え、Ridley、Questionmark、Bomberman、Old Sonicなどのベータ戦も選べます。遷移は画面のピクセルではなくゲームの状態を読み取ります。"
+        "Boshyに新しい道を",
+        "ステージ、ボス、隠しルートをシャッフル。何を入れるかは自分次第。"
       ],
       [
-        "アイテムもキャラクターも",
-        "宝箱の元の種類に関係なく、アイテムかキャラクターが手に入ります。任意のキャラクター変更では新しく集めたキャラクターも候補に追加。変更機能が有効な間はF3の手動選択をロックします。"
+        "宝箱を開ける楽しみ",
+        "アイテムか、新しいキャラクターか。開けてからのお楽しみ。"
       ],
       [
-        "共有できるシード",
-        "短いコードにシードとラン設定をまとめます。ゲーム内でコピー、貼り付け、検証、プレビュー、新規生成が可能。同じランを比較する場合は同じバージョンを使ってください。"
+        "同じシードで競争",
+        "シードを友達と共有して、同じルートでタイムを競おう。"
       ],
       [
-        "3スロット、3つの冒険",
-        "ランとキャラクター解放をスロットごとに保存。場所、難易度、使用キャラクター、進捗を表示し、ゲーム内メニューから続行・作成・削除できます。"
+        "3つのランを保存",
+        "練習用、競争用、カオスを楽しむ用。続きはいつでも再開できます。"
       ],
       [
-        "ゲームの横にトラッカー",
-        "メインメニューからブラウザーでLiveTrackerを開けます。ゲームの言語を引き継ぎ、時間、死亡数、現在地、入手アイテムとキャラクターを表示します。OBSでも使用できます。"
+        "進み具合をひと目で",
+        "LiveTrackerでタイム、死亡回数、集めたアイテムを確認。配信にも使えます。"
       ],
       [
-        "最後まで楽しめる結果画面",
-        "Solgryn後、少し待って半透明の結果画面を表示。統計とコピー可能なシードを確認しながら、死亡演出とクレジットは背後で続きます。"
+        "最後はSolgryn",
+        "ラストバトルを目指し、ランの結果を振り返ろう。"
       ]
     ],
-    "visualTitle": "いつものゲームに、新しい景色",
-    "visual": "背景は対応するレイヤーやエフェクトと一緒にグループ単位で入れ替わります。装飾、足場、敵の色は別々に設定でき、重要なゲーム効果は保護されます。",
-    "shotsTitle": "弾も、音も、新しく。",
-    "shots": "キャラクターとは独立して弾と発射エフェクトを変更。区間ごと、死亡ごと、両方、または設定時間内のランダムなタイミングを選べます。秒・分で設定でき、標準は5分です。",
-    "music": "ステージ曲はステージへ、ボス曲はボスへ、別々の候補から割り当てます。任意でローカルから取り込むKamilia 3とWannaFest22のパックでは音楽とエフェクトも追加できます。追加パックはダウンロードに含まれません。",
+    "visualTitle": "見慣れたBoshyが様変わり",
+    "visual": "いつもの世界を違う背景、色、スプライトで。どこまで変えるかは自分で選べます。",
+    "shotsTitle": "ショットまでシャッフル",
+    "shots": "プレイ中にショットを変えたり、音楽をシャッフルしたり。",
+    "music": "Kamilia 3やWannaFest22の音楽・死亡演出も、自分のサウンドパックを読み込めば楽しめます。",
     "hacksTitle": "少しの助けと、少しのカオス。",
     "hacksIntro": "ゲームメニューで練習用の補助や挑戦を変えるオプションを選べます。",
     "hacks": [
@@ -837,12 +865,12 @@
       "Sprite Chaos設定",
       "クモのサプライズ"
     ],
-    "controlsTitle": "遊びやすさも、自分に合わせて",
+    "controlsTitle": "遊びやすい設定で",
     "controls": [
-      "マウスホバーとキーボード操作。Enterで決定。",
-      "ウィンドウに合わせるメニューと、独立した文字サイズ設定。",
-      "元のOptionsからモニターに合うサイズを選択。引き伸ばし全画面も利用可能。",
-      "英語・ドイツ語・ロシア語・スペイン語・日本語をシステムから判定。未対応言語は英語。"
+      "マウス・キーボード対応",
+      "F4でウィンドウ・全画面切替",
+      "従来の4:3・引き伸ばし16:9",
+      "5言語対応"
     ],
     "installTitle": "ダウンロードから最初のランへ",
     "steps": [
@@ -863,7 +891,7 @@
       ],
       [
         "誰がテストしていますか？",
-        "これまでプレイテストを行ったのはTHXelのみです。初の正式版公開が近づいていますが、広範な公開テストはまだ行っていません。"
+        "これまでのプレイテストはTHXelのみが行っています。初の正式版に向けて最終テスト中です。"
       ],
       [
         "いつダウンロードできますか？",
@@ -874,7 +902,7 @@
         "シングルプレイヤー用です。元のオンラインメニューは無効です。友達とシードを共有して同じ条件のランを楽しめます。"
       ]
     ],
-    "galleryTitle": "Boshyのほかの映像",
+    "galleryTitle": "ゲームをのぞいてみよう",
     "captions": [
       "元のイントロをリミックス",
       "ゲーム内設定とAdvanced",
@@ -911,7 +939,7 @@
         "セーブ枠、モード、設定を選ぶ。",
         "ランを開始。シードを友達と共有することもできます。"
       ],
-      "galleryhelp": "プロジェクトのほかの映像です。プレビューを開くと再生します。動画には音声があり、GIFは無音です。",
+      "galleryhelp": "クリックして再生。",
       "pause": "アニメーションを一時停止",
       "play": "アニメーションを再生",
       "close": "閉じる",
@@ -927,6 +955,13 @@
       "debug": "",
       "soundvideo": "音声付き動画"
     },
-    "gameDownload": "GrynsoftでI Wanna Be The Boshyをダウンロード"
+    "gameDownload": "GrynsoftでI Wanna Be The Boshyをダウンロード",
+    "galleryCaptions": [
+      "Kamilia 3風のゲームオーバー",
+      "WannaFest22風のゲームオーバー",
+      "Ridley",
+      "キャラクターを選ぼう",
+      "ルートを作ろう"
+    ]
   }
 }
