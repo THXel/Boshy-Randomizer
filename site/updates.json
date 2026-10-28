@@ -14,5 +14,268 @@
       "Readable source structure",
       "Domain directories, a smaller menu controller and reproducible source-to-installer builds."
     ]
-  ]
+  ],
+  "preview": {
+    "version": "2026.10.28-preview.44.0",
+    "date": "2026-10-28",
+    "locales": {
+      "en": {
+        "title": "Next update: more comfortable, more readable",
+        "status": "Development preview · not yet available to download",
+        "notice": "The changes below are being tested in preview 44.0. Download buttons still provide the published version 2026.10.23.1; the new installers will follow with a separate release.",
+        "download": "Published download: 2026.10.23.1",
+        "test": "Preview 44.0: 396 automated source tests and 11 game checks under Wine passed. Installer cancellation, retry, completion and removal were also checked under Wine. A fresh Windows 11 check of this exact preview is still pending.",
+        "entries": [
+          [
+            "A clearer game menu",
+            "Compact categories in two columns, meaningful icons, contextual explanations and mouse or keyboard navigation. Large ON/OFF indicators make settings easier to read; the current seed stays visible."
+          ],
+          [
+            "Save slots with useful details",
+            "See your location, current character and collected items and characters before continuing. Newly collected characters can be selected with F3 when character selection is unlocked."
+          ],
+          [
+            "Your screen, your options",
+            "Choose classic 4:3 or stretched 16:9 in the original Options room; F4 toggles fullscreen. Language and soundtrack preferences stay saved across restarts. An optional No Screen Shaking hack keeps the camera steady."
+          ],
+          [
+            "Consistent backgrounds and sound",
+            "Backgrounds move as complete groups with their matching layers and effects. Music shuffle keeps level and boss tracks in separate pools. Soundpack and matching death-screen preferences are personal options, separate from the run seed."
+          ],
+          [
+            "Live tracking and the finale",
+            "Open LiveTracker from the main menu. It follows the game language and shows run progress. Results appear over the credits after Solgryn, can be closed with the top-right × and disappear on F2 restart."
+          ],
+          [
+            "Installation with clear feedback",
+            "Progress indicators, a clean Cancel action during preparation and a completion screen with optional launch. Windows accepts your original Boshy ZIP or folder; Linux setup adds the game to Lutris with its artwork."
+          ]
+        ],
+        "beta": "For new Randomizer and Boss Rush runs, Bomberman, Questionmark and Ridley start disabled. You can enable them explicitly; existing saves and imported seeds keep their choices.",
+        "music": "Music Shuffle assigns level tracks to levels and boss tracks to bosses, using separate pools. Optional locally imported Kamilia 3 and WannaFest22 packs also provide matching music and effects. Additional soundpacks are not included in the downloads.",
+        "windows": "The published 2026.10.23.1 release was checked in Windows 11, including installation, upgrade, save slots and restart. The installer is unsigned. Keep antivirus protection enabled; high-DPI and unusual account paths still need broader testing.",
+        "gallery": "Footage from the published version. The menu redesign above belongs to the next update. "
+      },
+      "de": {
+        "title": "Das nächste Update: übersichtlicher und komfortabler",
+        "status": "Entwicklungsvorschau · noch nicht als Download verfügbar",
+        "notice": "Die folgenden Änderungen werden in Vorschau 44.0 getestet. Die Download-Buttons führen weiterhin zur veröffentlichten Version 2026.10.23.1. Die neuen Installer folgen mit einer eigenen Veröffentlichung.",
+        "download": "Veröffentlichter Download: 2026.10.23.1",
+        "test": "Vorschau 44.0: 396 automatisierte Quellcode-Tests und 11 Spielprüfungen unter Wine bestanden. Auch Installationsabbruch, erneuter Versuch, Abschluss und Deinstallation wurden unter Wine geprüft. Eine neue Windows-11-Prüfung genau dieser Vorschau steht noch aus.",
+        "entries": [
+          [
+            "Ein übersichtlicheres Spielmenü",
+            "Kompakte Rubriken in zwei Spalten, passende Icons, erklärende Hilfetexte und Bedienung mit Maus oder Tastatur. Große AN/AUS-Anzeigen machen Einstellungen deutlich; der aktuelle Seed bleibt sichtbar."
+          ],
+          [
+            "Spielstände mit Vorschau",
+            "Vor dem Fortsetzen siehst du deinen Standort, den aktuellen Charakter sowie gesammelte Items und Charaktere. Neu eingesammelte Charaktere lassen sich mit F3 auswählen, wenn die Charakterauswahl freigegeben ist."
+          ],
+          [
+            "Dein Bildschirm, deine Optionen",
+            "Im originalen Optionsraum stehen klassisches 4:3 und gestrecktes 16:9 bereit; F4 schaltet Vollbild um. Sprache und Soundtrack bleiben über Neustarts gespeichert. Der optionale Hack „Kein Bildschirmwackeln“ hält die Kamera ruhig."
+          ],
+          [
+            "Zusammenhängende Hintergründe und passende Musik",
+            "Hintergründe werden als vollständige Gruppen samt zugehörigen Ebenen und Effekten getauscht. Die Musikmischung trennt Level- und Bosstitel. Soundpack und passender Todesbildschirm sind persönliche Einstellungen außerhalb des Run-Seeds."
+          ],
+          [
+            "Live-Tracker und Finale",
+            "LiveTracker direkt aus dem Hauptmenü öffnen: Er übernimmt die Spielsprache und zeigt deinen Fortschritt. Ergebnisse erscheinen nach Solgryn über dem Abspann, lassen sich oben rechts mit × schließen und verschwinden beim Neustart mit F2."
+          ],
+          [
+            "Installation mit klarer Rückmeldung",
+            "Fortschrittsanzeigen, sauberes Abbrechen während der Vorbereitung und ein Abschlussbildschirm mit optionalem Spielstart. Windows übernimmt deine originale Boshy-ZIP oder deinen Ordner; die Linux-Einrichtung ergänzt Lutris samt Spielbild."
+          ]
+        ],
+        "beta": "Bei neuen Randomizer- und Boss-Rush-Runs sind Bomberman, Questionmark und Ridley zunächst ausgeschaltet. Du kannst sie gezielt aktivieren; bestehende Spielstände und importierte Seeds behalten ihre Auswahl.",
+        "music": "Die Musikmischung verwendet getrennte Pools: Levelmusik für Levels, Bossmusik für Bosse. Optional lokal importierte Kamilia-3- und WannaFest22-Packs ergänzen passende Musik und Effekte. Zusätzliche Soundpacks sind nicht in den Downloads enthalten.",
+        "windows": "Die veröffentlichte Version 2026.10.23.1 wurde unter Windows 11 einschließlich Installation, Update, Speicherplätzen und Neustart geprüft. Der Installer ist nicht signiert. Virenschutz eingeschaltet lassen; hohe DPI-Werte und ungewöhnliche Kontopfade benötigen weitere Tests.",
+        "gallery": "Aufnahmen der veröffentlichten Version. Das oben beschriebene neue Menü gehört zum nächsten Update. "
+      },
+      "es": {
+        "title": "Próxima actualización: más claridad y comodidad",
+        "status": "Versión en desarrollo · todavía no disponible para descargar",
+        "notice": "Estos cambios se están probando en la versión preliminar 44.0. Los botones de descarga siguen ofreciendo la versión publicada 2026.10.23.1. Los nuevos instaladores llegarán con una publicación independiente.",
+        "download": "Descarga publicada: 2026.10.23.1",
+        "test": "Versión preliminar 44.0: superadas 396 pruebas automáticas del código y 11 comprobaciones del juego con Wine. También se comprobaron la cancelación, el reintento, la finalización y la desinstalación con Wine. Falta una nueva comprobación en Windows 11 de esta versión exacta.",
+        "entries": [
+          [
+            "Un menú más claro",
+            "Categorías compactas en dos columnas, iconos adecuados, explicaciones y navegación con ratón o teclado. Indicadores grandes de activado/desactivado y la semilla actual a la vista."
+          ],
+          [
+            "Partidas con vista previa",
+            "Consulta la ubicación, el personaje actual y los objetos y personajes recogidos antes de continuar. Los personajes recién recogidos se pueden elegir con F3 cuando la selección está desbloqueada."
+          ],
+          [
+            "Tu pantalla, tus opciones",
+            "Elige 4:3 clásico o 16:9 estirado en la sala original de opciones; F4 alterna la pantalla completa. El idioma y la banda sonora se conservan al reiniciar. Un modificador opcional desactiva las sacudidas de pantalla."
+          ],
+          [
+            "Fondos completos y música adecuada",
+            "Los fondos se intercambian como grupos completos con sus capas y efectos. La mezcla mantiene separadas las pistas de niveles y jefes. El pack de sonido y su pantalla de muerte son preferencias personales fuera de la semilla."
+          ],
+          [
+            "Seguimiento en directo y final",
+            "Abre LiveTracker desde el menú principal. Utiliza el idioma del juego y muestra tu progreso. Los resultados aparecen sobre los créditos tras Solgryn, se cierran con la × superior derecha y desaparecen al reiniciar con F2."
+          ],
+          [
+            "Instalación con información clara",
+            "Indicadores de progreso, cancelación limpia durante la preparación y pantalla final con inicio opcional. Windows acepta tu ZIP o carpeta original de Boshy; la configuración de Linux añade el juego a Lutris con su imagen."
+          ]
+        ],
+        "beta": "En nuevas partidas de Randomizer y Boss Rush, Bomberman, Questionmark y Ridley empiezan desactivados. Puedes activarlos; las partidas existentes y las semillas importadas conservan sus selecciones.",
+        "music": "La mezcla utiliza grupos separados: música de niveles para niveles y música de jefes para jefes. Los packs opcionales de Kamilia 3 y WannaFest22 importados localmente añaden música y efectos. Los packs adicionales no están incluidos en las descargas.",
+        "windows": "La versión publicada 2026.10.23.1 se comprobó en Windows 11, incluida la instalación, actualización, partidas y reinicio. El instalador no está firmado. Mantén el antivirus activado; las pantallas de alta densidad y las rutas de cuenta poco habituales necesitan más pruebas.",
+        "gallery": "Imágenes de la versión publicada. El nuevo menú descrito arriba pertenece a la próxima actualización. "
+      },
+      "ru": {
+        "title": "Следующее обновление: удобнее и понятнее",
+        "status": "Версия в разработке · пока недоступна для скачивания",
+        "notice": "Эти изменения проверяются в предварительной версии 44.0. Кнопки скачивания по-прежнему ведут на опубликованную версию 2026.10.23.1. Новые установщики появятся с отдельным выпуском.",
+        "download": "Опубликованная версия: 2026.10.23.1",
+        "test": "Предварительная версия 44.0: пройдены 396 автоматических тестов кода и 11 проверок игры в Wine. Отмена установки, повторная попытка, завершение и удаление также проверены в Wine. Новая проверка именно этой версии в Windows 11 ещё предстоит.",
+        "entries": [
+          [
+            "Более понятное меню",
+            "Компактные разделы в две колонки, подходящие значки, пояснения и управление мышью или клавиатурой. Крупные индикаторы включения и отключения; текущий сид всегда виден."
+          ],
+          [
+            "Предпросмотр сохранений",
+            "До продолжения игры видны местоположение, текущий персонаж, собранные предметы и персонажи. Новых персонажей можно выбрать через F3, если выбор персонажа не заблокирован."
+          ],
+          [
+            "Экран и личные настройки",
+            "В оригинальной комнате настроек доступны классические 4:3 и растянутые 16:9; F4 переключает полный экран. Язык и звуковой набор сохраняются после перезапуска. Отдельный модификатор отключает тряску экрана."
+          ],
+          [
+            "Цельные фоны и подходящая музыка",
+            "Фоны меняются целиком вместе со связанными слоями и эффектами. Музыка уровней и боссов перемешивается отдельно. Звуковой набор и соответствующий экран смерти — личные настройки, не входящие в сид."
+          ],
+          [
+            "Трекер и финал",
+            "Откройте LiveTracker из главного меню: он использует язык игры и показывает прогресс. Результаты появляются поверх титров после Solgryn, закрываются крестиком справа вверху и исчезают при перезапуске через F2."
+          ],
+          [
+            "Понятная установка",
+            "Индикаторы прогресса, корректная отмена во время подготовки и экран завершения с запуском по желанию. Windows принимает ваш ZIP или папку оригинального Boshy; настройка Linux добавляет игру в Lutris вместе с изображением."
+          ]
+        ],
+        "beta": "В новых забегах Randomizer и Boss Rush боссы Bomberman, Questionmark и Ridley изначально отключены. Их можно включить вручную; существующие сохранения и импортированные сиды сохраняют свой выбор.",
+        "music": "Используются отдельные наборы: музыка уровней для уровней, музыка боссов для боссов. Дополнительные локально импортированные наборы Kamilia 3 и WannaFest22 добавляют музыку и эффекты. Они не входят в загрузки.",
+        "windows": "Опубликованная версия 2026.10.23.1 проверена в Windows 11: установка, обновление, сохранения и перезапуск. Установщик не подписан. Не отключайте антивирус; высокое разрешение DPI и необычные пути учётных записей требуют дополнительных проверок.",
+        "gallery": "Записи опубликованной версии. Новое меню, описанное выше, относится к следующему обновлению. "
+      },
+      "ja": {
+        "title": "次のアップデート：もっと見やすく、使いやすく",
+        "status": "開発中のプレビュー · まだダウンロードできません",
+        "notice": "以下の変更はプレビュー44.0でテスト中です。ダウンロードボタンは公開済みの2026.10.23.1を提供しています。新しいインストーラーは今後のリリースで公開します。",
+        "download": "公開済みダウンロード：2026.10.23.1",
+        "test": "プレビュー44.0では396件のコード自動テストとWine上での11件のゲーム検証に合格しました。インストールの中止、再試行、完了、アンインストールもWineで検証済みです。このプレビュー自体のWindows 11での再検証は未実施です。",
+        "entries": [
+          [
+            "わかりやすいゲームメニュー",
+            "コンパクトな2列のカテゴリ、内容に合ったアイコン、説明文、マウスとキーボードの操作に対応。大きなオン・オフ表示で設定がわかりやすくなり、現在のシードも確認できます。"
+          ],
+          [
+            "セーブデータのプレビュー",
+            "再開前に現在地、使用キャラクター、入手したアイテムとキャラクターを確認できます。キャラクター選択がロックされていなければ、新しく入手したキャラクターもF3で選択できます。"
+          ],
+          [
+            "画面と個人設定",
+            "元のオプションルームで標準の4:3と引き伸ばし16:9を選択でき、F4で全画面を切り替えます。言語とサウンドパックは再起動後も保存されます。画面の揺れを無効にするオプションも追加します。"
+          ],
+          [
+            "まとまりのある背景と音楽",
+            "背景は対応するレイヤーやエフェクトと一緒に入れ替わります。ステージ曲とボス曲は別々の候補からシャッフルします。サウンドパックと対応する死亡画面はシードに含まれない個人設定です。"
+          ],
+          [
+            "ライブトラッカーとエンディング",
+            "メインメニューからLiveTrackerを開けます。ゲームの言語を引き継ぎ、進行状況を表示します。Solgryn戦後の結果はクレジットに重ねて表示され、右上の×で閉じられ、F2で再起動すると消えます。"
+          ],
+          [
+            "進行状況がわかるインストール",
+            "進捗表示、準備中の安全な中止、任意のゲーム起動を選べる完了画面。Windowsでは元のBoshyのZIPまたはフォルダーを指定し、Linuxのセットアップでは画像付きでLutrisに登録します。"
+          ]
+        ],
+        "beta": "新しいRandomizerとBoss RushのランではBomberman、Questionmark、Ridleyは初期状態で無効です。必要に応じて有効にできます。既存のセーブと読み込んだシードの選択は維持されます。",
+        "music": "ステージ曲はステージへ、ボス曲はボスへ、別々の候補から割り当てます。任意でローカルから取り込むKamilia 3とWannaFest22のパックでは音楽とエフェクトも追加できます。追加パックはダウンロードに含まれません。",
+        "windows": "公開済みの2026.10.23.1はWindows 11でインストール、更新、セーブスロット、再起動を検証済みです。インストーラーは未署名です。ウイルス対策は有効にしてください。高DPIや特殊なアカウントパスでは追加検証が必要です。",
+        "gallery": "公開済みバージョンの映像です。上記の新しいメニューは次のアップデートに含まれます。 "
+      }
+    }
+  },
+  "locales": {
+    "en": [
+      [
+        "Gameplay and menu fixes",
+        "Safer sprite effects, repaired boss exits, Windows focus recovery and uninterrupted music while deleting a save."
+      ],
+      [
+        "Soundtrack categories",
+        "Optional Kamilia 3 and WannaFest22 packs now choose separate music pools for levels and bosses."
+      ],
+      [
+        "Readable source structure",
+        "Domain directories, a smaller menu controller and reproducible source-to-installer builds."
+      ]
+    ],
+    "de": [
+      [
+        "Spiel- und Menükorrekturen",
+        "Stabilere Sprite-Effekte, reparierte Bossausgänge, wiederhergestellter Fensterfokus unter Windows und durchgehende Musik beim Löschen eines Spielstands."
+      ],
+      [
+        "Getrennte Musikgruppen",
+        "Die optionalen Kamilia-3- und WannaFest22-Packs verwenden getrennte Musikpools für Levels und Bosse."
+      ],
+      [
+        "Übersichtlicherer Code",
+        "Thematisch geordnete Verzeichnisse, eine schlankere Menüsteuerung und nachvollziehbare Installer-Erstellung."
+      ]
+    ],
+    "es": [
+      [
+        "Correcciones del juego y del menú",
+        "Efectos de sprites más estables, salidas de jefes reparadas, recuperación del foco en Windows y música continua al borrar una partida."
+      ],
+      [
+        "Categorías de música",
+        "Los packs opcionales de Kamilia 3 y WannaFest22 utilizan grupos separados para la música de niveles y jefes."
+      ],
+      [
+        "Código más organizado",
+        "Directorios por función, un controlador de menú más pequeño y compilaciones reproducibles del instalador."
+      ]
+    ],
+    "ru": [
+      [
+        "Исправления игры и меню",
+        "Более стабильные эффекты спрайтов, исправленные выходы после боссов, восстановление фокуса окна в Windows и непрерывная музыка при удалении сохранения."
+      ],
+      [
+        "Отдельные категории музыки",
+        "Дополнительные наборы Kamilia 3 и WannaFest22 используют раздельную музыку уровней и боссов."
+      ],
+      [
+        "Более понятный код",
+        "Каталоги по назначению, упрощённое управление меню и воспроизводимая сборка установщиков."
+      ]
+    ],
+    "ja": [
+      [
+        "ゲームとメニューの修正",
+        "スプライト効果の安定化、ボス撃破後の出口修正、Windowsでのウィンドウフォーカス復帰、セーブ削除中の音楽継続。"
+      ],
+      [
+        "音楽のカテゴリ分け",
+        "任意のKamilia 3とWannaFest22パックでは、ステージ曲とボス曲を別々の候補から選びます。"
+      ],
+      [
+        "コードの整理",
+        "機能別のディレクトリ、簡素化したメニュー制御、再現可能なインストーラービルド。"
+      ]
+    ]
+  }
 }

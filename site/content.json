@@ -76,7 +76,7 @@
     "visual": "New intro casts and scenery on launch. Optional Sprite Chaos reshuffles reviewed backgrounds with their animated parallax, decoration and platform materials. Configure the layers separately and dim backgrounds for clarity. Enemy and boss colour changes are beta; their shapes, attacks and collision geometry stay intact.",
     "shotsTitle": "New shots. New sound.",
     "shots": "Randomize projectiles and their firing effects independently of your character: after a spot, after a death, after both, or at a random time within your chosen limit. Set that limit in seconds or minutes; the default is five minutes.",
-    "music": "Music Shuffle mixes level and boss music together with a seed-based assignment. Optional locally installed Kamilia 3 and WannaFest22 soundpacks can also replace matching intro, menu, death and ending cues. Soundpack selection is remembered; shuffle tracks must be longer than 30 seconds. These extra soundpacks are not included in the downloads. Locally imported pack graphics add matching animated death screens and blood sprites: Kamilia fades red before its title, while WannaFest slams its title in over VHS noise. Original reset behavior stays unchanged.",
+    "music": "Music Shuffle assigns level tracks to levels and boss tracks to bosses, using separate pools. Optional locally imported Kamilia 3 and WannaFest22 packs also provide matching music and effects. Additional soundpacks are not included in the downloads.",
     "hacksTitle": "A little help. A little chaos.",
     "hacksIntro": "Choose optional tweaks under Advanced → Hacks. Make a practice run, change the feel, or leave a surprise waiting.",
     "hacks": [
@@ -99,7 +99,7 @@
       "Mouse hover and keyboard navigation; Enter confirms selections.",
       "Menus adapt to the game window, with a separate text-size setting.",
       "Modern monitor-fitting sizes in the original Options menu; stretched fullscreen remains available.",
-      "English, German, Russian, Spanish and Japanese; automatic system-language selection with English fallback. Update logs stay English."
+      "English, German, Russian, Spanish and Japanese; automatic system-language selection with English fallback."
     ],
     "installTitle": "From download to your first run",
     "steps": [
@@ -124,7 +124,7 @@
       ],
       [
         "What does Windows preview mean?",
-        "The installer is unsigned and has been tested in Windows 10 x64. Windows 11, non-ASCII account paths, physical 4K and mixed-DPI setups still need dedicated checks. Keep antivirus protection enabled."
+        "The published 2026.10.23.1 release was checked in Windows 11, including installation, upgrade, save slots and restart. The installer is unsigned. Keep antivirus protection enabled; high-DPI and unusual account paths still need broader testing."
       ],
       [
         "Can I play online?",
@@ -168,7 +168,7 @@
         "Choose a save slot, mode and settings.",
         "Start your run — or share its seed with a friend."
       ],
-      "galleryhelp": "Open a preview for the full animation. Death-screen videos include sound; GIFs are silent. Playback starts only when you open a preview.",
+      "galleryhelp": "Footage from the published version. The menu redesign above belongs to the next update. Open a preview for the full animation. Death-screen videos include sound; GIFs are silent. Playback starts only when you open a preview.",
       "pause": "Pause animation",
       "play": "Play animation",
       "close": "Close",
@@ -263,7 +263,7 @@
     "visual": "Neue Intro-Charaktere und Kulissen beim Start. Das optionale Sprite-Chaos mischt geprüfte Hintergründe samt animierter Parallaxe, Dekoration und Plattform-Materialien. Die Ebenen sind einzeln einstellbar, Hintergründe lassen sich abdunkeln. Farbwechsel für Gegner und Bosse sind Beta; Formen, Angriffe und Kollisionen bleiben erhalten.",
     "shotsTitle": "Neue Schüsse. Neuer Sound.",
     "shots": "Projektil und Schusseffekt wechseln unabhängig vom Charakter: nach einem Spot, nach einem Tod, nach beidem oder zufällig innerhalb einer selbst gewählten Zeitspanne. Sekunden und Minuten sind einstellbar; Standard sind fünf Minuten.",
-    "music": "Music Shuffle mischt Level- und Bossmusik gemeinsam mit einer Zuordnung über den Seed. Lokal installierte Kamilia-3- und WannaFest22-Soundpacks können außerdem passende Intro-, Menü-, Todes- und Abspann-Sounds ersetzen. Die Auswahl bleibt gespeichert; Shuffle-Titel müssen länger als 30 Sekunden sein. Diese zusätzlichen Soundpacks sind nicht im Download enthalten. Lokal importierte Pack-Grafiken ergänzen animierte Todesanzeigen und Blutpartikel: Kamilia blendet zuerst Rot und dann die Schrift ein, WannaFest lässt die Schrift über VHS-Rauschen einschlagen. Das ursprüngliche Reset-Verhalten bleibt erhalten.",
+    "music": "Die Musikmischung verwendet getrennte Pools: Levelmusik für Levels, Bossmusik für Bosse. Optional lokal importierte Kamilia-3- und WannaFest22-Packs ergänzen passende Musik und Effekte. Zusätzliche Soundpacks sind nicht in den Downloads enthalten.",
     "hacksTitle": "Ein bisschen Hilfe. Ein bisschen Chaos.",
     "hacksIntro": "Unter Advanced → Hacks wählst du optionale Extras für Training, Abwechslung oder eine kleine Überraschung.",
     "hacks": [
@@ -286,7 +286,7 @@
       "Maus-Hover und Tastaturnavigation; Enter bestätigt die Auswahl.",
       "Menüs passen sich ans Spielfenster an, die Schriftgröße lässt sich separat wählen.",
       "Moderne, zum Monitor passende Größen im originalen Optionsmenü; gestrecktes Vollbild bleibt verfügbar.",
-      "Deutsch, Englisch, Russisch, Spanisch und Japanisch mit Systemerkennung und Englisch als Fallback. Update-Logs bleiben Englisch."
+      "Deutsch, Englisch, Russisch, Spanisch und Japanisch mit Systemerkennung und Englisch als Fallback."
     ],
     "installTitle": "Vom Download zum ersten Lauf",
     "steps": [
@@ -311,7 +311,7 @@
       ],
       [
         "Was bedeutet Windows-Vorschau?",
-        "Der Installer ist unsigniert und wurde unter Windows 10 x64 getestet. Windows 11, Kontopfade mit Sonderzeichen, echte 4K-Anzeigen und gemischte DPI benötigen noch eigene Tests. Virenschutz eingeschaltet lassen."
+        "Die veröffentlichte Version 2026.10.23.1 wurde unter Windows 11 einschließlich Installation, Update, Speicherplätzen und Neustart geprüft. Der Installer ist nicht signiert. Virenschutz eingeschaltet lassen; hohe DPI-Werte und ungewöhnliche Kontopfade benötigen weitere Tests."
       ],
       [
         "Kann man online spielen?",
@@ -355,7 +355,7 @@
         "Wähle Speicherplatz, Modus und Einstellungen.",
         "Starte deinen Lauf — oder teile den Seed mit Freunden."
       ],
-      "galleryhelp": "Öffne eine Vorschau für die vollständige Animation. Die Todesvideos enthalten Ton; GIFs sind stumm. Die Wiedergabe startet erst beim Öffnen einer Vorschau.",
+      "galleryhelp": "Aufnahmen der veröffentlichten Version. Das oben beschriebene neue Menü gehört zum nächsten Update. Öffne eine Vorschau für die vollständige Animation. Die Todesvideos enthalten Ton; GIFs sind stumm. Die Wiedergabe startet erst beim Öffnen einer Vorschau.",
       "pause": "Animation pausieren",
       "play": "Animation abspielen",
       "close": "Schließen",
@@ -450,7 +450,7 @@
     "visual": "El reparto y escenario del intro cambian al iniciar. Sprite Chaos mezcla fondos revisados con su paralaje animado, decoración y materiales de plataformas. Configura cada capa y oscurece fondos para mejorar la visibilidad. Los cambios de color de enemigos y jefes están en beta; formas, ataques y colisiones se conservan.",
     "shotsTitle": "Nuevos disparos. Nuevo sonido.",
     "shots": "Cambia proyectil y efecto de disparo independientemente del personaje: tras cada sección, muerte, ambos o aleatoriamente dentro de un límite de tiempo. Elige segundos o minutos; cinco minutos por defecto.",
-    "music": "Music Shuffle mezcla música de niveles y jefes según la semilla. Los packs locales de Kamilia 3 y WannaFest22 también pueden sustituir sonidos de intro, menú, muerte y final. La selección se guarda; las pistas mezclables deben durar más de 30 segundos. Los packs adicionales no están incluidos. Los gráficos importados localmente añaden pantallas de muerte animadas y partículas de sangre: Kamilia muestra primero una capa roja y después el título; WannaFest lanza el título desde los lados sobre ruido VHS. El reinicio original se conserva.",
+    "music": "La mezcla utiliza grupos separados: música de niveles para niveles y música de jefes para jefes. Los packs opcionales de Kamilia 3 y WannaFest22 importados localmente añaden música y efectos. Los packs adicionales no están incluidos en las descargas.",
     "hacksTitle": "Un poco de ayuda. Un poco de caos.",
     "hacksIntro": "En Advanced → Hacks elige opciones para practicar, variar la partida o añadir sorpresas.",
     "hacks": [
@@ -473,7 +473,7 @@
       "Navegación con ratón y teclado; Enter confirma.",
       "Menús adaptados a la ventana y tamaño de texto independiente.",
       "Resoluciones adaptadas al monitor en Options; se mantiene pantalla completa estirada.",
-      "Inglés, alemán, ruso, español y japonés según el sistema; inglés como alternativa. Los registros de cambios permanecen en inglés."
+      "Inglés, alemán, ruso, español y japonés según el sistema; inglés como alternativa."
     ],
     "installTitle": "De la descarga a tu primera partida",
     "steps": [
@@ -498,7 +498,7 @@
       ],
       [
         "¿Qué significa vista previa de Windows?",
-        "Instalador sin firma, probado en Windows 10 x64. Windows 11, rutas de cuenta no ASCII, 4K físico y DPI mixtos aún requieren pruebas. Mantén activo el antivirus."
+        "La versión publicada 2026.10.23.1 se comprobó en Windows 11, incluida la instalación, actualización, partidas y reinicio. El instalador no está firmado. Mantén el antivirus activado; las pantallas de alta densidad y las rutas de cuenta poco habituales necesitan más pruebas."
       ],
       [
         "¿Hay modo online?",
@@ -542,7 +542,7 @@
         "Elige una ranura, un modo y los ajustes.",
         "Empieza la partida o comparte la semilla con amigos."
       ],
-      "galleryhelp": "Abre una vista previa para ver la animación completa. Los vídeos de muerte tienen sonido; los GIF son silenciosos. La reproducción comienza al abrir una vista previa.",
+      "galleryhelp": "Imágenes de la versión publicada. El nuevo menú descrito arriba pertenece a la próxima actualización. Abre una vista previa para ver la animación completa. Los vídeos de muerte tienen sonido; los GIF son silenciosos. La reproducción comienza al abrir una vista previa.",
       "pause": "Pausar animación",
       "play": "Reproducir animación",
       "close": "Cerrar",
@@ -637,7 +637,7 @@
     "visual": "Персонажи и декорации интро меняются при запуске. Sprite Chaos перемешивает проверенные фоны с анимированным параллаксом, декор и материалы платформ. Слои настраиваются отдельно, фон можно затемнить. Перекраска врагов и боссов — бета; формы, атаки и коллизии сохраняются.",
     "shotsTitle": "Новые выстрелы. Новый звук.",
     "shots": "Меняй снаряд и эффект выстрела независимо от героя: после участка, смерти, обоих событий или в случайный момент внутри выбранного интервала. Секунды и минуты настраиваются; по умолчанию пять минут.",
-    "music": "Music Shuffle объединяет музыку уровней и боссов по сиду. Локальные наборы Kamilia 3 и WannaFest22 могут заменять также подходящие звуки интро, меню, смерти и титров. Выбор сохраняется; треки для перемешивания должны быть длиннее 30 секунд. Дополнительные наборы не включены. Локально импортированная графика добавляет анимированные экраны смерти и частицы крови: в Kamilia сначала появляется красный слой, затем надпись; в WannaFest надпись влетает с двух сторон поверх VHS-шума. Поведение перезапуска остаётся оригинальным.",
+    "music": "Используются отдельные наборы: музыка уровней для уровней, музыка боссов для боссов. Дополнительные локально импортированные наборы Kamilia 3 и WannaFest22 добавляют музыку и эффекты. Они не входят в загрузки.",
     "hacksTitle": "Немного помощи. Немного хаоса.",
     "hacksIntro": "В Advanced → Hacks выбирай дополнения для тренировки, разнообразия или неожиданностей.",
     "hacks": [
@@ -660,7 +660,7 @@
       "Мышь и клавиатура; Enter подтверждает выбор.",
       "Меню подстраивается под окно, размер текста регулируется отдельно.",
       "Размеры под монитор в оригинальном Options; растянутый полный экран сохранён.",
-      "Английский, немецкий, русский, испанский и японский по языку системы; запасной — английский. Журнал обновлений остаётся английским."
+      "Английский, немецкий, русский, испанский и японский по языку системы; запасной — английский."
     ],
     "installTitle": "От загрузки до первого забега",
     "steps": [
@@ -685,7 +685,7 @@
       ],
       [
         "Что значит предварительная версия Windows?",
-        "Установщик не подписан, проверен в Windows 10 x64. Windows 11, не-ASCII пути аккаунта, физический 4K и смешанный DPI требуют проверки. Не отключай антивирус."
+        "Опубликованная версия 2026.10.23.1 проверена в Windows 11: установка, обновление, сохранения и перезапуск. Установщик не подписан. Не отключайте антивирус; высокое разрешение DPI и необычные пути учётных записей требуют дополнительных проверок."
       ],
       [
         "Есть онлайн-режим?",
@@ -729,7 +729,7 @@
         "Выбери слот, режим и настройки.",
         "Начни забег или поделись сидом с друзьями."
       ],
-      "galleryhelp": "Откройте превью, чтобы увидеть всю анимацию. Видео смерти содержат звук; GIF — без звука. Воспроизведение начинается только после открытия превью.",
+      "galleryhelp": "Записи опубликованной версии. Новое меню, описанное выше, относится к следующему обновлению. Откройте превью, чтобы увидеть всю анимацию. Видео смерти содержат звук; GIF — без звука. Воспроизведение начинается только после открытия превью.",
       "pause": "Приостановить анимацию",
       "play": "Включить анимацию",
       "close": "Закрыть",
@@ -824,7 +824,7 @@
     "visual": "起動時のイントロキャラクターと景色が変化。Sprite Chaosでは確認済みの背景とアニメ付きパララックス、装飾、足場素材を変更できます。レイヤー別設定と背景の暗さ調整に対応。敵・ボスの色変更はベータで、形・攻撃・当たり判定は維持します。",
     "shotsTitle": "弾も、音も、新しく。",
     "shots": "キャラクターとは独立して弾と発射エフェクトを変更。区間ごと、死亡ごと、両方、または設定時間内のランダムなタイミングを選べます。秒・分で設定でき、標準は5分です。",
-    "music": "Music Shuffleはステージとボスの音楽を共通の候補からシードに基づいて割り当てます。ローカルのKamilia 3・WannaFest22パックでは対応するイントロ、メニュー、死亡、エンディング音も変更可能。選択は保存され、シャッフル対象は30秒を超える曲です。追加パックは同梱しません。 ローカルで取り込んだ画像を使うと、死亡画面と血の粒子も変更できます。Kamiliaは赤い半透明の画面の後に文字が現れ、WannaFestはVHSノイズとともに文字が左右から飛び込みます。リセット時の動作は従来どおりです。",
+    "music": "ステージ曲はステージへ、ボス曲はボスへ、別々の候補から割り当てます。任意でローカルから取り込むKamilia 3とWannaFest22のパックでは音楽とエフェクトも追加できます。追加パックはダウンロードに含まれません。",
     "hacksTitle": "少しの助けと、少しのカオス。",
     "hacksIntro": "Advanced → Hacksで練習用の補助や変化、サプライズを選べます。",
     "hacks": [
@@ -847,7 +847,7 @@
       "マウスホバーとキーボード操作。Enterで決定。",
       "ウィンドウに合わせるメニューと、独立した文字サイズ設定。",
       "元のOptionsからモニターに合うサイズを選択。引き伸ばし全画面も利用可能。",
-      "英語・ドイツ語・ロシア語・スペイン語・日本語をシステムから判定。未対応言語は英語。更新履歴は英語のままです。"
+      "英語・ドイツ語・ロシア語・スペイン語・日本語をシステムから判定。未対応言語は英語。"
     ],
     "installTitle": "ダウンロードから最初のランへ",
     "steps": [
@@ -872,7 +872,7 @@
       ],
       [
         "Windowsプレビューとは？",
-        "未署名インストーラーをWindows 10 x64で検証しています。Windows 11、非ASCIIアカウントパス、実機4K、混在DPIは追加確認が必要です。ウイルス対策は有効のまま使用してください。"
+        "公開済みの2026.10.23.1はWindows 11でインストール、更新、セーブスロット、再起動を検証済みです。インストーラーは未署名です。ウイルス対策は有効にしてください。高DPIや特殊なアカウントパスでは追加検証が必要です。"
       ],
       [
         "オンラインで遊べますか？",
@@ -916,7 +916,7 @@
         "セーブ枠、モード、設定を選ぶ。",
         "ランを開始。シードを友達と共有することもできます。"
       ],
-      "galleryhelp": "プレビューを開くとアニメーション全体を再生できます。死亡シーンの動画には音声があり、GIFは無音です。プレビューを開くまで再生されません。",
+      "galleryhelp": "公開済みバージョンの映像です。上記の新しいメニューは次のアップデートに含まれます。 プレビューを開くとアニメーション全体を再生できます。死亡シーンの動画には音声があり、GIFは無音です。プレビューを開くまで再生されません。",
       "pause": "アニメーションを一時停止",
       "play": "アニメーションを再生",
       "close": "閉じる",
