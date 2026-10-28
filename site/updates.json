@@ -28,33 +28,73 @@
         "entries": [
           [
             "A clearer game menu",
-            "Compact categories in two columns, meaningful icons, contextual explanations and mouse or keyboard navigation. Large ON/OFF indicators make settings easier to read; the current seed stays visible."
+            "Two-column categories, meaningful icons, contextual help and mouse or keyboard controls. Your seed is visible at a glance."
           ],
           [
             "Save slots with useful details",
-            "See your location, current character and collected items and characters before continuing. Newly collected characters can be selected with F3 when character selection is unlocked."
+            "Preview your location and collection. Choose newly collected characters with F3 when character selection is unlocked."
           ],
           [
             "Your screen, your options",
-            "Choose classic 4:3 or stretched 16:9 in the original Options room; F4 toggles fullscreen. Language and soundtrack preferences stay saved across restarts. An optional No Screen Shaking hack keeps the camera steady."
+            "Classic 4:3 or stretched 16:9, F4 fullscreen and saved language and soundtrack preferences. Optional No Screen Shaking."
           ],
           [
             "Consistent backgrounds and sound",
-            "Backgrounds move as complete groups with their matching layers and effects. Music shuffle keeps level and boss tracks in separate pools. Soundpack and matching death-screen preferences are personal options, separate from the run seed."
+            "Complete backgrounds with matching layers and effects. Separate music pools for levels and bosses; soundpack preferences stay outside the run seed."
           ],
           [
             "Live tracking and the finale",
-            "Open LiveTracker from the main menu. It follows the game language and shows run progress. Results appear over the credits after Solgryn, can be closed with the top-right × and disappear on F2 restart."
+            "LiveTracker follows the game language. Results appear over the credits, close with × and disappear on F2 restart."
           ],
           [
             "Installation with clear feedback",
-            "Progress indicators, a clean Cancel action during preparation and a completion screen with optional launch. Windows accepts your original Boshy ZIP or folder; Linux setup adds the game to Lutris with its artwork."
+            "Progress indicators, cancellation during preparation and optional launch on completion. Import your own original Boshy ZIP or folder."
           ]
         ],
         "beta": "For new Randomizer and Boss Rush runs, Bomberman, Questionmark and Ridley start disabled. You can enable them explicitly; existing saves and imported seeds keep their choices.",
         "music": "Music Shuffle assigns level tracks to levels and boss tracks to bosses, using separate pools. Optional locally imported Kamilia 3 and WannaFest22 packs also provide matching music and effects. Additional soundpacks are not included in the downloads.",
         "windows": "The published 2026.10.23.1 release was checked in Windows 11, including installation, upgrade, save slots and restart. The installer is unsigned. Keep antivirus protection enabled; high-DPI and unusual account paths still need broader testing.",
-        "gallery": "Footage from the published version. The menu redesign above belongs to the next update. "
+        "gallery": "Footage from the published version. The menu redesign above belongs to the next update. ",
+        "presentation": {
+          "nav": "News",
+          "tests": "Test status and details",
+          "shots": "A look at the new menu",
+          "shotnote": "Screenshots from preview 44.0, shown in German. Click to enlarge. This preview is not included in the current download.",
+          "captions": [
+            "Run settings, clear categories and the current seed",
+            "Appearance options with readable ON/OFF indicators",
+            "Save preview with location, character and collected items"
+          ],
+          "installnote": "These steps apply to the published download above. Keep your original Boshy ZIP or folder ready; the game is not bundled.",
+          "windowssteps": [
+            [
+              "Install",
+              "Download and open Windows Setup. Follow the wizard to install Boshy Randomizer."
+            ],
+            [
+              "Select the original game",
+              "Launch Boshy Randomizer from the Start menu. On first launch, choose your original Boshy folder or ZIP."
+            ],
+            [
+              "Play",
+              "Choose one of the three save slots, select a mode and start your run."
+            ]
+          ],
+          "linuxsteps": [
+            [
+              "Install the DEB",
+              "Open the DEB with your package installer and install it with its dependencies, including Wine and Lutris."
+            ],
+            [
+              "Complete first-time setup",
+              "Open Boshy Randomizer from the applications menu. Allow the first Wine setup to finish, then select your original Boshy folder or ZIP."
+            ],
+            [
+              "Play",
+              "Choose a save slot and mode. For later runs, open Boshy Randomizer again from your applications menu."
+            ]
+          ]
+        }
       },
       "de": {
         "title": "Das nächste Update: übersichtlicher und komfortabler",
@@ -65,33 +105,73 @@
         "entries": [
           [
             "Ein übersichtlicheres Spielmenü",
-            "Kompakte Rubriken in zwei Spalten, passende Icons, erklärende Hilfetexte und Bedienung mit Maus oder Tastatur. Große AN/AUS-Anzeigen machen Einstellungen deutlich; der aktuelle Seed bleibt sichtbar."
+            "Rubriken in zwei Spalten, passende Icons, Hilfetexte und Bedienung per Maus oder Tastatur. Dein Seed ist direkt sichtbar."
           ],
           [
             "Spielstände mit Vorschau",
-            "Vor dem Fortsetzen siehst du deinen Standort, den aktuellen Charakter sowie gesammelte Items und Charaktere. Neu eingesammelte Charaktere lassen sich mit F3 auswählen, wenn die Charakterauswahl freigegeben ist."
+            "Standort und Sammlung vor dem Fortsetzen sehen. Neu gesammelte Charaktere sind bei freigegebener Auswahl mit F3 wählbar."
           ],
           [
             "Dein Bildschirm, deine Optionen",
-            "Im originalen Optionsraum stehen klassisches 4:3 und gestrecktes 16:9 bereit; F4 schaltet Vollbild um. Sprache und Soundtrack bleiben über Neustarts gespeichert. Der optionale Hack „Kein Bildschirmwackeln“ hält die Kamera ruhig."
+            "Klassisches 4:3 oder gestrecktes 16:9, Vollbild mit F4 und gespeicherte Sprach- und Musikwahl. Bildschirmwackeln optional ausschaltbar."
           ],
           [
             "Zusammenhängende Hintergründe und passende Musik",
-            "Hintergründe werden als vollständige Gruppen samt zugehörigen Ebenen und Effekten getauscht. Die Musikmischung trennt Level- und Bosstitel. Soundpack und passender Todesbildschirm sind persönliche Einstellungen außerhalb des Run-Seeds."
+            "Komplette Hintergründe samt Ebenen und Effekten. Getrennte Musikpools für Levels und Bosse; Soundpacks bleiben außerhalb des Run-Seeds."
           ],
           [
             "Live-Tracker und Finale",
-            "LiveTracker direkt aus dem Hauptmenü öffnen: Er übernimmt die Spielsprache und zeigt deinen Fortschritt. Ergebnisse erscheinen nach Solgryn über dem Abspann, lassen sich oben rechts mit × schließen und verschwinden beim Neustart mit F2."
+            "LiveTracker übernimmt die Spielsprache. Ergebnisse über dem Abspann lassen sich mit × schließen und verschwinden beim Neustart mit F2."
           ],
           [
             "Installation mit klarer Rückmeldung",
-            "Fortschrittsanzeigen, sauberes Abbrechen während der Vorbereitung und ein Abschlussbildschirm mit optionalem Spielstart. Windows übernimmt deine originale Boshy-ZIP oder deinen Ordner; die Linux-Einrichtung ergänzt Lutris samt Spielbild."
+            "Fortschrittsanzeigen, Abbrechen während der Vorbereitung und optionaler Spielstart zum Abschluss. Eigene Boshy-ZIP oder eigenen Ordner auswählen."
           ]
         ],
         "beta": "Bei neuen Randomizer- und Boss-Rush-Runs sind Bomberman, Questionmark und Ridley zunächst ausgeschaltet. Du kannst sie gezielt aktivieren; bestehende Spielstände und importierte Seeds behalten ihre Auswahl.",
         "music": "Die Musikmischung verwendet getrennte Pools: Levelmusik für Levels, Bossmusik für Bosse. Optional lokal importierte Kamilia-3- und WannaFest22-Packs ergänzen passende Musik und Effekte. Zusätzliche Soundpacks sind nicht in den Downloads enthalten.",
         "windows": "Die veröffentlichte Version 2026.10.23.1 wurde unter Windows 11 einschließlich Installation, Update, Speicherplätzen und Neustart geprüft. Der Installer ist nicht signiert. Virenschutz eingeschaltet lassen; hohe DPI-Werte und ungewöhnliche Kontopfade benötigen weitere Tests.",
-        "gallery": "Aufnahmen der veröffentlichten Version. Das oben beschriebene neue Menü gehört zum nächsten Update. "
+        "gallery": "Aufnahmen der veröffentlichten Version. Das oben beschriebene neue Menü gehört zum nächsten Update. ",
+        "presentation": {
+          "nav": "Neuigkeiten",
+          "tests": "Teststand und Details",
+          "shots": "Ein Blick ins neue Menü",
+          "shotnote": "Aufnahmen aus Vorschau 44.0 in deutscher Sprache. Zum Vergrößern anklicken. Diese Vorschau ist noch nicht im aktuellen Download enthalten.",
+          "captions": [
+            "Laufeinstellungen, klare Rubriken und der aktuelle Seed",
+            "Darstellungsoptionen mit deutlichen AN/AUS-Anzeigen",
+            "Spielstand-Vorschau mit Standort, Charakter und gesammelten Items"
+          ],
+          "installnote": "Diese Schritte gelten für den oben angebotenen Download. Halte deine originale Boshy-ZIP oder deinen Spielordner bereit; das Spiel wird nicht mitgeliefert.",
+          "windowssteps": [
+            [
+              "Installieren",
+              "Windows-Setup herunterladen und öffnen. Folge dem Assistenten, um Boshy Randomizer zu installieren."
+            ],
+            [
+              "Originalspiel auswählen",
+              "Boshy Randomizer im Startmenü öffnen. Beim ersten Start deinen originalen Boshy-Ordner oder die ZIP auswählen."
+            ],
+            [
+              "Spielen",
+              "Einen der drei Speicherplätze und einen Spielmodus wählen. Dann deinen Lauf starten."
+            ]
+          ],
+          "linuxsteps": [
+            [
+              "DEB installieren",
+              "Die DEB mit der Paketinstallation öffnen und samt Abhängigkeiten installieren, darunter Wine und Lutris."
+            ],
+            [
+              "Ersteinrichtung abschließen",
+              "Boshy Randomizer im Anwendungsmenü öffnen. Die erste Wine-Einrichtung abwarten und dann deinen originalen Boshy-Ordner oder die ZIP auswählen."
+            ],
+            [
+              "Spielen",
+              "Speicherplatz und Modus wählen. Später startest du Boshy Randomizer wieder über dein Anwendungsmenü."
+            ]
+          ]
+        }
       },
       "es": {
         "title": "Próxima actualización: más claridad y comodidad",
@@ -102,33 +182,73 @@
         "entries": [
           [
             "Un menú más claro",
-            "Categorías compactas en dos columnas, iconos adecuados, explicaciones y navegación con ratón o teclado. Indicadores grandes de activado/desactivado y la semilla actual a la vista."
+            "Categorías en dos columnas, iconos adecuados, ayuda y control con ratón o teclado. La semilla está siempre a la vista."
           ],
           [
             "Partidas con vista previa",
-            "Consulta la ubicación, el personaje actual y los objetos y personajes recogidos antes de continuar. Los personajes recién recogidos se pueden elegir con F3 cuando la selección está desbloqueada."
+            "Consulta la ubicación y la colección antes de continuar. Selecciona personajes recogidos con F3 cuando la selección esté desbloqueada."
           ],
           [
             "Tu pantalla, tus opciones",
-            "Elige 4:3 clásico o 16:9 estirado en la sala original de opciones; F4 alterna la pantalla completa. El idioma y la banda sonora se conservan al reiniciar. Un modificador opcional desactiva las sacudidas de pantalla."
+            "4:3 clásico o 16:9 estirado, pantalla completa con F4 e idioma y música guardados. Sacudidas de pantalla desactivables."
           ],
           [
             "Fondos completos y música adecuada",
-            "Los fondos se intercambian como grupos completos con sus capas y efectos. La mezcla mantiene separadas las pistas de niveles y jefes. El pack de sonido y su pantalla de muerte son preferencias personales fuera de la semilla."
+            "Fondos completos con sus capas y efectos. Música de niveles y jefes separada; el pack de sonido no forma parte de la semilla."
           ],
           [
             "Seguimiento en directo y final",
-            "Abre LiveTracker desde el menú principal. Utiliza el idioma del juego y muestra tu progreso. Los resultados aparecen sobre los créditos tras Solgryn, se cierran con la × superior derecha y desaparecen al reiniciar con F2."
+            "LiveTracker utiliza el idioma del juego. Los resultados aparecen sobre los créditos, se cierran con × y desaparecen al reiniciar con F2."
           ],
           [
             "Instalación con información clara",
-            "Indicadores de progreso, cancelación limpia durante la preparación y pantalla final con inicio opcional. Windows acepta tu ZIP o carpeta original de Boshy; la configuración de Linux añade el juego a Lutris con su imagen."
+            "Progreso visible, cancelación durante la preparación e inicio opcional al terminar. Selecciona tu ZIP o carpeta original de Boshy."
           ]
         ],
         "beta": "En nuevas partidas de Randomizer y Boss Rush, Bomberman, Questionmark y Ridley empiezan desactivados. Puedes activarlos; las partidas existentes y las semillas importadas conservan sus selecciones.",
         "music": "La mezcla utiliza grupos separados: música de niveles para niveles y música de jefes para jefes. Los packs opcionales de Kamilia 3 y WannaFest22 importados localmente añaden música y efectos. Los packs adicionales no están incluidos en las descargas.",
         "windows": "La versión publicada 2026.10.23.1 se comprobó en Windows 11, incluida la instalación, actualización, partidas y reinicio. El instalador no está firmado. Mantén el antivirus activado; las pantallas de alta densidad y las rutas de cuenta poco habituales necesitan más pruebas.",
-        "gallery": "Imágenes de la versión publicada. El nuevo menú descrito arriba pertenece a la próxima actualización. "
+        "gallery": "Imágenes de la versión publicada. El nuevo menú descrito arriba pertenece a la próxima actualización. ",
+        "presentation": {
+          "nav": "Novedades",
+          "tests": "Estado de las pruebas y detalles",
+          "shots": "Un vistazo al nuevo menú",
+          "shotnote": "Capturas de la versión preliminar 44.0 en alemán. Haz clic para ampliarlas. Esta versión aún no está incluida en la descarga actual.",
+          "captions": [
+            "Ajustes de partida, categorías claras y semilla actual",
+            "Opciones visuales con indicadores claros de activado y desactivado",
+            "Vista previa de la partida con ubicación, personaje y objetos recogidos"
+          ],
+          "installnote": "Estos pasos corresponden a la descarga publicada arriba. Prepara tu ZIP o carpeta original de Boshy; el juego no está incluido.",
+          "windowssteps": [
+            [
+              "Instalar",
+              "Descarga y abre Windows Setup. Sigue el asistente para instalar Boshy Randomizer."
+            ],
+            [
+              "Seleccionar el juego original",
+              "Abre Boshy Randomizer desde el menú Inicio. En el primer inicio, selecciona tu carpeta o ZIP original de Boshy."
+            ],
+            [
+              "Jugar",
+              "Elige una de las tres ranuras, selecciona un modo y comienza la partida."
+            ]
+          ],
+          "linuxsteps": [
+            [
+              "Instalar el DEB",
+              "Abre el DEB con el instalador de paquetes e instala sus dependencias, incluidos Wine y Lutris."
+            ],
+            [
+              "Completar la configuración inicial",
+              "Abre Boshy Randomizer desde el menú de aplicaciones. Espera a que termine la configuración de Wine y selecciona tu carpeta o ZIP original de Boshy."
+            ],
+            [
+              "Jugar",
+              "Elige ranura y modo. Para futuras partidas, vuelve a abrir Boshy Randomizer desde el menú de aplicaciones."
+            ]
+          ]
+        }
       },
       "ru": {
         "title": "Следующее обновление: удобнее и понятнее",
@@ -139,33 +259,73 @@
         "entries": [
           [
             "Более понятное меню",
-            "Компактные разделы в две колонки, подходящие значки, пояснения и управление мышью или клавиатурой. Крупные индикаторы включения и отключения; текущий сид всегда виден."
+            "Разделы в две колонки, подходящие значки, пояснения и управление мышью или клавиатурой. Сид сразу виден."
           ],
           [
             "Предпросмотр сохранений",
-            "До продолжения игры видны местоположение, текущий персонаж, собранные предметы и персонажи. Новых персонажей можно выбрать через F3, если выбор персонажа не заблокирован."
+            "Местоположение и коллекция видны до продолжения игры. Собранных персонажей можно выбрать через F3, если выбор не заблокирован."
           ],
           [
             "Экран и личные настройки",
-            "В оригинальной комнате настроек доступны классические 4:3 и растянутые 16:9; F4 переключает полный экран. Язык и звуковой набор сохраняются после перезапуска. Отдельный модификатор отключает тряску экрана."
+            "Классические 4:3 или растянутые 16:9, полный экран через F4, сохранение языка и музыки. Тряску экрана можно отключить."
           ],
           [
             "Цельные фоны и подходящая музыка",
-            "Фоны меняются целиком вместе со связанными слоями и эффектами. Музыка уровней и боссов перемешивается отдельно. Звуковой набор и соответствующий экран смерти — личные настройки, не входящие в сид."
+            "Цельные фоны со слоями и эффектами. Раздельная музыка уровней и боссов; звуковой набор не входит в сид."
           ],
           [
             "Трекер и финал",
-            "Откройте LiveTracker из главного меню: он использует язык игры и показывает прогресс. Результаты появляются поверх титров после Solgryn, закрываются крестиком справа вверху и исчезают при перезапуске через F2."
+            "LiveTracker использует язык игры. Результаты поверх титров закрываются крестиком и исчезают при перезапуске через F2."
           ],
           [
             "Понятная установка",
-            "Индикаторы прогресса, корректная отмена во время подготовки и экран завершения с запуском по желанию. Windows принимает ваш ZIP или папку оригинального Boshy; настройка Linux добавляет игру в Lutris вместе с изображением."
+            "Показ прогресса, отмена при подготовке и запуск по желанию после установки. Выберите свой оригинальный ZIP или папку Boshy."
           ]
         ],
         "beta": "В новых забегах Randomizer и Boss Rush боссы Bomberman, Questionmark и Ridley изначально отключены. Их можно включить вручную; существующие сохранения и импортированные сиды сохраняют свой выбор.",
         "music": "Используются отдельные наборы: музыка уровней для уровней, музыка боссов для боссов. Дополнительные локально импортированные наборы Kamilia 3 и WannaFest22 добавляют музыку и эффекты. Они не входят в загрузки.",
         "windows": "Опубликованная версия 2026.10.23.1 проверена в Windows 11: установка, обновление, сохранения и перезапуск. Установщик не подписан. Не отключайте антивирус; высокое разрешение DPI и необычные пути учётных записей требуют дополнительных проверок.",
-        "gallery": "Записи опубликованной версии. Новое меню, описанное выше, относится к следующему обновлению. "
+        "gallery": "Записи опубликованной версии. Новое меню, описанное выше, относится к следующему обновлению. ",
+        "presentation": {
+          "nav": "Новости",
+          "tests": "Результаты и подробности проверок",
+          "shots": "Новое меню в деталях",
+          "shotnote": "Снимки предварительной версии 44.0 на немецком языке. Нажмите для увеличения. Эта версия пока не входит в доступную загрузку.",
+          "captions": [
+            "Настройки забега, понятные разделы и текущий сид",
+            "Настройки оформления с чёткими индикаторами включения и отключения",
+            "Предпросмотр сохранения с местоположением, персонажем и предметами"
+          ],
+          "installnote": "Инструкция относится к опубликованной загрузке выше. Подготовьте оригинальный ZIP или папку Boshy: сама игра не включена.",
+          "windowssteps": [
+            [
+              "Установка",
+              "Скачайте и откройте Windows Setup. Следуйте мастеру установки Boshy Randomizer."
+            ],
+            [
+              "Выбор оригинальной игры",
+              "Откройте Boshy Randomizer через меню «Пуск». При первом запуске выберите оригинальную папку или ZIP Boshy."
+            ],
+            [
+              "Игра",
+              "Выберите один из трёх слотов, режим и начните забег."
+            ]
+          ],
+          "linuxsteps": [
+            [
+              "Установка DEB",
+              "Откройте DEB через установщик пакетов и установите зависимости, включая Wine и Lutris."
+            ],
+            [
+              "Первоначальная настройка",
+              "Откройте Boshy Randomizer в меню приложений. Дождитесь настройки Wine и выберите оригинальную папку или ZIP Boshy."
+            ],
+            [
+              "Игра",
+              "Выберите слот и режим. В дальнейшем запускайте Boshy Randomizer через меню приложений."
+            ]
+          ]
+        }
       },
       "ja": {
         "title": "次のアップデート：もっと見やすく、使いやすく",
@@ -176,33 +336,73 @@
         "entries": [
           [
             "わかりやすいゲームメニュー",
-            "コンパクトな2列のカテゴリ、内容に合ったアイコン、説明文、マウスとキーボードの操作に対応。大きなオン・オフ表示で設定がわかりやすくなり、現在のシードも確認できます。"
+            "2列のカテゴリ、適切なアイコン、説明文、マウスとキーボード操作。現在のシードもすぐに確認できます。"
           ],
           [
             "セーブデータのプレビュー",
-            "再開前に現在地、使用キャラクター、入手したアイテムとキャラクターを確認できます。キャラクター選択がロックされていなければ、新しく入手したキャラクターもF3で選択できます。"
+            "再開前に現在地とコレクションを確認。選択がロックされていなければ、入手したキャラクターをF3で選べます。"
           ],
           [
             "画面と個人設定",
-            "元のオプションルームで標準の4:3と引き伸ばし16:9を選択でき、F4で全画面を切り替えます。言語とサウンドパックは再起動後も保存されます。画面の揺れを無効にするオプションも追加します。"
+            "標準4:3と引き伸ばし16:9、F4で全画面、言語と音楽の設定保存。画面の揺れも無効にできます。"
           ],
           [
             "まとまりのある背景と音楽",
-            "背景は対応するレイヤーやエフェクトと一緒に入れ替わります。ステージ曲とボス曲は別々の候補からシャッフルします。サウンドパックと対応する死亡画面はシードに含まれない個人設定です。"
+            "背景をレイヤーや効果と一緒に交換。ステージ曲とボス曲は別々にシャッフルし、サウンドパックはシードに含めません。"
           ],
           [
             "ライブトラッカーとエンディング",
-            "メインメニューからLiveTrackerを開けます。ゲームの言語を引き継ぎ、進行状況を表示します。Solgryn戦後の結果はクレジットに重ねて表示され、右上の×で閉じられ、F2で再起動すると消えます。"
+            "LiveTrackerはゲームの言語を使用。クレジット上の結果は×で閉じられ、F2で再起動すると消えます。"
           ],
           [
             "進行状況がわかるインストール",
-            "進捗表示、準備中の安全な中止、任意のゲーム起動を選べる完了画面。Windowsでは元のBoshyのZIPまたはフォルダーを指定し、Linuxのセットアップでは画像付きでLutrisに登録します。"
+            "進捗表示、準備中の中止、完了後の任意起動。元のBoshyのZIPまたはフォルダーを選択します。"
           ]
         ],
         "beta": "新しいRandomizerとBoss RushのランではBomberman、Questionmark、Ridleyは初期状態で無効です。必要に応じて有効にできます。既存のセーブと読み込んだシードの選択は維持されます。",
         "music": "ステージ曲はステージへ、ボス曲はボスへ、別々の候補から割り当てます。任意でローカルから取り込むKamilia 3とWannaFest22のパックでは音楽とエフェクトも追加できます。追加パックはダウンロードに含まれません。",
         "windows": "公開済みの2026.10.23.1はWindows 11でインストール、更新、セーブスロット、再起動を検証済みです。インストーラーは未署名です。ウイルス対策は有効にしてください。高DPIや特殊なアカウントパスでは追加検証が必要です。",
-        "gallery": "公開済みバージョンの映像です。上記の新しいメニューは次のアップデートに含まれます。 "
+        "gallery": "公開済みバージョンの映像です。上記の新しいメニューは次のアップデートに含まれます。 ",
+        "presentation": {
+          "nav": "ニュース",
+          "tests": "テスト状況と詳細",
+          "shots": "新しいメニューを見る",
+          "shotnote": "プレビュー44.0のドイツ語画面です。クリックすると拡大できます。このバージョンは現在のダウンロードには含まれていません。",
+          "captions": [
+            "ランの設定、わかりやすいカテゴリ、現在のシード",
+            "オン・オフが見やすい表示設定",
+            "現在地、キャラクター、入手アイテムを確認できるセーブプレビュー"
+          ],
+          "installnote": "上記の公開済みダウンロード向けの手順です。元のBoshyのZIPまたはフォルダーを用意してください。ゲーム本体は同梱されていません。",
+          "windowssteps": [
+            [
+              "インストール",
+              "Windows Setupをダウンロードして開き、ウィザードに従ってBoshy Randomizerをインストールします。"
+            ],
+            [
+              "元のゲームを選択",
+              "スタートメニューからBoshy Randomizerを開きます。初回起動時に元のBoshyのフォルダーまたはZIPを選択します。"
+            ],
+            [
+              "プレイ",
+              "3つのセーブスロットから1つとモードを選び、ランを開始します。"
+            ]
+          ],
+          "linuxsteps": [
+            [
+              "DEBのインストール",
+              "パッケージインストーラーでDEBを開き、WineとLutrisを含む依存パッケージと一緒にインストールします。"
+            ],
+            [
+              "初回設定",
+              "アプリケーションメニューからBoshy Randomizerを開きます。Wineの初回設定が終わったら、元のBoshyのフォルダーまたはZIPを選択します。"
+            ],
+            [
+              "プレイ",
+              "セーブスロットとモードを選択します。次回からもアプリケーションメニューから起動できます。"
+            ]
+          ]
+        }
       }
     }
   },
