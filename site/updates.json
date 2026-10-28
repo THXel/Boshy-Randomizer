@@ -1,33 +1,17 @@
 {
-  "version": "2026.10.23.1",
-  "date": "2026-10-23",
-  "entries": [
-    [
-      "Gameplay and menu fixes",
-      "Safer sprite effects, repaired boss exits, Windows focus recovery and uninterrupted music while deleting a save."
-    ],
-    [
-      "Soundtrack categories",
-      "Optional Kamilia 3 and WannaFest22 packs now choose separate music pools for levels and bosses."
-    ],
-    [
-      "Readable source structure",
-      "Domain directories, a smaller menu controller and reproducible source-to-installer builds."
-    ]
-  ],
   "preview": {
-    "version": "2026.10.28-preview.44.0",
+    "version": "first-final-in-preparation",
     "date": "2026-10-28",
     "locales": {
       "en": {
-        "title": "Next update: more comfortable, more readable",
-        "status": "Development preview · not yet available to download",
-        "notice": "The changes below are being tested in preview 44.0. Download buttons still provide the published version 2026.10.23.1; the new installers will follow with a separate release.",
-        "download": "Published download: 2026.10.23.1",
-        "test": "Preview 44.0: 396 automated source tests and 11 game checks under Wine passed. Installer cancellation, retry, completion and removal were also checked under Wine. A fresh Windows 11 check of this exact preview is still pending.",
+        "title": "Meet Boshy Randomizer",
+        "status": "First final release coming soon",
+        "notice": "Boshy Randomizer is nearing its first final release. So far, THXel is the only playtester. The download will be available here when the first final version is ready.",
+        "download": "First final release · in preparation",
+        "test": "Gameplay has so far been tested only by THXel. Automated checks support development, but there has been no wider public playtest. Final checks are still in progress before release.",
         "entries": [
           [
-            "A clearer game menu",
+            "Clear game menus",
             "Two-column categories, meaningful icons, contextual help and mouse or keyboard controls. Your seed is visible at a glance."
           ],
           [
@@ -58,14 +42,14 @@
         "presentation": {
           "nav": "News",
           "tests": "Test status and details",
-          "shots": "A look at the new menu",
-          "shotnote": "Screenshots from preview 44.0, shown in German. Click to enlarge. This preview is not included in the current download.",
+          "shots": "Explore the menus",
+          "shotnote": "New GIF tours assembled from current test screenshots: menus, appearance settings and save slots. These are animated screenshot sequences, not continuous gameplay recordings.",
           "captions": [
-            "Run settings, clear categories and the current seed",
-            "Appearance options with readable ON/OFF indicators",
-            "Save preview with location, character and collected items"
+            "Menu tour: route, levels, bosses and characters",
+            "Appearance settings in all five languages",
+            "Save slots, settings, seed and collection preview"
           ],
-          "installnote": "These steps apply to the published download above. Keep your original Boshy ZIP or folder ready; the game is not bundled.",
+          "installnote": "For the first final release: you will need your own original Boshy ZIP or folder. The game itself is not included.",
           "windowssteps": [
             [
               "Install",
@@ -73,7 +57,7 @@
             ],
             [
               "Select the original game",
-              "Launch Boshy Randomizer from the Start menu. On first launch, choose your original Boshy folder or ZIP."
+              "In the setup wizard, select your original Boshy ZIP or folder. The randomizer creates its own game copy."
             ],
             [
               "Play",
@@ -94,17 +78,18 @@
               "Choose a save slot and mode. For later runs, open Boshy Randomizer again from your applications menu."
             ]
           ]
-        }
+        },
+        "soon": "Coming soon"
       },
       "de": {
-        "title": "Das nächste Update: übersichtlicher und komfortabler",
-        "status": "Entwicklungsvorschau · noch nicht als Download verfügbar",
-        "notice": "Die folgenden Änderungen werden in Vorschau 44.0 getestet. Die Download-Buttons führen weiterhin zur veröffentlichten Version 2026.10.23.1. Die neuen Installer folgen mit einer eigenen Veröffentlichung.",
-        "download": "Veröffentlichter Download: 2026.10.23.1",
-        "test": "Vorschau 44.0: 396 automatisierte Quellcode-Tests und 11 Spielprüfungen unter Wine bestanden. Auch Installationsabbruch, erneuter Versuch, Abschluss und Deinstallation wurden unter Wine geprüft. Eine neue Windows-11-Prüfung genau dieser Vorschau steht noch aus.",
+        "title": "Das ist Boshy Randomizer",
+        "status": "Kurz vor der ersten finalen Version",
+        "notice": "Boshy Randomizer steht kurz vor seiner ersten finalen Veröffentlichung. Bisher wurde das Spiel ausschließlich von THXel getestet. Sobald die erste finale Version fertig ist, findest du hier den Download.",
+        "download": "Erste finale Version · in Vorbereitung",
+        "test": "Bisheriger Spieletester ist ausschließlich THXel. Automatisierte Prüfungen unterstützen die Entwicklung, ersetzen aber keinen breiten Spieltest. Vor der ersten Veröffentlichung laufen noch die abschließenden Prüfungen.",
         "entries": [
           [
-            "Ein übersichtlicheres Spielmenü",
+            "Ein übersichtliches Spielmenü",
             "Rubriken in zwei Spalten, passende Icons, Hilfetexte und Bedienung per Maus oder Tastatur. Dein Seed ist direkt sichtbar."
           ],
           [
@@ -135,14 +120,14 @@
         "presentation": {
           "nav": "Neuigkeiten",
           "tests": "Teststand und Details",
-          "shots": "Ein Blick ins neue Menü",
-          "shotnote": "Aufnahmen aus Vorschau 44.0 in deutscher Sprache. Zum Vergrößern anklicken. Diese Vorschau ist noch nicht im aktuellen Download enthalten.",
+          "shots": "Einblicke in die Menüs",
+          "shotnote": "Neue GIF-Touren aus aktuellen Testaufnahmen: Menüs, Darstellung und Speicherplätze. Es sind animierte Folgen von Screenshots, keine durchgehenden Gameplay-Aufzeichnungen.",
           "captions": [
-            "Laufeinstellungen, klare Rubriken und der aktuelle Seed",
-            "Darstellungsoptionen mit deutlichen AN/AUS-Anzeigen",
-            "Spielstand-Vorschau mit Standort, Charakter und gesammelten Items"
+            "Menü-Tour: Route, Levels, Bosse und Charaktere",
+            "Darstellungsoptionen in allen fünf Sprachen",
+            "Speicherplätze, Einstellungen, Seed und Sammlungsvorschau"
           ],
-          "installnote": "Diese Schritte gelten für den oben angebotenen Download. Halte deine originale Boshy-ZIP oder deinen Spielordner bereit; das Spiel wird nicht mitgeliefert.",
+          "installnote": "Für die erste finale Version brauchst du deine eigene originale Boshy-ZIP oder deinen Spielordner. Das Originalspiel wird nicht mitgeliefert.",
           "windowssteps": [
             [
               "Installieren",
@@ -150,7 +135,7 @@
             ],
             [
               "Originalspiel auswählen",
-              "Boshy Randomizer im Startmenü öffnen. Beim ersten Start deinen originalen Boshy-Ordner oder die ZIP auswählen."
+              "Wähle im Einrichtungsassistenten deine originale Boshy-ZIP oder deinen Spielordner. Der Randomizer legt eine eigene Spielkopie an."
             ],
             [
               "Spielen",
@@ -171,17 +156,18 @@
               "Speicherplatz und Modus wählen. Später startest du Boshy Randomizer wieder über dein Anwendungsmenü."
             ]
           ]
-        }
+        },
+        "soon": "Bald verfügbar"
       },
       "es": {
-        "title": "Próxima actualización: más claridad y comodidad",
-        "status": "Versión en desarrollo · todavía no disponible para descargar",
-        "notice": "Estos cambios se están probando en la versión preliminar 44.0. Los botones de descarga siguen ofreciendo la versión publicada 2026.10.23.1. Los nuevos instaladores llegarán con una publicación independiente.",
-        "download": "Descarga publicada: 2026.10.23.1",
-        "test": "Versión preliminar 44.0: superadas 396 pruebas automáticas del código y 11 comprobaciones del juego con Wine. También se comprobaron la cancelación, el reintento, la finalización y la desinstalación con Wine. Falta una nueva comprobación en Windows 11 de esta versión exacta.",
+        "title": "Conoce Boshy Randomizer",
+        "status": "La primera versión final está cerca",
+        "notice": "Boshy Randomizer se acerca a su primera versión final. Hasta ahora, THXel es la única persona que lo ha probado jugando. La descarga estará aquí cuando la primera versión final esté lista.",
+        "download": "Primera versión final · en preparación",
+        "test": "Hasta ahora solo THXel ha probado el juego. Las comprobaciones automáticas ayudan al desarrollo, pero no ha habido pruebas públicas amplias. Las últimas comprobaciones siguen en curso.",
         "entries": [
           [
-            "Un menú más claro",
+            "Un menú claro",
             "Categorías en dos columnas, iconos adecuados, ayuda y control con ratón o teclado. La semilla está siempre a la vista."
           ],
           [
@@ -212,14 +198,14 @@
         "presentation": {
           "nav": "Novedades",
           "tests": "Estado de las pruebas y detalles",
-          "shots": "Un vistazo al nuevo menú",
-          "shotnote": "Capturas de la versión preliminar 44.0 en alemán. Haz clic para ampliarlas. Esta versión aún no está incluida en la descarga actual.",
+          "shots": "Explora los menús",
+          "shotnote": "Nuevas visitas en GIF creadas con capturas actuales de las pruebas: menús, apariencia y partidas. Son secuencias animadas de capturas, no grabaciones continuas del juego.",
           "captions": [
-            "Ajustes de partida, categorías claras y semilla actual",
-            "Opciones visuales con indicadores claros de activado y desactivado",
-            "Vista previa de la partida con ubicación, personaje y objetos recogidos"
+            "Visita al menú: ruta, niveles, jefes y personajes",
+            "Opciones visuales en los cinco idiomas",
+            "Partidas, ajustes, semilla y vista previa de la colección"
           ],
-          "installnote": "Estos pasos corresponden a la descarga publicada arriba. Prepara tu ZIP o carpeta original de Boshy; el juego no está incluido.",
+          "installnote": "Para la primera versión final necesitarás tu propio ZIP o carpeta original de Boshy. El juego original no está incluido.",
           "windowssteps": [
             [
               "Instalar",
@@ -227,7 +213,7 @@
             ],
             [
               "Seleccionar el juego original",
-              "Abre Boshy Randomizer desde el menú Inicio. En el primer inicio, selecciona tu carpeta o ZIP original de Boshy."
+              "En el asistente, selecciona tu ZIP o carpeta original de Boshy. El randomizer crea su propia copia del juego."
             ],
             [
               "Jugar",
@@ -248,17 +234,18 @@
               "Elige ranura y modo. Para futuras partidas, vuelve a abrir Boshy Randomizer desde el menú de aplicaciones."
             ]
           ]
-        }
+        },
+        "soon": "Próximamente"
       },
       "ru": {
-        "title": "Следующее обновление: удобнее и понятнее",
-        "status": "Версия в разработке · пока недоступна для скачивания",
-        "notice": "Эти изменения проверяются в предварительной версии 44.0. Кнопки скачивания по-прежнему ведут на опубликованную версию 2026.10.23.1. Новые установщики появятся с отдельным выпуском.",
-        "download": "Опубликованная версия: 2026.10.23.1",
-        "test": "Предварительная версия 44.0: пройдены 396 автоматических тестов кода и 11 проверок игры в Wine. Отмена установки, повторная попытка, завершение и удаление также проверены в Wine. Новая проверка именно этой версии в Windows 11 ещё предстоит.",
+        "title": "Знакомьтесь: Boshy Randomizer",
+        "status": "Первый финальный выпуск уже близко",
+        "notice": "Boshy Randomizer готовится к первому финальному выпуску. Пока единственным игроком-тестировщиком был THXel. Загрузка появится здесь, когда первая финальная версия будет готова.",
+        "download": "Первый финальный выпуск · в подготовке",
+        "test": "Пока игру тестировал только THXel. Автоматические проверки помогают разработке, но широкого публичного тестирования ещё не было. Перед выпуском продолжаются заключительные проверки.",
         "entries": [
           [
-            "Более понятное меню",
+            "Понятное меню",
             "Разделы в две колонки, подходящие значки, пояснения и управление мышью или клавиатурой. Сид сразу виден."
           ],
           [
@@ -289,14 +276,14 @@
         "presentation": {
           "nav": "Новости",
           "tests": "Результаты и подробности проверок",
-          "shots": "Новое меню в деталях",
-          "shotnote": "Снимки предварительной версии 44.0 на немецком языке. Нажмите для увеличения. Эта версия пока не входит в доступную загрузку.",
+          "shots": "Знакомство с меню",
+          "shotnote": "Новые GIF-туры собраны из актуальных снимков тестирования: меню, оформление и сохранения. Это анимированные последовательности снимков, а не непрерывные записи игры.",
           "captions": [
-            "Настройки забега, понятные разделы и текущий сид",
-            "Настройки оформления с чёткими индикаторами включения и отключения",
-            "Предпросмотр сохранения с местоположением, персонажем и предметами"
+            "Тур по меню: маршрут, уровни, боссы и персонажи",
+            "Настройки оформления на всех пяти языках",
+            "Слоты сохранений, настройки, сид и коллекция"
           ],
-          "installnote": "Инструкция относится к опубликованной загрузке выше. Подготовьте оригинальный ZIP или папку Boshy: сама игра не включена.",
+          "installnote": "Для первого финального выпуска понадобится ваш оригинальный ZIP или папка Boshy. Оригинальная игра не включена.",
           "windowssteps": [
             [
               "Установка",
@@ -304,7 +291,7 @@
             ],
             [
               "Выбор оригинальной игры",
-              "Откройте Boshy Randomizer через меню «Пуск». При первом запуске выберите оригинальную папку или ZIP Boshy."
+              "В мастере настройки выберите оригинальный ZIP или папку Boshy. Randomizer создаст собственную копию игры."
             ],
             [
               "Игра",
@@ -325,14 +312,15 @@
               "Выберите слот и режим. В дальнейшем запускайте Boshy Randomizer через меню приложений."
             ]
           ]
-        }
+        },
+        "soon": "Скоро"
       },
       "ja": {
-        "title": "次のアップデート：もっと見やすく、使いやすく",
-        "status": "開発中のプレビュー · まだダウンロードできません",
-        "notice": "以下の変更はプレビュー44.0でテスト中です。ダウンロードボタンは公開済みの2026.10.23.1を提供しています。新しいインストーラーは今後のリリースで公開します。",
-        "download": "公開済みダウンロード：2026.10.23.1",
-        "test": "プレビュー44.0では396件のコード自動テストとWine上での11件のゲーム検証に合格しました。インストールの中止、再試行、完了、アンインストールもWineで検証済みです。このプレビュー自体のWindows 11での再検証は未実施です。",
+        "title": "Boshy Randomizerをご紹介",
+        "status": "初の正式版公開まであと少し",
+        "notice": "Boshy Randomizerは初の正式版公開に向けて準備中です。これまでプレイテストを行ったのはTHXelだけです。正式版の準備が整い次第、ここでダウンロードを公開します。",
+        "download": "初の正式版 · 準備中",
+        "test": "これまでゲームをプレイテストしたのはTHXelのみです。自動チェックも開発を支えていますが、広範な公開プレイテストはまだ行っていません。初の公開に向けて最終確認を続けています。",
         "entries": [
           [
             "わかりやすいゲームメニュー",
@@ -366,14 +354,14 @@
         "presentation": {
           "nav": "ニュース",
           "tests": "テスト状況と詳細",
-          "shots": "新しいメニューを見る",
-          "shotnote": "プレビュー44.0のドイツ語画面です。クリックすると拡大できます。このバージョンは現在のダウンロードには含まれていません。",
+          "shots": "メニューを見てみよう",
+          "shotnote": "現在のテスト画面から作成した新しいGIFツアーです。メニュー、表示設定、セーブを紹介します。連続したプレイ動画ではなく、スクリーンショットのアニメーションです。",
           "captions": [
-            "ランの設定、わかりやすいカテゴリ、現在のシード",
-            "オン・オフが見やすい表示設定",
-            "現在地、キャラクター、入手アイテムを確認できるセーブプレビュー"
+            "メニューツアー：ルート、ステージ、ボス、キャラクター",
+            "5言語で見る表示設定",
+            "セーブスロット、設定、シード、コレクション"
           ],
-          "installnote": "上記の公開済みダウンロード向けの手順です。元のBoshyのZIPまたはフォルダーを用意してください。ゲーム本体は同梱されていません。",
+          "installnote": "初の正式版には、元のBoshyのZIPまたはゲームフォルダーが必要です。元のゲーム本体は同梱されません。",
           "windowssteps": [
             [
               "インストール",
@@ -381,7 +369,7 @@
             ],
             [
               "元のゲームを選択",
-              "スタートメニューからBoshy Randomizerを開きます。初回起動時に元のBoshyのフォルダーまたはZIPを選択します。"
+              "セットアップウィザードで元のBoshyのZIPまたはフォルダーを選択します。Randomizer専用のゲームコピーが作成されます。"
             ],
             [
               "プレイ",
@@ -402,80 +390,9 @@
               "セーブスロットとモードを選択します。次回からもアプリケーションメニューから起動できます。"
             ]
           ]
-        }
+        },
+        "soon": "近日公開"
       }
     }
-  },
-  "locales": {
-    "en": [
-      [
-        "Gameplay and menu fixes",
-        "Safer sprite effects, repaired boss exits, Windows focus recovery and uninterrupted music while deleting a save."
-      ],
-      [
-        "Soundtrack categories",
-        "Optional Kamilia 3 and WannaFest22 packs now choose separate music pools for levels and bosses."
-      ],
-      [
-        "Readable source structure",
-        "Domain directories, a smaller menu controller and reproducible source-to-installer builds."
-      ]
-    ],
-    "de": [
-      [
-        "Spiel- und Menükorrekturen",
-        "Stabilere Sprite-Effekte, reparierte Bossausgänge, wiederhergestellter Fensterfokus unter Windows und durchgehende Musik beim Löschen eines Spielstands."
-      ],
-      [
-        "Getrennte Musikgruppen",
-        "Die optionalen Kamilia-3- und WannaFest22-Packs verwenden getrennte Musikpools für Levels und Bosse."
-      ],
-      [
-        "Übersichtlicherer Code",
-        "Thematisch geordnete Verzeichnisse, eine schlankere Menüsteuerung und nachvollziehbare Installer-Erstellung."
-      ]
-    ],
-    "es": [
-      [
-        "Correcciones del juego y del menú",
-        "Efectos de sprites más estables, salidas de jefes reparadas, recuperación del foco en Windows y música continua al borrar una partida."
-      ],
-      [
-        "Categorías de música",
-        "Los packs opcionales de Kamilia 3 y WannaFest22 utilizan grupos separados para la música de niveles y jefes."
-      ],
-      [
-        "Código más organizado",
-        "Directorios por función, un controlador de menú más pequeño y compilaciones reproducibles del instalador."
-      ]
-    ],
-    "ru": [
-      [
-        "Исправления игры и меню",
-        "Более стабильные эффекты спрайтов, исправленные выходы после боссов, восстановление фокуса окна в Windows и непрерывная музыка при удалении сохранения."
-      ],
-      [
-        "Отдельные категории музыки",
-        "Дополнительные наборы Kamilia 3 и WannaFest22 используют раздельную музыку уровней и боссов."
-      ],
-      [
-        "Более понятный код",
-        "Каталоги по назначению, упрощённое управление меню и воспроизводимая сборка установщиков."
-      ]
-    ],
-    "ja": [
-      [
-        "ゲームとメニューの修正",
-        "スプライト効果の安定化、ボス撃破後の出口修正、Windowsでのウィンドウフォーカス復帰、セーブ削除中の音楽継続。"
-      ],
-      [
-        "音楽のカテゴリ分け",
-        "任意のKamilia 3とWannaFest22パックでは、ステージ曲とボス曲を別々の候補から選びます。"
-      ],
-      [
-        "コードの整理",
-        "機能別のディレクトリ、簡素化したメニュー制御、再現可能なインストーラービルド。"
-      ]
-    ]
   }
 }

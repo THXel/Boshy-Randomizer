@@ -13,8 +13,8 @@
     "download": "Choose your platform",
     "windows": "Windows Setup",
     "linux": "Linux DEB",
-    "release": "Release & checksums",
-    "preview": "Windows preview · x64",
+    "release": "First final release coming soon",
+    "preview": "Windows · x64",
     "linuxnote": "Linux Mint 22 / Ubuntu 24.04 · X11 · amd64",
     "game": "Bring your own Boshy folder or ZIP. The original game is not included.",
     "play": "Five ways to play",
@@ -22,7 +22,7 @@
       [
         "Randomizer",
         "The familiar game, remixed.",
-        "Shuffle level and boss destinations, and mix items and characters across both kinds of chest. Advanced settings let you choose the pools and counts. Recommended: seven levels and seven bosses, alternating where the selected pools allow, then Solgryn."
+        "Shuffle level and boss destinations, and mix items and characters across both kinds of chest. Route settings let you choose the pools and counts. Recommended: seven levels and seven bosses, alternating where the selected pools allow, then Solgryn."
       ],
       [
         "Target Select",
@@ -49,7 +49,7 @@
     "features": [
       [
         "Routes beyond the usual path",
-        "Split worlds, minibosses and secret routes sit alongside beta fights such as Ridley, Questionmark, Bomberman and Old Sonic. Advanced lets you include the encounters you want. Transitions use game state instead of screen pixels."
+        "Split worlds, minibosses and secret routes sit alongside beta fights such as Ridley, Questionmark, Bomberman and Old Sonic. Route lets you include the encounters you want. Transitions use game state instead of screen pixels."
       ],
       [
         "Items & characters, one reward pool",
@@ -65,7 +65,7 @@
       ],
       [
         "A tracker beside the game",
-        "A separate window keeps the playfield clear: timer, deaths, location, collected items and characters, boss progress and copy-seed. It adapts to the mode, highlights Target Select goals, uses compact icons and announces new pickups."
+        "Open LiveTracker from the main menu in your browser. It follows the game language and displays time, deaths, location and collected items and characters. You can also use it in OBS."
       ],
       [
         "An ending you can enjoy",
@@ -73,12 +73,12 @@
       ]
     ],
     "visualTitle": "A familiar game with an unfamiliar look",
-    "visual": "New intro casts and scenery on launch. Optional Sprite Chaos reshuffles reviewed backgrounds with their animated parallax, decoration and platform materials. Configure the layers separately and dim backgrounds for clarity. Enemy and boss colour changes are beta; their shapes, attacks and collision geometry stay intact.",
+    "visual": "Backgrounds are shuffled as complete groups with their matching layers and effects. Decoration, platforms and enemy colours have separate options. Important gameplay effects stay protected.",
     "shotsTitle": "New shots. New sound.",
     "shots": "Randomize projectiles and their firing effects independently of your character: after a spot, after a death, after both, or at a random time within your chosen limit. Set that limit in seconds or minutes; the default is five minutes.",
     "music": "Music Shuffle assigns level tracks to levels and boss tracks to bosses, using separate pools. Optional locally imported Kamilia 3 and WannaFest22 packs also provide matching music and effects. Additional soundpacks are not included in the downloads.",
     "hacksTitle": "A little help. A little chaos.",
-    "hacksIntro": "Choose optional tweaks under Advanced → Hacks. Make a practice run, change the feel, or leave a surprise waiting.",
+    "hacksIntro": "Choose optional extras in the game menu for practice or a different challenge.",
     "hacks": [
       "Suppress disruptive item pop-ups",
       "Disable the mouse ghost",
@@ -93,7 +93,6 @@
       "Configure Sprite Chaos",
       "Spider surprise"
     ],
-    "spider": "The spider surprise starts enabled for new randomizer runs: an unannounced attack every 5–30 active gameplay minutes, including boss rooms. Turn it off and apply the setting to remember that preference for future runs. Saved runs and imported seeds keep their own rules.",
     "controlsTitle": "Built for the way you play",
     "controls": [
       "Mouse hover and keyboard navigation; Enter confirms selections.",
@@ -116,22 +115,22 @@
       ],
       [
         "What if a trigger behaves strangely?",
-        "Ctrl+Alt+D opens diagnostics with live state, test actions and exportable recordings. Ctrl+Alt+M marks a problem and saves recent diagnostic history without opening a window. Reports can include a game-only screenshot."
+        "Open the diagnostics in the game menu and include the mode, seed and a description of what happened in your GitHub report."
       ],
       [
-        "Is every combination tested?",
-        "369 automated source tests pass. Windows installation, update, uninstall, save preservation and resume were checked with Defender enabled. Linux package checks are recorded in the release notes. Every complete route and hack combination has not been played through."
+        "Who has tested the randomizer?",
+        "So far, only THXel has playtested it. The project is close to its first final release; no wider public testing has taken place."
       ],
       [
-        "What does Windows preview mean?",
-        "The published 2026.10.23.1 release was checked in Windows 11, including installation, upgrade, save slots and restart. The installer is unsigned. Keep antivirus protection enabled; high-DPI and unusual account paths still need broader testing."
+        "When can I download it?",
+        "The first final release is being prepared. Windows Setup and Linux DEB will appear here once it is ready. No release date is confirmed."
       ],
       [
         "Can I play online?",
         "This is a single-player randomizer. The old Boshy online menu is disabled. Share seed codes to play comparable runs with friends."
       ]
     ],
-    "galleryTitle": "See it in motion",
+    "galleryTitle": "More glimpses of Boshy",
     "captions": [
       "The original intro, remixed",
       "Native run settings and Advanced",
@@ -143,10 +142,10 @@
       "A different main menu: Wario Skyline",
       "Another restart, another backdrop: Green Greens"
     ],
-    "footer": "A fan project by THXel and the Boshy speedrunning community. Original game by Solgryn / Grynsoft.",
-    "support": "Report an issue",
+    "footer": "Randomizer mod by THXel. Original I Wanna Be The Boshy by Solgryn / Grynsoft.",
+    "support": "Ask a question or share an idea",
     "docs": "Installation details",
-    "changelog": "Changelog",
+    "changelog": "News",
     "faqnav": "FAQ",
     "web": {
       "chooser": "What do you feel like playing?",
@@ -161,27 +160,27 @@
       "details": "Explore this mode",
       "news": "What’s new",
       "newslink": "Full changelog",
-      "quick": "From download to your first run",
+      "quick": "How installation will work",
       "quicksteps": [
         "Download your platform’s installer.",
         "Install, then import your own Boshy folder or ZIP.",
         "Choose a save slot, mode and settings.",
         "Start your run — or share its seed with a friend."
       ],
-      "galleryhelp": "Footage from the published version. The menu redesign above belongs to the next update. Open a preview for the full animation. Death-screen videos include sound; GIFs are silent. Playback starts only when you open a preview.",
+      "galleryhelp": "More glimpses of the project. Open a preview to play it. Videos include sound; GIFs are silent.",
       "pause": "Pause animation",
       "play": "Play animation",
       "close": "Close",
       "previous": "Previous preview",
       "next": "Next preview",
-      "feedback": "Help us improve your next run",
-      "feedbackintro": "Something went wrong? A few details help us reproduce it.",
-      "copy": "Copy report template",
+      "feedback": "Questions before release?",
+      "feedbackintro": "Have a question or an idea? Share it on GitHub.",
+      "copy": "Copy question template",
       "copied": "Template copied.",
       "copyfallback": "Template selected. Copy it with Ctrl+C or ⌘C.",
-      "report": "Report a problem",
-      "template": "Version:\nPlatform (Windows / Linux):\nMode:\nSeed (if available):\n\nWhat did you do?\n\nWhat did you expect?\n\nWhat happened instead?\n\nDebug report or screenshot (optional):",
-      "debug": "Ctrl+Alt+D opens diagnostics. Ctrl+Alt+M marks a problem during play; you can attach the exported report to your issue.",
+      "report": "Ask a question or share an idea",
+      "template": "My question or idea:\n\nWhat I would like to know or suggest:\n",
+      "debug": "",
       "soundvideo": "Video with sound"
     },
     "gameDownload": "Download the original I Wanna Be The Boshy from Grynsoft"
@@ -200,8 +199,8 @@
     "download": "Wähle deine Plattform",
     "windows": "Windows-Setup",
     "linux": "Linux-DEB",
-    "release": "Release & Prüfsummen",
-    "preview": "Windows-Vorschau · x64",
+    "release": "Kurz vor der ersten finalen Version",
+    "preview": "Windows · x64",
     "linuxnote": "Linux Mint 22 / Ubuntu 24.04 · X11 · amd64",
     "game": "Du brauchst deinen eigenen Boshy-Ordner oder eine ZIP. Das Originalspiel ist nicht enthalten.",
     "play": "Fünf Arten, Boshy zu spielen",
@@ -209,7 +208,7 @@
       [
         "Randomizer",
         "Das vertraute Spiel, neu gemischt.",
-        "Level- und Bossziele werden gemischt; Item- und Charaktertruhen teilen sich einen Belohnungspool. Im Advanced-Menü wählst du Abschnitte und Anzahl. Empfohlen: sieben Level und sieben Bosse, soweit die Auswahl es erlaubt abwechselnd, danach Solgryn."
+        "Level- und Bossziele werden gemischt; Item- und Charaktertruhen teilen sich einen Belohnungspool. Im Routen-Menü wählst du Abschnitte und Anzahl. Empfohlen: sieben Level und sieben Bosse, soweit die Auswahl es erlaubt abwechselnd, danach Solgryn."
       ],
       [
         "Target Select",
@@ -236,7 +235,7 @@
     "features": [
       [
         "Mehr als der normale Weg",
-        "Geteilte Welten, Minibosse und Geheimwege treffen auf Beta-Kämpfe wie Ridley, Questionmark, Bomberman und Old Sonic. Im Advanced-Menü bestimmst du die Auswahl. Übergänge lesen den Spielzustand statt Bildschirm-Pixel."
+        "Geteilte Welten, Minibosse und Geheimwege treffen auf Beta-Kämpfe wie Ridley, Questionmark, Bomberman und Old Sonic. Im Routen-Menü bestimmst du die Auswahl. Übergänge lesen den Spielzustand statt Bildschirm-Pixel."
       ],
       [
         "Items und Charaktere in einem Pool",
@@ -252,7 +251,7 @@
       ],
       [
         "Ein Tracker neben dem Spiel",
-        "Ein separates Fenster hält die Spielfläche frei: Timer, Tode, Ort, gesammelte Items und Charaktere, Bossfortschritt und Seed-Kopieren. Es passt sich dem Modus an, hebt Target-Select-Ziele hervor und zeigt neue Funde mit einer Animation."
+        "LiveTracker lässt sich direkt aus dem Hauptmenü im Browser öffnen. Er übernimmt die Spielsprache und zeigt Zeit, Tode, Standort sowie gesammelte Items und Charaktere. Du kannst ihn auch in OBS verwenden."
       ],
       [
         "Ein Finale, das du genießen kannst",
@@ -260,12 +259,12 @@
       ]
     ],
     "visualTitle": "Vertrautes Spiel, ungewohnter Look",
-    "visual": "Neue Intro-Charaktere und Kulissen beim Start. Das optionale Sprite-Chaos mischt geprüfte Hintergründe samt animierter Parallaxe, Dekoration und Plattform-Materialien. Die Ebenen sind einzeln einstellbar, Hintergründe lassen sich abdunkeln. Farbwechsel für Gegner und Bosse sind Beta; Formen, Angriffe und Kollisionen bleiben erhalten.",
+    "visual": "Hintergründe werden als vollständige Gruppen samt zugehörigen Ebenen und Effekten getauscht. Dekoration, Plattformen und Gegnerfarben sind separat einstellbar. Wichtige Spieleffekte bleiben geschützt.",
     "shotsTitle": "Neue Schüsse. Neuer Sound.",
     "shots": "Projektil und Schusseffekt wechseln unabhängig vom Charakter: nach einem Spot, nach einem Tod, nach beidem oder zufällig innerhalb einer selbst gewählten Zeitspanne. Sekunden und Minuten sind einstellbar; Standard sind fünf Minuten.",
     "music": "Die Musikmischung verwendet getrennte Pools: Levelmusik für Levels, Bossmusik für Bosse. Optional lokal importierte Kamilia-3- und WannaFest22-Packs ergänzen passende Musik und Effekte. Zusätzliche Soundpacks sind nicht in den Downloads enthalten.",
     "hacksTitle": "Ein bisschen Hilfe. Ein bisschen Chaos.",
-    "hacksIntro": "Unter Advanced → Hacks wählst du optionale Extras für Training, Abwechslung oder eine kleine Überraschung.",
+    "hacksIntro": "Wähle im Spielmenü optionale Extras fürs Training oder für eine andere Herausforderung.",
     "hacks": [
       "Störende Item-Pop-ups unterdrücken",
       "Mausgeist deaktivieren",
@@ -280,7 +279,6 @@
       "Sprite-Chaos konfigurieren",
       "Spinnen-Überraschung"
     ],
-    "spider": "Die Spinnen-Überraschung ist bei neuen Randomizer-Läufen zunächst an: ein unangekündigter Angriff alle 5–30 aktiven Spielminuten, auch bei Bossen. Ausschalten und übernehmen merkt sich die Wahl für zukünftige Läufe. Gespeicherte Läufe und importierte Seeds behalten ihre Regeln.",
     "controlsTitle": "So bedienbar, wie du spielst",
     "controls": [
       "Maus-Hover und Tastaturnavigation; Enter bestätigt die Auswahl.",
@@ -303,22 +301,22 @@
       ],
       [
         "Was tun, wenn ein Trigger nicht passt?",
-        "Strg+Alt+D öffnet die Diagnose mit Live-Daten, Testaktionen und exportierbaren Aufzeichnungen. Strg+Alt+M markiert ein Problem und speichert den jüngsten Verlauf ohne ein Fenster zu öffnen. Berichte können einen Screenshot nur vom Spiel enthalten."
+        "Öffne die Diagnose im Spielmenü und ergänze deine GitHub-Meldung um Modus, Seed und eine Beschreibung des Problems."
       ],
       [
-        "Ist jede Kombination getestet?",
-        "369 automatische Quellcode-Tests bestehen. Windows-Installation, Update, Deinstallation, Datenerhalt und Fortsetzen wurden mit aktivem Defender geprüft. Die Linux-Paketprüfungen stehen in den Release-Hinweisen. Nicht jede komplette Route und Hackkombination wurde durchgespielt."
+        "Wer hat den Randomizer bisher getestet?",
+        "Bisher hat ausschließlich THXel das Spiel getestet. Das Projekt steht kurz vor seiner ersten finalen Veröffentlichung; einen breiten öffentlichen Spieltest gab es noch nicht."
       ],
       [
-        "Was bedeutet Windows-Vorschau?",
-        "Die veröffentlichte Version 2026.10.23.1 wurde unter Windows 11 einschließlich Installation, Update, Speicherplätzen und Neustart geprüft. Der Installer ist nicht signiert. Virenschutz eingeschaltet lassen; hohe DPI-Werte und ungewöhnliche Kontopfade benötigen weitere Tests."
+        "Wann kann ich ihn herunterladen?",
+        "Die erste finale Version wird vorbereitet. Sobald sie fertig ist, stehen hier Windows-Setup und Linux-DEB bereit. Ein Veröffentlichungstermin steht noch nicht fest."
       ],
       [
         "Kann man online spielen?",
         "Dies ist ein Einzelspieler-Randomizer. Das alte Boshy-Online-Menü ist deaktiviert. Über Seed-Codes könnt ihr vergleichbare Läufe mit Freunden spielen."
       ]
     ],
-    "galleryTitle": "Boshy in Bewegung",
+    "galleryTitle": "Weitere Einblicke in Boshy",
     "captions": [
       "Das originale Intro, neu gemischt",
       "Native Laufeinstellungen und Advanced",
@@ -330,10 +328,10 @@
       "Ein anderes Hauptmenü: Wario Skyline",
       "Neustart, neuer Hintergrund: Green Greens"
     ],
-    "footer": "Ein Fanprojekt von THXel und der Boshy-Speedrun-Community. Originalspiel von Solgryn / Grynsoft.",
-    "support": "Problem melden",
+    "footer": "Randomizer-Mod von THXel. Original I Wanna Be The Boshy von Solgryn / Grynsoft.",
+    "support": "Frage oder Idee teilen",
     "docs": "Installationsdetails",
-    "changelog": "Änderungsverlauf",
+    "changelog": "Neuigkeiten",
     "faqnav": "FAQ",
     "web": {
       "chooser": "Worauf hast du Lust?",
@@ -348,27 +346,27 @@
       "details": "Diesen Modus ansehen",
       "news": "Neu im Update",
       "newslink": "Vollständiger Änderungsverlauf",
-      "quick": "Vom Download zum ersten Lauf",
+      "quick": "So wird die Installation funktionieren",
       "quicksteps": [
         "Lade das Installationspaket für deine Plattform herunter.",
         "Installiere und importiere deinen Boshy-Ordner oder eine ZIP.",
         "Wähle Speicherplatz, Modus und Einstellungen.",
         "Starte deinen Lauf — oder teile den Seed mit Freunden."
       ],
-      "galleryhelp": "Aufnahmen der veröffentlichten Version. Das oben beschriebene neue Menü gehört zum nächsten Update. Öffne eine Vorschau für die vollständige Animation. Die Todesvideos enthalten Ton; GIFs sind stumm. Die Wiedergabe startet erst beim Öffnen einer Vorschau.",
+      "galleryhelp": "Weitere Einblicke ins Projekt. Öffne eine Vorschau zum Abspielen. Videos enthalten Ton; GIFs sind stumm.",
       "pause": "Animation pausieren",
       "play": "Animation abspielen",
       "close": "Schließen",
       "previous": "Vorherige Vorschau",
       "next": "Nächste Vorschau",
-      "feedback": "Hilf uns, deinen nächsten Lauf zu verbessern",
-      "feedbackintro": "Etwas lief schief? Mit ein paar Angaben können wir es besser nachvollziehen.",
-      "copy": "Fehlervorlage kopieren",
+      "feedback": "Fragen vor der Veröffentlichung?",
+      "feedbackintro": "Du hast eine Frage oder eine Idee? Teile sie auf GitHub.",
+      "copy": "Fragevorlage kopieren",
       "copied": "Vorlage kopiert.",
       "copyfallback": "Vorlage markiert. Kopiere sie mit Strg+C oder ⌘C.",
-      "report": "Problem melden",
-      "template": "Version:\nPlattform (Windows / Linux):\nModus:\nSeed (falls vorhanden):\n\nWas hast du gemacht?\n\nWas hast du erwartet?\n\nWas ist stattdessen passiert?\n\nDebugbericht oder Screenshot (optional):",
-      "debug": "Strg+Alt+D öffnet die Diagnose. Strg+Alt+M markiert ein Problem während des Spielens; den exportierten Bericht kannst du deiner Meldung anhängen.",
+      "report": "Frage oder Idee teilen",
+      "template": "Meine Frage oder Idee:\n\nDas möchte ich wissen oder vorschlagen:\n",
+      "debug": "",
       "soundvideo": "Video mit Ton"
     },
     "gameDownload": "I Wanna Be The Boshy bei Grynsoft herunterladen"
@@ -387,8 +385,8 @@
     "download": "Elige tu plataforma",
     "windows": "Instalador Windows",
     "linux": "DEB para Linux",
-    "release": "Versión y verificaciones",
-    "preview": "Vista previa de Windows · x64",
+    "release": "La primera versión final está cerca",
+    "preview": "Windows · x64",
     "linuxnote": "Linux Mint 22 / Ubuntu 24.04 · X11 · amd64",
     "game": "Necesitas tu propia carpeta o ZIP de Boshy. El juego original no está incluido.",
     "play": "Cinco formas de jugar",
@@ -396,7 +394,7 @@
       [
         "Randomizer",
         "El juego conocido, remezclado.",
-        "Mezcla destinos de niveles y jefes y combina objetos y personajes en ambos tipos de cofre. En Advanced eliges las listas y cantidades. Recomendado: siete niveles y siete jefes, alternando cuando sea posible, y Solgryn al final."
+        "Mezcla destinos de niveles y jefes y combina objetos y personajes en ambos tipos de cofre. En Ruta eliges las listas y cantidades. Recomendado: siete niveles y siete jefes, alternando cuando sea posible, y Solgryn al final."
       ],
       [
         "Target Select",
@@ -423,7 +421,7 @@
     "features": [
       [
         "Más allá de la ruta habitual",
-        "Mundos divididos, minijefes y secretos, además de encuentros beta como Ridley, Questionmark, Bomberman y Old Sonic. Advanced permite elegirlos; las transiciones leen el estado del juego, no píxeles."
+        "Mundos divididos, minijefes y secretos, además de encuentros beta como Ridley, Questionmark, Bomberman y Old Sonic. Ruta permite elegirlos; las transiciones leen el estado del juego, no píxeles."
       ],
       [
         "Objetos y personajes juntos",
@@ -439,7 +437,7 @@
       ],
       [
         "Un tracker junto al juego",
-        "Ventana separada con tiempo, muertes, ubicación, objetos, personajes, jefes y copia de semilla. Se adapta al modo, destaca objetivos de Target Select y anima las nuevas recompensas."
+        "Abre LiveTracker en el navegador desde el menú principal. Utiliza el idioma del juego y muestra tiempo, muertes, ubicación, objetos y personajes recogidos. También puedes usarlo en OBS."
       ],
       [
         "Disfruta del final",
@@ -447,12 +445,12 @@
       ]
     ],
     "visualTitle": "El mismo juego, otra apariencia",
-    "visual": "El reparto y escenario del intro cambian al iniciar. Sprite Chaos mezcla fondos revisados con su paralaje animado, decoración y materiales de plataformas. Configura cada capa y oscurece fondos para mejorar la visibilidad. Los cambios de color de enemigos y jefes están en beta; formas, ataques y colisiones se conservan.",
+    "visual": "Los fondos se intercambian como grupos completos con sus capas y efectos. Decoración, plataformas y colores de enemigos tienen opciones independientes. Los efectos importantes del juego se mantienen protegidos.",
     "shotsTitle": "Nuevos disparos. Nuevo sonido.",
     "shots": "Cambia proyectil y efecto de disparo independientemente del personaje: tras cada sección, muerte, ambos o aleatoriamente dentro de un límite de tiempo. Elige segundos o minutos; cinco minutos por defecto.",
     "music": "La mezcla utiliza grupos separados: música de niveles para niveles y música de jefes para jefes. Los packs opcionales de Kamilia 3 y WannaFest22 importados localmente añaden música y efectos. Los packs adicionales no están incluidos en las descargas.",
     "hacksTitle": "Un poco de ayuda. Un poco de caos.",
-    "hacksIntro": "En Advanced → Hacks elige opciones para practicar, variar la partida o añadir sorpresas.",
+    "hacksIntro": "Elige extras opcionales en el menú para practicar o cambiar el desafío.",
     "hacks": [
       "Suprimir ventanas de objetos",
       "Desactivar el fantasma del ratón",
@@ -467,7 +465,6 @@
       "Configurar Sprite Chaos",
       "Sorpresa de la araña"
     ],
-    "spider": "La araña está activada inicialmente en partidas nuevas del randomizer: ataca sin aviso cada 5–30 minutos de juego activo, también contra jefes. Desactívala y aplica para guardar esa preferencia futura. Las partidas guardadas y semillas importadas conservan sus reglas.",
     "controlsTitle": "Juega a tu manera",
     "controls": [
       "Navegación con ratón y teclado; Enter confirma.",
@@ -490,22 +487,22 @@
       ],
       [
         "¿Qué hago si falla una transición?",
-        "Ctrl+Alt+D abre datos en vivo, acciones de prueba y grabaciones exportables. Ctrl+Alt+M marca un problema y guarda el historial reciente sin abrir una ventana. El informe puede incluir una captura solo del juego."
+        "Abre el diagnóstico en el menú del juego e incluye modo, semilla y una descripción del problema en GitHub."
       ],
       [
-        "¿Está todo probado?",
-        "369 pruebas automáticas superadas. Instalación, actualización, desinstalación, conservación de datos y continuación probadas en Windows con Defender activo. Las comprobaciones Linux figuran en las notas. No se ha jugado cada combinación completa."
+        "¿Quién ha probado el randomizer?",
+        "Hasta ahora solo THXel lo ha probado jugando. La primera versión final está cerca; todavía no ha habido pruebas públicas amplias."
       ],
       [
-        "¿Qué significa vista previa de Windows?",
-        "La versión publicada 2026.10.23.1 se comprobó en Windows 11, incluida la instalación, actualización, partidas y reinicio. El instalador no está firmado. Mantén el antivirus activado; las pantallas de alta densidad y las rutas de cuenta poco habituales necesitan más pruebas."
+        "¿Cuándo podré descargarlo?",
+        "La primera versión final está en preparación. Windows Setup y Linux DEB aparecerán aquí cuando esté lista. Aún no hay fecha confirmada."
       ],
       [
         "¿Hay modo online?",
         "Es un randomizer para un jugador. El antiguo menú online está desactivado. Comparte semillas para jugar rutas comparables con amigos."
       ]
     ],
-    "galleryTitle": "Míralo en movimiento",
+    "galleryTitle": "Más imágenes de Boshy",
     "captions": [
       "El intro original, remezclado",
       "Opciones nativas y Advanced",
@@ -517,10 +514,10 @@
       "Un menú diferente: Wario Skyline",
       "Otro inicio, otro fondo: Green Greens"
     ],
-    "footer": "Proyecto de fans de THXel y la comunidad speedrun de Boshy. Juego original de Solgryn / Grynsoft.",
-    "support": "Informar de un problema",
+    "footer": "Mod randomizer de THXel. I Wanna Be The Boshy original de Solgryn / Grynsoft.",
+    "support": "Compartir pregunta o idea",
     "docs": "Detalles de instalación",
-    "changelog": "Cambios",
+    "changelog": "Novedades",
     "faqnav": "Preguntas",
     "web": {
       "chooser": "¿Qué te apetece jugar?",
@@ -535,27 +532,27 @@
       "details": "Ver este modo",
       "news": "Novedades",
       "newslink": "Registro completo de cambios",
-      "quick": "De la descarga a tu primera partida",
+      "quick": "Cómo será la instalación",
       "quicksteps": [
         "Descarga el instalador de tu plataforma.",
         "Instala e importa tu carpeta o ZIP de Boshy.",
         "Elige una ranura, un modo y los ajustes.",
         "Empieza la partida o comparte la semilla con amigos."
       ],
-      "galleryhelp": "Imágenes de la versión publicada. El nuevo menú descrito arriba pertenece a la próxima actualización. Abre una vista previa para ver la animación completa. Los vídeos de muerte tienen sonido; los GIF son silenciosos. La reproducción comienza al abrir una vista previa.",
+      "galleryhelp": "Más imágenes del proyecto. Abre una vista previa para reproducirla. Los vídeos tienen sonido; los GIF son silenciosos.",
       "pause": "Pausar animación",
       "play": "Reproducir animación",
       "close": "Cerrar",
       "previous": "Vista anterior",
       "next": "Vista siguiente",
-      "feedback": "Ayúdanos a mejorar tu próxima partida",
-      "feedbackintro": "¿Algo salió mal? Estos datos nos ayudan a reproducirlo.",
-      "copy": "Copiar plantilla",
+      "feedback": "¿Preguntas antes del lanzamiento?",
+      "feedbackintro": "¿Tienes una pregunta o una idea? Compártela en GitHub.",
+      "copy": "Copiar plantilla de pregunta",
       "copied": "Plantilla copiada.",
       "copyfallback": "Plantilla seleccionada. Cópiala con Ctrl+C o ⌘C.",
-      "report": "Informar de un problema",
-      "template": "Versión:\nPlataforma (Windows / Linux):\nModo:\nSemilla (si está disponible):\n\n¿Qué hiciste?\n\n¿Qué esperabas?\n\n¿Qué ocurrió?\n\nInforme de depuración o captura (opcional):",
-      "debug": "Ctrl+Alt+D abre el diagnóstico. Ctrl+Alt+M marca un problema durante la partida; puedes adjuntar el informe exportado.",
+      "report": "Compartir pregunta o idea",
+      "template": "Mi pregunta o idea:\n\nLo que quiero saber o proponer:\n",
+      "debug": "",
       "soundvideo": "Vídeo con sonido"
     },
     "gameDownload": "Descargar I Wanna Be The Boshy desde Grynsoft"
@@ -574,8 +571,8 @@
     "download": "Выбери платформу",
     "windows": "Установщик Windows",
     "linux": "DEB для Linux",
-    "release": "Релиз и контрольные суммы",
-    "preview": "Предварительная версия Windows · x64",
+    "release": "Первый финальный выпуск уже близко",
+    "preview": "Windows · x64",
     "linuxnote": "Linux Mint 22 / Ubuntu 24.04 · X11 · amd64",
     "game": "Нужна собственная папка Boshy или ZIP. Оригинальная игра не включена.",
     "play": "Пять способов играть",
@@ -583,7 +580,7 @@
       [
         "Randomizer",
         "Знакомая игра в новом порядке.",
-        "Перемешивай уровни и боссов, объединяй предметы и персонажей в общий пул наград сундуков. В Advanced выбираются списки и количество. Рекомендуется семь уровней и семь боссов, по возможности поочерёдно, затем Solgryn."
+        "Перемешивай уровни и боссов, объединяй предметы и персонажей в общий пул наград сундуков. В Маршрут выбираются списки и количество. Рекомендуется семь уровней и семь боссов, по возможности поочерёдно, затем Solgryn."
       ],
       [
         "Target Select",
@@ -610,7 +607,7 @@
     "features": [
       [
         "Больше обычного маршрута",
-        "Разделённые миры, мини-боссы, секреты и бета-бои с Ridley, Questionmark, Bomberman и Old Sonic. Список выбирается в Advanced. Переходы используют состояние игры вместо пикселей."
+        "Разделённые миры, мини-боссы, секреты и бета-бои с Ridley, Questionmark, Bomberman и Old Sonic. Список выбирается в Маршрут. Переходы используют состояние игры вместо пикселей."
       ],
       [
         "Предметы и персонажи вместе",
@@ -626,7 +623,7 @@
       ],
       [
         "Трекер рядом с игрой",
-        "Отдельное окно с таймером, смертями, местом, предметами, персонажами, боссами и копированием сида. Оно учитывает режим, выделяет цели Target Select и анимирует новые находки."
+        "Откройте LiveTracker в браузере из главного меню. Он использует язык игры и показывает время, смерти, местоположение, предметы и персонажей. Его также можно использовать в OBS."
       ],
       [
         "Финал без спешки",
@@ -634,12 +631,12 @@
       ]
     ],
     "visualTitle": "Знакомая игра, новый облик",
-    "visual": "Персонажи и декорации интро меняются при запуске. Sprite Chaos перемешивает проверенные фоны с анимированным параллаксом, декор и материалы платформ. Слои настраиваются отдельно, фон можно затемнить. Перекраска врагов и боссов — бета; формы, атаки и коллизии сохраняются.",
+    "visual": "Фоны меняются целыми группами вместе со слоями и эффектами. Декорации, платформы и цвета врагов настраиваются отдельно. Важные игровые эффекты остаются защищёнными.",
     "shotsTitle": "Новые выстрелы. Новый звук.",
     "shots": "Меняй снаряд и эффект выстрела независимо от героя: после участка, смерти, обоих событий или в случайный момент внутри выбранного интервала. Секунды и минуты настраиваются; по умолчанию пять минут.",
     "music": "Используются отдельные наборы: музыка уровней для уровней, музыка боссов для боссов. Дополнительные локально импортированные наборы Kamilia 3 и WannaFest22 добавляют музыку и эффекты. Они не входят в загрузки.",
     "hacksTitle": "Немного помощи. Немного хаоса.",
-    "hacksIntro": "В Advanced → Hacks выбирай дополнения для тренировки, разнообразия или неожиданностей.",
+    "hacksIntro": "Выбирайте дополнительные настройки в меню игры для тренировки или новых испытаний.",
     "hacks": [
       "Убрать окна предметов",
       "Отключить призрак мыши",
@@ -654,7 +651,6 @@
       "Настроить Sprite Chaos",
       "Сюрприз с пауком"
     ],
-    "spider": "Паук изначально включён в новых забегах randomizer: нападение без предупреждения каждые 5–30 минут активной игры, в том числе у боссов. Отключи и примени настройку, чтобы запомнить выбор для будущих забегов. Сохранения и импортированные сиды оставляют свои правила.",
     "controlsTitle": "Удобно играть",
     "controls": [
       "Мышь и клавиатура; Enter подтверждает выбор.",
@@ -677,22 +673,22 @@
       ],
       [
         "Что делать при проблеме с переходом?",
-        "Ctrl+Alt+D открывает текущие данные, тестовые действия и экспорт записей. Ctrl+Alt+M отмечает проблему и сохраняет недавнюю историю без открытия окна. Отчёт может включать снимок только игры."
+        "Откройте диагностику в меню игры и добавьте режим, сид и описание проблемы в сообщение на GitHub."
       ],
       [
-        "Всё ли проверено?",
-        "369 автоматических тестов пройдены. Установка, обновление, удаление, сохранность данных и продолжение проверены в Windows с активным Defender. Проверки Linux описаны в релизе. Не все маршруты и сочетания пройдены целиком."
+        "Кто уже тестировал randomizer?",
+        "Пока игру тестировал исключительно THXel. Первый финальный выпуск близко; широкого публичного тестирования ещё не было."
       ],
       [
-        "Что значит предварительная версия Windows?",
-        "Опубликованная версия 2026.10.23.1 проверена в Windows 11: установка, обновление, сохранения и перезапуск. Установщик не подписан. Не отключайте антивирус; высокое разрешение DPI и необычные пути учётных записей требуют дополнительных проверок."
+        "Когда можно будет скачать?",
+        "Первый финальный выпуск готовится. Установщик Windows и пакет Linux DEB появятся здесь после готовности. Дата выпуска пока не определена."
       ],
       [
         "Есть онлайн-режим?",
         "Это одиночный рандомайзер. Старое онлайн-меню отключено. Делись сидами, чтобы проходить сопоставимые маршруты с друзьями."
       ]
     ],
-    "galleryTitle": "Посмотри в движении",
+    "galleryTitle": "Другие кадры Boshy",
     "captions": [
       "Оригинальное интро по-новому",
       "Настройки и Advanced внутри игры",
@@ -704,10 +700,10 @@
       "Другое главное меню: Wario Skyline",
       "Новый запуск, новый фон: Green Greens"
     ],
-    "footer": "Фан-проект THXel и сообщества спидраннеров Boshy. Оригинальная игра — Solgryn / Grynsoft.",
-    "support": "Сообщить о проблеме",
+    "footer": "Мод randomizer от THXel. Оригинальная I Wanna Be The Boshy — Solgryn / Grynsoft.",
+    "support": "Задать вопрос или предложить идею",
     "docs": "Установка подробно",
-    "changelog": "Изменения",
+    "changelog": "Новости",
     "faqnav": "Вопросы",
     "web": {
       "chooser": "Во что хочется сыграть?",
@@ -722,27 +718,27 @@
       "details": "Посмотреть режим",
       "news": "Что нового",
       "newslink": "Полный список изменений",
-      "quick": "От загрузки до первого забега",
+      "quick": "Как будет проходить установка",
       "quicksteps": [
         "Скачай установщик для своей платформы.",
         "Установи и импортируй свою папку или ZIP с Boshy.",
         "Выбери слот, режим и настройки.",
         "Начни забег или поделись сидом с друзьями."
       ],
-      "galleryhelp": "Записи опубликованной версии. Новое меню, описанное выше, относится к следующему обновлению. Откройте превью, чтобы увидеть всю анимацию. Видео смерти содержат звук; GIF — без звука. Воспроизведение начинается только после открытия превью.",
+      "galleryhelp": "Другие кадры проекта. Откройте превью для воспроизведения. Видео со звуком, GIF — без звука.",
       "pause": "Приостановить анимацию",
       "play": "Включить анимацию",
       "close": "Закрыть",
       "previous": "Предыдущее превью",
       "next": "Следующее превью",
-      "feedback": "Помоги улучшить следующий забег",
-      "feedbackintro": "Что-то пошло не так? Эти сведения помогут воспроизвести проблему.",
-      "copy": "Скопировать шаблон",
+      "feedback": "Вопросы перед выпуском?",
+      "feedbackintro": "Есть вопрос или идея? Поделитесь ими на GitHub.",
+      "copy": "Скопировать шаблон вопроса",
       "copied": "Шаблон скопирован.",
       "copyfallback": "Шаблон выделен. Скопируй его через Ctrl+C или ⌘C.",
-      "report": "Сообщить о проблеме",
-      "template": "Версия:\nПлатформа (Windows / Linux):\nРежим:\nСид (если есть):\n\nЧто ты сделал?\n\nЧто ожидалось?\n\nЧто произошло?\n\nОтчёт диагностики или скриншот (необязательно):",
-      "debug": "Ctrl+Alt+D открывает диагностику. Ctrl+Alt+M отмечает проблему во время игры; экспортированный отчёт можно приложить к сообщению.",
+      "report": "Задать вопрос или предложить идею",
+      "template": "Мой вопрос или идея:\n\nЧто я хочу узнать или предложить:\n",
+      "debug": "",
       "soundvideo": "Видео со звуком"
     },
     "gameDownload": "Скачать I Wanna Be The Boshy на Grynsoft"
@@ -761,8 +757,8 @@
     "download": "プラットフォームを選択",
     "windows": "Windowsセットアップ",
     "linux": "Linux DEB",
-    "release": "リリース・チェックサム",
-    "preview": "Windowsプレビュー · x64",
+    "release": "初の正式版公開まであと少し",
+    "preview": "Windows · x64",
     "linuxnote": "Linux Mint 22 / Ubuntu 24.04 · X11 · amd64",
     "game": "自分のBoshyフォルダーまたはZIPが必要です。ゲーム本体は含まれません。",
     "play": "5つの遊び方",
@@ -770,7 +766,7 @@
       [
         "Randomizer",
         "おなじみのゲームをシャッフル。",
-        "ステージとボスの行き先を変更し、アイテムとキャラクターを共通の宝箱報酬にします。Advancedで候補と数を選択。推奨はステージ7つとボス7体を可能な範囲で交互に進み、最後はSolgryn。"
+        "ステージとボスの行き先を変更し、アイテムとキャラクターを共通の宝箱報酬にします。ルートで候補と数を選択。推奨はステージ7つとボス7体を可能な範囲で交互に進み、最後はSolgryn。"
       ],
       [
         "Target Select",
@@ -813,7 +809,7 @@
       ],
       [
         "ゲームの横にトラッカー",
-        "タイマー、死亡数、場所、収集物、キャラクター、ボス、シードコピーを別ウィンドウに表示。モードに合わせてTarget Selectの目標を強調し、新しい入手物をアニメーションで知らせます。"
+        "メインメニューからブラウザーでLiveTrackerを開けます。ゲームの言語を引き継ぎ、時間、死亡数、現在地、入手アイテムとキャラクターを表示します。OBSでも使用できます。"
       ],
       [
         "最後まで楽しめる結果画面",
@@ -821,12 +817,12 @@
       ]
     ],
     "visualTitle": "いつものゲームに、新しい景色",
-    "visual": "起動時のイントロキャラクターと景色が変化。Sprite Chaosでは確認済みの背景とアニメ付きパララックス、装飾、足場素材を変更できます。レイヤー別設定と背景の暗さ調整に対応。敵・ボスの色変更はベータで、形・攻撃・当たり判定は維持します。",
+    "visual": "背景は対応するレイヤーやエフェクトと一緒にグループ単位で入れ替わります。装飾、足場、敵の色は別々に設定でき、重要なゲーム効果は保護されます。",
     "shotsTitle": "弾も、音も、新しく。",
     "shots": "キャラクターとは独立して弾と発射エフェクトを変更。区間ごと、死亡ごと、両方、または設定時間内のランダムなタイミングを選べます。秒・分で設定でき、標準は5分です。",
     "music": "ステージ曲はステージへ、ボス曲はボスへ、別々の候補から割り当てます。任意でローカルから取り込むKamilia 3とWannaFest22のパックでは音楽とエフェクトも追加できます。追加パックはダウンロードに含まれません。",
     "hacksTitle": "少しの助けと、少しのカオス。",
-    "hacksIntro": "Advanced → Hacksで練習用の補助や変化、サプライズを選べます。",
+    "hacksIntro": "ゲームメニューで練習用の補助や挑戦を変えるオプションを選べます。",
     "hacks": [
       "アイテムのポップアップ抑制",
       "マウスのゴースト無効化",
@@ -841,7 +837,6 @@
       "Sprite Chaos設定",
       "クモのサプライズ"
     ],
-    "spider": "新しいrandomizerランではクモが初期状態でオン。ボス戦を含む実プレイ5〜30分ごとに予告なしで襲います。オフにして適用すると今後のランにも記憶されます。既存セーブとインポートしたシードは元のルールを保持します。",
     "controlsTitle": "遊びやすさも、自分に合わせて",
     "controls": [
       "マウスホバーとキーボード操作。Enterで決定。",
@@ -864,22 +859,22 @@
       ],
       [
         "遷移がおかしいときは？",
-        "Ctrl+Alt+Dでライブ状態、テスト操作、記録のエクスポートを開きます。Ctrl+Alt+Mはウィンドウを開かず問題を記録。ゲームだけのスクリーンショットをレポートに含められます。"
+        "ゲームメニューの診断を開き、モード、シード、問題の説明をGitHubの報告に添えてください。"
       ],
       [
-        "すべて検証済みですか？",
-        "369件の自動テストが成功。Windowsのインストール、更新、削除、データ保持、再開をDefender有効で確認。Linuxの確認範囲はリリースに記載しています。全ルート・全設定の通しプレイではありません。"
+        "誰がテストしていますか？",
+        "これまでプレイテストを行ったのはTHXelのみです。初の正式版公開が近づいていますが、広範な公開テストはまだ行っていません。"
       ],
       [
-        "Windowsプレビューとは？",
-        "公開済みの2026.10.23.1はWindows 11でインストール、更新、セーブスロット、再起動を検証済みです。インストーラーは未署名です。ウイルス対策は有効にしてください。高DPIや特殊なアカウントパスでは追加検証が必要です。"
+        "いつダウンロードできますか？",
+        "初の正式版を準備中です。完成後、WindowsインストーラーとLinux DEBをここで公開します。公開日はまだ決まっていません。"
       ],
       [
         "オンラインで遊べますか？",
         "シングルプレイヤー用です。元のオンラインメニューは無効です。友達とシードを共有して同じ条件のランを楽しめます。"
       ]
     ],
-    "galleryTitle": "動くBoshyを見よう",
+    "galleryTitle": "Boshyのほかの映像",
     "captions": [
       "元のイントロをリミックス",
       "ゲーム内設定とAdvanced",
@@ -891,10 +886,10 @@
       "メインメニューの別背景：Wario Skyline",
       "再起動すると新しい背景に：Green Greens"
     ],
-    "footer": "THXelとBoshyスピードランコミュニティのファンプロジェクト。原作：Solgryn / Grynsoft。",
-    "support": "問題を報告",
+    "footer": "Randomizer Mod：THXel。原作 I Wanna Be The Boshy：Solgryn / Grynsoft。",
+    "support": "質問やアイデアを共有",
     "docs": "インストール詳細",
-    "changelog": "更新履歴",
+    "changelog": "ニュース",
     "faqnav": "よくある質問",
     "web": {
       "chooser": "どんな遊び方がしたい？",
@@ -909,27 +904,27 @@
       "details": "このモードを見る",
       "news": "最新アップデート",
       "newslink": "変更履歴をすべて読む",
-      "quick": "ダウンロードから最初のランまで",
+      "quick": "インストールの流れ",
       "quicksteps": [
         "対応するインストーラーをダウンロード。",
         "インストール後、自分のBoshyフォルダーかZIPを取り込む。",
         "セーブ枠、モード、設定を選ぶ。",
         "ランを開始。シードを友達と共有することもできます。"
       ],
-      "galleryhelp": "公開済みバージョンの映像です。上記の新しいメニューは次のアップデートに含まれます。 プレビューを開くとアニメーション全体を再生できます。死亡シーンの動画には音声があり、GIFは無音です。プレビューを開くまで再生されません。",
+      "galleryhelp": "プロジェクトのほかの映像です。プレビューを開くと再生します。動画には音声があり、GIFは無音です。",
       "pause": "アニメーションを一時停止",
       "play": "アニメーションを再生",
       "close": "閉じる",
       "previous": "前のプレビュー",
       "next": "次のプレビュー",
-      "feedback": "次のランをもっと良くするために",
-      "feedbackintro": "問題が起きましたか？次の情報があると再現しやすくなります。",
-      "copy": "報告テンプレートをコピー",
+      "feedback": "公開前のご質問は？",
+      "feedbackintro": "質問やアイデアがあればGitHubで共有してください。",
+      "copy": "質問テンプレートをコピー",
       "copied": "テンプレートをコピーしました。",
       "copyfallback": "テンプレートを選択しました。Ctrl+Cまたは⌘Cでコピーしてください。",
-      "report": "問題を報告",
-      "template": "バージョン：\n環境（Windows / Linux）：\nモード：\nシード（あれば）：\n\n行った操作：\n\n期待した動作：\n\n実際に起きたこと：\n\n診断レポートやスクリーンショット（任意）：",
-      "debug": "Ctrl+Alt+Dで診断を開けます。Ctrl+Alt+Mでプレイ中の問題を記録し、書き出したレポートを報告に添付できます。",
+      "report": "質問やアイデアを共有",
+      "template": "質問やアイデア：\n\n知りたいこと・提案したいこと：\n",
+      "debug": "",
       "soundvideo": "音声付き動画"
     },
     "gameDownload": "GrynsoftでI Wanna Be The Boshyをダウンロード"

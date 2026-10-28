@@ -50,7 +50,7 @@ def render(lang, d):
         for k, v in zip(("modes", "features", "gallery", "download"), d["nav"])
     )
     nav = f'<a href="#development">{e(presentation["nav"])}</a>' + nav
-    buttons = f'<a class="button primary" href="{WIN}">↓ {e(d["windows"])}</a><a class="button secondary" href="{LINUX}">↓ {e(d["linux"])}</a>'
+    buttons = f'<a class="button primary" href="#download">Windows · {e(preview_copy["soon"])}</a><a class="button secondary" href="#download">Linux · {e(preview_copy["soon"])}</a>'
 
     def mascot(color):
         file, alt, size = (
@@ -63,10 +63,6 @@ def render(lang, d):
     advice = "".join(
         f'<li class="mode-advice" id="mode-{i}"><p class="mode-intent">{e(label)}</p><h4>{e(n)}</h4><p class="mode-tagline">{e(tag)}</p><p class="mode-description">{e(body)}</p></li>'
         for i, (label, (n, tag, body)) in enumerate(zip(w["choices"], d["modes"]))
-    )
-    news = "".join(
-        f'<article lang="{lang}"><h3>{e(title)}</h3><p>{e(body)}</p></article>'
-        for title, body in updates["locales"][lang]
     )
     features = "".join(
         f'<article><span class="feature-mark">{mark}</span><h3>{e(n)}</h3><p>{e(body)}</p></article>'
@@ -84,17 +80,18 @@ def render(lang, d):
         for platform, key in (("Windows", "windowssteps"), ("Linux", "linuxsteps"))
     )
     current_screenshots = "".join(
-        f'<figure><a href="{assets(path)}" data-gallery-index="{index}" '
-        f'data-video="" data-caption="{e(caption)}">'
-        f'<img src="{assets(path)}" alt="{e(caption)}" loading="lazy" width="640" height="480">'
-        f'<span class="zoom-mark" aria-hidden="true">↗</span></a>'
-        f"<figcaption>{e(caption)}</figcaption></figure>"
-        for index, (path, caption) in enumerate(
+        f'<figure><a href="{assets(base + ".gif")}" data-gallery-index="{index}" '
+        f'data-video="{assets(base + ".mp4")}" data-audio="false" data-poster="{assets(base + ".png")}" data-caption="{e(caption)}">'
+        f'<picture><source media="(prefers-reduced-motion: reduce)" srcset="{assets(base + ".png")}">'
+        f'<img src="{assets(base + ".gif")}" alt="{e(caption)}" loading="lazy" width="640" height="480"></picture>'
+        f'<span class="zoom-mark" aria-hidden="true">▶</span></a>'
+        f'<figcaption>{e(caption)}<span class="media-links"><a href="{assets(base + ".gif")}">GIF</a></span></figcaption></figure>'
+        for index, (base, caption) in enumerate(
             zip(
                 (
-                    "site/media/preview-menu-44.png",
-                    "site/media/preview-options-44.png",
-                    "site/media/preview-save-44.png",
+                    "site/media/first-menu-tour",
+                    "site/media/first-appearance-tour",
+                    "site/media/first-save-tour",
                 ),
                 presentation["captions"],
             )
@@ -106,26 +103,6 @@ def render(lang, d):
     )
     previews = [
         (
-            "docs/media/rediscover-intro.gif",
-            "site/media/intro-poster.webp",
-            "site/media/intro.mp4",
-            False,
-        ),
-        (
-            "docs/media/rediscover-menu-tour.gif",
-            "site/media/menu-tour-poster.webp",
-            "site/media/menu-tour.mp4",
-            False,
-        ),
-        (
-            "docs/media/linux-run-tracker.png",
-            "docs/media/linux-run-tracker.png",
-            "",
-            False,
-        ),
-    ]
-    previews += [
-        (
             f"docs/media/{name}.gif",
             f"site/media/{name}-poster.webp",
             f"site/media/{name}.mp4",
@@ -136,21 +113,19 @@ def render(lang, d):
             "death-wannafest22",
             "beta-questionmark",
             "beta-ridley",
-            "menu-variant-1",
-            "menu-variant-2",
         )
     ]
     gallery = ""
     for i, ((original, poster, video, audio), caption) in enumerate(
-        zip(previews, d["captions"])
+        zip(previews, d["captions"][3:7])
     ):
         downloads = (
             f'<span class="media-links"><a href="{assets(original)}">GIF</a><a href="{assets(video)}">{e(w["soundvideo"])}</a></span>'
-            if i >= 3
+            if video
             else ""
         )
-        gallery += f'<figure><a href="{assets(video if audio else original)}" data-gallery-index="{i + 3}" data-video="{assets(video) if video else ""}" data-webm="{assets(video.replace('.mp4','.webm')) if i>=3 else ''}" data-audio="{str(audio).lower()}" data-poster="{assets(poster)}" data-caption="{e(caption)}"><img src="{assets(poster)}" alt="{e(caption)}" loading="lazy" width="880" height="660"><span class="zoom-mark" aria-hidden="true">{"▶" if video else "↗"}</span></a><figcaption>{e(caption)}{downloads}</figcaption></figure>'
-    issue = GH + "/issues/new?template=problem.yml"
+        gallery += f'<figure><a href="{assets(video if audio else original)}" data-gallery-index="{i + 3}" data-video="{assets(video) if video else ""}" data-webm="{assets(video.replace('.mp4','.webm')) if video else ''}" data-audio="{str(audio).lower()}" data-poster="{assets(poster)}" data-caption="{e(caption)}"><img src="{assets(poster)}" alt="{e(caption)}" loading="lazy" width="880" height="660"><span class="zoom-mark" aria-hidden="true">{"▶" if video else "↗"}</span></a><figcaption>{e(caption)}{downloads}</figcaption></figure>'
+    issue = GH + "/issues"
     text = f"""<!doctype html>
 <html lang="{lang}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="{e(d['intro'])}"><meta name="theme-color" content="#101411"><meta property="og:title" content="Boshy Randomizer — {e(d['title'])}"><meta property="og:description" content="{e(d['tagline'])}"><meta property="og:image" content="https://thxel.github.io/Boshy-Randomizer/Custom/boshy_randomizer.png"><title>Boshy Randomizer — {e(d['title'])}</title><link rel="stylesheet" href="{versioned('site/style.css')}"><link rel="icon" href="{assets('Custom/rando_icon.ico')}"><script src="{versioned('site/app.js')}" defer></script></head><body>
 <a class="skip" href="#main">{e(d['nav'][1])}</a>
@@ -158,10 +133,9 @@ def render(lang, d):
 <main id="main">
 <section class="hero wrap"><div class="hero-copy"><div class="eyebrow">FAN PROJECT · WINDOWS + LINUX</div><h1>{e(d['title'])}</h1><p class="tagline">{e(d['tagline'])}</p><p class="intro">{e(d['intro'])}</p><p class="release-label">{e(preview_copy["download"])}</p><div class="actions">{buttons}</div><p class="preview-link"><a href="#development">{e(preview_copy["status"])} →</a></p><p class="fine">{e(d['game'])}</p><p class="original-game"><a href="{GAME}">{e(d['gameDownload'])} ↗</a></p><a class="text-link" href="#quickstart">{e(w['quick'])} →</a></div>
 <div class="hero-cast">{mascot('yellow')}</div>
-<div class="hero-media motion-player"><div class="screen-bar"><span>● ● ●</span><span>I WANNA BE THE BOSHY</span></div><video class="hero-video" width="880" height="660" muted loop playsinline preload="metadata" poster="{assets('site/media/intro-poster.webp')}" aria-label="{e(d['captions'][0])}"><source src="{assets('site/media/intro.mp4')}" type="video/mp4"></video><div class="screen-bottom"><span>RANDOMIZER EDITION</span><button type="button" class="media-toggle enhanced-only" data-play="{e(w['play'])}" data-pause="{e(w['pause'])}">{e(w['play'])}</button></div></div></section>
+<div class="hero-media motion-player"><div class="screen-bar"><span>● ● ●</span><span>I WANNA BE THE BOSHY</span></div><video class="hero-video" width="880" height="660" muted loop playsinline preload="metadata" poster="{assets('site/media/first-menu-tour.png')}" aria-label="{e(presentation['captions'][0])}"><source src="{assets('site/media/first-menu-tour.mp4')}" type="video/mp4"></video><div class="screen-bottom"><span>RANDOMIZER EDITION</span><button type="button" class="media-toggle enhanced-only" data-play="{e(w['play'])}" data-pause="{e(w['pause'])}">{e(w['play'])}</button></div></div></section>
 <div class="ribbon"><span>5 MODES</span><span>3 SAVE SLOTS</span><span>SHARE YOUR SEED</span><span>MAKE IT YOUR RUN</span></div>
-<section id="development" class="wrap section development" aria-labelledby="development-title"><div class="section-heading"><span class="eyebrow">{e(preview_copy['status'])} · <time datetime="{e(preview['date'])}">{e(preview['date'])}</time></span><h2 id="development-title">{e(preview_copy['title'])}</h2><p class="preview-notice">{e(preview_copy['notice'])}</p></div><div class="update-grid">{preview_cards}</div><p class="preview-detail">{e(preview_copy['beta'])}</p><details class="preview-checks"><summary>{e(presentation['tests'])}</summary><p>{e(preview_copy['test'])}</p></details><div class="current-screenshots"><h3>{e(presentation['shots'])}</h3><p>{e(presentation['shotnote'])}</p><div class="gallery">{current_screenshots}</div></div></section>
-<section id="updates" class="wrap section updates"><div class="section-heading"><span class="eyebrow">{e(updates['version'])} · <time datetime="{e(updates['date'])}">{e(updates['date'])}</time></span><h2>{e(w['news'])}</h2></div><div class="update-grid">{news}</div><a class="text-link" href="{GH}/blob/Boshy-Randomizer/CHANGELOG.md">{e(w['newslink'])} ↗</a></section>
+<section id="development" class="wrap section development" aria-labelledby="development-title"><div class="section-heading"><span class="eyebrow">{e(preview_copy['status'])}</span><h2 id="development-title">{e(preview_copy['title'])}</h2><p class="preview-notice">{e(preview_copy['notice'])}</p></div><div class="update-grid">{preview_cards}</div><p class="preview-detail">{e(preview_copy['beta'])}</p><details class="preview-checks"><summary>{e(presentation['tests'])}</summary><p>{e(preview_copy['test'])}</p></details><div class="current-screenshots"><h3>{e(presentation['shots'])}</h3><p>{e(presentation['shotnote'])}</p><div class="gallery">{current_screenshots}</div></div></section>
 <section id="modes" class="wrap section"><div class="section-heading"><span class="eyebrow">01 / PLAY</span><h2>{e(d['play'])}</h2></div>
 <div class="mode-picker"><h3>{e(w['chooser'])}</h3><ol class="mode-recommendations">{advice}</ol></div>
 </section>
@@ -169,12 +143,12 @@ def render(lang, d):
 <section class="spotlight"><div class="wrap split"><div><span class="eyebrow">NEW LOOK · SAME BOSHY</span><h2>{e(d['visualTitle'])}</h2><p>{e(d['visual'])}</p></div><div class="audio"><h3>{e(d['shotsTitle'])}</h3><p>{e(d['shots'])}</p><p>{e(d['music'])}</p></div></div></section>
 <section class="wrap section hacks"><div class="section-heading"><span class="eyebrow">03 / ADVANCED</span><h2>{e(d['hacksTitle'])}</h2><p>{e(d['hacksIntro'])}</p></div><ul class="chips">{hacks}</ul><div class="comfort"><h3>{e(d['controlsTitle'])}</h3><ul>{controls}</ul></div></section>
 <section id="gallery" class="wrap section"><div class="section-heading"><span class="eyebrow">04 / IN GAME</span><h2>{e(d['galleryTitle'])}</h2><p>{e(w['galleryhelp'])}</p></div><div class="gallery">{gallery}</div></section>
-<section id="download" class="download"><div class="wrap"><div class="download-heading"><div><span class="eyebrow">05 / YOUR NEXT RUN</span><h2>{e(d['download'])}</h2><p class="release-label">{e(preview_copy["download"])}</p></div>{mascot('dark')}</div><div class="download-grid"><article><h3>Windows</h3><p>{e(d['preview'])}</p><a class="button primary" href="{WIN}">↓ {e(d['windows'])}</a><a class="text-link" href="{GH}/blob/Boshy-Randomizer/docs/WINDOWS_PACKAGE.md">{e(d['docs'])} ↗</a></article><article><h3>Linux</h3><p>{e(d['linuxnote'])}</p><a class="button secondary" href="{LINUX}">↓ {e(d['linux'])}</a><a class="text-link" href="{GH}/blob/Boshy-Randomizer/docs/LINUX_PACKAGE.md">{e(d['docs'])} ↗</a></article></div><p class="fine">{e(d['game'])}</p><p class="original-game"><a href="{GAME}">{e(d['gameDownload'])} ↗</a></p><a class="text-link" href="{RELEASE}">{e(d['release'])} ↗</a><h3 id="quickstart" class="start-title">{e(w['quick'])}</h3><p class="install-note">{e(presentation["installnote"])}</p><div class="install-guides">{installation}</div><p class="preserve">{e(d['preserve'])}</p></div></section>
+<section id="download" class="download"><div class="wrap"><div class="download-heading"><div><span class="eyebrow">05 / YOUR NEXT RUN</span><h2>{e(d['download'])}</h2><p class="release-label">{e(preview_copy["download"])}</p></div>{mascot('dark')}</div><div class="download-grid"><article><h3>Windows</h3><p>{e(d['preview'])}</p><span class="button primary coming-soon">{e(preview_copy["soon"])}</span></article><article><h3>Linux</h3><p>{e(d['linuxnote'])}</p><span class="button secondary coming-soon">{e(preview_copy["soon"])}</span></article></div><p class="fine">{e(d['game'])}</p><p class="original-game"><a href="{GAME}">{e(d['gameDownload'])} ↗</a></p><h3 id="quickstart" class="start-title">{e(w['quick'])}</h3><p class="install-note">{e(presentation["installnote"])}</p><div class="install-guides">{installation}</div><p class="preserve">{e(d['preserve'])}</p></div></section>
 <section class="wrap section faq"><div><span class="eyebrow">06 / SUPPORT</span><h2>{e(d['faqTitle'])}</h2></div><div>{faq}</div></section>
 <section class="wrap feedback"><div><h2>{e(w['feedback'])}</h2><p>{e(w['feedbackintro'])}</p><p>{e(w['debug'])}</p><a class="button primary" href="{issue}">{e(w['report'])} ↗</a></div><div class="report-template"><label for="report-template">{e(w['copy'])}</label><textarea id="report-template" rows="12" readonly spellcheck="false">{e(w['template'].replace(chr(92)+'n',chr(10)))}</textarea><button type="button" class="button secondary enhanced-only" id="copy-report" data-success="{e(w['copied'])}" data-fallback="{e(w['copyfallback'])}">{e(w['copy'])}</button><p id="copy-status" role="status"></p></div></section>
 </main>
 <dialog class="gallery-dialog" aria-labelledby="gallery-caption"><div class="dialog-bar"><span id="gallery-count"></span><button type="button" data-gallery-close>{e(w['close'])} ×</button></div><img class="gallery-full" alt="" hidden><video class="gallery-full" controls muted loop playsinline hidden></video><h3 id="gallery-caption"></h3><div class="dialog-navigation"><button type="button" data-gallery-prev>← {e(w['previous'])}</button><button type="button" data-gallery-next>{e(w['next'])} →</button></div></dialog>
-<footer class="wrap"><img src="{assets('Custom/boshy_randomizer.png')}" alt="Boshy Randomizer" width="150" height="60"><p>{e(d['footer'])}</p><div class="languages" aria-label="Language">{languages}</div><div class="footer-links"><a href="{issue}">{e(d['support'])}</a><a href="{GH}/blob/Boshy-Randomizer/CHANGELOG.md">{e(d['changelog'])}</a><a href="{RELEASE}">{e(d['release'])}</a></div></footer></body></html>"""
+<footer class="wrap"><img src="{assets('Custom/boshy_randomizer.png')}" alt="Boshy Randomizer" width="150" height="60"><p>{e(d['footer'])}</p><div class="languages" aria-label="Language">{languages}</div><div class="footer-links"><a href="{issue}">{e(d['support'])}</a><a href="#development">{e(presentation["nav"])}</a></div></footer></body></html>"""
     target = R / "index.html" if lang == "en" else R / "site" / lang / "index.html"
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text(text + "\n")
@@ -200,7 +174,7 @@ def readme(lang, d, root=False):
     s += f'![{d["captions"][1]}]({pre}docs/media/rediscover-menu-tour.gif)\n\n### {d["visualTitle"]}\n\n{d["visual"]}\n\n### {d["shotsTitle"]}\n\n{d["shots"]}\n\n{d["music"]}\n\n<a id="hacks"></a>\n\n## {d["hacksTitle"]}\n\n{d["hacksIntro"]}\n\n'
     s += (
         "".join("- " + x + "\n" for x in d["hacks"])
-        + f'\n> {d["spider"]}\n\n### {d["controlsTitle"]}\n\n'
+        + f'\n> {d.get("spider", "")}\n\n### {d["controlsTitle"]}\n\n'
         + "".join("- " + x + "\n" for x in d["controls"])
     )
     s += f'\n## {d["galleryTitle"]}\n\n{d["web"]["galleryhelp"]}\n\n'

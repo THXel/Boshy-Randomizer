@@ -68,3 +68,5 @@ button,textarea{font:inherit}button{cursor:pointer}button:focus-visible,textarea
 .install-guides li:last-child{margin-bottom:0}.install-guides strong{font-size:16px}
 .install-guides p{font-size:14px;margin-top:7px}.install-guides+p{margin-top:24px}
 @media(max-width:760px){.current-screenshots .gallery,.install-guides{grid-template-columns:1fr}.header nav{gap:10px 16px}}
+
+.coming-soon{display:inline-block;opacity:.72;cursor:default}.current-screenshots picture{display:block}
