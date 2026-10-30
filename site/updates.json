@@ -1,7 +1,7 @@
 {
   "preview": {
     "version": "first-final-in-preparation",
-    "date": "2026-10-28",
+    "date": "2026-10-30",
     "locales": {
       "en": {
         "title": "Take a look",
@@ -9,13 +9,13 @@
         "notice": "The first final release is coming soon. Here’s a first look.",
         "download": "First final release · in preparation",
         "presentation": {
-          "nav": "News",
+          "nav": "Preview",
           "shots": "Take a look",
-          "shotnote": "A few animated glimpses of the settings.",
+          "shotnote": "Build your run, pick your targets and make Boshy your own.",
           "captions": [
-            "Menu tour: route, levels, bosses and characters",
-            "Appearance settings in all five languages",
-            "Save slots, settings, seed and collection preview"
+            "Your run. Your settings.",
+            "Target Select: choose your goals and check them in-game",
+            "Options: language, music and display"
           ],
           "installnote": "For the first final release: you will need your own original Boshy ZIP or folder. The game itself is not included.",
           "windowssteps": [
@@ -55,13 +55,13 @@
         "notice": "Die erste finale Version kommt bald. Hier bekommst du schon einen Vorgeschmack.",
         "download": "Erste finale Version · in Vorbereitung",
         "presentation": {
-          "nav": "Neuigkeiten",
+          "nav": "Vorschau",
           "shots": "So sieht’s aus",
-          "shotnote": "Ein paar animierte Einblicke in die Einstellungen.",
+          "shotnote": "Stell deinen Run zusammen, wähle deine Ziele und leg los.",
           "captions": [
-            "Menü-Tour: Route, Levels, Bosse und Charaktere",
-            "Darstellungsoptionen in allen fünf Sprachen",
-            "Speicherplätze, Einstellungen, Seed und Sammlungsvorschau"
+            "Dein Run. Deine Einstellungen.",
+            "Target Select: Ziele wählen und direkt im Spiel nachsehen",
+            "Optionen: Sprache, Musik und Darstellung"
           ],
           "installnote": "Für die erste finale Version brauchst du deine eigene originale Boshy-ZIP oder deinen Spielordner. Das Originalspiel wird nicht mitgeliefert.",
           "windowssteps": [
@@ -101,13 +101,13 @@
         "notice": "La primera versión final llegará pronto. Aquí tienes un adelanto.",
         "download": "Primera versión final · en preparación",
         "presentation": {
-          "nav": "Novedades",
+          "nav": "Vista previa",
           "shots": "Así se ve",
-          "shotnote": "Unos vistazos animados a los ajustes.",
+          "shotnote": "Prepara tu partida, elige tus objetivos y empieza a jugar.",
           "captions": [
-            "Visita al menú: ruta, niveles, jefes y personajes",
-            "Opciones visuales en los cinco idiomas",
-            "Partidas, ajustes, semilla y vista previa de la colección"
+            "Tu partida. Tus ajustes.",
+            "Target Select: elige objetivos y consúltalos en el juego",
+            "Opciones: idioma, música y pantalla"
           ],
           "installnote": "Para la primera versión final necesitarás tu propio ZIP o carpeta original de Boshy. El juego original no está incluido.",
           "windowssteps": [
@@ -147,13 +147,13 @@
         "notice": "Первая финальная версия скоро выйдет. А пока — небольшой обзор.",
         "download": "Первый финальный выпуск · в подготовке",
         "presentation": {
-          "nav": "Новости",
+          "nav": "Посмотреть",
           "shots": "Вот как это выглядит",
-          "shotnote": "Несколько анимированных обзоров настроек.",
+          "shotnote": "Настрой забег, выбери цели и начинай играть.",
           "captions": [
-            "Тур по меню: маршрут, уровни, боссы и персонажи",
-            "Настройки оформления на всех пяти языках",
-            "Слоты сохранений, настройки, сид и коллекция"
+            "Твой забег. Твои настройки.",
+            "Target Select: выбор целей и список прямо в игре",
+            "Настройки: язык, музыка и экран"
           ],
           "installnote": "Для первого финального выпуска понадобится ваш оригинальный ZIP или папка Boshy. Оригинальная игра не включена.",
           "windowssteps": [
@@ -193,13 +193,13 @@
         "notice": "初の正式版を近日公開予定。まずは少しだけご紹介。",
         "download": "初の正式版 · 準備中",
         "presentation": {
-          "nav": "ニュース",
+          "nav": "プレビュー",
           "shots": "こんな見た目に",
-          "shotnote": "設定画面をアニメーションで紹介。",
+          "shotnote": "ランを設定し、目標を選んで冒険へ。",
           "captions": [
-            "メニューツアー：ルート、ステージ、ボス、キャラクター",
-            "5言語で見る表示設定",
-            "セーブスロット、設定、シード、コレクション"
+            "自分だけのラン、自分だけの設定",
+            "Target Select：目標を選び、ゲーム内で確認",
+            "オプション：言語、音楽、画面設定"
           ],
           "installnote": "初の正式版には、元のBoshyのZIPまたはゲームフォルダーが必要です。元のゲーム本体は同梱されません。",
           "windowssteps": [

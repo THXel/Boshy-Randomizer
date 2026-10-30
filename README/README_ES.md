@@ -8,168 +8,110 @@
 
 [English](README_EN.md) · [Deutsch](README_DE.md) · [Español](README_ES.md) · [Русский](README_RU.md) · [日本語](README_JP.md)
 
-[🌐 Website](https://thxel.github.io/Boshy-Randomizer/site/es/) · [↓ Instalador Windows](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.23.1/BoshyRandomizer-2026.10.23.1-Windows-Setup-x64.exe) · [↓ DEB para Linux](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.23.1/boshy-randomizer_2026.10.23.1-1_amd64.deb) · [Versión y verificaciones](https://github.com/THXel/Boshy-Randomizer/releases/tag/v2026.10.23.1)
+[Website](https://thxel.github.io/Boshy-Randomizer/site/es/)
 
 </div>
 
-Mundos conocidos. Caminos inesperados. Vuelve a I Wanna Be The Boshy con encuentros mezclados, recompensas sorprendentes y una partida que puedes compartir.
+Los mundos y jefes de Boshy en otro orden, con sorpresas en cada cofre. Prepara tu partida y compártela con amigos.
 
-> Necesitas tu propia carpeta o ZIP de Boshy. El juego original no está incluido.
+> **Primera versión final · en preparación**
 >
-> [Descargar I Wanna Be The Boshy desde Grynsoft](https://grynsoft.com/site/game/i-wanna-be-the-boshy)
+> La primera versión final llegará pronto. Aquí tienes un adelanto.
 
-[Modos](#modes) · [Funciones](#features) · [Hacks](#hacks) · [Descargar](#download) · [Preguntas](#faq)
-
-![El intro original, remezclado](../docs/media/rediscover-intro.gif)
-
-<a id="modes"></a>
+![Otros mundos. Otros sprites. El mismo Boshy.](../site/media/worlds-sprites.gif)
 
 ## Cinco formas de jugar
 
-| Mode | |
+| | |
 | --- | --- |
-| **Randomizer** | **El juego conocido, remezclado.** Mezcla destinos de niveles y jefes y combina objetos y personajes en ambos tipos de cofre. En Advanced eliges las listas y cantidades. Recomendado: siete niveles y siete jefes, alternando cuando sea posible, y Solgryn al final. |
-| **Target Select** | **Una lista. Un viaje imprevisible.** Persigue una lista aleatoria de objetos originales, con cantidad ajustable y jefes obligatorios opcionales. Cambian los destinos; las recompensas permanecen originales. Completa todos los objetivos para llegar a Solgryn. |
-| **Normal** | **Tu camino. Tus reglas.** Progresión y cofres originales. Personaje inicial, rotación de personajes y hacks opcionales; estos extras empiezan desactivados. |
-| **Boss Rush** | **Directo a los combates.** Elige los jefes disponibles y cuántos encuentros jugar; siete por defecto. Después llega Solgryn. |
-| **Level Rush** | **Los mundos son el reto.** Elige niveles y cantidad de secciones; siete por defecto. Termina la ruta y enfréntate a Solgryn. |
+| **Randomizer** | Niveles, jefes y cofres mezclados, con Solgryn al final. |
+| **Target Select** | Encuentra los objetos y vence a los jefes indicados para llegar a Solgryn. |
+| **Normal** | Juega la ruta original con tus extras opcionales favoritos. |
+| **Boss Rush** | Un jefe tras otro. Tú eliges a quién enfrentarte. |
+| **Level Rush** | Supera los niveles que elijas y termina contra Solgryn. |
 
-<a id="features"></a>
+## ¿Qué hay tras la próxima salida?
 
-## Haz tuya cada partida
+- **Nuevos caminos por Boshy:** Mezcla niveles, jefes y rutas secretas. Tú eliges cuáles entran.
+- **Cada cofre, una sorpresa:** ¿Un objeto o un personaje nuevo? Ábrelo y descúbrelo.
+- **Misma semilla. ¿Quién llega antes?:** Comparte tu semilla con amigos y competid en la misma ruta.
+- **Espacio para tres partidas:** Una para practicar, otra para competir y otra para el caos. Continúa donde lo dejaste.
+- **Tu progreso a la vista:** Tiempo, muertes y objetos en LiveTracker, también para tu stream.
+- **Solgryn te espera:** Llega al combate final y comprueba cómo te ha ido.
 
-### Más allá de la ruta habitual
+## Tu partida. Tus ajustes.
 
-Mundos divididos, minijefes y secretos, además de encuentros beta como Ridley, Questionmark, Bomberman y Old Sonic. Advanced permite elegirlos; las transiciones leen el estado del juego, no píxeles.
+[![Tu partida. Tus ajustes.](../site/media/run-menu.gif)](https://thxel.github.io/Boshy-Randomizer/site/es/#development)
 
-### Objetos y personajes juntos
+## Tus objetivos dentro del juego
 
-Cualquier cofre puede dar un objeto o personaje. La rotación opcional utiliza los personajes disponibles y añade los recién obtenidos. F3 queda bloqueado mientras la rotación está activa.
+[![Tus objetivos dentro del juego](../site/media/target-select.gif)](https://thxel.github.io/Boshy-Randomizer/site/es/#development)
 
-### Semillas para compartir
+## Juega a tu manera
 
-Los códigos compactos incluyen semilla y opciones. Copia, pega, valida, previsualiza o genera uno nuevo desde el menú. Usa la misma versión para comparar partidas.
+[![Juega a tu manera](../site/media/options-language.gif)](https://thxel.github.io/Boshy-Randomizer/site/es/#development)
 
-### Tres espacios, tres aventuras
+## Tu partida de un vistazo
 
-Cada espacio conserva su partida y personajes desbloqueados. El resumen muestra ubicación, dificultad, personaje y progreso. Continúa, crea o elimina desde el menú nativo.
+Tiempo, muertes, objetos y objetivos: junto al juego o en OBS. Abre LiveTracker desde el menú del juego.
 
-### Un tracker junto al juego
+![Tu partida de un vistazo](../site/media/live-tracker.png)
 
-Ventana separada con tiempo, muertes, ubicación, objetos, personajes, jefes y copia de semilla. Se adapta al modo, destaca objetivos de Target Select y anima las nuevas recompensas.
+## Boshy, todo revuelto
 
-### Disfruta del final
+Mundos conocidos con otros fondos, colores y sprites. Tú decides cuánto caos quieres.
 
-Tras Solgryn aparece un resumen ligeramente transparente con estadísticas y semilla copiable. La animación final y los créditos siguen reproduciéndose.
+Deja que cambien tus disparos y mezcla la banda sonora. Elige la música original o Undertale. Los packs opcionales de Kamilia 3 y WannaFest22 incluyen su música y sus pantallas de muerte.
 
-![Opciones nativas y Advanced](../docs/media/rediscover-menu-tour.gif)
+[![Undertale: mantén la determinación.](../site/media/death-undertale.gif)](https://thxel.github.io/Boshy-Randomizer/site/es/#gallery)
 
-### El mismo juego, otra apariencia
-
-El reparto y escenario del intro cambian al iniciar. Sprite Chaos mezcla fondos revisados con su paralaje animado, decoración y materiales de plataformas. Configura cada capa y oscurece fondos para mejorar la visibilidad. Los cambios de color de enemigos y jefes están en beta; formas, ataques y colisiones se conservan.
-
-### Nuevos disparos. Nuevo sonido.
-
-Cambia proyectil y efecto de disparo independientemente del personaje: tras cada sección, muerte, ambos o aleatoriamente dentro de un límite de tiempo. Elige segundos o minutos; cinco minutos por defecto.
-
-Music Shuffle mezcla música de niveles y jefes según la semilla. Los packs locales de Kamilia 3 y WannaFest22 también pueden sustituir sonidos de intro, menú, muerte y final. La selección se guarda; las pistas mezclables deben durar más de 30 segundos. Los packs adicionales no están incluidos. Los gráficos importados localmente añaden pantallas de muerte animadas y partículas de sangre: Kamilia muestra primero una capa roja y después el título; WannaFest lanza el título desde los lados sobre ruido VHS. El reinicio original se conserva.
-
-<a id="hacks"></a>
+[Vídeo con sonido](https://thxel.github.io/Boshy-Randomizer/site/media/death-undertale.mp4) · [Un vistazo al juego](https://thxel.github.io/Boshy-Randomizer/site/es/#gallery)
 
 ## Un poco de ayuda. Un poco de caos.
 
-En Advanced → Hacks elige opciones para practicar, variar la partida o añadir sorpresas.
+Elige extras opcionales en el menú para practicar o cambiar el desafío.
 
-- Suprimir ventanas de objetos
-- Desactivar el fantasma del ratón
-- Jefes con 1 HP por fase vulnerable
-- God Mode
-- Disparo continuo al mantener la tecla
-- Modo espejo
-- Cambiar personaje al morir
-- Saltar intros de jefes
-- Acortar animaciones de cofres
-- Mezclar música
-- Configurar Sprite Chaos
-- Sorpresa de la araña
+Suprimir ventanas de objetos · Desactivar el fantasma del ratón · Jefes con 1 HP por fase vulnerable · God Mode · Disparo continuo al mantener la tecla · Modo espejo · Cambiar personaje al morir · Saltar intros de jefes · Acortar animaciones de cofres · Mezclar música · Configurar Sprite Chaos · Sorpresa de la araña · Desactivar las sacudidas de pantalla
 
-> La araña está activada inicialmente en partidas nuevas del randomizer: ataca sin aviso cada 5–30 minutos de juego activo, también contra jefes. Desactívala y aplica para guardar esa preferencia futura. Las partidas guardadas y semillas importadas conservan sus reglas.
+## Juega a tu manera
 
-### Juega a tu manera
-
-- Navegación con ratón y teclado; Enter confirma.
-- Menús adaptados a la ventana y tamaño de texto independiente.
-- Resoluciones adaptadas al monitor en Options; se mantiene pantalla completa estirada.
-- Inglés, alemán, ruso, español y japonés según el sistema; inglés como alternativa. Los registros de cambios permanecen en inglés.
-
-## Míralo en movimiento
-
-Abre una vista previa para ver la animación completa. Los vídeos de muerte tienen sonido; los GIF son silenciosos. La reproducción comienza al abrir una vista previa.
-
-### Kamilia 3: fundido rojo, Game Over y sonido de muerte
-
-[![Kamilia 3: fundido rojo, Game Over y sonido de muerte](../docs/media/death-kamilia3.gif)](https://thxel.github.io/Boshy-Randomizer/site/es/#gallery)
-
-[Vídeo con sonido](https://thxel.github.io/Boshy-Randomizer/site/media/death-kamilia3.mp4)
-
-### WannaFest22: ruido VHS, título animado y cubos rojos
-
-[![WannaFest22: ruido VHS, título animado y cubos rojos](../docs/media/death-wannafest22.gif)](https://thxel.github.io/Boshy-Randomizer/site/es/#gallery)
-
-[Vídeo con sonido](https://thxel.github.io/Boshy-Randomizer/site/media/death-wannafest22.mp4)
-
-[![Ridley: otro combate beta disponible](../site/media/beta-ridley-poster.webp)](https://thxel.github.io/Boshy-Randomizer/site/es/#gallery)
-
-[Míralo en movimiento](https://thxel.github.io/Boshy-Randomizer/site/es/#gallery)
-
-<a id="download"></a>
+Ratón o teclado · Ventana o pantalla completa con F4 · 4:3 clásico o 16:9 estirado · Cinco idiomas
 
 ## Elige tu plataforma
 
-| | Download | |
-| --- | --- | --- |
-| **Windows** | [Instalador Windows](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.23.1/BoshyRandomizer-2026.10.23.1-Windows-Setup-x64.exe) | Vista previa de Windows · x64 |
-| **Linux** | [DEB para Linux](https://github.com/THXel/Boshy-Randomizer/releases/download/v2026.10.23.1/boshy-randomizer_2026.10.23.1-1_amd64.deb) | Linux Mint 22 / Ubuntu 24.04 · X11 · amd64 |
+**Windows (.exe) · Linux (.deb) — Próximamente**
 
-[Versión y verificaciones](https://github.com/THXel/Boshy-Randomizer/releases/tag/v2026.10.23.1) · [Windows](../docs/WINDOWS_PACKAGE.md) · [Linux](../docs/LINUX_PACKAGE.md)
+Necesitas tu propia carpeta o ZIP de Boshy. El juego original no está incluido. [Descargar I Wanna Be The Boshy desde Grynsoft](https://grynsoft.com/site/game/i-wanna-be-the-boshy)
 
-### De la descarga a tu primera partida
-
-1. Descarga el instalador Windows o el DEB Linux.
-2. Instala y abre Boshy Randomizer desde el menú de aplicaciones. En Windows puedes añadir un acceso directo al escritorio.
-3. Selecciona tu carpeta o ZIP compatible de Boshy, un espacio de guardado y las opciones.
-
-Se crea una copia privada del juego. Los guardados originales no cambian; actualizar o desinstalar conserva las partidas del randomizer.
-
-<a id="faq"></a>
+El randomizer crea su propia copia del juego. El original y sus partidas quedan separados.
 
 ## Información útil
 
 <details>
 <summary>¿Puedo usarlo en stream?</summary>
 
-El tracker es una ventana separada que puedes colocar junto al juego o capturar en OBS.
+Sí. Abre el LiveTracker integrado desde el menú del juego y úsalo en el navegador o como fuente de navegador en OBS.
 
 </details>
 
 <details>
 <summary>¿Qué hago si falla una transición?</summary>
 
-Ctrl+Alt+D abre datos en vivo, acciones de prueba y grabaciones exportables. Ctrl+Alt+M marca un problema y guarda el historial reciente sin abrir una ventana. El informe puede incluir una captura solo del juego.
+Abre el diagnóstico en el menú del juego e incluye modo, semilla y una descripción del problema en GitHub.
 
 </details>
 
 <details>
-<summary>¿Está todo probado?</summary>
+<summary>¿Quién ha probado el randomizer?</summary>
 
-369 pruebas automáticas superadas. Instalación, actualización, desinstalación, conservación de datos y continuación probadas en Windows con Defender activo. Las comprobaciones Linux figuran en las notas. No se ha jugado cada combinación completa.
+Por ahora, THXel es el único que ha probado el juego. Las últimas pruebas antes de la primera versión final están en marcha.
 
 </details>
 
 <details>
-<summary>¿Qué significa vista previa de Windows?</summary>
+<summary>¿Cuándo podré descargarlo?</summary>
 
-Instalador sin firma, probado en Windows 10 x64. Windows 11, rutas de cuenta no ASCII, 4K físico y DPI mixtos aún requieren pruebas. Mantén activo el antivirus.
+La primera versión final está en preparación. Windows Setup y Linux DEB aparecerán aquí cuando esté lista. Aún no hay fecha confirmada.
 
 </details>
 
@@ -182,6 +124,6 @@ Es un randomizer para un jugador. El antiguo menú online está desactivado. Com
 
 ---
 
-Proyecto de fans de THXel y la comunidad speedrun de Boshy. Juego original de Solgryn / Grynsoft.
+Mod randomizer de THXel. I Wanna Be The Boshy original de Solgryn / Grynsoft.
 
-[Informar de un problema](https://github.com/THXel/Boshy-Randomizer/issues) · [Cambios](../CHANGELOG.md) · [Credits](../Custom/License.txt) · [Development](../docs/DEVELOPMENT.md)
+[Compartir pregunta o idea](https://github.com/THXel/Boshy-Randomizer/issues) · [Credits](../Custom/License.txt)

@@ -76,7 +76,7 @@
     "visual": "Familiar worlds get different backgrounds, colours and sprites. You decide how wild it gets.",
     "shotsTitle": "Even your shots get mixed up",
     "shots": "Let your shots change as you play and shuffle the soundtrack.",
-    "music": "Want Kamilia 3 or WannaFest22? Import your own soundpacks for their music and death effects.",
+    "music": "Choose the original soundtrack or the Undertale pack. Optional Kamilia 3 and WannaFest22 packs bring their own music and death screens.",
     "hacksTitle": "A little help. A little chaos.",
     "hacksIntro": "Choose optional extras in the game menu for practice or a different challenge.",
     "hacks": [
@@ -91,7 +91,8 @@
       "Shorten chest animations",
       "Shuffle music",
       "Configure Sprite Chaos",
-      "Spider surprise"
+      "Spider surprise",
+      "Disable screen shake"
     ],
     "controlsTitle": "Play your way",
     "controls": [
@@ -106,12 +107,12 @@
       "Install, then open Boshy Randomizer from your apps menu. On Windows you can also add a desktop shortcut.",
       "Select your own supported Boshy folder or ZIP, choose a save slot and configure your run."
     ],
-    "preserve": "The randomizer creates a private game copy. Your original saves stay untouched; package updates and removal preserve randomizer save data.",
+    "preserve": "The randomizer creates its own game copy. Your original game and saves stay separate.",
     "faqTitle": "Good to know",
     "faq": [
       [
         "Can I use it for a stream?",
-        "The built-in live tracker is a separate window that you can arrange beside the game or capture in OBS."
+        "Yes. Open the built-in LiveTracker from the game menu and use it in your browser or as an OBS browser source."
       ],
       [
         "What if a trigger behaves strangely?",
@@ -131,17 +132,6 @@
       ]
     ],
     "galleryTitle": "A look at the game",
-    "captions": [
-      "The original intro, remixed",
-      "Native run settings and Advanced",
-      "Your run at a glance",
-      "Kamilia 3: red fade, Game Over and death audio",
-      "WannaFest22: VHS noise, flying title and death cubes",
-      "Questionmark: the beta boss returns",
-      "Ridley: another beta fight in the pool",
-      "A different main menu: Wario Skyline",
-      "Another restart, another backdrop: Green Greens"
-    ],
     "footer": "Randomizer mod by THXel. Original I Wanna Be The Boshy by Solgryn / Grynsoft.",
     "support": "Ask a question or share an idea",
     "docs": "Installation details",
@@ -158,8 +148,6 @@
       ],
       "recommend": "Your pick",
       "details": "Explore this mode",
-      "news": "What’s new",
-      "newslink": "Full changelog",
       "quick": "How installation will work",
       "quicksteps": [
         "Download your platform’s installer.",
@@ -185,12 +173,29 @@
     },
     "gameDownload": "Download the original I Wanna Be The Boshy from Grynsoft",
     "galleryCaptions": [
+      "Undertale: stay determined.",
       "Kamilia 3 Game Over",
-      "WannaFest22 Game Over",
-      "Ridley",
-      "Choose your characters",
-      "Build your route"
-    ]
+      "WannaFest22 Game Over"
+    ],
+    "showcase": {
+      "nav": "Preview",
+      "note": "Build your run, pick your targets and make Boshy your own.",
+      "captions": [
+        "Your run. Your settings.",
+        "Target Select: choose your goals and check them in-game",
+        "Options: language, music and display"
+      ],
+      "worlds": "Different worlds. Different sprites. Still Boshy.",
+      "trackerTitle": "Keep track of your run",
+      "tracker": "Your time, deaths, items and targets — alongside the game or in OBS. Open LiveTracker straight from the game menu.",
+      "music": "Choose the original soundtrack or the Undertale pack. Optional Kamilia 3 and WannaFest22 packs bring their own music and death screens.",
+      "preserve": "The randomizer creates its own game copy. Your original game and saves stay separate.",
+      "shake": "Disable screen shake",
+      "death": "Undertale: stay determined.",
+      "target": "Your targets, right in the game",
+      "options": "Settle in and make it yours",
+      "faq": "Yes. Open the built-in LiveTracker from the game menu and use it in your browser or as an OBS browser source."
+    }
   },
   "de": {
     "name": "Deutsch",
@@ -269,7 +274,7 @@
     "visual": "Vertraute Welten bekommen andere Hintergründe, Farben und Sprites. Du bestimmst, wie wild es wird.",
     "shotsTitle": "Auch die Schüsse spielen verrückt",
     "shots": "Lass deine Schüsse unterwegs wechseln und misch die Musik neu.",
-    "music": "Lust auf Kamilia 3 oder WannaFest22? Eigene Soundpacks bringen deren Musik und Todeseffekte mit.",
+    "music": "Originalmusik oder Undertale? Du entscheidest. Optionale Packs für Kamilia 3 und WannaFest22 bringen ihre Musik und Todeseffekte mit.",
     "hacksTitle": "Ein bisschen Hilfe. Ein bisschen Chaos.",
     "hacksIntro": "Wähle im Spielmenü optionale Extras fürs Training oder für eine andere Herausforderung.",
     "hacks": [
@@ -284,7 +289,8 @@
       "Truhenanimation verkürzen",
       "Musik mischen",
       "Sprite-Chaos konfigurieren",
-      "Spinnen-Überraschung"
+      "Spinnen-Überraschung",
+      "Bildschirmwackeln ausschalten"
     ],
     "controlsTitle": "Spiel so, wie es dir passt",
     "controls": [
@@ -299,12 +305,12 @@
       "Installiere und starte Boshy Randomizer über dein Anwendungsmenü. Unter Windows kannst du zusätzlich eine Desktop-Verknüpfung anlegen.",
       "Wähle deinen unterstützten Boshy-Ordner oder eine ZIP, suche einen Speicherplatz aus und stelle deinen Lauf zusammen."
     ],
-    "preserve": "Der Randomizer legt eine eigene Spielkopie an. Originalspielstände bleiben unberührt; Updates und Deinstallation behalten die Randomizer-Spielstände.",
+    "preserve": "Der Randomizer legt eine eigene Spielkopie an. Dein Originalspiel und seine Spielstände bleiben getrennt.",
     "faqTitle": "Gut zu wissen",
     "faq": [
       [
         "Kann ich damit streamen?",
-        "Der eingebaute Live-Tracker ist ein separates Fenster: neben das Spiel stellen oder in OBS erfassen."
+        "Ja. Öffne den eingebauten LiveTracker im Spielmenü und nutze ihn im Browser oder als Browserquelle in OBS."
       ],
       [
         "Was tun, wenn ein Trigger nicht passt?",
@@ -324,17 +330,6 @@
       ]
     ],
     "galleryTitle": "Ein Blick ins Spiel",
-    "captions": [
-      "Das originale Intro, neu gemischt",
-      "Native Laufeinstellungen und Advanced",
-      "Dein Lauf auf einen Blick",
-      "Kamilia 3: rote Blende, Game Over und Todessound",
-      "WannaFest22: VHS-Rauschen, Titelanimation und Todeswürfel",
-      "Questionmark: der Beta-Boss ist zurück",
-      "Ridley: ein weiterer Beta-Kampf im Pool",
-      "Ein anderes Hauptmenü: Wario Skyline",
-      "Neustart, neuer Hintergrund: Green Greens"
-    ],
     "footer": "Randomizer-Mod von THXel. Original I Wanna Be The Boshy von Solgryn / Grynsoft.",
     "support": "Frage oder Idee teilen",
     "docs": "Installationsdetails",
@@ -351,8 +346,6 @@
       ],
       "recommend": "Deine Auswahl",
       "details": "Diesen Modus ansehen",
-      "news": "Neu im Update",
-      "newslink": "Vollständiger Änderungsverlauf",
       "quick": "So wird die Installation funktionieren",
       "quicksteps": [
         "Lade das Installationspaket für deine Plattform herunter.",
@@ -378,12 +371,29 @@
     },
     "gameDownload": "I Wanna Be The Boshy bei Grynsoft herunterladen",
     "galleryCaptions": [
+      "Undertale: bleib entschlossen.",
       "Game Over im Kamilia-3-Stil",
-      "Game Over im WannaFest22-Stil",
-      "Ridley",
-      "Wähle deine Charaktere",
-      "Stell dir deine Route zusammen"
-    ]
+      "Game Over im WannaFest22-Stil"
+    ],
+    "showcase": {
+      "nav": "Vorschau",
+      "note": "Stell deinen Run zusammen, wähle deine Ziele und leg los.",
+      "captions": [
+        "Dein Run. Deine Einstellungen.",
+        "Target Select: Ziele wählen und direkt im Spiel nachsehen",
+        "Optionen: Sprache, Musik und Darstellung"
+      ],
+      "worlds": "Andere Welten. Andere Sprites. Immer noch Boshy.",
+      "trackerTitle": "Dein Run auf einen Blick",
+      "tracker": "Zeit, Tode, Items und Ziele — neben dem Spiel oder in OBS. Öffne den LiveTracker direkt aus dem Spielmenü.",
+      "music": "Originalmusik oder Undertale? Du entscheidest. Optionale Packs für Kamilia 3 und WannaFest22 bringen ihre Musik und Todeseffekte mit.",
+      "preserve": "Der Randomizer legt eine eigene Spielkopie an. Dein Originalspiel und seine Spielstände bleiben getrennt.",
+      "shake": "Bildschirmwackeln ausschalten",
+      "death": "Undertale: bleib entschlossen.",
+      "target": "Deine Ziele direkt im Spiel",
+      "options": "Spiel so, wie es dir passt",
+      "faq": "Ja. Öffne den eingebauten LiveTracker im Spielmenü und nutze ihn im Browser oder als Browserquelle in OBS."
+    }
   },
   "es": {
     "name": "Español",
@@ -462,7 +472,7 @@
     "visual": "Mundos conocidos con otros fondos, colores y sprites. Tú decides cuánto caos quieres.",
     "shotsTitle": "Tus disparos también cambian",
     "shots": "Deja que cambien tus disparos y mezcla la banda sonora.",
-    "music": "¿Prefieres Kamilia 3 o WannaFest22? Importa tus propios packs para usar su música y efectos de muerte.",
+    "music": "Elige la música original o Undertale. Los packs opcionales de Kamilia 3 y WannaFest22 incluyen su música y sus pantallas de muerte.",
     "hacksTitle": "Un poco de ayuda. Un poco de caos.",
     "hacksIntro": "Elige extras opcionales en el menú para practicar o cambiar el desafío.",
     "hacks": [
@@ -477,7 +487,8 @@
       "Acortar animaciones de cofres",
       "Mezclar música",
       "Configurar Sprite Chaos",
-      "Sorpresa de la araña"
+      "Sorpresa de la araña",
+      "Desactivar las sacudidas de pantalla"
     ],
     "controlsTitle": "Juega a tu manera",
     "controls": [
@@ -492,12 +503,12 @@
       "Instala y abre Boshy Randomizer desde el menú de aplicaciones. En Windows puedes añadir un acceso directo al escritorio.",
       "Selecciona tu carpeta o ZIP compatible de Boshy, un espacio de guardado y las opciones."
     ],
-    "preserve": "Se crea una copia privada del juego. Los guardados originales no cambian; actualizar o desinstalar conserva las partidas del randomizer.",
+    "preserve": "El randomizer crea su propia copia del juego. El original y sus partidas quedan separados.",
     "faqTitle": "Información útil",
     "faq": [
       [
         "¿Puedo usarlo en stream?",
-        "El tracker es una ventana separada que puedes colocar junto al juego o capturar en OBS."
+        "Sí. Abre el LiveTracker integrado desde el menú del juego y úsalo en el navegador o como fuente de navegador en OBS."
       ],
       [
         "¿Qué hago si falla una transición?",
@@ -517,17 +528,6 @@
       ]
     ],
     "galleryTitle": "Un vistazo al juego",
-    "captions": [
-      "El intro original, remezclado",
-      "Opciones nativas y Advanced",
-      "Tu partida de un vistazo",
-      "Kamilia 3: fundido rojo, Game Over y sonido de muerte",
-      "WannaFest22: ruido VHS, título animado y cubos rojos",
-      "Questionmark: vuelve el jefe beta",
-      "Ridley: otro combate beta disponible",
-      "Un menú diferente: Wario Skyline",
-      "Otro inicio, otro fondo: Green Greens"
-    ],
     "footer": "Mod randomizer de THXel. I Wanna Be The Boshy original de Solgryn / Grynsoft.",
     "support": "Compartir pregunta o idea",
     "docs": "Detalles de instalación",
@@ -544,8 +544,6 @@
       ],
       "recommend": "Tu elección",
       "details": "Ver este modo",
-      "news": "Novedades",
-      "newslink": "Registro completo de cambios",
       "quick": "Cómo será la instalación",
       "quicksteps": [
         "Descarga el instalador de tu plataforma.",
@@ -571,12 +569,29 @@
     },
     "gameDownload": "Descargar I Wanna Be The Boshy desde Grynsoft",
     "galleryCaptions": [
+      "Undertale: mantén la determinación.",
       "Game Over al estilo Kamilia 3",
-      "Game Over al estilo WannaFest22",
-      "Ridley",
-      "Elige tus personajes",
-      "Prepara tu ruta"
-    ]
+      "Game Over al estilo WannaFest22"
+    ],
+    "showcase": {
+      "nav": "Vista previa",
+      "note": "Prepara tu partida, elige tus objetivos y empieza a jugar.",
+      "captions": [
+        "Tu partida. Tus ajustes.",
+        "Target Select: elige objetivos y consúltalos en el juego",
+        "Opciones: idioma, música y pantalla"
+      ],
+      "worlds": "Otros mundos. Otros sprites. El mismo Boshy.",
+      "trackerTitle": "Tu partida de un vistazo",
+      "tracker": "Tiempo, muertes, objetos y objetivos: junto al juego o en OBS. Abre LiveTracker desde el menú del juego.",
+      "music": "Elige la música original o Undertale. Los packs opcionales de Kamilia 3 y WannaFest22 incluyen su música y sus pantallas de muerte.",
+      "preserve": "El randomizer crea su propia copia del juego. El original y sus partidas quedan separados.",
+      "shake": "Desactivar las sacudidas de pantalla",
+      "death": "Undertale: mantén la determinación.",
+      "target": "Tus objetivos dentro del juego",
+      "options": "Juega a tu manera",
+      "faq": "Sí. Abre el LiveTracker integrado desde el menú del juego y úsalo en el navegador o como fuente de navegador en OBS."
+    }
   },
   "ru": {
     "name": "Русский",
@@ -655,7 +670,7 @@
     "visual": "Знакомые миры с другими фонами, цветами и спрайтами. Сколько будет хаоса — решать тебе.",
     "shotsTitle": "Даже выстрелы меняются",
     "shots": "Пусть выстрелы меняются на ходу, а музыка звучит в новом порядке.",
-    "music": "Хочешь Kamilia 3 или WannaFest22? Импортируй свои звуковые паки с их музыкой и эффектами смерти.",
+    "music": "Оригинальная музыка или Undertale — выбирай сам. Дополнительные пакеты Kamilia 3 и WannaFest22 добавляют музыку и экраны смерти.",
     "hacksTitle": "Немного помощи. Немного хаоса.",
     "hacksIntro": "Выбирайте дополнительные настройки в меню игры для тренировки или новых испытаний.",
     "hacks": [
@@ -670,7 +685,8 @@
       "Укоротить анимации сундуков",
       "Перемешать музыку",
       "Настроить Sprite Chaos",
-      "Сюрприз с пауком"
+      "Сюрприз с пауком",
+      "Отключить тряску экрана"
     ],
     "controlsTitle": "Играй как удобно",
     "controls": [
@@ -685,12 +701,12 @@
       "Установи и открой Boshy Randomizer из меню приложений. В Windows можно добавить ярлык на рабочий стол.",
       "Выбери поддерживаемую папку Boshy или ZIP, слот и настройки."
     ],
-    "preserve": "Создаётся отдельная копия игры. Оригинальные сохранения не изменяются; обновление и удаление программы сохраняют забеги.",
+    "preserve": "Рандомайзер создаёт отдельную копию игры. Оригинальная игра и её сохранения остаются отдельно.",
     "faqTitle": "Полезно знать",
     "faq": [
       [
         "Можно использовать на стриме?",
-        "Трекер — отдельное окно для размещения рядом с игрой или захвата в OBS."
+        "Да. Открой встроенный LiveTracker из игрового меню и используй его в браузере или как источник браузера в OBS."
       ],
       [
         "Что делать при проблеме с переходом?",
@@ -710,17 +726,6 @@
       ]
     ],
     "galleryTitle": "Взгляд на игру",
-    "captions": [
-      "Оригинальное интро по-новому",
-      "Настройки и Advanced внутри игры",
-      "Забег одним взглядом",
-      "Kamilia 3: красное затемнение, Game Over и звук смерти",
-      "WannaFest22: VHS-шум, анимация текста и красные кубики",
-      "Questionmark: возвращение бета-босса",
-      "Ridley: ещё один бета-босс",
-      "Другое главное меню: Wario Skyline",
-      "Новый запуск, новый фон: Green Greens"
-    ],
     "footer": "Мод randomizer от THXel. Оригинальная I Wanna Be The Boshy — Solgryn / Grynsoft.",
     "support": "Задать вопрос или предложить идею",
     "docs": "Установка подробно",
@@ -737,8 +742,6 @@
       ],
       "recommend": "Твой выбор",
       "details": "Посмотреть режим",
-      "news": "Что нового",
-      "newslink": "Полный список изменений",
       "quick": "Как будет проходить установка",
       "quicksteps": [
         "Скачай установщик для своей платформы.",
@@ -764,12 +767,29 @@
     },
     "gameDownload": "Скачать I Wanna Be The Boshy на Grynsoft",
     "galleryCaptions": [
+      "Undertale: не теряй решимости.",
       "Game Over в стиле Kamilia 3",
-      "Game Over в стиле WannaFest22",
-      "Ridley",
-      "Выбери персонажей",
-      "Собери свой маршрут"
-    ]
+      "Game Over в стиле WannaFest22"
+    ],
+    "showcase": {
+      "nav": "Посмотреть",
+      "note": "Настрой забег, выбери цели и начинай играть.",
+      "captions": [
+        "Твой забег. Твои настройки.",
+        "Target Select: выбор целей и список прямо в игре",
+        "Настройки: язык, музыка и экран"
+      ],
+      "worlds": "Другие миры. Другие спрайты. Всё тот же Boshy.",
+      "trackerTitle": "Весь забег перед глазами",
+      "tracker": "Время, смерти, предметы и цели — рядом с игрой или в OBS. Открой LiveTracker прямо из игрового меню.",
+      "music": "Оригинальная музыка или Undertale — выбирай сам. Дополнительные пакеты Kamilia 3 и WannaFest22 добавляют музыку и экраны смерти.",
+      "preserve": "Рандомайзер создаёт отдельную копию игры. Оригинальная игра и её сохранения остаются отдельно.",
+      "shake": "Отключить тряску экрана",
+      "death": "Undertale: не теряй решимости.",
+      "target": "Твои цели прямо в игре",
+      "options": "Играй по-своему",
+      "faq": "Да. Открой встроенный LiveTracker из игрового меню и используй его в браузере или как источник браузера в OBS."
+    }
   },
   "ja": {
     "name": "日本語",
@@ -848,7 +868,7 @@
     "visual": "いつもの世界を違う背景、色、スプライトで。どこまで変えるかは自分で選べます。",
     "shotsTitle": "ショットまでシャッフル",
     "shots": "プレイ中にショットを変えたり、音楽をシャッフルしたり。",
-    "music": "Kamilia 3やWannaFest22の音楽・死亡演出も、自分のサウンドパックを読み込めば楽しめます。",
+    "music": "オリジナルの音楽かUndertaleを選択。追加のKamilia 3・WannaFest22パックでは、それぞれの音楽と死亡演出を楽しめます。",
     "hacksTitle": "少しの助けと、少しのカオス。",
     "hacksIntro": "ゲームメニューで練習用の補助や挑戦を変えるオプションを選べます。",
     "hacks": [
@@ -863,7 +883,8 @@
       "宝箱演出を短縮",
       "音楽をシャッフル",
       "Sprite Chaos設定",
-      "クモのサプライズ"
+      "クモのサプライズ",
+      "画面の揺れをオフ"
     ],
     "controlsTitle": "遊びやすい設定で",
     "controls": [
@@ -878,12 +899,12 @@
       "インストール後、アプリメニューからBoshy Randomizerを起動。Windowsではデスクトップショートカットも選べます。",
       "対応するBoshyフォルダーまたはZIPとセーブスロットを選び、ランを設定。"
     ],
-    "preserve": "専用のゲームコピーを作成するため、元のセーブには触れません。更新・アンインストール後もランのデータは残ります。",
+    "preserve": "ランダマイザーは専用のゲームコピーを作成します。元のゲームとセーブデータは別に保たれます。",
     "faqTitle": "知っておきたいこと",
     "faq": [
       [
         "配信にも使えますか？",
-        "別ウィンドウのトラッカーをゲーム横に配置したり、OBSで取り込めます。"
+        "はい。ゲームメニューから内蔵LiveTrackerを開き、ブラウザーやOBSのブラウザーソースで使えます。"
       ],
       [
         "遷移がおかしいときは？",
@@ -903,17 +924,6 @@
       ]
     ],
     "galleryTitle": "ゲームをのぞいてみよう",
-    "captions": [
-      "元のイントロをリミックス",
-      "ゲーム内設定とAdvanced",
-      "ランをひと目で確認",
-      "Kamilia 3：赤いフェード、Game Over、死亡サウンド",
-      "WannaFest22：VHSノイズ、タイトル演出、赤いキューブ",
-      "Questionmark：ベータ版ボスが復活",
-      "Ridley：もうひとつのベータ版ボス戦",
-      "メインメニューの別背景：Wario Skyline",
-      "再起動すると新しい背景に：Green Greens"
-    ],
     "footer": "Randomizer Mod：THXel。原作 I Wanna Be The Boshy：Solgryn / Grynsoft。",
     "support": "質問やアイデアを共有",
     "docs": "インストール詳細",
@@ -930,8 +940,6 @@
       ],
       "recommend": "おすすめのモード",
       "details": "このモードを見る",
-      "news": "最新アップデート",
-      "newslink": "変更履歴をすべて読む",
       "quick": "インストールの流れ",
       "quicksteps": [
         "対応するインストーラーをダウンロード。",
@@ -957,11 +965,28 @@
     },
     "gameDownload": "GrynsoftでI Wanna Be The Boshyをダウンロード",
     "galleryCaptions": [
+      "Undertale：ケツイを忘れずに。",
       "Kamilia 3風のゲームオーバー",
-      "WannaFest22風のゲームオーバー",
-      "Ridley",
-      "キャラクターを選ぼう",
-      "ルートを作ろう"
-    ]
+      "WannaFest22風のゲームオーバー"
+    ],
+    "showcase": {
+      "nav": "プレビュー",
+      "note": "ランを設定し、目標を選んで冒険へ。",
+      "captions": [
+        "自分だけのラン、自分だけの設定",
+        "Target Select：目標を選び、ゲーム内で確認",
+        "オプション：言語、音楽、画面設定"
+      ],
+      "worlds": "違う世界、違うスプライト。それでもBoshy。",
+      "trackerTitle": "ランの進行をひと目で",
+      "tracker": "タイム、死亡回数、アイテム、目標をゲームの横やOBSに表示。ゲームメニューからLiveTrackerを開けます。",
+      "music": "オリジナルの音楽かUndertaleを選択。追加のKamilia 3・WannaFest22パックでは、それぞれの音楽と死亡演出を楽しめます。",
+      "preserve": "ランダマイザーは専用のゲームコピーを作成します。元のゲームとセーブデータは別に保たれます。",
+      "shake": "画面の揺れをオフ",
+      "death": "Undertale：ケツイを忘れずに。",
+      "target": "目標をゲーム内で確認",
+      "options": "自分に合ったプレイ環境に",
+      "faq": "はい。ゲームメニューから内蔵LiveTrackerを開き、ブラウザーやOBSのブラウザーソースで使えます。"
+    }
   }
 }

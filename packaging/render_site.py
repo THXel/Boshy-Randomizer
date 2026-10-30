@@ -7,15 +7,6 @@ import hashlib
 
 R = Path(__file__).resolve().parents[1]
 DATA = json.loads((R / "site/content.json").read_text())
-PACKAGE = json.loads((R / "packaging/release.json").read_text())
-RELEASE = "https://github.com/THXel/Boshy-Randomizer/releases/tag/" + PACKAGE["tag"]
-BASE = (
-    "https://github.com/THXel/Boshy-Randomizer/releases/download/"
-    + PACKAGE["tag"]
-    + "/"
-)
-WIN = BASE + PACKAGE["windows_file"]
-LINUX = BASE + PACKAGE["linux_file"]
 GH = "https://github.com/THXel/Boshy-Randomizer"
 GAME = "https://grynsoft.com/site/game/i-wanna-be-the-boshy"
 
@@ -79,15 +70,15 @@ def render(lang, d):
         f'<figure><a href="{assets(base + ".gif")}" data-gallery-index="{index}" '
         f'data-video="{assets(base + ".mp4")}" data-audio="false" data-poster="{assets(base + ".png")}" data-caption="{e(caption)}">'
         f'<picture><source media="(prefers-reduced-motion: reduce)" srcset="{assets(base + ".png")}">'
-        f'<img src="{assets(base + ".gif")}" alt="{e(caption)}" loading="lazy" width="640" height="480"></picture>'
+        f'<img src="{assets(base + ".png")}" alt="{e(caption)}" loading="lazy" width="640" height="480"></picture>'
         f'<span class="zoom-mark" aria-hidden="true">▶</span></a>'
         f'<figcaption>{e(caption)}<span class="media-links"><a href="{assets(base + ".gif")}">GIF</a></span></figcaption></figure>'
         for index, (base, caption) in enumerate(
             zip(
                 (
-                    "site/media/first-menu-tour",
-                    "site/media/first-appearance-tour",
-                    "site/media/first-save-tour",
+                    "site/media/run-menu",
+                    "site/media/target-select",
+                    "site/media/options-language",
                 ),
                 presentation["captions"],
             )
@@ -100,6 +91,12 @@ def render(lang, d):
     gallery = ""
     previews = [
         (
+            "site/media/death-undertale.gif",
+            "site/media/death-undertale.png",
+            "site/media/death-undertale.mp4",
+            True,
+        ),
+        (
             "docs/media/death-kamilia3.gif",
             "site/media/death-kamilia3-poster.webp",
             "site/media/death-kamilia3.mp4",
@@ -110,24 +107,6 @@ def render(lang, d):
             "site/media/death-wannafest22-poster.webp",
             "site/media/death-wannafest22.mp4",
             True,
-        ),
-        (
-            "docs/media/beta-ridley.gif",
-            "site/media/beta-ridley-poster.webp",
-            "site/media/beta-ridley.mp4",
-            True,
-        ),
-        (
-            "site/media/characters-tour.gif",
-            "site/media/characters-tour.png",
-            "site/media/characters-tour.mp4",
-            False,
-        ),
-        (
-            "site/media/route-tour.gif",
-            "site/media/route-tour.png",
-            "site/media/route-tour.mp4",
-            False,
         ),
     ]
     for i, ((original, poster, video, audio), caption) in enumerate(
@@ -149,13 +128,14 @@ def render(lang, d):
 <main id="main">
 <section class="hero wrap"><div class="hero-copy"><div class="eyebrow">FAN PROJECT · WINDOWS + LINUX</div><h1>{e(d['title'])}</h1><p class="tagline">{e(d['tagline'])}</p><p class="intro">{e(d['intro'])}</p><p class="release-label">{e(preview_copy["download"])}</p><div class="actions">{buttons}</div><p class="preview-link"><a href="#development">{e(preview_copy["status"])} →</a></p><p class="fine">{e(d['game'])}</p><p class="original-game"><a href="{GAME}">{e(d['gameDownload'])} ↗</a></p><a class="text-link" href="#quickstart">{e(w['quick'])} →</a></div>
 <div class="hero-cast">{mascot('yellow')}</div>
-<div class="hero-media motion-player"><div class="screen-bar"><span>● ● ●</span><span>I WANNA BE THE BOSHY</span></div><video class="hero-video" width="880" height="660" muted loop playsinline preload="metadata" poster="{assets('site/media/first-menu-tour.png')}" aria-label="{e(presentation['captions'][0])}"><source src="{assets('site/media/first-menu-tour.mp4')}" type="video/mp4"></video><div class="screen-bottom"><span>RANDOMIZER EDITION</span><button type="button" class="media-toggle enhanced-only" data-play="{e(w['play'])}" data-pause="{e(w['pause'])}">{e(w['play'])}</button></div></div></section>
+<div class="hero-media motion-player"><div class="screen-bar"><span>● ● ●</span><span>I WANNA BE THE BOSHY</span></div><video class="hero-video" width="880" height="660" muted loop playsinline preload="metadata" poster="{assets('site/media/worlds-sprites.png')}" aria-label="{e(d['showcase']['worlds'])}"><source src="{assets('site/media/worlds-sprites.mp4')}" type="video/mp4"></video><div class="screen-bottom"><span>RANDOMIZER EDITION</span><button type="button" class="media-toggle enhanced-only" data-play="{e(w['play'])}" data-pause="{e(w['pause'])}">{e(w['play'])}</button></div></div></section>
 <div class="ribbon"><span>5 MODES</span><span>3 SAVE SLOTS</span><span>SHARE YOUR SEED</span><span>MAKE IT YOUR RUN</span></div>
 <section id="development" class="wrap section development" aria-labelledby="development-title"><div class="section-heading"><span class="eyebrow">{e(preview_copy['status'])}</span><h2 id="development-title">{e(preview_copy['title'])}</h2><p class="preview-notice">{e(preview_copy['notice'])}</p></div><div class="current-screenshots"><p>{e(presentation['shotnote'])}</p><div class="gallery">{current_screenshots}</div></div></section>
 <section id="modes" class="wrap section"><div class="section-heading"><span class="eyebrow">01 / PLAY</span><h2>{e(d['play'])}</h2></div>
 <div class="mode-picker"><h3>{e(w['chooser'])}</h3><ol class="mode-recommendations">{advice}</ol></div>
 </section>
 <section id="features" class="wrap section"><div class="section-heading"><span class="eyebrow">02 / REMIX</span><h2>{e(d['featuresTitle'])}</h2></div><div class="features">{features}</div></section>
+<section class="wrap section tracker-showcase"><div><span class="eyebrow">LIVE TRACKER</span><h2>{e(d['showcase']['trackerTitle'])}</h2><p>{e(d['showcase']['tracker'])}</p></div><a href="{assets('site/media/live-tracker.png')}" data-gallery-index="6" data-caption="{e(d['showcase']['trackerTitle'])}"><img src="{assets('site/media/live-tracker.png')}" alt="{e(d['showcase']['trackerTitle'])}" loading="lazy" width="1560" height="880"></a></section>
 <section class="spotlight"><div class="wrap split"><div><span class="eyebrow">NEW LOOK · SAME BOSHY</span><h2>{e(d['visualTitle'])}</h2><p>{e(d['visual'])}</p></div><div class="audio"><h3>{e(d['shotsTitle'])}</h3><p>{e(d['shots'])}</p><p>{e(d['music'])}</p></div></div></section>
 <section class="wrap section hacks"><div class="section-heading"><span class="eyebrow">03 / ADVANCED</span><h2>{e(d['hacksTitle'])}</h2><p>{e(d['hacksIntro'])}</p></div><ul class="chips">{hacks}</ul><div class="comfort"><h3>{e(d['controlsTitle'])}</h3><ul>{controls}</ul></div></section>
 <section id="gallery" class="wrap section"><div class="section-heading"><span class="eyebrow">04 / IN GAME</span><h2>{e(d['galleryTitle'])}</h2><p>{e(w['galleryhelp'])}</p></div><div class="gallery">{gallery}</div></section>
@@ -180,31 +160,59 @@ def readme(lang, d, root=False):
     site = "https://thxel.github.io/Boshy-Randomizer/" + (
         "" if lang == "en" else "site/" + lang + "/"
     )
-    s = f"""<div align="center">\n\n<img src="{pre}Custom/boshy_randomizer.png" alt="Boshy Randomizer" width="420">\n\n# {d['title']}\n\n**{d['tagline']}**\n\n{langs}\n\n[🌐 Website]({site}) · [↓ {d['windows']}]({WIN}) · [↓ {d['linux']}]({LINUX}) · [{d['release']}]({RELEASE})\n\n</div>\n\n{d['intro']}\n\n> {d['game']}\n>\n> [{d['gameDownload']}]({GAME})\n\n[{d['nav'][0]}](#modes) · [{d['nav'][1]}](#features) · [Hacks](#hacks) · [{d['nav'][3]}](#download) · [{d['faqnav']}](#faq)\n\n![{d['captions'][0]}]({pre}docs/media/rediscover-intro.gif)\n\n<a id="modes"></a>\n\n## {d['play']}\n\n"""
-    s += "| Mode | |\n| --- | --- |\n" + "".join(
-        f"| **{n}** | **{tag}** {body} |\n" for n, tag, body in d["modes"]
-    )
-    s += f'\n<a id="features"></a>\n\n## {d["featuresTitle"]}\n\n'
-    for n, body in d["features"]:
-        s += f"### {n}\n\n{body}\n\n"
-    s += f'![{d["captions"][1]}]({pre}docs/media/rediscover-menu-tour.gif)\n\n### {d["visualTitle"]}\n\n{d["visual"]}\n\n### {d["shotsTitle"]}\n\n{d["shots"]}\n\n{d["music"]}\n\n<a id="hacks"></a>\n\n## {d["hacksTitle"]}\n\n{d["hacksIntro"]}\n\n'
+    preview = json.loads((R / "site/updates.json").read_text())["preview"]["locales"][
+        lang
+    ]
+    c = d["showcase"]
+    s = f"""<div align="center">
+
+<img src="{pre}Custom/boshy_randomizer.png" alt="Boshy Randomizer" width="420">
+
+# {d['title']}
+
+**{d['tagline']}**
+
+{langs}
+
+[Website]({site})
+
+</div>
+
+{d['intro']}
+
+> **{preview['download']}**
+>
+> {preview['notice']}
+
+![{c['worlds']}]({pre}site/media/worlds-sprites.gif)
+
+## {d['play']}
+
+| | |
+| --- | --- |
+"""
+    s += "".join(f"| **{n}** | {body} |\n" for n, tag, body in d["modes"])
+    s += f"\n## {d['featuresTitle']}\n\n"
+    s += "".join(f"- **{title}:** {body}\n" for title, body in d["features"])
+    for title, base in (
+        (c['captions'][0], 'run-menu'),
+        (c['target'], 'target-select'),
+        (c['options'], 'options-language'),
+    ):
+        s += f"\n## {title}\n\n[![{title}]({pre}site/media/{base}.gif)]({site}#development)\n"
+    s += f"\n## {c['trackerTitle']}\n\n{c['tracker']}\n\n![{c['trackerTitle']}]({pre}site/media/live-tracker.png)\n"
+    s += f"\n## {d['visualTitle']}\n\n{d['visual']}\n\n{d['shots']} {d['music']}\n\n[![{c['death']}]({pre}site/media/death-undertale.gif)]({site}#gallery)\n\n[{d['web']['soundvideo']}](https://thxel.github.io/Boshy-Randomizer/site/media/death-undertale.mp4) · [{d['galleryTitle']}]({site}#gallery)\n"
     s += (
-        "".join("- " + x + "\n" for x in d["hacks"])
-        + f'\n> {d.get("spider", "")}\n\n### {d["controlsTitle"]}\n\n'
-        + "".join("- " + x + "\n" for x in d["controls"])
+        f"\n## {d['hacksTitle']}\n\n{d['hacksIntro']}\n\n"
+        + " · ".join(d['hacks'])
+        + "\n"
     )
-    s += f'\n## {d["galleryTitle"]}\n\n{d["web"]["galleryhelp"]}\n\n'
-    for i, name in ((3, "death-kamilia3"), (4, "death-wannafest22")):
-        s += f'### {d["captions"][i]}\n\n[![{d["captions"][i]}]({pre}docs/media/{name}.gif)]({site}#gallery)\n\n[{d["web"]["soundvideo"]}](https://thxel.github.io/Boshy-Randomizer/site/media/{name}.mp4)\n\n'
-    s += f'[![{d["captions"][6]}]({pre}site/media/beta-ridley-poster.webp)]({site}#gallery)\n\n[{d["galleryTitle"]}]({site}#gallery)\n'
-    s += f'\n<a id="download"></a>\n\n## {d["download"]}\n\n| | Download | |\n| --- | --- | --- |\n| **Windows** | [{d["windows"]}]({WIN}) | {d["preview"]} |\n| **Linux** | [{d["linux"]}]({LINUX}) | {d["linuxnote"]} |\n\n[{d["release"]}]({RELEASE}) · [Windows]({pre}docs/WINDOWS_PACKAGE.md) · [Linux]({pre}docs/LINUX_PACKAGE.md)\n\n### {d["installTitle"]}\n\n'
-    s += (
-        "".join(f"{i+1}. {x}\n" for i, x in enumerate(d["steps"]))
-        + f'\n{d["preserve"]}\n\n<a id="faq"></a>\n\n## {d["faqTitle"]}\n\n'
-    )
-    for q, a in d["faq"]:
-        s += f"<details>\n<summary>{q}</summary>\n\n{a}\n\n</details>\n\n"
-    s += f'---\n\n{d["footer"]}\n\n[{d["support"]}]({GH}/issues) · [{d["changelog"]}]({pre}CHANGELOG.md) · [Credits]({pre}Custom/License.txt) · [Development]({pre}docs/DEVELOPMENT.md)\n'
+    s += f"\n## {d['controlsTitle']}\n\n" + " · ".join(d['controls']) + "\n"
+    s += f"\n## {d['download']}\n\n**Windows (.exe) · Linux (.deb) — {preview['soon']}**\n\n{d['game']} [{d['gameDownload']}]({GAME})\n\n{d['preserve']}\n"
+    s += f"\n## {d['faqTitle']}\n\n"
+    for q, answer in d['faq']:
+        s += f"<details>\n<summary>{q}</summary>\n\n{answer}\n\n</details>\n\n"
+    s += f"---\n\n{d['footer']}\n\n[{d['support']}]({GH}/issues) · [Credits]({pre}Custom/License.txt)\n"
     target = (
         R / "README.md" if root else R / "README" / ("README_" + suffix[lang] + ".md")
     )

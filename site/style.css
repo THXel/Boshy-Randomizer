@@ -70,3 +70,6 @@ button,textarea{font:inherit}button{cursor:pointer}button:focus-visible,textarea
 @media(max-width:760px){.current-screenshots .gallery,.install-guides{grid-template-columns:1fr}.header nav{gap:10px 16px}}
 
 .coming-soon{display:inline-block;opacity:.72;cursor:default}.current-screenshots picture{display:block}
+
+/* First-release media: clear previews, motion only on request. */
+.tracker-showcase{display:grid;grid-template-columns:minmax(220px,1fr) minmax(0,2fr);gap:48px;align-items:center}.tracker-showcase h2{font-size:clamp(28px,3.3vw,44px)}.tracker-showcase img{display:block;width:100%;height:auto;border:1px solid #354b43;border-radius:10px;box-shadow:0 20px 60px #0005}.tracker-showcase a:focus-visible{outline:3px solid var(--mint,#76e0d0);outline-offset:6px}.current-screenshots img{aspect-ratio:4/3;object-fit:contain;background:#080b09}@media(max-width:760px){.tracker-showcase{grid-template-columns:1fr;gap:24px}}
