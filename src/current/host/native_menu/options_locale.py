@@ -155,10 +155,19 @@ def transform(frame, sections):
     from native_menu.events import alt
 
     generation = ini_value(GROUP, "Generation", 0, oi=VIEW)
+    # A language change also changes ON/OFF artwork even when the option's
+    # boolean value is unchanged. Invalidate those caches before the normal
+    # state conditions below reload the appropriate translated image.
+    reset_toggles = [
+        value(helper(display), 0, integer(-1))
+        for _, _, display, key, _ in labels.ROWS
+        if key in labels.TOGGLES
+    ]
     rows.append(
         e.row(
             [e.cmp(alt(helper(HINT), 1), generation, 1)],
             start
+            + reset_toggles
             + [value(helper(HINT), 0, integer(-1)), value(helper(HINT), 1, generation)],
         )
     )

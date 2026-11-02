@@ -1,6 +1,6 @@
 # Windows installation
 
-Download **BoshyRandomizer-Setup-1.0.1.exe** from the [1.0.1 release](https://github.com/THXel/Boshy-Randomizer/releases/tag/v1.0.1).
+Download **BoshyRandomizer-Setup-1.0.2.exe** from the [1.0.2 release](https://github.com/THXel/Boshy-Randomizer/releases/tag/v1.0.2).
 
 1. Close Boshy Randomizer and open Setup.
 2. Choose your original Boshy ZIP or extracted game folder.

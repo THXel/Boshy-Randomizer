@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.2
+
+- Switching languages refreshes all Options labels, help text and on/off values together.
+
 ## 1.0.1
 
 - Manually resized and maximized windows retain their size when resetting or changing rooms. Display options still apply when selected.

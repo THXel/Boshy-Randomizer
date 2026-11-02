@@ -1,21 +1,21 @@
 {
-  "tag": "v1.0.1",
-  "title": "Boshy Randomizer 1.0.1",
-  "version": "1.0.1",
-  "windows_file": "BoshyRandomizer-Setup-1.0.1.exe",
-  "linux_file": "boshy-randomizer_1.0.1-1_amd64.deb",
-  "notes": "docs/RELEASE_1_0_1.md",
+  "tag": "v1.0.2",
+  "title": "Boshy Randomizer 1.0.2",
+  "version": "1.0.2",
+  "windows_file": "BoshyRandomizer-Setup-1.0.2.exe",
+  "linux_file": "boshy-randomizer_1.0.2-1_amd64.deb",
+  "notes": "docs/RELEASE_1_0_2.md",
   "assets": {
-    "BoshyRandomizer-Setup-1.0.1.exe": {
-      "sha256": "a014ac5041b4e520d5da097f30aef072321bf506d6296066a8946eb0fc91fb99",
-      "bytes": 224581238
+    "BoshyRandomizer-Setup-1.0.2.exe": {
+      "sha256": "b5cd2d4f67893d8cf0189ea0c50e225baa165ec291baba502deaab6624a4c712",
+      "bytes": 224578617
     },
-    "boshy-randomizer_1.0.1-1_amd64.deb": {
-      "sha256": "f6e832af5e8a498b8d9802a8a8b726bd5c0769fc1f8831b201433f27dc1c3cff",
-      "bytes": 224214976
+    "boshy-randomizer_1.0.2-1_amd64.deb": {
+      "sha256": "488dc3a5467ef4fa9dc2d3d8cd63824e8eb5998f0c816a772f1f35ac6d8b1f61",
+      "bytes": 224212304
     },
     "SHA256SUMS": {
-      "sha256": "1fc5a7a9aa94664e236635be339916dead1c46d7d9d965a37068bb2d6355cb9c",
+      "sha256": "64a20308daab659bb4073279a022f035835c563844afdd6fb5517473e7e365b1",
       "bytes": 199
     }
   }

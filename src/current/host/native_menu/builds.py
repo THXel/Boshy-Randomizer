@@ -4,7 +4,7 @@ from build_profiles import PREFIX
 from app_paths import GAME
 
 DYNAMIC_BASE = GAME
-DYNAMIC_SHA = "db20c6a0da6662ea348288ecf6512df82472bc8e6566d07ec148930a202389db"
+DYNAMIC_SHA = "8813222ea61f15072d623d42b42f148ca93132333e18dad54a52fa736d7652b6"
 
 EXTRAS_BASE = PREFIX / "drive_c/BoshyTransitions/Boshy-native-extras-v4.exe"
 EXTRAS_SHA = "d4f7518fdf6e17a2bf9831010d3c05f2533aaef767b9f2b3e079b732d9c15ba3"

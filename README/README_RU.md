@@ -14,9 +14,9 @@
 
 Миры и боссы Boshy в новом порядке, сюрпризы в каждом сундуке. Настрой забег и поделись им с друзьями.
 
-> **Версия 1.0.1**
+> **Версия 1.0.2**
 >
-> Окно сохраняет выбранный размер при сбросе и переходе в другую комнату.
+> Все надписи в настройках остаются на выбранном языке, в том числе после его смены.
 
 ![Другие миры. Другие спрайты. Всё тот же Boshy.](../site/media/worlds-sprites.gif)
 
@@ -79,7 +79,7 @@
 
 ## Выбери платформу
 
-[Windows (.exe)](https://github.com/THXel/Boshy-Randomizer/releases/download/v1.0.1/BoshyRandomizer-Setup-1.0.1.exe) · [Linux (.deb)](https://github.com/THXel/Boshy-Randomizer/releases/download/v1.0.1/boshy-randomizer_1.0.1-1_amd64.deb) · [Release 1.0.1](https://github.com/THXel/Boshy-Randomizer/releases/tag/v1.0.1) · [SHA-256](https://github.com/THXel/Boshy-Randomizer/releases/download/v1.0.1/SHA256SUMS)
+[Windows (.exe)](https://github.com/THXel/Boshy-Randomizer/releases/download/v1.0.2/BoshyRandomizer-Setup-1.0.2.exe) · [Linux (.deb)](https://github.com/THXel/Boshy-Randomizer/releases/download/v1.0.2/boshy-randomizer_1.0.2-1_amd64.deb) · [Release 1.0.2](https://github.com/THXel/Boshy-Randomizer/releases/tag/v1.0.2) · [SHA-256](https://github.com/THXel/Boshy-Randomizer/releases/download/v1.0.2/SHA256SUMS)
 
 Нужна собственная папка Boshy или ZIP. Оригинальная игра не включена. [Скачать I Wanna Be The Boshy на Grynsoft](https://grynsoft.com/site/game/i-wanna-be-the-boshy)
 

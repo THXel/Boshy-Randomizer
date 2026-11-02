@@ -1,29 +1,33 @@
-# Version 1.0.1 verification
+# Version 1.0.2 verification
 
 Verified on 2026-11-02.
 
-## Window-size correction
+## Language correction
 
-The 1.0.0 package reproduced the reported problem: a 930 × 610 window returned to 640 × 480 after R. The correction removes saved-size actions from 52 room-start handlers. Explicit display choices still apply in Options; startup still loads the saved preference.
+Version 1.0.1 reproduced the reported mixed-language Options room in Windows 11: after switching from Japanese to German, the controls help and on/off text remained Japanese. The host published its reload signal before all translated artwork was ready, and native toggle displays only reloaded when their boolean value changed.
 
-The compiled executable was checked across all 61 frames. The image, font and sound banks match 1.0.0 byte for byte. Game SHA-256: `db20c6a0da6662ea348288ecf6512df82472bc8e6566d07ec148930a202389db`.
+Version 1.0.2 prepares all Options artwork before publishing the reload signal and refreshes the toggle displays on language changes. Two new regressions failed against the previous source and passed after the correction.
+
+The compiled executable was checked across all 61 frames. Only the Options-room event data and title build stamp changed from 1.0.1. Image, font and sound banks are byte-identical. Game SHA-256: `8813222ea61f15072d623d42b42f148ca93132333e18dad54a52fa736d7652b6`.
 
 ## Installed-package checks
 
-The exact 1.0.1 Windows Setup was installed in Windows 11 and in an isolated Wine installation on Linux. Both installations verified all 2,167 payload files and the reconstructed game hash.
+The exact 1.0.2 Windows Setup was installed over 1.0.1 in Windows 11 and in an isolated Wine installation on Linux. Both verified all 2,167 payload files and the reconstructed game hash.
 
-Each platform passed 27 recorded checkpoints covering native window resizing, five R resets, death/retry, maximization with three resets, F2, Options-room entry/exit, explicit 4:3 and 16:9 resolution selection, F4 fullscreen with three resets, and saved resolution after restarting the application. Window geometry was set through the native window API; game/menu navigation used real key input. Game state was observed read-only.
+Each platform passed 15 recorded checkpoints: ten language/display checks and five window-geometry checks. Language checks covered all five languages, rapid left/right changes, matching LiveTracker output, F2 during gameplay, and a new game process using the saved language. Visible upper-room text was checked against the translated images; scrolled-room screenshots also covered the lower options and their on/off values. The selected language did not change the run seed. Three R resets and F2 retained a manually resized window.
 
-The installed main-menu card and history were rendered in all five languages. The DEB metadata, upgrade ordering and embedded installer hash were verified.
+Navigation used normal key input and native window APIs. Game state was observed read-only. Wine screenshots used the X11 game client because Wine's desktop capture returned a stale title image. Early test-script issues with transparent font pixels, truncated object names and F2 from the original Options room were corrected before the final full runs. The first Wine installer launch encountered a transient invalid-window-handle error; the retry installed successfully and passed the checks above.
+
+The DEB metadata, upgrade ordering and embedded installer hash were verified. The existing personal Linux game installation was not replaced by these isolated tests.
 
 ## Automated checks
 
-- 491 maintained-runtime tests passed, including the new regression covering all room transforms.
+- 493 maintained-runtime tests passed, including both new language regressions.
 - 29 game-free current-source tests passed.
 - 15 repository tooling tests and source formatting passed.
 
 ## Boundaries
 
-These checks do not establish that every seed, route or boss combination has been completed. Full natural victory/exit checks remain incomplete for Skeleton King, Mega Man, Shang Tsung, Bomberman, Ryu Dodge, Cheetahman, King Dedede and Kid Icarus. The personal OBS display itself was not verified in the final tracker check because its local service endpoint was unavailable.
+These checks do not establish that every seed, route or boss combination has been completed. Full natural victory/exit checks remain incomplete for Skeleton King, Mega Man, Shang Tsung, Bomberman, Ryu Dodge, Cheetahman, King Dedede and Kid Icarus. This language check verified tracker output, not the personal OBS scene.
 
-The live window regression uses representative gameplay plus menu/Options transitions. It does not claim a fresh complete playthrough of every room. Earlier gameplay evidence is recorded in the [1.0.0 verification record](https://github.com/THXel/Boshy-Randomizer/blob/v1.0.0/docs/RELEASE_VERIFICATION.md).
+Earlier gameplay and window-size evidence remains in the [1.0.0 verification record](https://github.com/THXel/Boshy-Randomizer/blob/v1.0.0/docs/RELEASE_VERIFICATION.md) and [1.0.1 verification record](https://github.com/THXel/Boshy-Randomizer/blob/v1.0.1/docs/RELEASE_VERIFICATION.md).

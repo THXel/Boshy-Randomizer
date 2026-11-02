@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 
 PRODUCT = "Boshy Randomizer"
-VERSION = "1.0.1"
+VERSION = "1.0.2"
 
 
 def sha256(path):

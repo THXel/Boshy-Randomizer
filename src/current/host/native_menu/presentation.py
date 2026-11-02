@@ -183,6 +183,12 @@ class Presentation:
         from music.title import prepare as prepare_title, GROUP as TITLE_GROUP
 
         title_music = prepare_title(self.c.folder, self.pack, PACK_ROOT / self.pack)
+        # Generation is the game's reload signal. Finish *all* Options artwork
+        # before publishing it; the later menu refresh must not supply labels
+        # after the game has already acknowledged this generation.
+        from native_menu.options_locale import prepare as prepare_options_locale
+
+        prepare_options_locale(self.c.folder, self.language)
         artwork(self.c.folder, self.language, self.pack, self.notice)
         from gameplay.dresser import prepare as prepare_dresser
 
