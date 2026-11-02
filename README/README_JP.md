@@ -14,9 +14,9 @@
 
 Boshyのステージとボスをシャッフル。宝箱にも驚きが待っています。自分好みのランを作って、友達と共有しよう。
 
-> **初の正式版 · 準備中**
+> **1.0.0 · 正式リリース**
 >
-> 初の正式版を近日公開予定。まずは少しだけご紹介。
+> Boshy Randomizer 1.0.0が登場。モードを選び、シードを共有して冒険へ。
 
 ![違う世界、違うスプライト。それでもBoshy。](../site/media/worlds-sprites.gif)
 
@@ -79,7 +79,7 @@ Boshyのステージとボスをシャッフル。宝箱にも驚きが待って
 
 ## プラットフォームを選択
 
-**Windows (.exe) · Linux (.deb) — 近日公開**
+[Windows (.exe)](https://github.com/THXel/Boshy-Randomizer/releases/download/v1.0.0/BoshyRandomizer-Setup-1.0.0.exe) · [Linux (.deb)](https://github.com/THXel/Boshy-Randomizer/releases/download/v1.0.0/boshy-randomizer_1.0.0-1_amd64.deb) · [Release 1.0.0](https://github.com/THXel/Boshy-Randomizer/releases/tag/v1.0.0) · [SHA-256](https://github.com/THXel/Boshy-Randomizer/releases/download/v1.0.0/SHA256SUMS)
 
 自分のBoshyフォルダーまたはZIPが必要です。ゲーム本体は含まれません。 [GrynsoftでI Wanna Be The Boshyをダウンロード](https://grynsoft.com/site/game/i-wanna-be-the-boshy)
 
@@ -104,14 +104,14 @@ Boshyのステージとボスをシャッフル。宝箱にも驚きが待って
 <details>
 <summary>誰がテストしていますか？</summary>
 
-これまでのプレイテストはTHXelのみが行っています。初の正式版に向けて最終テスト中です。
+THXelがWindows 11とLinux Mintでプレイテストを行いました。
 
 </details>
 
 <details>
-<summary>いつダウンロードできますか？</summary>
+<summary>どのファイルが必要ですか？</summary>
 
-初の正式版を準備中です。完成後、WindowsインストーラーとLinux DEBをここで公開します。公開日はまだ決まっていません。
+Windowsにはセットアップ、Linux Mint / UbuntuにはDEBを選んでください。オリジナルBoshyのZIPまたはゲームフォルダーも必要です。
 
 </details>
 

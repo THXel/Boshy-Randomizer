@@ -1,5 +1,7 @@
 # Runtime architecture
 
+For the current first-version host, see [Current runtime source](CURRENT_SOURCE.md). The flat-runtime build described below is the earlier implementation and its saved-run compatibility suite.
+
 ## Maintained source and deployed layout
 
 `tools/layout.py` maps domain directories to stable deployed filenames. Python

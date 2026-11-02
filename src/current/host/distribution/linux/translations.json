@@ -1,0 +1,232 @@
+{
+  "Working …": [
+    "Procesando …",
+    "Выполняется …",
+    "処理中 …"
+  ],
+  "Preparing Boshy Randomizer …": [
+    "Preparando Boshy Randomizer …",
+    "Подготовка Boshy Randomizer …",
+    "Boshy Randomizerを準備中 …"
+  ],
+  "After preparation, game setup opens. Select the original ZIP or game folder there.": [
+    "Después se abrirá el instalador. Selecciona el ZIP o la carpeta original.",
+    "Затем откроется установщик. Выбери ZIP-архив или папку оригинала.",
+    "準備が終わるとインストーラーが開きます。元のZIPまたはゲームフォルダーを選択してください。"
+  ],
+  "Try again": [
+    "Reintentar",
+    "Повторить",
+    "再試行"
+  ],
+  "Open log folder": [
+    "Abrir registros",
+    "Открыть журнал",
+    "ログフォルダーを開く"
+  ],
+  "Start game now": [
+    "Jugar ahora",
+    "Запустить игру",
+    "今すぐゲームを起動"
+  ],
+  "Close": [
+    "Cerrar",
+    "Закрыть",
+    "閉じる"
+  ],
+  "Cancel": [
+    "Cancelar",
+    "Отмена",
+    "キャンセル"
+  ],
+  "Elapsed time: ": [
+    "Tiempo transcurrido: ",
+    "Прошло времени: ",
+    "経過時間: "
+  ],
+  "Please click Cancel in the open installation wizard.": [
+    "Pulsa Cancelar en el instalador abierto.",
+    "Нажми «Отмена» в открытом установщике.",
+    "開いているインストーラーで「キャンセル」を押してください。"
+  ],
+  "Cancelling safely …": [
+    "Cancelando de forma segura …",
+    "Безопасная отмена …",
+    "安全に中止しています …"
+  ],
+  "Set up Boshy Randomizer": [
+    "Instalar Boshy Randomizer",
+    "Установка Boshy Randomizer",
+    "Boshy Randomizerのセットアップ"
+  ],
+  "Setup cancelled": [
+    "Instalación cancelada",
+    "Установка отменена",
+    "セットアップを中止しました"
+  ],
+  "The existing installation has been kept. You can run setup again.": [
+    "Se conserva la instalación anterior. Puedes volver a intentarlo.",
+    "Прежняя установка сохранена. Можно повторить попытку.",
+    "以前のインストールは保持されています。再試行できます。"
+  ],
+  "Setup was not completed": [
+    "Instalación incompleta",
+    "Установка не завершена",
+    "セットアップは完了していません"
+  ],
+  "Boshy Randomizer was installed successfully.": [
+    "Boshy Randomizer se ha instalado correctamente.",
+    "Boshy Randomizer успешно установлен.",
+    "Boshy Randomizerのインストールが完了しました。"
+  ],
+  "You can start the game now or later using Lutris.": [
+    "Puedes jugar ahora o abrirlo más tarde desde Lutris.",
+    "Можно играть сейчас или запустить игру позже через Lutris.",
+    "今すぐ起動するか、後でLutrisから起動できます。"
+  ],
+  "Finish": [
+    "Finalizar",
+    "Готово",
+    "完了"
+  ],
+  "Game removed": [
+    "Juego desinstalado",
+    "Игра удалена",
+    "ゲームを削除しました"
+  ],
+  "Game prepared": [
+    "Juego preparado",
+    "Игра подготовлена",
+    "ゲームの準備ができました"
+  ],
+  "Saves have been kept. You can remove the game entry in Lutris.": [
+    "Las partidas se conservan. Puedes quitar la entrada de Lutris.",
+    "Сохранения оставлены. Запись игры можно удалить из Lutris.",
+    "セーブデータは保持されています。Lutrisからゲームの項目を削除できます。"
+  ],
+  "Please finish registration in the Lutris window that has opened.": [
+    "Completa el registro en la ventana de Lutris.",
+    "Заверши добавление игры в открытом окне Lutris.",
+    "開いているLutrisのウィンドウで登録を完了してください。"
+  ],
+  "Preparing the Lutris entry and game artwork …": [
+    "Preparando la entrada y el icono de Lutris …",
+    "Подготовка записи и значка в Lutris …",
+    "Lutrisの登録とアイコンを準備中 …"
+  ],
+  "Multiple Boshy Randomizer entries in Lutris. Please open the desired entry directly in Lutris.": [
+    "Hay varias entradas. Abre la deseada directamente en Lutris.",
+    "В Lutris несколько записей игры. Открой нужную напрямую.",
+    "Lutrisに複数の登録があります。使用する項目をLutrisで直接開いてください。"
+  ],
+  "Please run Boshy Randomizer as your normal user.": [
+    "Ejecuta Boshy Randomizer con tu usuario habitual.",
+    "Запусти Boshy Randomizer от обычного пользователя.",
+    "通常のユーザーとしてBoshy Randomizerを実行してください。"
+  ],
+  "Lutris is missing. Please install the DEB using your software manager.": [
+    "Falta Lutris. Instala el DEB con el gestor de software.",
+    "Lutris не найден. Установи DEB через менеджер программ.",
+    "Lutrisがありません。ソフトウェアマネージャーでDEBをインストールしてください。"
+  ],
+  "Checking the installation package …": [
+    "Comprobando el paquete …",
+    "Проверка установочного пакета …",
+    "インストールパッケージを確認中 …"
+  ],
+  "Set up Boshy Randomizer: select your original game in the next window.": [
+    "Selecciona el juego original en la siguiente ventana.",
+    "Выбери оригинальную игру в следующем окне.",
+    "次のウィンドウでオリジナルゲームを選択してください。"
+  ],
+  "Uninstalling Boshy Randomizer …": [
+    "Desinstalando Boshy Randomizer …",
+    "Удаление Boshy Randomizer …",
+    "Boshy Randomizerをアンインストール中 …"
+  ],
+  "The setup package is damaged. Please reinstall the DEB.": [
+    "El paquete está dañado. Reinstala el DEB.",
+    "Пакет повреждён. Переустанови DEB.",
+    "パッケージが破損しています。DEBを再インストールしてください。"
+  ],
+  "Setup was not completed. The previous version has been kept.": [
+    "Instalación incompleta. La versión anterior se conserva.",
+    "Установка не завершена. Предыдущая версия сохранена.",
+    "セットアップは未完了です。以前のバージョンは保持されています。"
+  ],
+  "Uninstallation cancelled.": [
+    "Desinstalación cancelada.",
+    "Удаление отменено.",
+    "アンインストールを中止しました。"
+  ],
+  "Setup is already running. Please switch to the other setup window.": [
+    "Ya hay una instalación abierta. Cambia a esa ventana.",
+    "Установка уже запущена. Переключись в другое окно установщика.",
+    "セットアップは既に実行中です。もう一つのウィンドウに切り替えてください。"
+  ],
+  "Checking Wine Staging …": [
+    "Comprobando Wine Staging …",
+    "Проверка Wine Staging …",
+    "Wine Stagingを確認中 …"
+  ],
+  "Downloading Wine Staging …": [
+    "Descargando Wine Staging …",
+    "Загрузка Wine Staging …",
+    "Wine Stagingをダウンロード中 …"
+  ],
+  "Unpacking Wine Staging …": [
+    "Extrayendo Wine Staging …",
+    "Распаковка Wine Staging …",
+    "Wine Stagingを展開中 …"
+  ],
+  "Waiting for another Wine setup …": [
+    "Esperando a otra instalación de Wine …",
+    "Ожидание другой установки Wine …",
+    "別のWineセットアップを待機中 …"
+  ],
+  "{current} of {total} files": [
+    "{current} de {total} archivos",
+    "{current} из {total} файлов",
+    "{total}ファイル中{current}ファイル"
+  ],
+  "Play now": [
+    "Jugar ahora",
+    "Играть",
+    "今すぐプレイ"
+  ],
+  "Hide": [
+    "Ocultar",
+    "Скрыть",
+    "非表示"
+  ],
+  "Please finish setup in Lutris.": [
+    "Completa la instalación en Lutris.",
+    "Заверши установку в Lutris.",
+    "Lutrisでセットアップを完了してください。"
+  ],
+  "No Lutris entry found yet. Finish setup in Lutris and try again.": [
+    "No se encontró el juego en Lutris. Completa la instalación y reintenta.",
+    "Игра пока не найдена в Lutris. Заверши установку и повтори попытку.",
+    "Lutrisにまだ登録されていません。セットアップを完了して再試行してください。"
+  ],
+  "Starting Boshy Randomizer …": [
+    "Iniciando Boshy Randomizer …",
+    "Запуск Boshy Randomizer …",
+    "Boshy Randomizerを起動中 …"
+  ],
+  "The game window has not appeared yet. Check Lutris and the launch log before trying again.": [
+    "La ventana del juego aún no aparece. Revisa Lutris y el registro de inicio antes de reintentar.",
+    "Окно игры ещё не появилось. Перед повторным запуском проверь Lutris и журнал запуска.",
+    "ゲーム画面がまだ表示されません。再試行する前にLutrisと起動ログを確認してください。"
+  ],
+  "Complete the last step in Lutris. You can stop waiting here.": [
+    "Completa el último paso en Lutris. Puedes dejar de esperar aquí.",
+    "Заверши последний шаг в Lutris. Здесь можно прекратить ожидание.",
+    "Lutrisで最後の手順を完了してください。ここで待機を中止できます。"
+  ],
+  "Your data choice has been applied. You can remove the game entry in Lutris.": [
+    "Se aplicó tu elección sobre los datos. Puedes quitar el juego de Lutris.",
+    "Выбранный вариант обработки данных применён. Запись об игре можно удалить в Lutris.",
+    "データの選択が適用されました。Lutrisからゲームの登録を削除できます。"
+  ]
+}

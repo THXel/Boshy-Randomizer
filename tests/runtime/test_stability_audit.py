@@ -48,7 +48,7 @@ class StabilityAudit(unittest.TestCase):
             with patch('trigger_audit.points', return_value={'example': {'frame': 3}}):
                 self.assertEqual(trigger_audit.rows(base)[0]['natural'], 'Offen')
 
-    def test_menu_launch_accepts_packaged_and_legacy_guard_but_rejects_changes(self):
+    def test_menu_launch_accepts_current_build_and_rejects_unknown_changes(self):
         import hashlib
         import struct
         import shutil
@@ -68,14 +68,19 @@ class StabilityAudit(unittest.TestCase):
             name = ('Z:' + str(base / 'native_menu.dll').replace('/', '\\')).encode()
             blob[CONTEXT_SIZE + 1356 : CONTEXT_SIZE + 1616] = name.ljust(260, b'\0')
             packaged = (ROOT / 'native_intro_guard.dll').read_bytes()
-            legacy = bytearray(packaged)
-            struct.pack_into('<I', legacy, 136, 0x6ACE2740)
-            struct.pack_into('<I', legacy, 4100, 0x6ACE2740)
-            struct.pack_into('<I', legacy, 216, 0xAEC3)
-            for raw in (packaged, legacy):
-                self.assertIn(hashlib.sha256(raw).hexdigest(), GUARD_HASHES)
-                (base / 'native_intro_guard.dll').write_bytes(raw)
-                self.assertEqual(len(attach(base, blob)), len(blob))
+            self.assertIn(hashlib.sha256(packaged).hexdigest(), GUARD_HASHES)
+            (base / 'native_intro_guard.dll').write_bytes(packaged)
+            self.assertEqual(len(attach(base, blob)), len(blob))
+            # Compiler output varies. Patching today's PE metadata does not
+            # recreate an audited historical DLL. Only exact pinned builds
+            # are trusted; arbitrary metadata and code edits stay rejected.
+            for offset in (136, 216, len(packaged) // 2):
+                changed = bytearray(packaged)
+                changed[offset] ^= 1
+                self.assertNotIn(hashlib.sha256(changed).hexdigest(), GUARD_HASHES)
+                (base / 'native_intro_guard.dll').write_bytes(changed)
+                with self.assertRaises(RuntimeError):
+                    attach(base, blob)
             (base / 'native_intro_guard.dll').write_bytes(b'corrupt')
             with self.assertRaises(RuntimeError):
                 attach(base, blob)

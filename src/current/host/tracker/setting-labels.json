@@ -1,0 +1,177 @@
+{
+  "autofire": {
+    "de": "Dauerfeuer",
+    "en": "Autofire",
+    "es": "Disparo automático",
+    "ru": "Автоогонь",
+    "ja": "連射"
+  },
+  "blood_pack": {
+    "de": "Boshys Blutgrafik",
+    "en": "Boshy blood graphics",
+    "es": "Sangre de Boshy",
+    "ru": "Графика крови Boshy",
+    "ja": "Boshy の血の画像"
+  },
+  "death_character": {
+    "de": "Figur nach Tod wechseln",
+    "en": "Change character after death",
+    "es": "Cambiar personaje al morir",
+    "ru": "Смена персонажа после смерти",
+    "ja": "死亡後にキャラクター変更"
+  },
+  "fast_chests": {
+    "de": "Schnelle Truhen",
+    "en": "Fast chests",
+    "es": "Cofres rápidos",
+    "ru": "Быстрые сундуки",
+    "ja": "宝箱をすぐに開ける"
+  },
+  "god_mode": {
+    "de": "God Mode · Unverwundbarkeit",
+    "en": "God Mode · Invincibility",
+    "es": "Modo dios · Invulnerabilidad",
+    "ru": "Режим бога · Неуязвимость",
+    "ja": "ゴッドモード · 無敵"
+  },
+  "mirror": {
+    "de": "Spiegelmodus",
+    "en": "Mirror mode",
+    "es": "Modo espejo",
+    "ru": "Зеркальный режим",
+    "ja": "ミラーモード"
+  },
+  "music": {
+    "de": "Musik mischen · Level und Bosse getrennt",
+    "en": "Shuffle music · separate level and boss pools",
+    "es": "Mezclar música · niveles y jefes separados",
+    "ru": "Перемешать музыку · отдельно уровни и боссы",
+    "ja": "音楽をシャッフル · ステージとボスは別々"
+  },
+  "music_pack": {
+    "de": "Musikpaket",
+    "en": "Music pack",
+    "es": "Paquete musical",
+    "ru": "Набор музыки",
+    "ja": "音楽パック"
+  },
+  "no_mouse_ghost": {
+    "de": "Mausgeist deaktivieren",
+    "en": "Disable mouse ghost",
+    "es": "Desactivar fantasma del ratón",
+    "ru": "Отключить призрака мыши",
+    "ja": "マウスの幽霊を無効化"
+  },
+  "no_screen_shaking": {
+    "de": "Bildschirmwackeln aus",
+    "en": "No Screen Shaking",
+    "es": "Sin temblor de pantalla",
+    "ru": "Без тряски экрана",
+    "ja": "画面の揺れを無効化"
+  },
+  "one_hp": {
+    "de": "Ein Treffer pro Bossphase",
+    "en": "One hit per boss phase",
+    "es": "Un golpe por fase del jefe",
+    "ru": "Один удар на фазу босса",
+    "ja": "ボスの各フェーズを一撃で突破"
+  },
+  "quiet_pickups": {
+    "de": "Item-Hinweise ausblenden",
+    "en": "Hide item help dialogs",
+    "es": "Ocultar ayuda de objetos",
+    "ru": "Скрыть подсказки предметов",
+    "ja": "アイテム説明を非表示"
+  },
+  "shot_death": {
+    "de": "Nach jedem Tod",
+    "en": "After each death",
+    "es": "Tras cada muerte",
+    "ru": "После каждой смерти",
+    "ja": "死亡ごと"
+  },
+  "shot_death_and_spot": {
+    "de": "Nach Tod und Abschnitt",
+    "en": "After death and section",
+    "es": "Tras muerte y sección",
+    "ru": "После смерти и этапа",
+    "ja": "死亡・ステージごと"
+  },
+  "shot_off": {
+    "de": "Aus",
+    "en": "Off",
+    "es": "Desactivado",
+    "ru": "Выключено",
+    "ja": "オフ"
+  },
+  "shot_random_interval": {
+    "de": "Nach zufälliger Zeit",
+    "en": "At random intervals",
+    "es": "A intervalos aleatorios",
+    "ru": "Через случайный интервал",
+    "ja": "ランダムな時間間隔"
+  },
+  "shot_spot": {
+    "de": "Nach jedem Abschnitt",
+    "en": "After each section",
+    "es": "Tras cada sección",
+    "ru": "После каждого этапа",
+    "ja": "ステージごと"
+  },
+  "skip_intro": {
+    "de": "Boss-Intros überspringen",
+    "en": "Skip boss intros",
+    "es": "Saltar intros de jefes",
+    "ru": "Пропуск вступлений боссов",
+    "ja": "ボスのイントロをスキップ"
+  },
+  "spider": {
+    "de": "Spinnen-Überraschung",
+    "en": "Spider surprise",
+    "es": "Sorpresa arácnida",
+    "ru": "Паук-сюрприз",
+    "ja": "突然のクモ"
+  },
+  "sprite_actors": {
+    "de": "Gegnerfarben",
+    "en": "Enemy colours",
+    "es": "Colores de enemigos",
+    "ru": "Цвета врагов",
+    "ja": "敵の色"
+  },
+  "sprite_backgrounds": {
+    "de": "Hintergründe",
+    "en": "Backgrounds",
+    "es": "Fondos",
+    "ru": "Фоны",
+    "ja": "背景"
+  },
+  "sprite_decor": {
+    "de": "Dekoration",
+    "en": "Decoration",
+    "es": "Decoración",
+    "ru": "Декорации",
+    "ja": "装飾"
+  },
+  "sprite_dim": {
+    "de": "Hintergründe abdunkeln",
+    "en": "Dim backgrounds",
+    "es": "Oscurecer fondos",
+    "ru": "Затемнение фона",
+    "ja": "背景を暗くする"
+  },
+  "sprite_scenery": {
+    "de": "Sprite-Randomizer aktiv",
+    "en": "Enable sprite randomizer",
+    "es": "Activar aleatorizador de sprites",
+    "ru": "Включить рандомайзер спрайтов",
+    "ja": "スプライトランダマイザーを有効化"
+  },
+  "sprite_tiles": {
+    "de": "Böden und Plattformen",
+    "en": "Floors and platforms",
+    "es": "Suelos y plataformas",
+    "ru": "Пол и платформы",
+    "ja": "床と足場"
+  }
+}

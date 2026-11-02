@@ -13,8 +13,7 @@
     "download": "Choose your platform",
     "windows": "Windows Setup",
     "linux": "Linux DEB",
-    "release": "First final release coming soon",
-    "preview": "Windows · x64",
+    "release": "1.0.0",
     "linuxnote": "Linux Mint 22 / Ubuntu 24.04 · X11 · amd64",
     "game": "Bring your own Boshy folder or ZIP. The original game is not included.",
     "play": "Five ways to play",
@@ -120,11 +119,11 @@
       ],
       [
         "Who has tested the randomizer?",
-        "THXel is the only playtester so far. Final testing for the first release is underway."
+        "Playtested by THXel on Windows 11 and Linux Mint."
       ],
       [
-        "When can I download it?",
-        "The first final release is being prepared. Windows Setup and Linux DEB will appear here once it is ready. No release date is confirmed."
+        "Which download do I need?",
+        "Choose Windows Setup for Windows or the DEB for Linux Mint / Ubuntu. You will also need your own original Boshy ZIP or folder."
       ],
       [
         "Can I play online?",
@@ -195,7 +194,8 @@
       "target": "Your targets, right in the game",
       "options": "Settle in and make it yours",
       "faq": "Yes. Open the built-in LiveTracker from the game menu and use it in your browser or as an OBS browser source."
-    }
+    },
+    "windowsnote": "Windows · x64"
   },
   "de": {
     "name": "Deutsch",
@@ -211,8 +211,7 @@
     "download": "Wähle deine Plattform",
     "windows": "Windows-Setup",
     "linux": "Linux-DEB",
-    "release": "Kurz vor der ersten finalen Version",
-    "preview": "Windows · x64",
+    "release": "1.0.0",
     "linuxnote": "Linux Mint 22 / Ubuntu 24.04 · X11 · amd64",
     "game": "Du brauchst deinen eigenen Boshy-Ordner oder eine ZIP. Das Originalspiel ist nicht enthalten.",
     "play": "Fünf Arten, Boshy zu spielen",
@@ -318,11 +317,11 @@
       ],
       [
         "Wer hat den Randomizer bisher getestet?",
-        "Bisher hat THXel den Randomizer allein getestet. Die letzten Tests vor der ersten finalen Version laufen."
+        "Von THXel unter Windows 11 und Linux Mint getestet."
       ],
       [
-        "Wann kann ich ihn herunterladen?",
-        "Die erste finale Version wird vorbereitet. Sobald sie fertig ist, stehen hier Windows-Setup und Linux-DEB bereit. Ein Veröffentlichungstermin steht noch nicht fest."
+        "Welchen Download brauche ich?",
+        "Für Windows nimmst du das Setup, für Linux Mint / Ubuntu die DEB. Dazu brauchst du deine eigene originale Boshy-ZIP oder deinen Spielordner."
       ],
       [
         "Kann man online spielen?",
@@ -393,7 +392,8 @@
       "target": "Deine Ziele direkt im Spiel",
       "options": "Spiel so, wie es dir passt",
       "faq": "Ja. Öffne den eingebauten LiveTracker im Spielmenü und nutze ihn im Browser oder als Browserquelle in OBS."
-    }
+    },
+    "windowsnote": "Windows · x64"
   },
   "es": {
     "name": "Español",
@@ -409,8 +409,7 @@
     "download": "Elige tu plataforma",
     "windows": "Instalador Windows",
     "linux": "DEB para Linux",
-    "release": "La primera versión final está cerca",
-    "preview": "Windows · x64",
+    "release": "1.0.0",
     "linuxnote": "Linux Mint 22 / Ubuntu 24.04 · X11 · amd64",
     "game": "Necesitas tu propia carpeta o ZIP de Boshy. El juego original no está incluido.",
     "play": "Cinco formas de jugar",
@@ -516,11 +515,11 @@
       ],
       [
         "¿Quién ha probado el randomizer?",
-        "Por ahora, THXel es el único que ha probado el juego. Las últimas pruebas antes de la primera versión final están en marcha."
+        "Probado por THXel en Windows 11 y Linux Mint."
       ],
       [
-        "¿Cuándo podré descargarlo?",
-        "La primera versión final está en preparación. Windows Setup y Linux DEB aparecerán aquí cuando esté lista. Aún no hay fecha confirmada."
+        "¿Qué archivo necesito?",
+        "Elige Windows Setup para Windows o el DEB para Linux Mint / Ubuntu. También necesitas tu ZIP o carpeta del Boshy original."
       ],
       [
         "¿Hay modo online?",
@@ -591,7 +590,8 @@
       "target": "Tus objetivos dentro del juego",
       "options": "Juega a tu manera",
       "faq": "Sí. Abre el LiveTracker integrado desde el menú del juego y úsalo en el navegador o como fuente de navegador en OBS."
-    }
+    },
+    "windowsnote": "Windows · x64"
   },
   "ru": {
     "name": "Русский",
@@ -607,8 +607,7 @@
     "download": "Выбери платформу",
     "windows": "Установщик Windows",
     "linux": "DEB для Linux",
-    "release": "Первый финальный выпуск уже близко",
-    "preview": "Windows · x64",
+    "release": "1.0.0",
     "linuxnote": "Linux Mint 22 / Ubuntu 24.04 · X11 · amd64",
     "game": "Нужна собственная папка Boshy или ZIP. Оригинальная игра не включена.",
     "play": "Пять способов играть",
@@ -714,11 +713,11 @@
       ],
       [
         "Кто уже тестировал randomizer?",
-        "Пока игру тестировал только THXel. Идут последние проверки перед первой финальной версией."
+        "Игру тестировал THXel в Windows 11 и Linux Mint."
       ],
       [
-        "Когда можно будет скачать?",
-        "Первый финальный выпуск готовится. Установщик Windows и пакет Linux DEB появятся здесь после готовности. Дата выпуска пока не определена."
+        "Какой файл скачать?",
+        "Выбери установщик для Windows или DEB для Linux Mint / Ubuntu. Также понадобится твой ZIP или папка оригинальной игры Boshy."
       ],
       [
         "Есть онлайн-режим?",
@@ -789,7 +788,8 @@
       "target": "Твои цели прямо в игре",
       "options": "Играй по-своему",
       "faq": "Да. Открой встроенный LiveTracker из игрового меню и используй его в браузере или как источник браузера в OBS."
-    }
+    },
+    "windowsnote": "Windows · x64"
   },
   "ja": {
     "name": "日本語",
@@ -805,8 +805,7 @@
     "download": "プラットフォームを選択",
     "windows": "Windowsセットアップ",
     "linux": "Linux DEB",
-    "release": "初の正式版公開まであと少し",
-    "preview": "Windows · x64",
+    "release": "1.0.0",
     "linuxnote": "Linux Mint 22 / Ubuntu 24.04 · X11 · amd64",
     "game": "自分のBoshyフォルダーまたはZIPが必要です。ゲーム本体は含まれません。",
     "play": "5つの遊び方",
@@ -912,11 +911,11 @@
       ],
       [
         "誰がテストしていますか？",
-        "これまでのプレイテストはTHXelのみが行っています。初の正式版に向けて最終テスト中です。"
+        "THXelがWindows 11とLinux Mintでプレイテストを行いました。"
       ],
       [
-        "いつダウンロードできますか？",
-        "初の正式版を準備中です。完成後、WindowsインストーラーとLinux DEBをここで公開します。公開日はまだ決まっていません。"
+        "どのファイルが必要ですか？",
+        "Windowsにはセットアップ、Linux Mint / UbuntuにはDEBを選んでください。オリジナルBoshyのZIPまたはゲームフォルダーも必要です。"
       ],
       [
         "オンラインで遊べますか？",
@@ -987,6 +986,7 @@
       "target": "目標をゲーム内で確認",
       "options": "自分に合ったプレイ環境に",
       "faq": "はい。ゲームメニューから内蔵LiveTrackerを開き、ブラウザーやOBSのブラウザーソースで使えます。"
-    }
+    },
+    "windowsnote": "Windows · x64"
   }
 }

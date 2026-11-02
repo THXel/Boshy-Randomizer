@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Boshy Randomizer · Live Tracker</title><link rel="stylesheet" href="/style.css"><script src="/app.js" defer></script></head>
+<body><main id="tracker">
+<header><img id="logo" src="/logo.png" alt="Boshy Randomizer"><div class="heading"><h1>LIVE TRACKER</h1><div id="mode"></div></div></header>
+<section class="stats"><strong id="clock">00:00.00</strong><span id="deaths"></span><span id="slot"></span><span id="phase"></span></section>
+<div class="seed"><span id="seed"></span><button id="copy" type="button"></button></div>
+<div id="copyfallback" hidden><label id="copyhint" for="share"></label><textarea id="share" readonly></textarea></div>
+<div id="location"></div><div id="progress"></div><progress id="bar" value="0" max="1"></progress>
+<nav id="tabs" aria-label="Tracker"></nav><section id="content" aria-live="off"></section>
+<aside id="popup" hidden role="status"><img id="rewardicon" alt=""><div><small id="rewardlabel"></small><strong id="rewardname"></strong></div></aside>
+<footer id="footer"></footer></main></body></html>

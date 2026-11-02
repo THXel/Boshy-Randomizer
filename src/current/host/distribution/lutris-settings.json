@@ -1,0 +1,38 @@
+{
+  "system": {
+    "disable_compositor": true,
+    "dri_prime": false,
+    "env": {
+      "WINE_OPENGL_DRIVER": "glx",
+      "__GL_GSYNC_ALLOWED": "0",
+      "__GL_SHOW_GRAPHICS_OSD": "1",
+      "__GL_VRR_ALLOWED": "0"
+    },
+    "gamemode": false,
+    "locale": "",
+    "prelaunch_wait": false,
+    "pulse_latency": false,
+    "sdl_video_fullscreen": "0",
+    "single_cpu": false,
+    "vk_icd": ""
+  },
+  "wine": {
+    "Desktop": false,
+    "MouseWarpOverride": "enable",
+    "ShowCrashDialog": true,
+    "WineDesktop": "1920x1080",
+    "battleye": false,
+    "d3d_extras": false,
+    "dgvoodoo2": false,
+    "dxvk": false,
+    "dxvk_nvapi": false,
+    "eac": false,
+    "esync": false,
+    "fsr": false,
+    "fsync": false,
+    "show_debug": "",
+    "system_winetricks": false,
+    "version": "wine-staging-11.2-x86_64",
+    "vkd3d": false
+  }
+}

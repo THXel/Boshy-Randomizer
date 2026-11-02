@@ -14,9 +14,9 @@
 
 Миры и боссы Boshy в новом порядке, сюрпризы в каждом сундуке. Настрой забег и поделись им с друзьями.
 
-> **Первый финальный выпуск · в подготовке**
+> **1.0.0 · Первый выпуск**
 >
-> Первая финальная версия скоро выйдет. А пока — небольшой обзор.
+> Boshy Randomizer 1.0.0 уже здесь. Выбирай режим, делись сидом и начинай играть.
 
 ![Другие миры. Другие спрайты. Всё тот же Boshy.](../site/media/worlds-sprites.gif)
 
@@ -79,7 +79,7 @@
 
 ## Выбери платформу
 
-**Windows (.exe) · Linux (.deb) — Скоро**
+[Windows (.exe)](https://github.com/THXel/Boshy-Randomizer/releases/download/v1.0.0/BoshyRandomizer-Setup-1.0.0.exe) · [Linux (.deb)](https://github.com/THXel/Boshy-Randomizer/releases/download/v1.0.0/boshy-randomizer_1.0.0-1_amd64.deb) · [Release 1.0.0](https://github.com/THXel/Boshy-Randomizer/releases/tag/v1.0.0) · [SHA-256](https://github.com/THXel/Boshy-Randomizer/releases/download/v1.0.0/SHA256SUMS)
 
 Нужна собственная папка Boshy или ZIP. Оригинальная игра не включена. [Скачать I Wanna Be The Boshy на Grynsoft](https://grynsoft.com/site/game/i-wanna-be-the-boshy)
 
@@ -104,14 +104,14 @@
 <details>
 <summary>Кто уже тестировал randomizer?</summary>
 
-Пока игру тестировал только THXel. Идут последние проверки перед первой финальной версией.
+Игру тестировал THXel в Windows 11 и Linux Mint.
 
 </details>
 
 <details>
-<summary>Когда можно будет скачать?</summary>
+<summary>Какой файл скачать?</summary>
 
-Первый финальный выпуск готовится. Установщик Windows и пакет Linux DEB появятся здесь после готовности. Дата выпуска пока не определена.
+Выбери установщик для Windows или DEB для Linux Mint / Ubuntu. Также понадобится твой ZIP или папка оригинальной игры Boshy.
 
 </details>
 

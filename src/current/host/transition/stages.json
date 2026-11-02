@@ -1,0 +1,598 @@
+{
+  "hello_kitty": {
+    "frame": 4,
+    "x": 1963,
+    "y": 328,
+    "category": "bosses",
+    "frames": [
+      4
+    ],
+    "native_exit_frames": [
+      5
+    ],
+    "id": 1
+  },
+  "gradius": {
+    "frame": 15,
+    "x": 5175,
+    "y": 1360,
+    "category": "bosses",
+    "frames": [
+      15,
+      39
+    ],
+    "native_exit_frames": [
+      17
+    ],
+    "id": 2
+  },
+  "skeleton_king": {
+    "frame": 17,
+    "x": 850,
+    "y": 190,
+    "category": "bosses",
+    "frames": [
+      17
+    ],
+    "native_exit_frames": [
+      22
+    ],
+    "id": 3
+  },
+  "mega_man": {
+    "frame": 24,
+    "x": 850,
+    "y": 190,
+    "category": "bosses",
+    "frames": [
+      24
+    ],
+    "native_exit_frames": [
+      25
+    ],
+    "id": 4
+  },
+  "shang_tsung": {
+    "frame": 26,
+    "x": 850,
+    "y": 190,
+    "category": "bosses",
+    "frames": [
+      26
+    ],
+    "native_exit_frames": [
+      27
+    ],
+    "id": 5
+  },
+  "bomberman": {
+    "frame": 28,
+    "x": 770,
+    "y": 6600,
+    "category": "bosses",
+    "frames": [
+      28
+    ],
+    "native_exit_frames": [
+      31
+    ],
+    "id": 6
+  },
+  "ryu_dodge": {
+    "frame": 31,
+    "x": 4500,
+    "y": 250,
+    "category": "bosses",
+    "segment": "ninja_ryu",
+    "label": "Ryu (Ausweichen)",
+    "frames": [
+      31
+    ],
+    "native_exit_frames": [],
+    "id": 7
+  },
+  "missingno": {
+    "frame": 32,
+    "x": 4500,
+    "y": 250,
+    "category": "bosses",
+    "frames": [
+      32
+    ],
+    "native_exit_frames": [
+      35
+    ],
+    "id": 8
+  },
+  "questionmark": {
+    "frame": 44,
+    "x": 100,
+    "y": 100,
+    "category": "bosses",
+    "frames": [
+      44
+    ],
+    "native_exit_frames": [],
+    "id": 9
+  },
+  "kracko": {
+    "frame": 5,
+    "x": 3400,
+    "y": 300,
+    "category": "bosses",
+    "segment": "kracko",
+    "label": "Kracko",
+    "frames": [
+      5
+    ],
+    "native_exit_frames": [],
+    "id": 10
+  },
+  "ridley": {
+    "frame": 45,
+    "x": 100,
+    "y": 100,
+    "category": "bosses",
+    "frames": [
+      45
+    ],
+    "native_exit_frames": [],
+    "id": 11
+  },
+  "cheetahman": {
+    "frame": 54,
+    "x": 159,
+    "y": 425,
+    "category": "bosses",
+    "frames": [
+      54
+    ],
+    "native_exit_frames": [
+      29
+    ],
+    "id": 12
+  },
+  "ganon": {
+    "frame": 59,
+    "x": 100,
+    "y": 100,
+    "category": "bosses",
+    "frames": [
+      59
+    ],
+    "native_exit_frames": [
+      31
+    ],
+    "id": 13
+  },
+  "old_sonic": {
+    "frame": 60,
+    "x": 100,
+    "y": 100,
+    "category": "bosses",
+    "frames": [
+      60
+    ],
+    "native_exit_frames": [
+      61
+    ],
+    "id": 14
+  },
+  "king_dedede": {
+    "frame": 6,
+    "x": 3400,
+    "y": 300,
+    "category": "bosses",
+    "frames": [
+      6
+    ],
+    "native_exit_frames": [
+      7
+    ],
+    "id": 15
+  },
+  "ryu": {
+    "frame": 7,
+    "x": 1400,
+    "y": 400,
+    "category": "bosses",
+    "frames": [
+      7
+    ],
+    "native_exit_frames": [
+      8
+    ],
+    "id": 16
+  },
+  "mario": {
+    "frame": 10,
+    "x": 1400,
+    "y": 400,
+    "category": "bosses",
+    "frames": [
+      10
+    ],
+    "native_exit_frames": [
+      11
+    ],
+    "id": 17
+  },
+  "gravitron": {
+    "frame": 11,
+    "x": 2700,
+    "y": 1600,
+    "category": "bosses",
+    "segment": "gravitron",
+    "label": "Gravitron",
+    "frames": [
+      11
+    ],
+    "native_exit_frames": [
+      12
+    ],
+    "id": 18
+  },
+  "biollante": {
+    "frame": 12,
+    "x": 2700,
+    "y": 1600,
+    "category": "bosses",
+    "frames": [
+      12
+    ],
+    "native_exit_frames": [
+      13
+    ],
+    "id": 19
+  },
+  "sonic": {
+    "frame": 14,
+    "x": 2900,
+    "y": 1600,
+    "category": "bosses",
+    "frames": [
+      14
+    ],
+    "native_exit_frames": [
+      15
+    ],
+    "id": 20
+  },
+  "kappa": {
+    "frame": 37,
+    "x": 2175,
+    "y": 1864,
+    "category": "bosses",
+    "segment": "kappa",
+    "label": "Kappa",
+    "frames": [
+      37
+    ],
+    "native_exit_frames": [
+      29
+    ],
+    "id": 21
+  },
+  "kid_icarus": {
+    "frame": 27,
+    "x": 777,
+    "y": 6607,
+    "category": "bosses",
+    "segment": "kid_icarus",
+    "label": "Kid Icarus",
+    "frames": [
+      27
+    ],
+    "native_exit_frames": [],
+    "id": 22
+  },
+  "solgryn": {
+    "frame": 46,
+    "x": 100,
+    "y": 100,
+    "category": "bosses",
+    "label": "Solgryn",
+    "frames": [
+      46
+    ],
+    "native_exit_frames": [],
+    "id": 23
+  },
+  "kid_icarus_after_miniboss": {
+    "frame": 27,
+    "x": 1288,
+    "y": 6607,
+    "category": "rooms",
+    "segment": "after_kid_icarus",
+    "label": "Kid Icarus \u00b7 nach Miniboss",
+    "frames": [
+      27
+    ],
+    "native_exit_frames": [
+      59
+    ],
+    "id": 24
+  },
+  "prehistorik": {
+    "frame": 3,
+    "x": 30,
+    "y": 40,
+    "category": "rooms",
+    "frames": [
+      3
+    ],
+    "native_exit_frames": [
+      4,
+      33
+    ],
+    "id": 25
+  },
+  "random_world_part_2": {
+    "frame": 23,
+    "x": 16,
+    "y": 1679,
+    "category": "rooms",
+    "segment": "random_world_part2",
+    "label": "Random World \u00b7 Teil 2",
+    "frames": [
+      23
+    ],
+    "native_exit_frames": [
+      24
+    ],
+    "id": 26
+  },
+  "mega_man_world": {
+    "frame": 25,
+    "x": 1020,
+    "y": 220,
+    "category": "rooms",
+    "frames": [
+      25
+    ],
+    "native_exit_frames": [
+      26
+    ],
+    "id": 27
+  },
+  "kid_icarus_before_miniboss": {
+    "frame": 27,
+    "x": 700,
+    "y": 8550,
+    "category": "rooms",
+    "segment": "before_kid_icarus",
+    "label": "Kid Icarus \u00b7 vor Miniboss",
+    "frames": [
+      27
+    ],
+    "native_exit_frames": [],
+    "id": 28
+  },
+  "ninja_gaiden_before_ryu": {
+    "frame": 31,
+    "x": 30,
+    "y": 400,
+    "category": "rooms",
+    "segment": "before_ninja_ryu",
+    "label": "Ninja Gaiden \u00b7 vor Ryu",
+    "frames": [
+      31
+    ],
+    "native_exit_frames": [],
+    "id": 29
+  },
+  "secret_mario": {
+    "frame": 33,
+    "x": 750,
+    "y": 300,
+    "category": "rooms",
+    "frames": [
+      33
+    ],
+    "native_exit_frames": [
+      29
+    ],
+    "id": 30
+  },
+  "desert": {
+    "frame": 35,
+    "x": 50,
+    "y": 447,
+    "category": "rooms",
+    "fixed_start": true,
+    "frames": [
+      35
+    ],
+    "native_exit_frames": [
+      51,
+      38
+    ],
+    "id": 31
+  },
+  "justin_tv_before_kappa": {
+    "frame": 37,
+    "x": 50,
+    "y": 3000,
+    "category": "rooms",
+    "segment": "before_kappa",
+    "label": "Justin.tv \u00b7 vor Kappa",
+    "frames": [
+      37
+    ],
+    "native_exit_frames": [],
+    "id": 32
+  },
+  "terranigma_final_path": {
+    "frame": 38,
+    "x": 1250,
+    "y": 8550,
+    "category": "rooms",
+    "frames": [
+      38
+    ],
+    "native_exit_frames": [
+      46
+    ],
+    "id": 33
+  },
+  "pokemon": {
+    "frame": 50,
+    "x": 300,
+    "y": 260,
+    "category": "rooms",
+    "frames": [
+      50
+    ],
+    "native_exit_frames": [
+      15,
+      52
+    ],
+    "id": 34
+  },
+  "green_greens_before_kracko": {
+    "frame": 5,
+    "x": 30,
+    "y": 1850,
+    "category": "rooms",
+    "segment": "before_kracko",
+    "label": "Green Greens \u00b7 vor Kracko",
+    "frames": [
+      5
+    ],
+    "native_exit_frames": [
+      6
+    ],
+    "id": 35
+  },
+  "tower": {
+    "frame": 51,
+    "x": 319,
+    "y": 3769,
+    "category": "rooms",
+    "frames": [
+      51
+    ],
+    "native_exit_frames": [
+      35
+    ],
+    "id": 36
+  },
+  "world_of_warcraft": {
+    "frame": 53,
+    "x": 50,
+    "y": 330,
+    "category": "rooms",
+    "frames": [
+      53
+    ],
+    "native_exit_frames": [
+      54,
+      29
+    ],
+    "id": 37
+  },
+  "ninja_gaiden_after_ryu": {
+    "frame": 31,
+    "x": 5169,
+    "y": 205,
+    "category": "rooms",
+    "segment": "after_ninja_ryu",
+    "label": "Ninja Gaiden \u00b7 nach Ryu",
+    "frames": [
+      31
+    ],
+    "native_exit_frames": [
+      32
+    ],
+    "id": 38
+  },
+  "green_greens_after_kracko": {
+    "frame": 5,
+    "x": 3890,
+    "y": 300,
+    "category": "rooms",
+    "segment": "after_kracko",
+    "label": "Green Greens \u00b7 nach Kracko",
+    "frames": [
+      5
+    ],
+    "native_exit_frames": [
+      6
+    ],
+    "id": 39
+  },
+  "cheetahmen_ii": {
+    "frame": 8,
+    "x": 30,
+    "y": 30,
+    "category": "rooms",
+    "frames": [
+      8
+    ],
+    "native_exit_frames": [
+      10,
+      37
+    ],
+    "id": 40
+  },
+  "vvvvvv_before_gravitron": {
+    "frame": 11,
+    "x": 35,
+    "y": 140,
+    "category": "rooms",
+    "segment": "before_gravitron",
+    "label": "VVVVVV \u00b7 vor Gravitron",
+    "frames": [
+      11
+    ],
+    "native_exit_frames": [
+      12
+    ],
+    "id": 41
+  },
+  "wario": {
+    "frame": 13,
+    "x": 30,
+    "y": 1100,
+    "category": "rooms",
+    "frames": [
+      13
+    ],
+    "native_exit_frames": [
+      14
+    ],
+    "id": 42
+  },
+  "castlevania": {
+    "frame": 15,
+    "x": 30,
+    "y": 1300,
+    "category": "rooms",
+    "frames": [
+      15,
+      52
+    ],
+    "native_exit_frames": [
+      17,
+      39,
+      50
+    ],
+    "id": 43
+  },
+  "random_world_part_1": {
+    "frame": 22,
+    "x": 620,
+    "y": 1300,
+    "category": "rooms",
+    "segment": "random_world_part1",
+    "label": "Random World \u00b7 Teil 1",
+    "frames": [
+      22
+    ],
+    "native_exit_frames": [
+      23,
+      53
+    ],
+    "id": 44
+  }
+}

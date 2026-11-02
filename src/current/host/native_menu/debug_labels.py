@@ -1,0 +1,81 @@
+"""Diagnostic action and recording labels in every supported interface language."""
+
+TEXT = {
+    "note": (
+        "Was ist passiert?",
+        "What happened?",
+        "¿Qué ha ocurrido?",
+        "Что произошло?",
+        "何が起きましたか？",
+    ),
+    "record": (
+        "Aufzeichnung starten",
+        "Start recording",
+        "Iniciar registro",
+        "Начать запись",
+        "記録開始",
+    ),
+    "stop": (
+        "Aufzeichnung stoppen",
+        "Stop recording",
+        "Detener registro",
+        "Остановить запись",
+        "記録停止",
+    ),
+    "record_hint": (
+        "Max. 10 Minuten; Spielzustand, keine Videoaufnahme.",
+        "Up to 10 minutes of game state, not video.",
+        "Hasta 10 minutos de estado del juego, no vídeo.",
+        "До 10 минут состояния игры, не видео.",
+        "ゲーム状態を最大10分記録します。動画ではありません。",
+    ),
+    "actions": (
+        "Testkopie erstellen und starten",
+        "Create and start test copy",
+        "Crear e iniciar copia de prueba",
+        "Создать и запустить тестовую копию",
+        "テストコピーを作成して開始",
+    ),
+    "action_hint": (
+        "Erst mit F2 zum Titel. Der Originalspielstand bleibt erhalten; die Kopie wird als Testlauf markiert.",
+        "Return to title with F2 first. The original save is kept; the copy is marked as a test run.",
+        "Primero vuelve al título con F2. Se conserva la partida original; la copia se marca como prueba.",
+        "Сначала вернитесь к титулу через F2. Исходное сохранение остаётся, копия помечается как тест.",
+        "まずF2でタイトルへ。元のセーブを保持し、コピーをテストとして表示します。",
+    ),
+    "teleport": (
+        "Teleportieren",
+        "Teleport",
+        "Teletransportar",
+        "Телепорт",
+        "テレポート",
+    ),
+    "item": (
+        "Item vergeben",
+        "Grant item",
+        "Dar objeto",
+        "Выдать предмет",
+        "アイテム付与",
+    ),
+    "character": (
+        "Charakter freischalten",
+        "Unlock character",
+        "Desbloquear personaje",
+        "Открыть персонажа",
+        "キャラ解放",
+    ),
+    "restore": (
+        "Originalspielstand fortsetzen",
+        "Resume original save",
+        "Continuar partida original",
+        "Продолжить исходную игру",
+        "元のセーブを続行",
+    ),
+    "unavailable": (
+        "Aktion nicht möglich. Mit F2 zurückkehren und einen laufenden Spielstand auswählen.",
+        "Action unavailable. Return with F2 and select an unfinished save.",
+        "Acción no disponible. Vuelve con F2 y selecciona una partida sin terminar.",
+        "Недоступно. Вернитесь через F2 и выберите незавершённое сохранение.",
+        "実行できません。F2で戻り、未クリアのセーブを選択してください。",
+    ),
+}

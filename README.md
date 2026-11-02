@@ -14,9 +14,9 @@
 
 Boshy’s worlds and bosses in a new order, with surprises in every chest. Build your run and share it with friends.
 
-> **First final release · in preparation**
+> **1.0.0 · First release**
 >
-> The first final release is coming soon. Here’s a first look.
+> Boshy Randomizer 1.0.0 is here. Pick your mode, share a seed and jump in.
 
 ![Different worlds. Different sprites. Still Boshy.](site/media/worlds-sprites.gif)
 
@@ -79,7 +79,7 @@ Mouse or keyboard · Windowed or fullscreen with F4 · Classic 4:3 or stretched 
 
 ## Choose your platform
 
-**Windows (.exe) · Linux (.deb) — Coming soon**
+[Windows (.exe)](https://github.com/THXel/Boshy-Randomizer/releases/download/v1.0.0/BoshyRandomizer-Setup-1.0.0.exe) · [Linux (.deb)](https://github.com/THXel/Boshy-Randomizer/releases/download/v1.0.0/boshy-randomizer_1.0.0-1_amd64.deb) · [Release 1.0.0](https://github.com/THXel/Boshy-Randomizer/releases/tag/v1.0.0) · [SHA-256](https://github.com/THXel/Boshy-Randomizer/releases/download/v1.0.0/SHA256SUMS)
 
 Bring your own Boshy folder or ZIP. The original game is not included. [Download the original I Wanna Be The Boshy from Grynsoft](https://grynsoft.com/site/game/i-wanna-be-the-boshy)
 
@@ -104,14 +104,14 @@ Open the diagnostics in the game menu and include the mode, seed and a descripti
 <details>
 <summary>Who has tested the randomizer?</summary>
 
-THXel is the only playtester so far. Final testing for the first release is underway.
+Playtested by THXel on Windows 11 and Linux Mint.
 
 </details>
 
 <details>
-<summary>When can I download it?</summary>
+<summary>Which download do I need?</summary>
 
-The first final release is being prepared. Windows Setup and Linux DEB will appear here once it is ready. No release date is confirmed.
+Choose Windows Setup for Windows or the DEB for Linux Mint / Ubuntu. You will also need your own original Boshy ZIP or folder.
 
 </details>
 

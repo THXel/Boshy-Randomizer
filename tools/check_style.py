@@ -20,7 +20,16 @@ def native_sources():
 
 def main():
     subprocess.run(
-        ['black', '--check', 'src', 'tests', 'tools', 'packaging'],
+        [
+            'black',
+            '--check',
+            '--force-exclude',
+            r'/src/current/',
+            'src',
+            'tests',
+            'tools',
+            'packaging',
+        ],
         cwd=ROOT,
         check=True,
     )

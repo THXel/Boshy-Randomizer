@@ -8,6 +8,10 @@ import hashlib
 R = Path(__file__).resolve().parents[1]
 DATA = json.loads((R / "site/content.json").read_text())
 GH = "https://github.com/THXel/Boshy-Randomizer"
+RELEASE = GH + "/releases/tag/v1.0.0"
+DOWNLOAD = GH + "/releases/download/v1.0.0/"
+WINDOWS = DOWNLOAD + "BoshyRandomizer-Setup-1.0.0.exe"
+LINUX = DOWNLOAD + "boshy-randomizer_1.0.0-1_amd64.deb"
 GAME = "https://grynsoft.com/site/game/i-wanna-be-the-boshy"
 
 
@@ -25,9 +29,9 @@ def render(lang, d):
     )
     w = d["web"]
     updates = json.loads((R / "site/updates.json").read_text())
-    preview = updates["preview"]
-    preview_copy = preview["locales"][lang]
-    presentation = preview_copy["presentation"]
+    release = updates["release"]
+    release_copy = release["locales"][lang]
+    presentation = release_copy["presentation"]
     languages = "".join(
         f'<a href="{prefix+("index.html" if code=="en" else "site/"+code+"/index.html")}" lang="{code}" hreflang="{code}" {"aria-current=\"page\"" if code==lang else ""}>{e(v["name"])}</a>'
         for code, v in DATA.items()
@@ -37,7 +41,7 @@ def render(lang, d):
         for k, v in zip(("modes", "features", "gallery", "download"), d["nav"])
     )
     nav = f'<a href="#development">{e(presentation["nav"])}</a>' + nav
-    buttons = f'<a class="button primary" href="#download">Windows · {e(preview_copy["soon"])}</a><a class="button secondary" href="#download">Linux · {e(preview_copy["soon"])}</a>'
+    buttons = f'<a class="button primary" href="{WINDOWS}">Windows · {e(release_copy["action"])}</a><a class="button secondary" href="{LINUX}">Linux · {e(release_copy["action"])}</a>'
 
     def mascot(color):
         file, alt, size = (
@@ -126,11 +130,11 @@ def render(lang, d):
 <a class="skip" href="#main">{e(d['nav'][1])}</a>
 <header class="header"><a class="brand" href="#"><img src="{assets('Custom/boshy_randomizer.png')}" alt="Boshy Randomizer" width="180" height="72"></a><nav aria-label="Main">{nav}</nav><a class="github" href="{GH}">GitHub ↗</a></header><nav class="language-top wrap languages" aria-label="Language">{languages}</nav>
 <main id="main">
-<section class="hero wrap"><div class="hero-copy"><div class="eyebrow">FAN PROJECT · WINDOWS + LINUX</div><h1>{e(d['title'])}</h1><p class="tagline">{e(d['tagline'])}</p><p class="intro">{e(d['intro'])}</p><p class="release-label">{e(preview_copy["download"])}</p><div class="actions">{buttons}</div><p class="preview-link"><a href="#development">{e(preview_copy["status"])} →</a></p><p class="fine">{e(d['game'])}</p><p class="original-game"><a href="{GAME}">{e(d['gameDownload'])} ↗</a></p><a class="text-link" href="#quickstart">{e(w['quick'])} →</a></div>
+<section class="hero wrap"><div class="hero-copy"><div class="eyebrow">FAN PROJECT · WINDOWS + LINUX</div><h1>{e(d['title'])}</h1><p class="tagline">{e(d['tagline'])}</p><p class="intro">{e(d['intro'])}</p><p class="release-label">{e(release_copy["download"])}</p><div class="actions">{buttons}</div><p class="preview-link"><a href="#development">{e(release_copy["status"])} →</a></p><p class="fine">{e(d['game'])}</p><p class="original-game"><a href="{GAME}">{e(d['gameDownload'])} ↗</a></p><a class="text-link" href="#quickstart">{e(w['quick'])} →</a></div>
 <div class="hero-cast">{mascot('yellow')}</div>
 <div class="hero-media motion-player"><div class="screen-bar"><span>● ● ●</span><span>I WANNA BE THE BOSHY</span></div><video class="hero-video" width="880" height="660" muted loop playsinline preload="metadata" poster="{assets('site/media/worlds-sprites.png')}" aria-label="{e(d['showcase']['worlds'])}"><source src="{assets('site/media/worlds-sprites.mp4')}" type="video/mp4"></video><div class="screen-bottom"><span>RANDOMIZER EDITION</span><button type="button" class="media-toggle enhanced-only" data-play="{e(w['play'])}" data-pause="{e(w['pause'])}">{e(w['play'])}</button></div></div></section>
 <div class="ribbon"><span>5 MODES</span><span>3 SAVE SLOTS</span><span>SHARE YOUR SEED</span><span>MAKE IT YOUR RUN</span></div>
-<section id="development" class="wrap section development" aria-labelledby="development-title"><div class="section-heading"><span class="eyebrow">{e(preview_copy['status'])}</span><h2 id="development-title">{e(preview_copy['title'])}</h2><p class="preview-notice">{e(preview_copy['notice'])}</p></div><div class="current-screenshots"><p>{e(presentation['shotnote'])}</p><div class="gallery">{current_screenshots}</div></div></section>
+<section id="development" class="wrap section development" aria-labelledby="development-title"><div class="section-heading"><span class="eyebrow">{e(release_copy['status'])}</span><h2 id="development-title">{e(release_copy['title'])}</h2><p class="preview-notice">{e(release_copy['notice'])}</p></div><div class="current-screenshots"><p>{e(presentation['shotnote'])}</p><div class="gallery">{current_screenshots}</div></div></section>
 <section id="modes" class="wrap section"><div class="section-heading"><span class="eyebrow">01 / PLAY</span><h2>{e(d['play'])}</h2></div>
 <div class="mode-picker"><h3>{e(w['chooser'])}</h3><ol class="mode-recommendations">{advice}</ol></div>
 </section>
@@ -139,7 +143,7 @@ def render(lang, d):
 <section class="spotlight"><div class="wrap split"><div><span class="eyebrow">NEW LOOK · SAME BOSHY</span><h2>{e(d['visualTitle'])}</h2><p>{e(d['visual'])}</p></div><div class="audio"><h3>{e(d['shotsTitle'])}</h3><p>{e(d['shots'])}</p><p>{e(d['music'])}</p></div></div></section>
 <section class="wrap section hacks"><div class="section-heading"><span class="eyebrow">03 / ADVANCED</span><h2>{e(d['hacksTitle'])}</h2><p>{e(d['hacksIntro'])}</p></div><ul class="chips">{hacks}</ul><div class="comfort"><h3>{e(d['controlsTitle'])}</h3><ul>{controls}</ul></div></section>
 <section id="gallery" class="wrap section"><div class="section-heading"><span class="eyebrow">04 / IN GAME</span><h2>{e(d['galleryTitle'])}</h2><p>{e(w['galleryhelp'])}</p></div><div class="gallery">{gallery}</div></section>
-<section id="download" class="download"><div class="wrap"><div class="download-heading"><div><span class="eyebrow">05 / YOUR NEXT RUN</span><h2>{e(d['download'])}</h2><p class="release-label">{e(preview_copy["download"])}</p></div>{mascot('dark')}</div><div class="download-grid"><article><h3>Windows</h3><p>{e(d['preview'])}</p><span class="button primary coming-soon">{e(preview_copy["soon"])}</span></article><article><h3>Linux</h3><p>{e(d['linuxnote'])}</p><span class="button secondary coming-soon">{e(preview_copy["soon"])}</span></article></div><p class="fine">{e(d['game'])}</p><p class="original-game"><a href="{GAME}">{e(d['gameDownload'])} ↗</a></p><h3 id="quickstart" class="start-title">{e(w['quick'])}</h3><p class="install-note">{e(presentation["installnote"])}</p><div class="install-guides">{installation}</div><p class="preserve">{e(d['preserve'])}</p></div></section>
+<section id="download" class="download"><div class="wrap"><div class="download-heading"><div><span class="eyebrow">05 / YOUR NEXT RUN</span><h2>{e(d['download'])}</h2><p class="release-label">{e(release_copy["download"])}</p></div>{mascot('dark')}</div><div class="download-grid"><article><h3>Windows</h3><p>{e(d['windowsnote'])}</p><a class="button primary" href="{WINDOWS}">{e(release_copy["action"])} .exe</a></article><article><h3>Linux</h3><p>{e(d['linuxnote'])}</p><a class="button secondary" href="{LINUX}">{e(release_copy["action"])} .deb</a></article></div><p class="fine">{e(d['game'])}</p><p class="original-game"><a href="{GAME}">{e(d['gameDownload'])} ↗</a></p><h3 id="quickstart" class="start-title">{e(w['quick'])}</h3><p class="install-note">{e(presentation["installnote"])}</p><div class="install-guides">{installation}</div><p class="preserve">{e(d['preserve'])}</p></div></section>
 <section class="wrap section faq"><div><span class="eyebrow">06 / SUPPORT</span><h2>{e(d['faqTitle'])}</h2></div><div>{faq}</div></section>
 <section class="wrap feedback"><div><h2>{e(w['feedback'])}</h2><p>{e(w['feedbackintro'])}</p><p>{e(w['debug'])}</p><a class="button primary" href="{issue}">{e(w['report'])} ↗</a></div><div class="report-template"><label for="report-template">{e(w['copy'])}</label><textarea id="report-template" rows="12" readonly spellcheck="false">{e(w['template'].replace(chr(92)+'n',chr(10)))}</textarea><button type="button" class="button secondary enhanced-only" id="copy-report" data-success="{e(w['copied'])}" data-fallback="{e(w['copyfallback'])}">{e(w['copy'])}</button><p id="copy-status" role="status"></p></div></section>
 </main>
@@ -160,7 +164,7 @@ def readme(lang, d, root=False):
     site = "https://thxel.github.io/Boshy-Randomizer/" + (
         "" if lang == "en" else "site/" + lang + "/"
     )
-    preview = json.loads((R / "site/updates.json").read_text())["preview"]["locales"][
+    release = json.loads((R / "site/updates.json").read_text())["release"]["locales"][
         lang
     ]
     c = d["showcase"]
@@ -180,9 +184,9 @@ def readme(lang, d, root=False):
 
 {d['intro']}
 
-> **{preview['download']}**
+> **{release['download']}**
 >
-> {preview['notice']}
+> {release['notice']}
 
 ![{c['worlds']}]({pre}site/media/worlds-sprites.gif)
 
@@ -208,7 +212,7 @@ def readme(lang, d, root=False):
         + "\n"
     )
     s += f"\n## {d['controlsTitle']}\n\n" + " · ".join(d['controls']) + "\n"
-    s += f"\n## {d['download']}\n\n**Windows (.exe) · Linux (.deb) — {preview['soon']}**\n\n{d['game']} [{d['gameDownload']}]({GAME})\n\n{d['preserve']}\n"
+    s += f"\n## {d['download']}\n\n[Windows (.exe)]({WINDOWS}) · [Linux (.deb)]({LINUX}) · [Release 1.0.0]({RELEASE}) · [SHA-256]({DOWNLOAD}SHA256SUMS)\n\n{d['game']} [{d['gameDownload']}]({GAME})\n\n{d['preserve']}\n"
     s += f"\n## {d['faqTitle']}\n\n"
     for q, answer in d['faq']:
         s += f"<details>\n<summary>{q}</summary>\n\n{answer}\n\n</details>\n\n"

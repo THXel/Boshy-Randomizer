@@ -14,9 +14,9 @@
 
 Boshys Welten und Bosse in neuer Reihenfolge, Überraschungen in jeder Truhe. Stell dir deinen Lauf zusammen und teile ihn mit Freunden.
 
-> **Erste finale Version · in Vorbereitung**
+> **1.0.0 · Erste Veröffentlichung**
 >
-> Die erste finale Version kommt bald. Hier bekommst du schon einen Vorgeschmack.
+> Boshy Randomizer 1.0.0 ist da. Wähle deinen Modus, teile einen Seed und leg los.
 
 ![Andere Welten. Andere Sprites. Immer noch Boshy.](../site/media/worlds-sprites.gif)
 
@@ -79,7 +79,7 @@ Maus oder Tastatur · Fenster oder Vollbild mit F4 · Klassisch 4:3 oder gestrec
 
 ## Wähle deine Plattform
 
-**Windows (.exe) · Linux (.deb) — Bald verfügbar**
+[Windows (.exe)](https://github.com/THXel/Boshy-Randomizer/releases/download/v1.0.0/BoshyRandomizer-Setup-1.0.0.exe) · [Linux (.deb)](https://github.com/THXel/Boshy-Randomizer/releases/download/v1.0.0/boshy-randomizer_1.0.0-1_amd64.deb) · [Release 1.0.0](https://github.com/THXel/Boshy-Randomizer/releases/tag/v1.0.0) · [SHA-256](https://github.com/THXel/Boshy-Randomizer/releases/download/v1.0.0/SHA256SUMS)
 
 Du brauchst deinen eigenen Boshy-Ordner oder eine ZIP. Das Originalspiel ist nicht enthalten. [I Wanna Be The Boshy bei Grynsoft herunterladen](https://grynsoft.com/site/game/i-wanna-be-the-boshy)
 
@@ -104,14 +104,14 @@ Ja. Öffne den eingebauten LiveTracker im Spielmenü und nutze ihn im Browser od
 <details>
 <summary>Wer hat den Randomizer bisher getestet?</summary>
 
-Bisher hat THXel den Randomizer allein getestet. Die letzten Tests vor der ersten finalen Version laufen.
+Von THXel unter Windows 11 und Linux Mint getestet.
 
 </details>
 
 <details>
-<summary>Wann kann ich ihn herunterladen?</summary>
+<summary>Welchen Download brauche ich?</summary>
 
-Die erste finale Version wird vorbereitet. Sobald sie fertig ist, stehen hier Windows-Setup und Linux-DEB bereit. Ein Veröffentlichungstermin steht noch nicht fest.
+Für Windows nimmst du das Setup, für Linux Mint / Ubuntu die DEB. Dazu brauchst du deine eigene originale Boshy-ZIP oder deinen Spielordner.
 
 </details>
 

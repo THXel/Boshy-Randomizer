@@ -1,15 +1,15 @@
 {
-  "preview": {
-    "version": "first-final-in-preparation",
-    "date": "2026-10-30",
+  "release": {
+    "version": "1.0.0",
+    "date": "2026-11-02",
     "locales": {
       "en": {
         "title": "Take a look",
-        "status": "First final release coming soon",
-        "notice": "The first final release is coming soon. Here’s a first look.",
-        "download": "First final release · in preparation",
+        "status": "First release",
+        "notice": "Boshy Randomizer 1.0.0 is here. Pick your mode, share a seed and jump in.",
+        "download": "1.0.0 · First release",
         "presentation": {
-          "nav": "Preview",
+          "nav": "In the game",
           "shots": "Take a look",
           "shotnote": "Build your run, pick your targets and make Boshy your own.",
           "captions": [
@@ -17,7 +17,7 @@
             "Target Select: choose your goals and check them in-game",
             "Options: language, music and display"
           ],
-          "installnote": "For the first final release: you will need your own original Boshy ZIP or folder. The game itself is not included.",
+          "installnote": "Bring your own Boshy folder or ZIP. The original game is not included.",
           "windowssteps": [
             [
               "Install",
@@ -47,15 +47,15 @@
             ]
           ]
         },
-        "soon": "Coming soon"
+        "action": "Download"
       },
       "de": {
         "title": "So sieht’s aus",
-        "status": "Kurz vor der ersten finalen Version",
-        "notice": "Die erste finale Version kommt bald. Hier bekommst du schon einen Vorgeschmack.",
-        "download": "Erste finale Version · in Vorbereitung",
+        "status": "Erste Veröffentlichung",
+        "notice": "Boshy Randomizer 1.0.0 ist da. Wähle deinen Modus, teile einen Seed und leg los.",
+        "download": "1.0.0 · Erste Veröffentlichung",
         "presentation": {
-          "nav": "Vorschau",
+          "nav": "Im Spiel",
           "shots": "So sieht’s aus",
           "shotnote": "Stell deinen Run zusammen, wähle deine Ziele und leg los.",
           "captions": [
@@ -63,7 +63,7 @@
             "Target Select: Ziele wählen und direkt im Spiel nachsehen",
             "Optionen: Sprache, Musik und Darstellung"
           ],
-          "installnote": "Für die erste finale Version brauchst du deine eigene originale Boshy-ZIP oder deinen Spielordner. Das Originalspiel wird nicht mitgeliefert.",
+          "installnote": "Du brauchst deinen eigenen Boshy-Ordner oder eine ZIP. Das Originalspiel ist nicht enthalten.",
           "windowssteps": [
             [
               "Installieren",
@@ -93,15 +93,15 @@
             ]
           ]
         },
-        "soon": "Bald verfügbar"
+        "action": "Herunterladen"
       },
       "es": {
         "title": "Así se ve",
-        "status": "La primera versión final está cerca",
-        "notice": "La primera versión final llegará pronto. Aquí tienes un adelanto.",
-        "download": "Primera versión final · en preparación",
+        "status": "Primer lanzamiento",
+        "notice": "Boshy Randomizer 1.0.0 ya está aquí. Elige un modo, comparte una semilla y empieza a jugar.",
+        "download": "1.0.0 · Primer lanzamiento",
         "presentation": {
-          "nav": "Vista previa",
+          "nav": "En el juego",
           "shots": "Así se ve",
           "shotnote": "Prepara tu partida, elige tus objetivos y empieza a jugar.",
           "captions": [
@@ -109,7 +109,7 @@
             "Target Select: elige objetivos y consúltalos en el juego",
             "Opciones: idioma, música y pantalla"
           ],
-          "installnote": "Para la primera versión final necesitarás tu propio ZIP o carpeta original de Boshy. El juego original no está incluido.",
+          "installnote": "Necesitas tu propia carpeta o ZIP de Boshy. El juego original no está incluido.",
           "windowssteps": [
             [
               "Instalar",
@@ -139,15 +139,15 @@
             ]
           ]
         },
-        "soon": "Próximamente"
+        "action": "Descargar"
       },
       "ru": {
         "title": "Вот как это выглядит",
-        "status": "Первый финальный выпуск уже близко",
-        "notice": "Первая финальная версия скоро выйдет. А пока — небольшой обзор.",
-        "download": "Первый финальный выпуск · в подготовке",
+        "status": "Первый выпуск",
+        "notice": "Boshy Randomizer 1.0.0 уже здесь. Выбирай режим, делись сидом и начинай играть.",
+        "download": "1.0.0 · Первый выпуск",
         "presentation": {
-          "nav": "Посмотреть",
+          "nav": "В игре",
           "shots": "Вот как это выглядит",
           "shotnote": "Настрой забег, выбери цели и начинай играть.",
           "captions": [
@@ -155,7 +155,7 @@
             "Target Select: выбор целей и список прямо в игре",
             "Настройки: язык, музыка и экран"
           ],
-          "installnote": "Для первого финального выпуска понадобится ваш оригинальный ZIP или папка Boshy. Оригинальная игра не включена.",
+          "installnote": "Нужна собственная папка Boshy или ZIP. Оригинальная игра не включена.",
           "windowssteps": [
             [
               "Установка",
@@ -185,15 +185,15 @@
             ]
           ]
         },
-        "soon": "Скоро"
+        "action": "Скачать"
       },
       "ja": {
         "title": "こんな見た目に",
-        "status": "初の正式版公開まであと少し",
-        "notice": "初の正式版を近日公開予定。まずは少しだけご紹介。",
-        "download": "初の正式版 · 準備中",
+        "status": "正式リリース",
+        "notice": "Boshy Randomizer 1.0.0が登場。モードを選び、シードを共有して冒険へ。",
+        "download": "1.0.0 · 正式リリース",
         "presentation": {
-          "nav": "プレビュー",
+          "nav": "ゲーム紹介",
           "shots": "こんな見た目に",
           "shotnote": "ランを設定し、目標を選んで冒険へ。",
           "captions": [
@@ -201,7 +201,7 @@
             "Target Select：目標を選び、ゲーム内で確認",
             "オプション：言語、音楽、画面設定"
           ],
-          "installnote": "初の正式版には、元のBoshyのZIPまたはゲームフォルダーが必要です。元のゲーム本体は同梱されません。",
+          "installnote": "自分のBoshyフォルダーまたはZIPが必要です。ゲーム本体は含まれません。",
           "windowssteps": [
             [
               "インストール",
@@ -231,7 +231,7 @@
             ]
           ]
         },
-        "soon": "近日公開"
+        "action": "ダウンロード"
       }
     }
   }

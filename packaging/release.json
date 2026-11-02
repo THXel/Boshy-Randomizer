@@ -1,8 +1,22 @@
 {
-  "tag": "v2026.10.23.1",
-  "title": "Boshy, Reborn — verified Windows 11 update and menu translations",
-  "version": "2026.10.23.1",
-  "windows_file": "BoshyRandomizer-2026.10.23.1-Windows-Setup-x64.exe",
-  "linux_file": "boshy-randomizer_2026.10.23.1-1_amd64.deb",
-  "notes": "docs/RELEASE_2026_10_23_1.md"
+  "tag": "v1.0.0",
+  "title": "Boshy Randomizer 1.0.0",
+  "version": "1.0.0",
+  "windows_file": "BoshyRandomizer-Setup-1.0.0.exe",
+  "linux_file": "boshy-randomizer_1.0.0-1_amd64.deb",
+  "notes": "docs/RELEASE_1_0_0.md",
+  "assets": {
+    "BoshyRandomizer-Setup-1.0.0.exe": {
+      "sha256": "5b8f3f0b081ee94110e4a4fb9f5dae2cac2a341472cd86a351919e02ec38772f",
+      "bytes": 224611610
+    },
+    "boshy-randomizer_1.0.0-1_amd64.deb": {
+      "sha256": "6661729a3e0ad1f1f5766af24847d0ac51e5c1504b40ab3a05710b042db3b835",
+      "bytes": 224245648
+    },
+    "SHA256SUMS": {
+      "sha256": "85b365ab7dbbae357f4c0caae0a743185d67dadef670cbdc09846065a19de138",
+      "bytes": 199
+    }
+  }
 }

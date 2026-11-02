@@ -1,0 +1,236 @@
+{
+  "rooms": {
+    "prehistorik": {
+      "frame": "3",
+      "xPos": "30",
+      "yPos": "40"
+    },
+    "green_greens_before_kracko": {
+      "frame": "5",
+      "xPos": "30",
+      "yPos": "1850"
+    },
+    "cheetahmen_ii": {
+      "frame": "8",
+      "xPos": "30",
+      "yPos": "30"
+    },
+    "vvvvvv_before_gravitron": {
+      "frame": "11",
+      "xPos": "35",
+      "yPos": "140"
+    },
+    "vvvvvv_checkpoint": {
+      "frame": "11",
+      "xPos": "1800",
+      "yPos": "665"
+    },
+    "wario": {
+      "frame": "13",
+      "xPos": "30",
+      "yPos": "1100"
+    },
+    "castlevania": {
+      "frame": "15",
+      "xPos": "30",
+      "yPos": "1300"
+    },
+    "kid_icarus_upper_checkpoint": {
+      "frame": "27",
+      "xPos": "1824",
+      "yPos": "6363"
+    },
+    "random_world_part_1": {
+      "frame": "22",
+      "xPos": "620",
+      "yPos": "1300"
+    },
+    "random_world_part_2": {
+      "frame": "23",
+      "xPos": "20",
+      "yPos": "1650"
+    },
+    "mega_man_world": {
+      "frame": "25",
+      "xPos": "1020",
+      "yPos": "220"
+    },
+    "kid_icarus_before_miniboss": {
+      "frame": "27",
+      "xPos": "700",
+      "yPos": "8550"
+    },
+    "ninja_gaiden_before_ryu": {
+      "frame": "31",
+      "xPos": "30",
+      "yPos": "400"
+    },
+    "secret_mario": {
+      "frame": "33",
+      "xPos": "750",
+      "yPos": "300"
+    },
+    "desert": {
+      "frame": "35",
+      "xPos": "50",
+      "yPos": "445"
+    },
+    "justin_tv_before_kappa": {
+      "frame": "37",
+      "xPos": "50",
+      "yPos": "3000"
+    },
+    "terranigma_final_path": {
+      "frame": "38",
+      "xPos": "1250",
+      "yPos": "8550"
+    },
+    "pokemon": {
+      "frame": "50",
+      "xPos": "300",
+      "yPos": "260"
+    },
+    "tower": {
+      "frame": "51",
+      "xPos": "319",
+      "yPos": "3769"
+    },
+    "world_of_warcraft": {
+      "frame": "53",
+      "xPos": "50",
+      "yPos": "330"
+    },
+    "ninja_gaiden_after_ryu": {
+      "frame": "31",
+      "xPos": "5169",
+      "yPos": "205"
+    },
+    "green_greens_after_kracko": {
+      "frame": "5",
+      "xPos": "3890",
+      "yPos": "300"
+    }
+  },
+  "bosses": {
+    "hello_kitty": {
+      "frame": "4",
+      "xPos": "1963",
+      "yPos": "328"
+    },
+    "kracko": {
+      "frame": "5",
+      "xPos": "3400",
+      "yPos": "300"
+    },
+    "king_dedede": {
+      "frame": "6",
+      "xPos": "3400",
+      "yPos": "300"
+    },
+    "ryu": {
+      "frame": "7",
+      "xPos": "1400",
+      "yPos": "400"
+    },
+    "gastly_encounter": {
+      "frame": "9",
+      "xPos": "1400",
+      "yPos": "400"
+    },
+    "mario": {
+      "frame": "10",
+      "xPos": "1400",
+      "yPos": "400"
+    },
+    "gravitron": {
+      "frame": "11",
+      "xPos": "2700",
+      "yPos": "1600"
+    },
+    "biollante": {
+      "frame": "12",
+      "xPos": "2700",
+      "yPos": "1600"
+    },
+    "sonic": {
+      "frame": "14",
+      "xPos": "2900",
+      "yPos": "1600"
+    },
+    "gradius": {
+      "frame": "15",
+      "xPos": "5175",
+      "yPos": "1360"
+    },
+    "skeleton_king": {
+      "frame": "17",
+      "xPos": "850",
+      "yPos": "190"
+    },
+    "mega_man": {
+      "frame": "24",
+      "xPos": "850",
+      "yPos": "190"
+    },
+    "shang_tsung": {
+      "frame": "26",
+      "xPos": "850",
+      "yPos": "190"
+    },
+    "kid_icarus_encounter_checkpoint": {
+      "frame": "27",
+      "xPos": "770",
+      "yPos": "6600"
+    },
+    "bomberman": {
+      "frame": "28",
+      "xPos": "770",
+      "yPos": "6600"
+    },
+    "ryu_dodge": {
+      "frame": "31",
+      "xPos": "4500",
+      "yPos": "250"
+    },
+    "missingno": {
+      "frame": "32",
+      "xPos": "4500",
+      "yPos": "250"
+    },
+    "kappa_encounter_checkpoint": {
+      "frame": "37",
+      "xPos": "2150",
+      "yPos": "1860"
+    },
+    "questionmark": {
+      "frame": "44",
+      "xPos": "100",
+      "yPos": "100"
+    },
+    "ridley": {
+      "frame": "45",
+      "xPos": "100",
+      "yPos": "100"
+    },
+    "cheetahman": {
+      "frame": "54",
+      "xPos": "159",
+      "yPos": "425"
+    },
+    "ganon": {
+      "frame": "59",
+      "xPos": "100",
+      "yPos": "100"
+    },
+    "old_sonic": {
+      "frame": "60",
+      "xPos": "100",
+      "yPos": "100"
+    },
+    "solgryn": {
+      "frame": "30",
+      "xPos": "770",
+      "yPos": "6600"
+    }
+  }
+}
