@@ -211,26 +211,10 @@ def transform(frame, sections, objects, instances):
                 rows[ri] = event(row, conds, acts)
                 removed += 1
     if frame != 20:
-        if windows and any(i["objectInfo"] == INI for i in instances):
-            assert len(windows) == 1
-            window = next(iter(windows))
-            e = Events(result, low=0xB800, high=0xC000)
-            rows = []
-            for aspect in (0, 1):
-                for index, height in enumerate(HEIGHTS):
-                    rows.append(
-                        e.row(
-                            [
-                                e.start(),
-                                e.cmp(read("DisplayConfigured"), integer(1)),
-                                e.cmp(read("DisplayFullscreen"), integer(0)),
-                                e.cmp(read("DisplayIndex"), integer(index)),
-                                e.cmp(read("DisplayAspect"), integer(aspect)),
-                            ],
-                            size_actions(window, WIDTHS[aspect][index], height),
-                        )
-                    )
-            result.append(rows)
+        # The host applies saved geometry once when opening the game. Room
+        # entry also runs after R, death and teleports, so resizing here would
+        # discard a player-dragged or maximized window on every reset. Only an
+        # explicit edit in Options (below), or F4 in the host, may resize it.
         return result, (
             [dict(frame=frame, legacy_resize_removed=removed)] if removed else []
         )

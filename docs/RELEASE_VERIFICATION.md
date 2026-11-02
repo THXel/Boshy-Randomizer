@@ -1,28 +1,29 @@
-# Version 1.0.0 verification
+# Version 1.0.1 verification
 
-Release date: 2026-11-02. Playtester: THXel.
+Verified on 2026-11-02.
 
-## Current package
+## Window-size correction
 
-- 489 maintained-runtime regression tests passed.
-- 29 game-free current-source checks passed.
-- Fresh isolated Windows Setup installation under Wine passed; all 2,167 application files and the patched game matched their expected SHA-256 values.
-- The main-menu release card and history were rendered from the installed package in all five languages.
-- DEB metadata and its embedded Windows Setup were checked. Debian epoch 1 ensures 1.0.0 upgrades the earlier date-numbered test packages.
-- The original game remains a required input. The package contains a patch, not a full original or patched game executable.
+The 1.0.0 package reproduced the reported problem: a 930 × 610 window returned to 640 × 480 after R. The correction removes saved-size actions from 52 room-start handlers. Explicit display choices still apply in Options; startup still loads the saved preference.
 
-## Gameplay evidence carried into this release
+The compiled executable was checked across all 61 frames. The image, font and sound banks match 1.0.0 byte for byte. Game SHA-256: `db20c6a0da6662ea348288ecf6512df82472bc8e6566d07ec148930a202389db`.
 
-The compiled game is identical to the final tested development build (SHA-256 `64d299bdcc30b5875d4a91159e49e64a10f74f79e7b2ec5b56b119e8cd88c4a8`). The final release changes host presentation, version metadata and installer packaging.
+## Installed-package checks
 
-On 2026-11-01, installed Windows 11 and Linux/Wine checks covered Tower arrival and three resets each without jumping, plus menu, item, character and restoration checks. Cheetahman's opening movement was compared with the original, including the corrected One-Hit behaviour. The internal tracker and personal adapter reported menu, Target Select, death/reset and Normal mode correctly.
+The exact 1.0.1 Windows Setup was installed in Windows 11 and in an isolated Wine installation on Linux. Both installations verified all 2,167 payload files and the reconstructed game hash.
+
+Each platform passed 27 recorded checkpoints covering native window resizing, five R resets, death/retry, maximization with three resets, F2, Options-room entry/exit, explicit 4:3 and 16:9 resolution selection, F4 fullscreen with three resets, and saved resolution after restarting the application. Window geometry was set through the native window API; game/menu navigation used real key input. Game state was observed read-only.
+
+The installed main-menu card and history were rendered in all five languages. The DEB metadata, upgrade ordering and embedded installer hash were verified.
+
+## Automated checks
+
+- 491 maintained-runtime tests passed, including the new regression covering all room transforms.
+- 29 game-free current-source tests passed.
+- 15 repository tooling tests and source formatting passed.
 
 ## Boundaries
 
 These checks do not establish that every seed, route or boss combination has been completed. Full natural victory/exit checks remain incomplete for Skeleton King, Mega Man, Shang Tsung, Bomberman, Ryu Dodge, Cheetahman, King Dedede and Kid Icarus. The personal OBS display itself was not verified in the final tracker check because its local service endpoint was unavailable.
 
-The exact 1.0.0 installer was tested under Wine; its native Windows gameplay baseline is the identical game build tested on 2026-11-01. No new native Windows 1.0.0 installer test is claimed.
-
-## Publication
-
-The release manifest lists the exact EXE, DEB and SHA256SUMS assets. The publication workflow only accepts an existing reviewed draft whose tag matches the workflow commit and whose downloaded asset hashes and sizes match that manifest. It does not rebuild the earlier runtime or replace an already published release.
+The live window regression uses representative gameplay plus menu/Options transitions. It does not claim a fresh complete playthrough of every room. Earlier gameplay evidence is recorded in the [1.0.0 verification record](https://github.com/THXel/Boshy-Randomizer/blob/v1.0.0/docs/RELEASE_VERIFICATION.md).

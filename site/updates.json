@@ -1,13 +1,13 @@
 {
   "release": {
-    "version": "1.0.0",
+    "version": "1.0.1",
     "date": "2026-11-02",
     "locales": {
       "en": {
         "title": "Take a look",
-        "status": "First release",
-        "notice": "Boshy Randomizer 1.0.0 is here. Pick your mode, share a seed and jump in.",
-        "download": "1.0.0 · First release",
+        "status": "Version 1.0.1",
+        "notice": "Your window stays the size you choose, even when you reset or change rooms.",
+        "download": "Version 1.0.1",
         "presentation": {
           "nav": "In the game",
           "shots": "Take a look",
@@ -51,9 +51,9 @@
       },
       "de": {
         "title": "So sieht’s aus",
-        "status": "Erste Veröffentlichung",
-        "notice": "Boshy Randomizer 1.0.0 ist da. Wähle deinen Modus, teile einen Seed und leg los.",
-        "download": "1.0.0 · Erste Veröffentlichung",
+        "status": "Version 1.0.1",
+        "notice": "Dein Fenster behält seine Größe – auch beim Reset und Raumwechsel.",
+        "download": "Version 1.0.1",
         "presentation": {
           "nav": "Im Spiel",
           "shots": "So sieht’s aus",
@@ -97,9 +97,9 @@
       },
       "es": {
         "title": "Así se ve",
-        "status": "Primer lanzamiento",
-        "notice": "Boshy Randomizer 1.0.0 ya está aquí. Elige un modo, comparte una semilla y empieza a jugar.",
-        "download": "1.0.0 · Primer lanzamiento",
+        "status": "Versión 1.0.1",
+        "notice": "La ventana conserva el tamaño que elijas, incluso al reiniciar o cambiar de sala.",
+        "download": "Versión 1.0.1",
         "presentation": {
           "nav": "En el juego",
           "shots": "Así se ve",
@@ -143,9 +143,9 @@
       },
       "ru": {
         "title": "Вот как это выглядит",
-        "status": "Первый выпуск",
-        "notice": "Boshy Randomizer 1.0.0 уже здесь. Выбирай режим, делись сидом и начинай играть.",
-        "download": "1.0.0 · Первый выпуск",
+        "status": "Версия 1.0.1",
+        "notice": "Окно сохраняет выбранный размер при сбросе и переходе в другую комнату.",
+        "download": "Версия 1.0.1",
         "presentation": {
           "nav": "В игре",
           "shots": "Вот как это выглядит",
@@ -189,9 +189,9 @@
       },
       "ja": {
         "title": "こんな見た目に",
-        "status": "正式リリース",
-        "notice": "Boshy Randomizer 1.0.0が登場。モードを選び、シードを共有して冒険へ。",
-        "download": "1.0.0 · 正式リリース",
+        "status": "バージョン1.0.1",
+        "notice": "リセットや部屋移動の後も、ウィンドウは選んだサイズを維持します。",
+        "download": "バージョン1.0.1",
         "presentation": {
           "nav": "ゲーム紹介",
           "shots": "こんな見た目に",

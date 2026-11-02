@@ -14,9 +14,9 @@
 
 Boshy’s worlds and bosses in a new order, with surprises in every chest. Build your run and share it with friends.
 
-> **1.0.0 · First release**
+> **Version 1.0.1**
 >
-> Boshy Randomizer 1.0.0 is here. Pick your mode, share a seed and jump in.
+> Your window stays the size you choose, even when you reset or change rooms.
 
 ![Different worlds. Different sprites. Still Boshy.](site/media/worlds-sprites.gif)
 
@@ -79,7 +79,7 @@ Mouse or keyboard · Windowed or fullscreen with F4 · Classic 4:3 or stretched 
 
 ## Choose your platform
 
-[Windows (.exe)](https://github.com/THXel/Boshy-Randomizer/releases/download/v1.0.0/BoshyRandomizer-Setup-1.0.0.exe) · [Linux (.deb)](https://github.com/THXel/Boshy-Randomizer/releases/download/v1.0.0/boshy-randomizer_1.0.0-1_amd64.deb) · [Release 1.0.0](https://github.com/THXel/Boshy-Randomizer/releases/tag/v1.0.0) · [SHA-256](https://github.com/THXel/Boshy-Randomizer/releases/download/v1.0.0/SHA256SUMS)
+[Windows (.exe)](https://github.com/THXel/Boshy-Randomizer/releases/download/v1.0.1/BoshyRandomizer-Setup-1.0.1.exe) · [Linux (.deb)](https://github.com/THXel/Boshy-Randomizer/releases/download/v1.0.1/boshy-randomizer_1.0.1-1_amd64.deb) · [Release 1.0.1](https://github.com/THXel/Boshy-Randomizer/releases/tag/v1.0.1) · [SHA-256](https://github.com/THXel/Boshy-Randomizer/releases/download/v1.0.1/SHA256SUMS)
 
 Bring your own Boshy folder or ZIP. The original game is not included. [Download the original I Wanna Be The Boshy from Grynsoft](https://grynsoft.com/site/game/i-wanna-be-the-boshy)
 

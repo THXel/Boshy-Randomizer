@@ -39,7 +39,7 @@ ORIGINAL = Path(
 )
 SOUNDPACKS = Path(CONFIG.get("soundpacks", str(ORIGINAL.parents[1] / "soundpacks")))
 GAME = Path(
-    CONFIG.get("game", str(PREFIX / "drive_c/BoshyTransitions/Boshy-dynamic-v60.exe"))
+    CONFIG.get("game", str(PREFIX / "drive_c/BoshyTransitions/Boshy-dynamic-v61.exe"))
 )
 WINE = CONFIG.get(
     "wine",

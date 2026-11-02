@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.1
+
+- Manually resized and maximized windows retain their size when resetting or changing rooms. Display options still apply when selected.
+
 ## 1.0.0 — 2026-11-02
 
 The first release of Boshy Randomizer.

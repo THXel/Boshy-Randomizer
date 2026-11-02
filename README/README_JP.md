@@ -14,9 +14,9 @@
 
 Boshyのステージとボスをシャッフル。宝箱にも驚きが待っています。自分好みのランを作って、友達と共有しよう。
 
-> **1.0.0 · 正式リリース**
+> **バージョン1.0.1**
 >
-> Boshy Randomizer 1.0.0が登場。モードを選び、シードを共有して冒険へ。
+> リセットや部屋移動の後も、ウィンドウは選んだサイズを維持します。
 
 ![違う世界、違うスプライト。それでもBoshy。](../site/media/worlds-sprites.gif)
 
@@ -79,7 +79,7 @@ Boshyのステージとボスをシャッフル。宝箱にも驚きが待って
 
 ## プラットフォームを選択
 
-[Windows (.exe)](https://github.com/THXel/Boshy-Randomizer/releases/download/v1.0.0/BoshyRandomizer-Setup-1.0.0.exe) · [Linux (.deb)](https://github.com/THXel/Boshy-Randomizer/releases/download/v1.0.0/boshy-randomizer_1.0.0-1_amd64.deb) · [Release 1.0.0](https://github.com/THXel/Boshy-Randomizer/releases/tag/v1.0.0) · [SHA-256](https://github.com/THXel/Boshy-Randomizer/releases/download/v1.0.0/SHA256SUMS)
+[Windows (.exe)](https://github.com/THXel/Boshy-Randomizer/releases/download/v1.0.1/BoshyRandomizer-Setup-1.0.1.exe) · [Linux (.deb)](https://github.com/THXel/Boshy-Randomizer/releases/download/v1.0.1/boshy-randomizer_1.0.1-1_amd64.deb) · [Release 1.0.1](https://github.com/THXel/Boshy-Randomizer/releases/tag/v1.0.1) · [SHA-256](https://github.com/THXel/Boshy-Randomizer/releases/download/v1.0.1/SHA256SUMS)
 
 自分のBoshyフォルダーまたはZIPが必要です。ゲーム本体は含まれません。 [GrynsoftでI Wanna Be The Boshyをダウンロード](https://grynsoft.com/site/game/i-wanna-be-the-boshy)
 

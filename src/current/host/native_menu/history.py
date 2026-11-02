@@ -22,6 +22,16 @@ ENTRIES = (
     (
         "2026-11-02",
         (
+            "1.0.1: Fenstergröße bleibt beim Reset und Raumwechsel erhalten",
+            "1.0.1: Window size stays unchanged on resets and room changes",
+            "1.0.1: El tamaño de ventana se conserva al reiniciar y cambiar de sala",
+            "1.0.1: Размер окна сохраняется при сбросе и смене комнаты",
+            "1.0.1：リセットや部屋移動でもウィンドウサイズを維持",
+        ),
+    ),
+    (
+        "2026-11-02",
+        (
             "Version 1.0.0 – die erste Veröffentlichung",
             "Version 1.0.0 – the first release",
             "Versión 1.0.0 – primer lanzamiento",
@@ -119,40 +129,40 @@ def entries(language):
 
 TITLE_CARD = {
     "de": (
-        "BOSHY RANDOMIZER 1.0.0",
-        "02.11.2026 · Erste Veröffentlichung",
+        "BOSHY RANDOMIZER 1.0.1",
+        "02.11.2026 · Fenstergröße korrigiert",
         "Dein Run\n5 Modi · eigene Routen · Seeds teilen",
         "Dein Look\nSprites · Hintergründe · Schüsse",
         "Dein Sound\nOriginal · Undertale · eigene Packs",
         "Dein Fortschritt\nLiveTracker · Ziele direkt im Spiel",
     ),
     "en": (
-        "BOSHY RANDOMIZER 1.0.0",
-        "2026-11-02 · First release",
+        "BOSHY RANDOMIZER 1.0.1",
+        "2026-11-02 · Window size fix",
         "Your run\n5 modes · custom routes · share seeds",
         "Your look\nSprites · backgrounds · shots",
         "Your sound\nOriginal · Undertale · custom packs",
         "Your progress\nLiveTracker · in-game targets",
     ),
     "es": (
-        "BOSHY RANDOMIZER 1.0.0",
-        "02-11-2026 · Primer lanzamiento",
+        "BOSHY RANDOMIZER 1.0.1",
+        "02-11-2026 · Tamaño de ventana corregido",
         "Tu partida\n5 modos · rutas propias · semillas",
         "Tu estilo\nSprites · fondos · disparos",
         "Tu música\nOriginal · Undertale · packs",
         "Tu progreso\nLiveTracker · objetivos en el juego",
     ),
     "ru": (
-        "BOSHY RANDOMIZER 1.0.0",
-        "02.11.2026 · Первый выпуск",
+        "BOSHY RANDOMIZER 1.0.1",
+        "02.11.2026 · Исправлен размер окна",
         "Твой забег\n5 режимов · маршруты · общие сиды",
         "Твой стиль\nСпрайты · фоны · выстрелы",
         "Твоя музыка\nОригинал · Undertale · пакеты",
         "Твой прогресс\nLiveTracker · цели в игре",
     ),
     "ja": (
-        "BOSHY RANDOMIZER 1.0.0",
-        "2026-11-02 · 正式リリース",
+        "BOSHY RANDOMIZER 1.0.1",
+        "2026-11-02 · ウィンドウサイズを修正",
         "自分だけのラン\n5つのモード・ルート・シード共有",
         "自分だけの見た目\nスプライト・背景・弾",
         "自分だけの音楽\nオリジナル・Undertale・追加パック",

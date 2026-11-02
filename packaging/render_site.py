@@ -8,10 +8,11 @@ import hashlib
 R = Path(__file__).resolve().parents[1]
 DATA = json.loads((R / "site/content.json").read_text())
 GH = "https://github.com/THXel/Boshy-Randomizer"
-RELEASE = GH + "/releases/tag/v1.0.0"
-DOWNLOAD = GH + "/releases/download/v1.0.0/"
-WINDOWS = DOWNLOAD + "BoshyRandomizer-Setup-1.0.0.exe"
-LINUX = DOWNLOAD + "boshy-randomizer_1.0.0-1_amd64.deb"
+PACKAGE = json.loads((R / "packaging/release.json").read_text())
+RELEASE = GH + "/releases/tag/" + PACKAGE["tag"]
+DOWNLOAD = GH + "/releases/download/" + PACKAGE["tag"] + "/"
+WINDOWS = DOWNLOAD + PACKAGE["windows_file"]
+LINUX = DOWNLOAD + PACKAGE["linux_file"]
 GAME = "https://grynsoft.com/site/game/i-wanna-be-the-boshy"
 
 
@@ -212,7 +213,7 @@ def readme(lang, d, root=False):
         + "\n"
     )
     s += f"\n## {d['controlsTitle']}\n\n" + " · ".join(d['controls']) + "\n"
-    s += f"\n## {d['download']}\n\n[Windows (.exe)]({WINDOWS}) · [Linux (.deb)]({LINUX}) · [Release 1.0.0]({RELEASE}) · [SHA-256]({DOWNLOAD}SHA256SUMS)\n\n{d['game']} [{d['gameDownload']}]({GAME})\n\n{d['preserve']}\n"
+    s += f"\n## {d['download']}\n\n[Windows (.exe)]({WINDOWS}) · [Linux (.deb)]({LINUX}) · [Release {PACKAGE["version"]}]({RELEASE}) · [SHA-256]({DOWNLOAD}SHA256SUMS)\n\n{d['game']} [{d['gameDownload']}]({GAME})\n\n{d['preserve']}\n"
     s += f"\n## {d['faqTitle']}\n\n"
     for q, answer in d['faq']:
         s += f"<details>\n<summary>{q}</summary>\n\n{answer}\n\n</details>\n\n"
